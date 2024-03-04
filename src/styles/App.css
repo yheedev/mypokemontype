@@ -1,0 +1,25 @@
+.bar {
+  position: flex;
+
+  .more {
+    width: 1rem;
+    background-color: var(--color-toggle);
+  }
+
+  .toggle {
+    height: 1rem;
+    background-color: var(--color-toggle);
+
+    .sun,
+    .moon {
+      color: var(--color-toggleIcon);
+    }
+  }
+}
+
+.card {
+  position: flex;
+  content: '';
+  width: 1em;
+  height: 0.5em;
+}

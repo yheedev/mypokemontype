@@ -1,0 +1,9 @@
+{
+  "short_name": "My Pokémon Type",
+  "name": "My Pokémon Type",
+  "lang": "ko",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
