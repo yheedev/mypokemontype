@@ -5,7 +5,7 @@ import { darkModeSlice } from '../features/darkModeSlice';
 
 export function useThemeEffect() {
   const dispatch = useDispatch();
-  const theme = useSelector((state: RootState) => state.darkMode.theme);
+  const darkMode = useSelector((state: RootState) => state.darkMode.theme);
   //state.darkMode
 
   useEffect(() => {
@@ -14,8 +14,12 @@ export function useThemeEffect() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (theme !== 'light') {
-      document.body.dataset.theme = theme;
-    }
-  }, [theme]);
+    document.body.dataset.theme = darkMode;
+  }, [darkMode]);
+
+  // useEffect(() => {
+  //   if (theme !== 'light') {
+  //     document.body.dataset.theme = theme;
+  //   }
+  // }, [theme]);
 }

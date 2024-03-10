@@ -1,34 +1,51 @@
-// import { configureStore } from '@reduxjs/toolkit';
-// import reducer, { persistedReducer } from './reducer';
 import { configureStore } from '@reduxjs/toolkit';
-import RootRoute from 'route/RootRoute';
+// import RootRoute from 'route/RootRoute';
 import { persistStore } from 'redux-persist';
-import persistedReducer, { rootReducer } from './reducer';
-// import { darkModeSlice } from 'features/darkModeSlice';
-// import rootReducer, { persistConfig } from './reducer';
+import { rootReducer, persistedReducer } from './reducer';
+import { PersistPartial } from 'redux-persist/lib/persistReducer';
+// import { persistedReducer } from './reducer';
+// import { RootState } from './reducer';
 
-export const initialState = {
-  RootRoute,
+// const initialState: RootState = {
+//   darkMode: {
+//     theme: 'light',
+//   },
+// };
+
+const initialState: RootState & PersistPartial = {
   darkMode: {
     theme: 'light',
   },
+  _persist: {
+    version: -1,
+    rehydrated: false,
+  },
 };
 
-// export const store = configureStore({
-//   reducer: persistedReducer,
-//   preloadedState: initialState,
-// });
-
 export const store = configureStore({
-  reducer: {
-    // darkMode: darkModeSlice.reducer,
-    persistedReducer,
-    reducer: rootReducer,
-  },
+  reducer: persistedReducer,
+  preloadedState: initialState,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+        ignoredPaths: ['payload.err', 'err'],
+      },
+    }),
+  //reducer: rootReducer,
+
+  // middleware: getDefaultMiddleware =>
+  //   getDefaultMiddleware().concat(persistMiddleware, logger),
+  // middleware: getDefaultMiddleware({
+  //   serializableCheck: {
+  //     ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+  //   },
+  // }),
+  // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(),
+
   // devTools: process.env.NODE_ENV !== 'production',
 });
 
-// export type RootState = ReturnType<typeof store.getState>;
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 

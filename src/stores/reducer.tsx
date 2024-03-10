@@ -1,31 +1,31 @@
 import { combineReducers } from 'redux';
-import RootRoute from '../route/RootRoute';
+// import RootRoute from '../route/RootRoute';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
+import { darkModeSlice, DarkModeState } from '../features/darkModeSlice';
 
-import { darkModeSlice } from '../features/darkModeSlice';
-//import { createStore } from '@reduxjs/toolkit';
-
-// function reducer(state, action) {
-//   if (action.type === 'dark') {
-//     return (...state, value:state.value + action.step);
-//   }
-// }
+export type RootState = {
+  darkMode: DarkModeState;
+};
 
 export const persistConfig = {
   key: 'root',
   storage,
 };
 
-export interface CombineReducers {}
-
 export const rootReducer = combineReducers({
-  RootRoute,
+  // RootRoute,
+  // RootRoute: serializedRootRoute,
   darkMode: darkModeSlice.reducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-export default persistedReducer;
-// export default rootReducer;
+// const serializedRootRoute = Serialization(RootRoute);
 
-// export const store = createStore(persistedReducer);
+// function Serialization(RootRoute: () => import('react/jsx-runtime').JSX.Element) {
+//   throw new Error('Function not implemented.');
+// }
+
+export const persistedReducer = persistReducer(persistConfig, rootReducer);
+export default persistedReducer;
+
+// export default rootReducer;

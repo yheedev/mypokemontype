@@ -1,23 +1,31 @@
 import { styled } from 'styled-components';
 // import { FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 //import { useThemeEffect } from 'hooks/useThemeEffect';
 // import { useTheme } from 'hooks/useTheme';
-//import { darkModeSlice } from 'features/darkModeSlice';
+import { darkModeSlice } from 'features/darkModeSlice';
+import { useToggleTheme } from 'hooks/useToggleTheme';
 
 export const DarkModeBtn = () => {
+  // const dispatch = useDispatch();
   const dispatch = useDispatch();
-  const DarkMode = useSelector((state: RootState) => state.darkMode);
+  const toggle = useToggleTheme()[0];
+  const theme = useSelector((state: RootState) => state.darkMode.theme);
 
+  const handleClick = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    dispatch(darkModeSlice.actions.setTheme(newTheme));
+  };
   return (
     <>
       <Btn
-        onClick={() => {
-          dispatch({
-            type: 'dark',
-          });
-        }}
+        onClick={handleClick}
+        // onClick={() => {
+        // dispatch({
+        //   type: 'dark',
+        // });
+        // }}
       >
         <svg
           className="shadow-bl ToggleSvg ToggleOff"
@@ -25,8 +33,8 @@ export const DarkModeBtn = () => {
           y="0px"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
         >
           <path d="M18 18h-12c-3.311 0-6-2.689-6-6s2.689-6 6-6h12.039c3.293.021 5.961 2.701 5.961 6 0 3.311-2.688 6-6 6zm-12-10c2.208 0 4 1.792 4 4s-1.792 4-4 4-4-1.792-4-4 1.792-4 4-4z" />
         </svg>
@@ -45,8 +53,8 @@ export const DarkModeBtn = () => {
             d="M4.069 13h-4.069v-2h4.069c-.041.328-.069.661-.069 1s.028.672.069 1zm3.034-7.312l-2.881-2.881-1.414 1.414 2.881 2.881c.411-.529.885-1.003 1.414-1.414zm11.209 1.414l2.881-2.881-1.414-1.414-2.881 2.881c.528.411 1.002.886 1.414 1.414zm-6.312-3.102c.339 0 .672.028 1 .069v-4.069h-2v4.069c.328-.041.661-.069 1-.069zm0 16c-.339 0-.672-.028-1-.069v4.069h2v-4.069c-.328.041-.661.069-1 .069zm7.931-9c.041.328.069.661.069 1s-.028.672-.069 1h4.069v-2h-4.069zm-3.033 7.312l2.88 2.88 1.415-1.414-2.88-2.88c-.412.528-.886 1.002-1.415 1.414zm-11.21-1.415l-2.88 2.88 1.414 1.414 2.88-2.88c-.528-.411-1.003-.885-1.414-1.414zm2.312-4.897c0 2.206 1.794 4 4 4s4-1.794 4-4-1.794-4-4-4-4 1.794-4 4zm10 0c0 3.314-2.686 6-6 6s-6-2.686-6-6 2.686-6 6-6 6 2.686 6 6z"
           />
         </svg> */}
-      </Btn>
-      {DarkMode}
+      </Btn>{' '}
+      {toggle}
     </>
   );
 };
