@@ -1,18 +1,23 @@
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
+import { lightTheme, darkTheme } from './theme';
 import Helios from './Helios.woff';
+import NotoSansKRRegular from './NotoSansKRRegular.otf';
+import NotosansKRBlack from './NotoSansKRBlack.otf';
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
 
 :root {
+  ${lightTheme}
+  ${darkTheme}
+
   --white: #FFFFFF;
   --lightGray: #DDDBDB;
   --borderGray: #DFE0E1;
   --charcoal: #4F4D4D;
   --sealBrown: #171010;
   --black: #000000;  
-  --notselectedforLight: #C6C6A7;
 
     --offenseRec: #E83737;
     --defenseRec: #6897A9;
@@ -37,15 +42,69 @@ ${reset}
     --fairy: #F4BDC9;
   }
 
-* { 
+@font-face {
+    font-family: 'Helios';
+        src: local('./Helios.woff'), local('Helios');
+        font-style: normal;
+        src: url(${Helios}) format('truetype');
+  }
+
+  /* @font-face {
+    font-family: 'NotoSans';
+    src: local('./NotoSansKRRegular'), local('NotoSans');
+    font-style: normal;
+    src: url(${NotoSansKRRegular}) format('truetype');
+  } */
+
+  /* @font-face {
+    font-family: 'NotoSansBlack';
+    src: local('./NotoSansKRBlack'), local('NotoSansBlack');
+    font-style: normal;
+    src: url(${NotosansKRBlack}) format('truetype');
+  } */
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap');
+
+    @font-face {
+    font-family: 'NotoSans';
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap'), local('NotoSans');
+    font-style: regular;
+    src: url(${NotoSansKRRegular}) format('truetype');
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,900;1,900&display=swap');
+
+    @font-face {
+    font-family: 'NotoSansBlack';
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,900;1,900&display=swap'), local('NotoSansBlack');
+    font-style: bold;
+    src: url(${NotosansKRBlack}) format('truetype');
+  }
+
+  * { 
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   font-size: 16px;
+  background-color: var(--color-background);  
+  box-sizing: border-box;
 }
+
+.toggle {
+      fill: var(--color-toggle);
+
+      .toggleIcon {
+        fill: var(--color-toggleIcon);
+      }
+    }
+
 
 li {
   list-style: none;
@@ -64,44 +123,16 @@ li {
 }
 
   .shadow-bl {
-    filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.30));
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.30));
   }
 
   .shadow-gr {
-    filter: drop-shadow(0px 4px 2px var(--lightGray));
+    filter: drop-shadow(0px 2px 2px var(--lightGray));
   }
 
-body {
-  /* background-color: var(--color-background);
-  background-color: var(--lightGray); // 임시 스타일  */
-
-  .title {
-    /* color: var(--color-Title); */
-  }
-
-  .card {
-    background-color: var(--color-card);
-    color: var(--color-text);
-
-    .option {
-      color: var(--color-text);
-    }
-
-  }
-
-  .more {
-    background-color: var(--color-toggle);
-  }
-
-}
 
 
-  @font-face {
-    font-family: 'Helios';
-        src: local('./Helios.woff'), local('Helios');
-        font-style: normal;
-        src: url(${Helios}) format('truetype');
-  }
+  
 `;
 
 export default GlobalStyle;

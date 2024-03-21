@@ -25,6 +25,7 @@
     "typeRoots": ["./@types", "./node_modules/@types"]
     // "types": ["react/next", "react-dom/next"]
   },
-  "include": ["src", "@types", "./@types/custom.d.ts", "tsconfig.json"],
+  "include": ["src", "@types", "./@types/custom.d.ts"],
+  // "tsconfig.json"
   "exclude": ["node_modules", "build"]
 }

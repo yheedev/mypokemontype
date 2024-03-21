@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 // import RootRoute from 'route/RootRoute';
 import { persistStore } from 'redux-persist';
 import { rootReducer, persistedReducer } from './reducer';
-import { PersistPartial } from 'redux-persist/lib/persistReducer';
+// import { PersistPartial } from 'redux-persist/lib/persistReducer';
 // import { persistedReducer } from './reducer';
 // import { RootState } from './reducer';
 
@@ -12,19 +12,19 @@ import { PersistPartial } from 'redux-persist/lib/persistReducer';
 //   },
 // };
 
-const initialState: RootState & PersistPartial = {
-  darkMode: {
-    theme: 'light',
-  },
-  _persist: {
-    version: -1,
-    rehydrated: false,
-  },
-};
+// const initialState: RootState & PersistPartial = {
+//   darkMode: {
+//     theme: 'light',
+//   },
+//   _persist: {
+//     version: -1,
+//     rehydrated: false,
+//   },
+// };
 
 export const store = configureStore({
   reducer: persistedReducer,
-  preloadedState: initialState,
+  // preloadedState: initialState,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -32,6 +32,7 @@ export const store = configureStore({
         ignoredPaths: ['payload.err', 'err'],
       },
     }),
+
   //reducer: rootReducer,
 
   // middleware: getDefaultMiddleware =>
