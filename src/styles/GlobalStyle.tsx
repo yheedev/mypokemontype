@@ -49,35 +49,17 @@ ${reset}
         src: url(${Helios}) format('truetype');
   }
 
-  /* @font-face {
+  @font-face {
     font-family: 'NotoSans';
     src: local('./NotoSansKRRegular'), local('NotoSans');
     font-style: normal;
     src: url(${NotoSansKRRegular}) format('truetype');
-  } */
-
-  /* @font-face {
+  }
+  
+  @font-face {
     font-family: 'NotoSansBlack';
     src: local('./NotoSansKRBlack'), local('NotoSansBlack');
     font-style: normal;
-    src: url(${NotosansKRBlack}) format('truetype');
-  } */
-
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap');
-
-    @font-face {
-    font-family: 'NotoSans';
-    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital@0;1&display=swap'), local('NotoSans');
-    font-style: regular;
-    src: url(${NotoSansKRRegular}) format('truetype');
-  }
-
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,900;1,900&display=swap');
-
-    @font-face {
-    font-family: 'NotoSansBlack';
-    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,900;1,900&display=swap'), local('NotoSansBlack');
-    font-style: bold;
     src: url(${NotosansKRBlack}) format('truetype');
   }
 
@@ -92,9 +74,14 @@ ${reset}
 }
 
 body {
+  font-family: 'NotoSans', sans-serif;
   font-size: 16px;
   background-color: var(--color-background);  
   box-sizing: border-box;
+}
+
+br {
+  display: inline;
 }
 
 .toggle {
@@ -129,8 +116,6 @@ li {
   .shadow-gr {
     filter: drop-shadow(0px 2px 2px var(--lightGray));
   }
-
-
 
   
 `;

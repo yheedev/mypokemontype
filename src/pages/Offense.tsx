@@ -6,13 +6,13 @@ import styled from 'styled-components';
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3em;
-  padding: 1em;
-  margin: 1em;
+  gap: 3rem;
+  padding: 1rem;
+  margin: 1rem;
 
-  @media (max-width: 1180px) {
+  @media (max-width: 1023px) {
     grid-template-columns: 1fr;
-  } // 예외적으로 다른 중단점 사용
+  }
 `;
 
 function Offense() {

@@ -49,22 +49,21 @@ const BtnContainer = styled.button`
   transform: translateY(-10%);
   /**
   TODO
-  [ ] 모바일에서는 버튼이 가장 하단에 내려가게 만들기 
+  [ ] 모바일에서는 셀렉터 -> 결과 -> 버튼 순서로 버튼이 가장 하단에 내려가게 만들기
+  [ ] 타블렛에서는 화면의 가장 좌측 하단에 고정되게 만들기
   */
-  margin-left: -3em;
+  margin-left: -3rem;
   position: absolute;
   background: none;
   border: none;
-  /* bottom: 0.25em; */
-  left: 0.5em;
+  left: 1rem;
 `;
 
 const toggleStyles = css`
   fill: var(--color-toggle);
   position: relative;
-
-  width: 18em;
-  height: 9em;
+  width: 12rem;
+  height: 6.1rem;
 `;
 
 const iconStyles = css`
@@ -105,7 +104,4 @@ export default DarkModeBtn;
  * [x] media query 통일하고 DarkModeBtn styled-component 안에 넣기
  * [x] 폰트들 모두 로컬 저장X 코드로 가져오기
  * [x] 사용하지 않는 svg 파일 삭제
-
- *
- *
  */

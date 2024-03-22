@@ -28,24 +28,14 @@ const ContainerTypes = () => {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-gap: 20px;
-  margin: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  /* align-items: center; */
+  margin: 2rem 1rem;
+  gap: 1rem 1.5rem;
+  justify-items: center;
 
-  @media (max-width: 1200px) {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  @media (max-width: 1000px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  @media (max-width: 800px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (min-width: 280px) and (max-width: 767px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 767px) {
+    gap: 1rem;
   }
 `;
 

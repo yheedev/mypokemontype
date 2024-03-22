@@ -23,18 +23,16 @@ const Pill = ({ borderColor, color, text }: PillProps) => {
   };
 
   /**
-  WARNING
-  CHECKLIST
 
 
   TODO
-  [ ] pill  6x3으로 나란히 두기..는 컨테이너타입?
-  [ ] pill 크기 반응형 (폰트사이즈, 두께)
+  [x] pill  6x3으로 나란히 두기..는 컨테이너타입?
+  [x] pill 크기 반응형 (폰트사이즈, 두께)
   [ ] pill 한 번에 두 개까지만 클릭  가능하게 
   [ ] pill 마다 어떻게 포켓몬 타입 넣을지 고민
-  [ ] 카드 아래 부분 자동으로 늘어나게 만들기기
+  [x] 카드 아래 부분 자동으로 늘어나게 만들기
+  [x] 전체 단위 rem으로 통일 (일부만 px, %)
 
-  
   */
 
   return (
@@ -49,49 +47,44 @@ const Pill = ({ borderColor, color, text }: PillProps) => {
       isActive={isActive}
       isDarkMode={isDarkMode}
     >
-      <span className="Namae">{text}</span>
+      <span className="TypeText">{text}</span>
     </Type>
   );
 };
 
 const Type = styled.button<TypeProps>`
-  border: 6px solid ${({ borderColor }) => borderColor};
-  width: 7em;
-  height: 4em;
+  border: 7px solid ${({ borderColor }) => borderColor};
+  width: 5rem;
+  height: 3rem;
+
   border-radius: 30px;
-  /* background-color: var(--color-card); */
-  /* background-color: ${({ isActive, isDarkMode }) =>
-    isDarkMode && isActive ? 'var(--color-background)' : 'var(--color-card)'}; */
   background-color: ${({ isActive, borderColor }) =>
     isActive ? borderColor : 'var(--color-card)'};
 
-  .Namae {
+  .TypeText {
     font-family: 'NotoSansBlack';
-    font-size: 1.3em;
-    letter-spacing: 5px;
+    font-size: 1rem;
+    letter-spacing: 4px;
 
     color: ${({ isDarkMode, isActive }) =>
       isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)'};
   }
 
-  @media (max-width: 1024px) {
-    width: 6em;
-    height: 3.5em;
+  @media (min-width: 768px) and (min-width: 1023px) {
+    border: 6px solid ${({ borderColor }) => borderColor};
 
-    .Namae {
-      font-size: 1.2em;
+    .TypeText {
+      font-weight: 500;
+      letter-spacing: 2px;
     }
   }
 
-  @media (min-width: 768px) and (min-width: 1023px) {
+  @media (max-width: 767px) {
     border: 6px solid ${({ borderColor }) => borderColor};
-    width: 5.5em;
-    height: 3em;
 
-    .Namae {
-      font-size: 1.2em;
-      font-weight: 800;
-      letter-spacing: 3px;
+    .TypeText {
+      font-weight: 300;
+      letter-spacing: 2px;
     }
   }
 `;

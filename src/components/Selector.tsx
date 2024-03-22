@@ -60,8 +60,7 @@ export const Selector = () => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  /* padding: 1.5em; */
+  gap: 1rem;
   color: var(--color-text);
 `;
 
@@ -71,20 +70,19 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--color-card);
-  border-radius: 20px;
+  border-radius: 22px;
 
   .Option {
     justify-content: space-evenly;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    font-size: 1.4em;
+    font-size: 1.5rem;
     font-weight: 1000;
     font-family: 'NotoSansBlack';
-    margin: 1em 1em;
+    margin: 1.3rem 1rem;
 
     @media (min-width: 280px) and (max-width: 767px) {
-      font-size: 1.5rem;
-      margin: 0.7em 0.7em;
+      margin: 0.7rem 0.7rem;
     }
   }
 
@@ -98,15 +96,15 @@ const Card = styled.div`
     border-top: none;
 
     display: flex;
-    padding: 0.2em 0 1.2em;
+    padding: 0.5rem 0 1.5rem;
     border-top: none;
     text-align: center;
     vertical-align: middle;
     text-indent: 3px;
 
     @media (min-width: 280px) and (max-width: 767px) {
-      padding: 0.5em 0 0.5em;
-      font-size: 0.7em;
+      padding: 0.5rem 0 0.5rem;
+      font-size: 1.1rem;
     }
   }
 
@@ -114,17 +112,13 @@ const Card = styled.div`
     display: inline-block;
     letter-spacing: 7px;
 
-    /* @media (max-width: 300px) {
-      font-size: 100px;
-    } //갤럭시폴드 */
-
     @media (min-width: 280px) and (max-width: 767px) {
-      padding-bottom: 7px;
+      padding-bottom: 0.5rem;
     }
   }
 
   .OffenseText {
-    margin-right: 0.8em;
+    margin-right: 0.8rem;
   }
 
   .Offense {
@@ -139,14 +133,12 @@ const Card = styled.div`
   }
 
   .InfoContainer {
-    padding: 0 25px 20px;
-    /* margin: 1rem 2rem; */
+    padding: 0 1.56rem 1.25rem;
     border-bottom: 2px solid var(--color-border);
-    margin: 1em 1em;
+    margin: 1rem 1rem;
 
     @media (min-width: 280px) and (max-width: 767px) {
-      padding: 10px 0px 20px;
-      /* margin: 0.5 0.5em; */
+      padding: 0.625rem 0px 1.25rem;
     }
   }
 
@@ -156,24 +148,33 @@ const Card = styled.div`
     justify-content: space-around;
     grid-column: span 1;
     font-family: 'NotoSansBlack';
-    font-weight: 1000;
-    font-size: 1.4em;
+    font-weight: 900;
+    font-size: 1.5rem;
     letter-spacing: 1.5px;
-    padding: 1em 0;
+    padding: 1.5rem 0;
+    text-align: center;
 
     @media (min-width: 280px) and (max-width: 767px) {
-      font-size: 0.9em;
-      letter-spacing: 1px;
-      padding: 0.5em 0.5em;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      padding: 0.5rem 3.5rem 0.5rem;
+      font-weight: 400;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
     }
   }
 `;
 
+/**
+ * TODO
+ * [ ] 모바일에서 info 텍스트 두 문장으로 줄바꿈 하기
+ *
+ */
+
 const OptionOffense = styled.div<{ $isActive: boolean; theme: string }>`
   border-bottom: ${props =>
     props.$isActive ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)'};
-  /* padding-bottom: ${props => (props.$isActive ? '0' : '5px')}; */
-  /* margin-top: 7px; */
   cursor: pointer;
 
   .OffenseText {
@@ -189,7 +190,7 @@ const OptionOffense = styled.div<{ $isActive: boolean; theme: string }>`
     border-bottom: ${props =>
       props.$isActive ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)'};
     .OffenseText {
-      margin-right: -7px;
+      margin-right: 0.1rem;
     }
   }
 `;
@@ -197,8 +198,6 @@ const OptionOffense = styled.div<{ $isActive: boolean; theme: string }>`
 const OptionDefense = styled.div<{ $isActive: boolean; theme: string }>`
   border-bottom: ${props =>
     props.$isActive ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)'};
-  /* padding-bottom: ${props => (props.$isActive ? '0' : '5px')}; */
-  /* margin-top: 7px; */
   cursor: pointer;
 
   .DefenseText {
