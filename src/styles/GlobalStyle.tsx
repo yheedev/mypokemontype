@@ -2,7 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 import { lightTheme, darkTheme } from './theme';
 import Helios from './Helios.woff';
-import NotoSansKRRegular from './NotoSansKRRegular.otf';
 import NotosansKRBlack from './NotoSansKRBlack.otf';
 
 export const GlobalStyle = createGlobalStyle`
@@ -40,20 +39,15 @@ ${reset}
     --dark: #A29288;
     --steel: #D1D1E0;
     --fairy: #F4BDC9;
+    --stella: #44628D;
+    
   }
-
+  
 @font-face {
     font-family: 'Helios';
         src: local('./Helios.woff'), local('Helios');
         font-style: normal;
         src: url(${Helios}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'NotoSans';
-    src: local('./NotoSansKRRegular'), local('NotoSans');
-    font-style: normal;
-    src: url(${NotoSansKRRegular}) format('truetype');
   }
   
   @font-face {
@@ -117,6 +111,7 @@ li {
     filter: drop-shadow(0px 2px 2px var(--lightGray));
   }
 
+  
   
 `;
 

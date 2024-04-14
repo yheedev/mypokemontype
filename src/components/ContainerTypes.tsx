@@ -1,27 +1,79 @@
 import styled from 'styled-components';
-import Pill from './Pill';
+import { useState } from 'react';
+import { PokemonType } from './PokemonType';
+import { TypesName } from 'features/typeCalculator';
+
+const types: TypesName[] = [
+  'normal',
+  'fighting',
+  'flying',
+  'poison',
+  'ground',
+  'rock',
+  'bug',
+  'ghost',
+  'steel',
+  'fire',
+  'water',
+  'grass',
+  'electric',
+  'psychic',
+  'ice',
+  'dragon',
+  'dark',
+  'fairy',
+  'stella',
+];
+
+/**
+ * TODO
+ * [ ] typeCalculator TypesName 고쳐서 여기에 import하기
+ */
 
 const ContainerTypes = () => {
+  const [activeTypes, setActiveTypes] = useState<TypesName[]>([]);
+
+  const onTypeClick = (clickedType: TypesName) => {
+    if (activeTypes.includes(clickedType)) {
+      setActiveTypes(activeTypes.filter(t => t !== clickedType));
+    } else if (activeTypes.length < 2) {
+      setActiveTypes([...activeTypes, clickedType]);
+    } else {
+      setActiveTypes([activeTypes[1], clickedType]);
+    }
+  };
+
   return (
     <Container>
-      <Pill borderColor="var(--normal)" color="var(--color-background)" text="노멀" />
-      <Pill borderColor="var(--fire)" color="var(--color-background)" text="불" />
-      <Pill borderColor="var(--water)" color="var(--color-background)" text="물" />
-      <Pill borderColor="var(--electric)" color="var(--color-background)" text="전기" />
-      <Pill borderColor="var(--grass)" color="var(--color-background)" text="풀" />
-      <Pill borderColor="var(--ice)" color="var(--color-background)" text="얼음" />
-      <Pill borderColor="var(--fighting)" color="var(--color-background)" text="격투" />
-      <Pill borderColor="var(--poision)" color="var(--color-background)" text="독" />
-      <Pill borderColor="var(--ground)" color="var(--color-background)" text="땅" />
-      <Pill borderColor="var(--flying)" color="var(--color-background)" text="비행" />
-      <Pill borderColor="var(--psychic)" color="var(--color-background)" text="에스퍼" />
-      <Pill borderColor="var(--bug)" color="var(--color-background)" text="벌레" />
-      <Pill borderColor="var(--rock)" color="var(--color-background)" text="바위" />
-      <Pill borderColor="var(--ghost)" color="var(--color-background)" text="고스트" />
-      <Pill borderColor="var(--dragon)" color="var(--color-background)" text="드래곤" />
-      <Pill borderColor="var(--dark)" color="var(--color-background)" text="악" />
-      <Pill borderColor="var(--steel)" color="var(--color-background)" text="강철" />
-      <Pill borderColor="var(--fairy)" color="var(--color-background)" text="페어리" />
+      {types.map(type => (
+        <PokemonType
+          key={type}
+          borderColor={`var(--${type})`}
+          text={type}
+          onTypeClick={onTypeClick} // Add this line
+          // onClick={() => handleTypeClick(type)}
+          selected={activeTypes.includes(type)}
+        />
+      ))}
+      {/* <PokemonType borderColor="var(--normal)" text="노멀" />
+      <PokemonType borderColor="var(--fighting)" text="격투" />
+      <PokemonType borderColor="var(--flying)" text="비행" />
+      <PokemonType borderColor="var(--poision)" text="독" />
+      <PokemonType borderColor="var(--ground)" text="땅" />
+      <PokemonType borderColor="var(--rock)" text="바위" />
+      <PokemonType borderColor="var(--bug)" text="벌레" />
+      <PokemonType borderColor="var(--ghost)" text="고스트" />
+      <PokemonType borderColor="var(--steel)" text="강철" />
+      <PokemonType borderColor="var(--fire)" text="불" />
+      <PokemonType borderColor="var(--water)" text="물" />
+      <PokemonType borderColor="var(--grass)" text="풀" />
+      <PokemonType borderColor="var(--electric)" text="전기" />
+      <PokemonType borderColor="var(--psychic)" text="에스퍼" />
+      <PokemonType borderColor="var(--ice)" text="얼음" />
+      <PokemonType borderColor="var(--dragon)" text="드래곤" />
+      <PokemonType borderColor="var(--dark)" text="악" />
+      <PokemonType borderColor="var(--fairy)" text="페어리" />
+      <PokemonType borderColor="var(--stella)" text="스텔라" /> */}
     </Container>
   );
 };
@@ -29,7 +81,7 @@ const ContainerTypes = () => {
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  /* align-items: center; */
+  align-items: center;
   margin: 2rem 1rem;
   gap: 1rem 1.5rem;
   justify-items: center;
@@ -37,6 +89,39 @@ const Container = styled.div`
   @media (max-width: 767px) {
     gap: 1rem;
   }
+
+  .stellar_btn {
+    border: 5px solid transparent;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  .stellar_btn:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background: linear-gradient(to right, red, orange);
+  }
+
+  .stellar-border {
+    border-radius: 20px;
+    background: linear-gradient(white, white) padding-box,
+      linear-gradient(to right, darkblue, darkorchid) border-box;
+    border: 5px solid transparent;
+    /* background-image: linear-gradient(#444444, #444444),
+      linear-gradient(to right, #fbfcb9be, #ffcdf3aa, #65d3ffaa);
+    background-origin: border-box;
+    background-clip: content-box, border-box; */
+  }
 `;
 
 export default ContainerTypes;
+
+/**
+ * TODO
+ * [ ] 스텔라 타입 border 그라데이션으로 만들기 (div 두개 겹쳐서 뒤에 있는 div에 background: linear-gradient 사용)
+ */

@@ -36,7 +36,8 @@ export const Title = styled.header`
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    margin: 4.5rem 0 0.3rem;
+    margin: 4.5rem 1em 0.3rem;
     font-size: 1.6rem;
+    text-align: left;
   }
 `;

@@ -94,14 +94,3 @@ const MoonIcon = styled(Moon)`
 `;
 
 export default DarkModeBtn;
-
-/**
- *  TODO
- *
- * [x] 기존 SVG 가져온거 background-image로 수정
- * [x]  export const 사용해서 차례대로 스타일 넣기
- * [x] 반응형 체크
- * [x] media query 통일하고 DarkModeBtn styled-component 안에 넣기
- * [x] 폰트들 모두 로컬 저장X 코드로 가져오기
- * [x] 사용하지 않는 svg 파일 삭제
- */

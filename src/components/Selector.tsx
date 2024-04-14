@@ -3,9 +3,17 @@ import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../stores/store';
 import ContainerTypes from './ContainerTypes';
+import { useNavigate } from 'react-router-dom';
+import { TypesName } from '../features/typeCalculator';
+
+/**TODO
+
+ */
 
 export const Selector = () => {
+  const navigate = useNavigate();
   const theme = useSelector((state: RootState) => state.darkMode.theme);
+  const [activeTypes, setActiveTypes] = useState<TypesName[]>([]);
   const [isOffenseActive, setIsOffenseActive] = useState(true);
   const [isDefenseActive, setIsDefenseActive] = useState(false);
   const [info, setInfo] = useState('공격할 포켓몬의 타입을 선택해주세요!');
@@ -14,13 +22,25 @@ export const Selector = () => {
     setIsOffenseActive(true);
     setIsDefenseActive(false);
     setInfo('공격할 포켓몬의 타입을 선택해주세요!');
+    navigate('/');
   };
 
   const handleDefenseClick = () => {
     setIsOffenseActive(false);
     setIsDefenseActive(true);
     setInfo('방어할 포켓몬의 타입을 선택해주세요!');
+    navigate('/defense');
   };
+
+  const handleTypeClick = (clickedType: TypesName) => {
+    if (activeTypes.includes(clickedType)) {
+      setActiveTypes(activeTypes.filter(t => t !== clickedType));
+    } else if (activeTypes.length < 2) {
+      setActiveTypes([...activeTypes, clickedType]);
+    } else {
+      setActiveTypes([activeTypes[1], clickedType]);
+    }
+  }; // 두 개 이상의 타입을 클릭할 때마다 첫 번째 타입을 빼고 마지막에 클릭한 타입을 추가한다
 
   return (
     <Container>
@@ -47,15 +67,17 @@ export const Selector = () => {
           <div className="InfoContainer">
             <div className="info">{info}</div>
           </div>
-
-          <div>
-            <ContainerTypes />
-          </div>
+          <ContainerTypes onTypeClick={handleTypeClick} />
         </CardContainer>
       </Card>
     </Container>
   );
 };
+
+/**
+ * NOTE
+ * 셀렉터랑 ContainerTypes
+ */
 
 const Container = styled.div`
   display: flex;
@@ -94,7 +116,6 @@ const Card = styled.div`
     align-items: center;
     justify-items: center;
     border-top: none;
-
     display: flex;
     padding: 0.5rem 0 1.5rem;
     border-top: none;
@@ -157,7 +178,7 @@ const Card = styled.div`
     @media (min-width: 280px) and (max-width: 767px) {
       font-size: 0.9rem;
       letter-spacing: 1.5px;
-      padding: 0.5rem 3.5rem 0.5rem;
+      padding: 0.5rem 2rem 0.5rem;
       font-weight: 400;
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -169,6 +190,9 @@ const Card = styled.div`
 /**
  * TODO
  * [ ] 모바일에서 info 텍스트 두 문장으로 줄바꿈 하기
+ * [ ] 번역 버전 추가
+ * [ ]
+ *
  *
  */
 
