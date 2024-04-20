@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
-import Offense from '../pages/Offense';
-import Defense from '../pages/Defense';
-import More from '../pages/More';
+import Offense from './Offense';
+import Defense from './Defense';
+import More from './More';
 
 function RootRoute() {
   return (

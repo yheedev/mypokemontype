@@ -1,24 +1,38 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../stores/store';
 import ContainerTypes from './ContainerTypes';
 import { useNavigate } from 'react-router-dom';
-import { TypesName } from '../features/typeCalculator';
+import { offenseCal } from '../features/offenseCalSlice';
+import { TypeValue, TypeName } from '../features/types';
+// import { OffenseCalculator } from '../features/OffenseCalculator';
 
-/**TODO
-
+/**
+ * NOTE
+ *
+ *[ ] 셀렉터 내부의 공격, 방어도 분리하는게 나은건지? 
+[]
+ *
  */
 
 export const Selector = () => {
+  // console.log(OffenseCalculator('normal'));
+
   const navigate = useNavigate();
   const theme = useSelector((state: RootState) => state.darkMode.theme);
-  const [activeTypes, setActiveTypes] = useState<TypesName[]>([]);
+  const [activeTypes, setActiveTypes] = useState<(typeof TypeName)[]>([]);
+  const dispatch = useDispatch();
+
   const [isOffenseActive, setIsOffenseActive] = useState(true);
   const [isDefenseActive, setIsDefenseActive] = useState(false);
   const [info, setInfo] = useState('공격할 포켓몬의 타입을 선택해주세요!');
 
-  const handleOffenseClick = () => {
+  const handleOffenseClick = (
+    type1: keyof typeof TypeValue,
+    type2: keyof typeof TypeValue
+  ) => {
+    dispatch(offenseCal({ type1, type2 }));
     setIsOffenseActive(true);
     setIsDefenseActive(false);
     setInfo('공격할 포켓몬의 타입을 선택해주세요!');
@@ -32,7 +46,7 @@ export const Selector = () => {
     navigate('/defense');
   };
 
-  const handleTypeClick = (clickedType: TypesName) => {
+  const handleTypeClick = (clickedType: typeof TypeName) => {
     if (activeTypes.includes(clickedType)) {
       setActiveTypes(activeTypes.filter(t => t !== clickedType));
     } else if (activeTypes.length < 2) {
@@ -73,11 +87,6 @@ export const Selector = () => {
     </Container>
   );
 };
-
-/**
- * NOTE
- * 셀렉터랑 ContainerTypes
- */
 
 const Container = styled.div`
   display: flex;
@@ -190,10 +199,7 @@ const Card = styled.div`
 /**
  * TODO
  * [ ] 모바일에서 info 텍스트 두 문장으로 줄바꿈 하기
- * [ ] 번역 버전 추가
- * [ ]
- *
- *
+ * [ ] 공격에서 방어 클릭 시 두 번을 클릭해야 UI에서 반영이 됨 border-bottom 부분 수정하기
  */
 
 const OptionOffense = styled.div<{ $isActive: boolean; theme: string }>`

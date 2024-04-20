@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-import { TypesName } from 'features/typeCalculator';
+import { TypesName } from 'features/OffenseCalculator';
 
 interface PillProps {
   text?: string;
@@ -11,21 +11,6 @@ interface PillProps {
   onTypeClick: (type: TypesName) => void;
   selected?: boolean;
 }
-
-// 오버로드 1 / 2('(props: PolymorphicComponentProps<"web", Substitute<Det
-// ailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, TypeProps >,
-//   void, void, {}, {} >): Element')에서 다음 오류가 발생했습니다.
-// 'onTypeClick' 속성이 '{ children: Element; className: string; borderColor:
-// string | undefined; text: string | undefined; onClick: () => void; isActive: boole
-// an; isDarkMode: boolean; }' 형식에 없지만 'FastOmit < Substitute < Substitute < DetailedHTMLProps < ButtonHTMLAtt
-// ributes<HTMLButtonElement>, HTMLButtonElement >, TypeProps >, FastOmit <...>>, keyof ExecutionProps > ' 형식
-// 에서 필수입니다.
-
-//   오버로드 2 / 2('(props: Substitute<DetailedHTMLProps<ButtonHTMLAttributes<HTMLBu
-//     ttonElement >, HTMLButtonElement >, TypeProps >): ReactNode')에서 다음 오류가 발생했습니다.
-// 'onTypeClick' 속성이 '{ children: Element; className: string; borderColor: string | u
-// ndefined; text: string | undefined; onClick: () => void; isActive: boolean; isDarkMode: boolean; }
-// ' 형식에 없지만 'TypeProps' 형식에서 필수입니다.ts(2769)
 
 interface TypeProps extends PillProps {
   isActive: boolean;
@@ -48,7 +33,8 @@ const PokemonType = ({ borderColor, text, onTypeClick, selected }: PillProps) =>
 
   /**
    * TODO
-   * [ ] isActive 전부 onClick으로 바꾸기
+   * [ ] isActive 전부 onClick으로 바꾸기. 셀렉터의 isActive까지 바꿔야 함
+   * [ ] {text}로 바꿨으니까 영어/한국어/일어를 고려해서 letter-spacing를 조절하거나 폰트를 아예 바꿔야할 듯
    */
 
   return (
@@ -106,3 +92,8 @@ const Type = styled.button<TypeProps>`
 `;
 
 export { PokemonType, Type };
+
+/**
+ *
+ *
+ */

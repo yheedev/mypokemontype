@@ -1,7 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { calcOffense } from 'features/OffenseCalculator';
+
+// NOTE
+//
+//
 
 function MainTitle() {
+  console.log(calcOffense('normal', 'fighting'));
+
   const navigate = useNavigate();
 
   return (

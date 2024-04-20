@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { PokemonType } from './PokemonType';
-import { TypesName } from 'features/typeCalculator';
+import { TypesName } from 'features/OffenseCalculator';
 
 const types: TypesName[] = [
   'normal',
@@ -27,7 +27,7 @@ const types: TypesName[] = [
 
 /**
  * TODO
- * [ ] typeCalculator TypesName 고쳐서 여기에 import하기
+ * [ ] typeCalculator TypesName의 타입 고쳐서 여기에 import하기
  */
 
 const ContainerTypes = () => {
