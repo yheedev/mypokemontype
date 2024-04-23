@@ -84,15 +84,3 @@ export function calcOffense(type1?: string, type2?: string) {
 
   return effectiveness;
 }
-
-/**
- * TODO
- * [x] 포켓몬 타입들을 어떤 타입에 담을지
- * [x] 각 타입에 [ 1, 0, 0.5… ] 같이 숫자를 할당?
-[x] 배열 내 숫자를 더해서.. 거기에 맞게 각 타입이 n배의 데미지 자리에 들어가게 해주기
-[x] 숫자 더하는게 최선? 다른방법 없나
-[x] 나중에 방어 계산기 만들기
-[x] 주석 다시 작성
-[x] 리팩토링
-
- */

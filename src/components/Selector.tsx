@@ -1,87 +1,76 @@
 import { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../stores/store';
 import ContainerTypes from './ContainerTypes';
 import { useNavigate } from 'react-router-dom';
 import { offenseCal } from '../features/offenseCalSlice';
-import { TypeValue, TypeName } from '../features/types';
-// import { OffenseCalculator } from '../features/OffenseCalculator';
+//import { TypeName } from '../features/types';
+import Option from './SelectorOptions';
 
 /**
  * NOTE
  *
- *[ ] 셀렉터 내부의 공격, 방어도 분리하는게 나은건지? 
-[]
+ *[ ] 셀렉터 내부의 공격, 방어 코드를 분리하는게 나은건지?
+ *[ ] 공격에서 방어 클릭시 두 번을 클릭해야 UI에서 반영이 됨 active가 아니라 click으로 수정
+ *[ ] 방어에서 공격 클릭시 전환이 안됨
+ *
  *
  */
 
 export const Selector = () => {
-  // console.log(OffenseCalculator('normal'));
-
-  const navigate = useNavigate();
+  // const [click, setClick] = useState<'offense' | 'defense'>('offense');
+  const [info, setInfo] = useState('공격할 포켓몬의 타입을 선택해주세요!');
   const theme = useSelector((state: RootState) => state.darkMode.theme);
-  const [activeTypes, setActiveTypes] = useState<(typeof TypeName)[]>([]);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [isOffenseActive, setIsOffenseActive] = useState(true);
-  const [isDefenseActive, setIsDefenseActive] = useState(false);
-  const [info, setInfo] = useState('공격할 포켓몬의 타입을 선택해주세요!');
-
-  const handleOffenseClick = (
-    type1: keyof typeof TypeValue,
-    type2: keyof typeof TypeValue
-  ) => {
-    dispatch(offenseCal({ type1, type2 }));
-    setIsOffenseActive(true);
-    setIsDefenseActive(false);
-    setInfo('공격할 포켓몬의 타입을 선택해주세요!');
-    navigate('/');
-  };
-
-  const handleDefenseClick = () => {
-    setIsOffenseActive(false);
-    setIsDefenseActive(true);
-    setInfo('방어할 포켓몬의 타입을 선택해주세요!');
-    navigate('/defense');
-  };
-
-  const handleTypeClick = (clickedType: typeof TypeName) => {
-    if (activeTypes.includes(clickedType)) {
-      setActiveTypes(activeTypes.filter(t => t !== clickedType));
-    } else if (activeTypes.length < 2) {
-      setActiveTypes([...activeTypes, clickedType]);
-    } else {
-      setActiveTypes([activeTypes[1], clickedType]);
+  const handleClick = (mode: 'offense' | 'defense', type1?: string, type2?: string) => {
+    setInfo(
+      mode === 'offense'
+        ? '공격할 포켓몬의 타입을 선택해주세요!'
+        : '방어할 포켓몬의 타입을 선택해주세요!'
+    );
+    if (mode === 'offense' && (type1 || type2)) {
+      dispatch(offenseCal({ type1, type2 }));
     }
-  }; // 두 개 이상의 타입을 클릭할 때마다 첫 번째 타입을 빼고 마지막에 클릭한 타입을 추가한다
+    navigate(mode === 'offense' ? '/' : '/defense');
+  };
 
   return (
     <Container>
       <Card>
         <CardContainer>
           <div className="Option">
-            <OptionOffense
+            {/* <OptionOffense
               className="Offense"
-              $isActive={isOffenseActive}
-              onClick={handleOffenseClick}
+              onClick={() => handleClick('offense')}
               theme={theme}
             >
               <span className="OptionText OffenseText">공격</span>
             </OptionOffense>
-            <OptionDefense
-              className="Defense"
-              $isActive={isDefenseActive}
-              onClick={handleDefenseClick}
-              theme={theme}
-            >
+            <OptionDefense className="Defense">
               <span className="OptionText DefenseText">방어</span>
-            </OptionDefense>
+            </OptionDefense> */}
+            <Option
+              className="Offense"
+              theme={theme}
+              type="offense"
+              children={<span className="OptionText OffenseText">공격</span>}
+              onClick={() => handleClick('offense')}
+            />
+            <Option
+              className="Defense"
+              theme={theme}
+              type="defense"
+              children={<span className="OptionText DefenseText">방어</span>}
+              onClick={() => handleClick('defense')}
+            ></Option>
           </div>
           <div className="InfoContainer">
             <div className="info">{info}</div>
           </div>
-          <ContainerTypes onTypeClick={handleTypeClick} />
+          <ContainerTypes />
         </CardContainer>
       </Card>
     </Container>
@@ -200,51 +189,53 @@ const Card = styled.div`
  * TODO
  * [ ] 모바일에서 info 텍스트 두 문장으로 줄바꿈 하기
  * [ ] 공격에서 방어 클릭 시 두 번을 클릭해야 UI에서 반영이 됨 border-bottom 부분 수정하기
+ * [ ] 아래에 있는 기존의 Option 스타일 SelectorOptions 컴포넌트에 반영
+ * [ ] 옵션 컴포넌트 따로 만들고, 옵션을 선택+선택한 타입+그에 따른 결과를 리덕스에 나중에 한꺼번에 저장 및 관리
  */
 
-const OptionOffense = styled.div<{ $isActive: boolean; theme: string }>`
-  border-bottom: ${props =>
-    props.$isActive ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)'};
-  cursor: pointer;
+// const OptionOffense = styled.div<{ $isActive: boolean; theme: string }>`
+//   border-bottom: ${props =>
+//     props.$isActive ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)'};
+//   cursor: pointer;
 
-  .OffenseText {
-    color: ${props => (props.$isActive ? 'var(--offenseRec)' : 'var(--normal)')};
-    ${props =>
-      props.theme === 'dark' &&
-      css`
-        color: ${props.$isActive ? 'var(--offenseRec)' : 'var(--charcoal)'};
-      `}
-  }
+//   .OffenseText {
+//     color: ${props => (props.$isActive ? 'var(--offenseRec)' : 'var(--normal)')};
+//     ${props =>
+//       props.theme === 'dark' &&
+//       css`
+//         color: ${props.$isActive ? 'var(--offenseRec)' : 'var(--charcoal)'};
+//       `}
+//   }
 
-  @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props =>
-      props.$isActive ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)'};
-    .OffenseText {
-      margin-right: 0.1rem;
-    }
-  }
-`;
+//   @media (min-width: 280px) and (max-width: 767px) {
+//     border-bottom: ${props =>
+//       props.$isActive ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)'};
+//     .OffenseText {
+//       margin-right: 0.1rem;
+//     }
+//   }
+// `;
 
-const OptionDefense = styled.div<{ $isActive: boolean; theme: string }>`
-  border-bottom: ${props =>
-    props.$isActive ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)'};
-  cursor: pointer;
+// const OptionDefense = styled.div<{ $isActive: boolean; theme: string }>`
+//   border-bottom: ${props =>
+//     props.$isActive ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)'};
+//   cursor: pointer;
 
-  .DefenseText {
-    color: ${props => (props.$isActive ? 'var(--defenseRec)' : 'var(--normal)')};
-    ${props =>
-      props.theme === 'dark' &&
-      css`
-        color: ${props.$isActive ? 'var(--defenseRec)' : 'var(--charcoal)'};
-      `}
-  }
+//   .DefenseText {
+//     color: ${props => (props.$isActive ? 'var(--defenseRec)' : 'var(--normal)')};
+//     ${props =>
+//       props.theme === 'dark' &&
+//       css`
+//         color: ${props.$isActive ? 'var(--defenseRec)' : 'var(--charcoal)'};
+//       `}
+//   }
 
-  @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props =>
-      props.$isActive ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)'};
-    .DefenseText {
-    }
-  }
-`;
+//   @media (min-width: 280px) and (max-width: 767px) {
+//     border-bottom: ${props =>
+//       props.$isActive ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)'};
+//     .DefenseText {
+//     }
+//   }
+// `;
 
 export default Selector;

@@ -1,6 +1,6 @@
 import Title from '../components/Title';
 import DarkModeBtn from 'components/DarkModeBtn';
-import Selector from 'components/Selector';
+import { Selector } from 'components/Selector';
 import styled from 'styled-components';
 
 const Container = styled.div`

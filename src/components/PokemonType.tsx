@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-import { TypesName } from 'features/OffenseCalculator';
+import { TypeName } from 'features/types';
 
 interface PillProps {
-  text?: string;
+  text?: typeof TypeName;
   borderColor?: string;
   onClick?: () => void;
-  onTypeClick: (type: TypesName) => void;
+  onTypeClick: (type: typeof TypeName) => void;
   selected?: boolean;
 }
 
@@ -28,12 +28,15 @@ const PokemonType = ({ borderColor, text, onTypeClick, selected }: PillProps) =>
 
   const handleClick = () => {
     setIsActive(!isActive);
-    onTypeClick && onTypeClick(text as TypesName); // Call onTypeClick prop if it exists with type assertion
+    onTypeClick && onTypeClick(text as typeof TypeName); // Call onTypeClick prop if it exists with type assertion
   };
 
   /**
    * TODO
    * [ ] isActive 전부 onClick으로 바꾸기. 셀렉터의 isActive까지 바꿔야 함
+   *
+   *
+   *
    * [ ] {text}로 바꿨으니까 영어/한국어/일어를 고려해서 letter-spacing를 조절하거나 폰트를 아예 바꿔야할 듯
    */
 
@@ -92,8 +95,3 @@ const Type = styled.button<TypeProps>`
 `;
 
 export { PokemonType, Type };
-
-/**
- *
- *
- */
