@@ -42,3 +42,20 @@ const Option = ({ theme, type, children, onClick }: OptionProps) => {
 };
 
 export default Option;
+
+// {
+//   /* <Option
+//   className="Offense"
+//   theme={theme}
+//   type="offense"
+//   children={<span className="OptionText OffenseText">공격</span>}
+//   onClick={() => handleClick('offense')}
+// />
+// <Option
+//   className="Defense"
+//   theme={theme}
+//   type="defense"
+//   children={<span className="OptionText DefenseText">방어</span>}
+//   onClick={() => handleClick('defense')}
+// ></Option> */
+// }

@@ -1,31 +1,41 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../stores/store';
 import ContainerTypes from './ContainerTypes';
 import { useNavigate } from 'react-router-dom';
 import { offenseCal } from '../features/offenseCalSlice';
 //import { TypeName } from '../features/types';
-import Option from './SelectorOptions';
+// import Option from './SelectorOptions';
 
 /**
  * NOTE
  *
- *[ ] 셀렉터 내부의 공격, 방어 코드를 분리하는게 나은건지?
- *[ ] 공격에서 방어 클릭시 두 번을 클릭해야 UI에서 반영이 됨 active가 아니라 click으로 수정
- *[ ] 방어에서 공격 클릭시 전환이 안됨
+ *[x] 셀렉터 내부의 공격, 방어 코드를 분리하는게 나은건지? - ㄴㄴ
+ *[x] 공격에서 방어 클릭시 두 번을 클릭해야 UI에서 반영이 됨 active가 아니라 click으로 수정- $isClicked와 onClick으로 수정함,,나도 클릭 하나만 쓰고싶음ㅠ
+ *[ ] 방어에서 공격 클릭시 종종 UI가 한 번에 전환이 안됨 - navigate 안쓰니까 해결되는데 navigate 안 쓰니까 경로가 안바뀜
  *
  *
  */
 
 export const Selector = () => {
-  // const [click, setClick] = useState<'offense' | 'defense'>('offense');
   const [info, setInfo] = useState('공격할 포켓몬의 타입을 선택해주세요!');
+  const [isOffenseClicked, setIsOffenseClicked] = useState(true);
+  const [isDefenseClicked, setIsDefenseClicked] = useState(false);
   const theme = useSelector((state: RootState) => state.darkMode.theme);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleClick = (mode: 'offense' | 'defense', type1?: string, type2?: string) => {
+    console.log('handleClick called with mode:', mode);
+    if (mode === 'offense') {
+      setIsOffenseClicked(true);
+      setIsDefenseClicked(false);
+    } else {
+      setIsOffenseClicked(false);
+      setIsDefenseClicked(true);
+    }
+
     setInfo(
       mode === 'offense'
         ? '공격할 포켓몬의 타입을 선택해주세요!'
@@ -42,30 +52,22 @@ export const Selector = () => {
       <Card>
         <CardContainer>
           <div className="Option">
-            {/* <OptionOffense
+            <OptionOffense
               className="Offense"
+              $isClicked={isOffenseClicked}
               onClick={() => handleClick('offense')}
               theme={theme}
             >
               <span className="OptionText OffenseText">공격</span>
             </OptionOffense>
-            <OptionDefense className="Defense">
-              <span className="OptionText DefenseText">방어</span>
-            </OptionDefense> */}
-            <Option
-              className="Offense"
-              theme={theme}
-              type="offense"
-              children={<span className="OptionText OffenseText">공격</span>}
-              onClick={() => handleClick('offense')}
-            />
-            <Option
+            <OptionDefense
               className="Defense"
-              theme={theme}
-              type="defense"
-              children={<span className="OptionText DefenseText">방어</span>}
+              $isClicked={isDefenseClicked}
               onClick={() => handleClick('defense')}
-            ></Option>
+              theme={theme}
+            >
+              <span className="OptionText DefenseText">방어</span>
+            </OptionDefense>
           </div>
           <div className="InfoContainer">
             <div className="info">{info}</div>
@@ -193,49 +195,49 @@ const Card = styled.div`
  * [ ] 옵션 컴포넌트 따로 만들고, 옵션을 선택+선택한 타입+그에 따른 결과를 리덕스에 나중에 한꺼번에 저장 및 관리
  */
 
-// const OptionOffense = styled.div<{ $isActive: boolean; theme: string }>`
-//   border-bottom: ${props =>
-//     props.$isActive ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)'};
-//   cursor: pointer;
+const OptionOffense = styled.div<{ $isClicked: boolean; theme: string }>`
+  border-bottom: ${props =>
+    props.$isClicked ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)'};
+  cursor: pointer;
 
-//   .OffenseText {
-//     color: ${props => (props.$isActive ? 'var(--offenseRec)' : 'var(--normal)')};
-//     ${props =>
-//       props.theme === 'dark' &&
-//       css`
-//         color: ${props.$isActive ? 'var(--offenseRec)' : 'var(--charcoal)'};
-//       `}
-//   }
+  .OffenseText {
+    color: ${props => (props.$isClicked ? 'var(--offenseRec)' : 'var(--normal)')};
+    ${props =>
+      props.theme === 'dark' &&
+      css`
+        color: ${props.$isClicked ? 'var(--offenseRec)' : 'var(--charcoal)'};
+      `}
+  }
 
-//   @media (min-width: 280px) and (max-width: 767px) {
-//     border-bottom: ${props =>
-//       props.$isActive ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)'};
-//     .OffenseText {
-//       margin-right: 0.1rem;
-//     }
-//   }
-// `;
+  @media (min-width: 280px) and (max-width: 767px) {
+    border-bottom: ${props =>
+      props.$isClicked ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)'};
+    .OffenseText {
+      margin-right: 0.1rem;
+    }
+  }
+`;
 
-// const OptionDefense = styled.div<{ $isActive: boolean; theme: string }>`
-//   border-bottom: ${props =>
-//     props.$isActive ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)'};
-//   cursor: pointer;
+const OptionDefense = styled.div<{ $isClicked: boolean; theme: string }>`
+  border-bottom: ${props =>
+    props.$isClicked ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)'};
+  cursor: pointer;
 
-//   .DefenseText {
-//     color: ${props => (props.$isActive ? 'var(--defenseRec)' : 'var(--normal)')};
-//     ${props =>
-//       props.theme === 'dark' &&
-//       css`
-//         color: ${props.$isActive ? 'var(--defenseRec)' : 'var(--charcoal)'};
-//       `}
-//   }
+  .DefenseText {
+    color: ${props => (props.$isClicked ? 'var(--defenseRec)' : 'var(--normal)')};
+    ${props =>
+      props.theme === 'dark' &&
+      css`
+        color: ${props.$isClicked ? 'var(--defenseRec)' : 'var(--charcoal)'};
+      `}
+  }
 
-//   @media (min-width: 280px) and (max-width: 767px) {
-//     border-bottom: ${props =>
-//       props.$isActive ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)'};
-//     .DefenseText {
-//     }
-//   }
-// `;
+  @media (min-width: 280px) and (max-width: 767px) {
+    border-bottom: ${props =>
+      props.$isClicked ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)'};
+    .DefenseText {
+    }
+  }
+`;
 
 export default Selector;

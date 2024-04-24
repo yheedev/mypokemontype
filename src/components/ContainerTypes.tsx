@@ -60,30 +60,6 @@ const Container = styled.div`
   @media (max-width: 767px) {
     gap: 1rem;
   }
-
-  /* .stellar_btn {
-    border: 5px solid transparent;
-    border-radius: inherit;
-    overflow: hidden;
-  }
-
-  .stellar_btn:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    background: linear-gradient(to right, red, orange);
-  } */
-
-  /* .stellar-border {
-    border-radius: 20px;
-    background: linear-gradient(white, white) padding-box,
-      linear-gradient(to right, darkblue, darkorchid) border-box;
-    border: 5px solid transparent;
-  } */
 `;
 
 export default ContainerTypes;

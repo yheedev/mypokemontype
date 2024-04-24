@@ -31,7 +31,7 @@ const PokemonType = ({ borderColor, text, onTypeClick, selected }: PillProps) =>
     onTypeClick && onTypeClick(text as typeof TypeName); // Call onTypeClick prop if it exists with type assertion
   };
 
-  /**
+  /**9
    * TODO
    * [ ] isActive 전부 onClick으로 바꾸기. 셀렉터의 isActive까지 바꿔야 함
    *
@@ -41,18 +41,18 @@ const PokemonType = ({ borderColor, text, onTypeClick, selected }: PillProps) =>
    */
 
   return (
-    <Type
-      className={`pill ${isActive ? 'active' : ''}  ${
-        isDarkMode ? 'shadow-gr' : 'shadow-bl'
-      }`}
-      borderColor={borderColor}
-      text={text}
-      onClick={handleClick}
-      isActive={isActive}
-      isDarkMode={isDarkMode}
-    >
-      <span className="TypeText">{text}</span>
-    </Type>
+    // <Type
+    //   className={`pill ${isActive ? 'active' : ''}  ${
+    //     isDarkMode ? 'shadow-gr' : 'shadow-bl'
+    //   }`}
+    //   borderColor={borderColor}
+    //   text={text}
+    //   onClick={handleClick}
+    //   isActive={isActive}
+    //   isDarkMode={isDarkMode}
+    // >
+    <span className="TypeText">{text}</span>
+    // </Type>
   );
 };
 
