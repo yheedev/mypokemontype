@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 //import { calcOffense } from 'features/OffenseCalculator';
 
 function MainTitle() {
-  // console.log(calcOffense('normal', 'fighting'));
+  //console.log(calcOffense('normal', 'fighting'));
 
   const navigate = useNavigate();
 

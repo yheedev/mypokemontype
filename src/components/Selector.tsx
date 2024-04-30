@@ -1,51 +1,67 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../stores/store';
 import ContainerTypes from './ContainerTypes';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { offenseCal } from '../features/offenseCalSlice';
-//import { TypeName } from '../features/types';
-// import Option from './SelectorOptions';
 
 /**
  * NOTE
  *
  *[x] 셀렉터 내부의 공격, 방어 코드를 분리하는게 나은건지? - ㄴㄴ
  *[x] 공격에서 방어 클릭시 두 번을 클릭해야 UI에서 반영이 됨 active가 아니라 click으로 수정- $isClicked와 onClick으로 수정함,,나도 클릭 하나만 쓰고싶음ㅠ
- *[ ] 방어에서 공격 클릭시 종종 UI가 한 번에 전환이 안됨 - navigate 안쓰니까 해결되는데 navigate 안 쓰니까 경로가 안바뀜
+ *[x] 방어에서 공격 클릭시 종종 UI가 한 번에 전환이 안됨 - navigate+useLocation 쓰니까됨
  *
  *
  */
 
 export const Selector = () => {
-  const [info, setInfo] = useState('공격할 포켓몬의 타입을 선택해주세요!');
+  const [info, setInfo] = useState('');
   const [isOffenseClicked, setIsOffenseClicked] = useState(true);
   const [isDefenseClicked, setIsDefenseClicked] = useState(false);
   const theme = useSelector((state: RootState) => state.darkMode.theme);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setInfo('선택한 타입이 효과적으로 공격할 타입을 확인하세요.');
+    } else if (location.pathname === '/defense') {
+      setInfo('선택한 타입이 효과적으로 방어할 타입을 확인하세요.');
+    }
+  }, [location.pathname]);
 
   const handleClick = (mode: 'offense' | 'defense', type1?: string, type2?: string) => {
-    console.log('handleClick called with mode:', mode);
     if (mode === 'offense') {
       setIsOffenseClicked(true);
       setIsDefenseClicked(false);
+      navigate('/');
     } else {
       setIsOffenseClicked(false);
       setIsDefenseClicked(true);
+      navigate('/defense');
     }
 
-    setInfo(
-      mode === 'offense'
-        ? '공격할 포켓몬의 타입을 선택해주세요!'
-        : '방어할 포켓몬의 타입을 선택해주세요!'
-    );
     if (mode === 'offense' && (type1 || type2)) {
       dispatch(offenseCal({ type1, type2 }));
     }
-    navigate(mode === 'offense' ? '/' : '/defense');
+
+    if (mode === 'offense' && (type1 || type2)) {
+      dispatch(offenseCal({ type1, type2 }));
+    }
   };
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setIsOffenseClicked(true);
+      setIsDefenseClicked(false);
+    } else if (location.pathname === '/defense') {
+      setIsOffenseClicked(false);
+      setIsDefenseClicked(true);
+    }
+  }, [location]);
 
   return (
     <Container>
