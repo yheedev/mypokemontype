@@ -1,19 +1,22 @@
-// import { useState, useEffect } from 'react';
-// import { Types, TypeValue } from '../features/typeCalculator';
+// import { useSelector } from 'react-redux';
+// import { RootState } from 'stores/store';
 
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-function test() {
+const Result = () => {
+  //const theme = useSelector((state: RootState) => state.darkMode.theme);
+  //const offenseCal = useSelector((state: RootState) => state.offenseCal);
+
   return (
     <div>
       <h1>test</h1>
     </div>
   );
-}
+};
 
-test();
+export default Result;
 
-styled('')``;
+// styled('')``;
 // export function TypeCalculator() {
 //   const [selectedTypes, setSelectedTypes] = useState<Typekey[]>([]);
 //   const [effectiveness, setEffectiveness] = useState<{ [key in Typekey]: number }>({});

@@ -17,6 +17,7 @@ ${reset}
   --charcoal: #4F4D4D;
   --sealBrown: #171010;
   --black: #000000;  
+  --shadow: #453333;
 
     --offenseRec: #E83737;
     --defenseRec: #6897A9;
@@ -28,7 +29,7 @@ ${reset}
     --grass: #A7DB8D;
     --ice: #BCE6E6;
     --fighting: #D67873;
-    --poision: #C183C1;
+    --poison: #C183C1;
     --ground: #EBD69D;
     --flying: #C6B7F5;
     --psychic: #FA92B2;
@@ -109,6 +110,10 @@ li {
 
   .shadow-gr {
     filter: drop-shadow(0px 2px 2px var(--lightGray));
+  }
+  
+  .shadow-btn {
+    filter: drop-shadow(0px 2px 2px #93896b);
   }
 
   

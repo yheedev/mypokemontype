@@ -2,9 +2,13 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
+import { useSelector } from 'react-redux';
+import { RootState } from 'stores/store';
 
 const ContainerTypes = () => {
   const [activeTypes, setActiveTypes] = useState<string[]>([]);
+  const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
+  const translate = useSelector((state: RootState) => state.language.translations);
 
   const upToTwo = (clickedType: string) => {
     if (activeTypes.includes(clickedType)) {
@@ -14,18 +18,18 @@ const ContainerTypes = () => {
     } else {
       setActiveTypes([activeTypes[1], clickedType]);
     }
-  }; // 두 개 이상의 타입을 클릭할 때마다 가장 마지막에 클릭한 타입을 클릭 해제
+  }; // 두 개 이상의 타입을 클릭하면 가장 나중에 클릭한 타입을 클릭 해제
 
   return (
     <Container>
       {TypeName.map((type: (typeof TypeName)[number]) => (
         <PokemonType
           key={String(type)}
-          text={type}
+          text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
-          onClick={() => upToTwo(type)} // Fix: Pass the clicked type as an argument
-          isDarkMode={false}
-          isActive={activeTypes.includes(type)}
+          onClick={() => upToTwo(type)} // upTotwo 함수를 호출해서 클릭한 타입을 상태에 반영
+          isDarkMode={isDarkMode}
+          isActive={activeTypes.includes(type)} // 각 pokemonType 요소가 활성 상태인지 불리언 값으로 알려줘서 UI에 보여줌
         />
       ))}
     </Container>
@@ -34,7 +38,7 @@ const ContainerTypes = () => {
 
 /**
  * TODO
- * [ ] typeCalculator TypesName의 타입 고쳐서 여기에 import하기
+ * [x] typeCalculator TypesName의 타입 고쳐서 여기에 import하기
  */
 
 const Container = styled.div`

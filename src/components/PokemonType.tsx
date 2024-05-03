@@ -1,4 +1,4 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
@@ -14,34 +14,25 @@ import { TypeName } from 'features/types';
 export type TypeNameElement = (typeof TypeName)[number];
 
 interface Props {
-  text?: TypeNameElement;
+  text?: string;
   borderColor: string;
-  onClick: (text: TypeNameElement) => void; // 텍스트 전달
-  isActive: boolean; // 버튼 클릭 UI 확인
-  isDarkMode: boolean;
+  onClick: (isActive: boolean) => void;
+  isActive: boolean; // 버튼 클릭 UI 확인, isActive를 이 props에서만 관리해야 uptotwo 함수가 정상적으로 작동
+  isDarkMode?: boolean;
 }
 
-const PokemonType = ({ text, borderColor, onClick }: Props) => {
+const PokemonType = ({ text, borderColor, onClick, isActive }: Props) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
-  const [isActive, setIsActive] = useState(false);
-
-  const handleClick = () => {
-    setIsActive(!isActive);
-    if (text !== undefined) {
-      onClick(text);
-    }
-  };
 
   return (
     <Type
       className={`pill ${isActive ? 'active' : ''}  ${
-        isDarkMode ? 'shadow-gr' : 'shadow-bl'
+        isDarkMode ? 'shadow-btn' : 'shadow-bl'
       }`}
       borderColor={borderColor}
-      text={text}
-      onClick={handleClick}
-      isActive={isActive}
+      onClick={() => onClick(!isActive)}
       isDarkMode={isDarkMode}
+      isActive={isActive}
     >
       <span className="TypeText">{text}</span>
     </Type>
@@ -53,9 +44,8 @@ const Type = styled.button<Props>`
   width: 5rem;
   height: 3rem;
   color: var(--color-background);
-
   border-radius: 30px;
-  background-color: ${({ isActive, borderColor }) =>
+  background-color: ${({ borderColor, isActive }) =>
     isActive ? borderColor : 'var(--color-card)'};
 
   .TypeText {

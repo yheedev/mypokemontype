@@ -1,6 +1,7 @@
 import Title from '../components/Title';
 import DarkModeBtn from 'components/DarkModeBtn';
 import { Selector } from 'components/Selector';
+import Result from 'components/Result';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -21,6 +22,7 @@ function Offense() {
       <Title />
       <Container>
         <Selector />
+        <Result />
       </Container>
       <DarkModeBtn />
     </>

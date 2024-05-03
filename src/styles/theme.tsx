@@ -60,6 +60,7 @@ export const darkTheme = css`
     --color-notSelected: var(--charcoal);
     --color-toggle: var(--lightGray);
     --color-toggleIcon: var(--charcoal);
+    --color-shadow: var(--shadow);
 
     ::selection {
       background: var(--steel);

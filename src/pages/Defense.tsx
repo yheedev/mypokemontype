@@ -1,5 +1,6 @@
 import Title from '../components/Title';
 import DarkModeBtn from 'components/DarkModeBtn';
+import Result from 'components/Result';
 import { Selector } from 'components/Selector';
 import styled from 'styled-components';
 
@@ -21,6 +22,7 @@ function Defense() {
       <Title />
       <Container>
         <Selector />
+        <Result />
       </Container>
       <DarkModeBtn />
     </>
