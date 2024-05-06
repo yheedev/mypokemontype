@@ -190,14 +190,13 @@ const Card = styled.div`
 /**
  * TODO
  * [ ] 모바일에서 info 텍스트 두 문장으로 줄바꿈 하기
- * [ ] 공격에서 방어 클릭 시 두 번을 클릭해야 UI에서 반영이 됨 border-bottom 부분 수정하기
- * [ ] 아래에 있는 기존의 Option 스타일 SelectorOptions 컴포넌트에 반영
- * [ ] 옵션 컴포넌트 따로 만들고, 옵션을 선택+선택한 타입+그에 따른 결과를 리덕스에 나중에 한꺼번에 저장 및 관리
+ * [x] 공격에서 방어 클릭 시 두 번을 클릭해야 UI에서 반영이 됨 border-bottom 부분 수정하기
+ * [x] 아래에 있는 기존의 Option 스타일 SelectorOptions 컴포넌트에 반영
+ *
  */
 
 const OptionOffense = styled.div<{ $isClicked: boolean; theme: string }>`
-  border-bottom: ${props =>
-    props.$isClicked ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)'};
+  border-bottom: ${props => (props.$isClicked ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)')};
   cursor: pointer;
 
   .OffenseText {
@@ -210,8 +209,7 @@ const OptionOffense = styled.div<{ $isClicked: boolean; theme: string }>`
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props =>
-      props.$isClicked ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)'};
+    border-bottom: ${props => (props.$isClicked ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)')};
     .OffenseText {
       margin-right: 0.1rem;
     }
@@ -219,8 +217,7 @@ const OptionOffense = styled.div<{ $isClicked: boolean; theme: string }>`
 `;
 
 const OptionDefense = styled.div<{ $isClicked: boolean; theme: string }>`
-  border-bottom: ${props =>
-    props.$isClicked ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)'};
+  border-bottom: ${props => (props.$isClicked ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)')};
   cursor: pointer;
 
   .DefenseText {
@@ -233,8 +230,7 @@ const OptionDefense = styled.div<{ $isClicked: boolean; theme: string }>`
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props =>
-      props.$isClicked ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)'};
+    border-bottom: ${props => (props.$isClicked ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)')};
     .DefenseText {
     }
   }

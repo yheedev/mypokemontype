@@ -14,10 +14,11 @@ import { TypeName } from 'features/types';
 export type TypeNameElement = (typeof TypeName)[number];
 
 interface Props {
+  className?: string;
   text?: string;
   borderColor: string;
-  onClick: (isActive: boolean) => void;
-  isActive: boolean; // 버튼 클릭 UI 확인, isActive를 이 props에서만 관리해야 uptotwo 함수가 정상적으로 작동
+  onClick?: (isActive: boolean) => void;
+  isActive?: boolean; // 버튼 클릭 UI 확인, isActive를 이 props에서만 관리해야 uptotwo 함수가 정상적으로 작동
   isDarkMode?: boolean;
 }
 
@@ -26,11 +27,9 @@ const PokemonType = ({ text, borderColor, onClick, isActive }: Props) => {
 
   return (
     <Type
-      className={`pill ${isActive ? 'active' : ''}  ${
-        isDarkMode ? 'shadow-btn' : 'shadow-bl'
-      }`}
+      className={`pill ${isActive ? 'active' : ''}  ${isDarkMode ? 'shadow-btn' : 'shadow-bl'}`}
       borderColor={borderColor}
-      onClick={() => onClick(!isActive)}
+      onClick={() => onClick && onClick(!isActive)}
       isDarkMode={isDarkMode}
       isActive={isActive}
     >
@@ -41,20 +40,18 @@ const PokemonType = ({ text, borderColor, onClick, isActive }: Props) => {
 
 const Type = styled.button<Props>`
   border: 7px solid ${({ borderColor }) => borderColor};
-  width: 5rem;
+  width: 5.5rem;
   height: 3rem;
   color: var(--color-background);
   border-radius: 30px;
-  background-color: ${({ borderColor, isActive }) =>
-    isActive ? borderColor : 'var(--color-card)'};
+  background-color: ${({ borderColor, isActive }) => (isActive ? borderColor : 'var(--color-card)')};
 
   .TypeText {
     font-family: 'NotoSansBlack';
     font-size: 1rem;
     letter-spacing: 4px;
     padding-top: 0.5rem;
-    color: ${({ isDarkMode, isActive }) =>
-      isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)'};
+    color: ${({ isDarkMode, isActive }) => (isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)')};
   }
 
   @media (min-width: 768px) and (min-width: 1023px) {

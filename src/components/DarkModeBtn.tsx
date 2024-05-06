@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import { darkModeSlice } from 'features/darkModeSlice';
 import { useToggleTheme } from 'hooks/useToggleTheme';
-import { ReactComponent as Sun } from '../Img/Sun.svg';
-import { ReactComponent as ToggleOff } from '../Img/ToggleOff.svg';
-import { ReactComponent as Moon } from '../Img/Moon.svg';
-import { ReactComponent as ToggleOn } from '../Img/ToggleOn.svg';
+import { ReactComponent as Sun } from '../svg/Sun.svg';
+import { ReactComponent as ToggleOff } from '../svg/ToggleOff.svg';
+import { ReactComponent as Moon } from '../svg/Moon.svg';
+import { ReactComponent as ToggleOn } from '../svg/ToggleOn.svg';
 
 export const DarkModeBtn = () => {
   const dispatch = useDispatch();

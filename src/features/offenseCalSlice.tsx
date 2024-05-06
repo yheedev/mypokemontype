@@ -6,20 +6,40 @@ export type OffenseCalState = {
   result: { [key: string]: string[] };
 };
 
-// TypeValue 배열 및 타입을 선택하지 않았을 경우에는 모든 타입에 대한 효과를 1배로 반환
-function getTypeArray(type?: string) {
-  return type ? TypeValue[type] : new Array(19).fill(1);
-}
-
 // 리듀서에 보낼 리덕스 슬라이스
 export const offenseCalSlice = createSlice({
   name: 'offenseCal',
   initialState: { result: {} },
   reducers: {
-    offenseCal: (state, action: PayloadAction<{ type1?: string; type2?: string }>) => {
+    offenseCal: (
+      state,
+      action: PayloadAction<{
+        type1?: string;
+        type2?: string;
+      }>
+    ) => {
       const { type1, type2 } = action.payload;
 
-      // 아무 타입도 선택되지 않았을 경우
+      //// 각 효과의 수치를 키로 갖는 빈 배열 설정
+      type Effectiveness = {
+        [key in number | string]: string[];
+      };
+
+      let effectiveness: Effectiveness = {
+        4: [],
+        2: [],
+        1: [],
+        0.5: [],
+        0.25: [],
+        0: [],
+      };
+
+      // TypeValue 배열 및 타입을 선택하지 않았을 경우에는 모든 타입에 대한 효과를 1배로 반환
+      function getTypeArray(type?: string) {
+        return type ? TypeValue[type] : new Array(19).fill(1);
+      }
+
+      // 아무 타입도 선택하지 않았을 경우
       if (!type1 && !type2) {
         state.result = getTypeArray();
       }
@@ -29,6 +49,8 @@ export const offenseCalSlice = createSlice({
         let typeArr2 = TypeValue[type2 as keyof typeof TypeValue];
 
         let doubleTypes = typeArr1.map((value: number, index: number) => {
+          //effectiveness[value.toString()].push(TypeName[index]);
+
           // 두 개의 타입을 입력했을 경우 두 타입의 TypeValue 배열 중 더 큰 값을 골라서 하나의 배열로 반영,
           // 두 타입 중 하나라도 0배의 효과를 가지면 0을 반환
           if (value === 0 || typeArr2[index] === 0) {
@@ -37,19 +59,12 @@ export const offenseCalSlice = createSlice({
           return Math.max(value, typeArr2[index]);
         });
 
-        //// 각 효과의 수치를 키로 갖는 빈 배열 설정
-        type Effectiveness = {
-          [key in number | string]: string[];
-        };
-
-        let effectiveness: Effectiveness = {
-          4: [],
-          2: [],
-          1: [],
-          0.5: [],
-          0.25: [],
-          0: [],
-        };
+        const filteredEffectiveness: Effectiveness = {};
+        for (const [key, value] of Object.entries(effectiveness)) {
+          if (value.length > 0) {
+            filteredEffectiveness[key] = value;
+          }
+        }
 
         doubleTypes.forEach((value: number, index) => {
           effectiveness[value.toString()].push(TypeName[index]);

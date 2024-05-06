@@ -1,22 +1,74 @@
-// import { useSelector } from 'react-redux';
-// import { RootState } from 'stores/store';
+import { useSelector } from 'react-redux';
+import { RootState } from 'stores/store';
+import styled from 'styled-components';
+import { PokemonType } from './PokemonType';
 
-// import styled from 'styled-components';
+type OffenseResultType = {
+  [key: string]: string[];
+};
 
 const Result = () => {
-  //const theme = useSelector((state: RootState) => state.darkMode.theme);
-  //const offenseCal = useSelector((state: RootState) => state.offenseCal);
+  // const theme = useSelector((state: RootState) => state.darkMode.theme);
+  const translate = useSelector((state: RootState) => state.language.translations);
+  const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
+  const offenseResult = useSelector((state: RootState) => state.offenseCal.result) as OffenseResultType;
 
   return (
-    <div>
-      <h1>test</h1>
-    </div>
+    <Container>
+      <Card>
+        {Object.entries(offenseResult).map(
+          ([key, value]) =>
+            value.length > 0 ? (
+              <div key={key}>
+                <h1>{key}배의 데미지</h1>
+                {value.map(type => (
+                  <PokemonType
+                    className="pokemon"
+                    key={String(type)}
+                    text={translate.TypeName[type as keyof typeof translate.TypeName]} // Add type annotation
+                    borderColor={`var(--${type})`}
+                    isDarkMode={isDarkMode}
+                  />
+                ))}
+                {value.join(', ')}
+              </div>
+            ) : null
+
+          // {value.map((type, index) => (
+          //   <p key={index}>{type}</p>
+        )}
+
+        {/* <h1>4배의 데미지</h1>
+        <h1>2배의 데미지</h1>
+        <h1>1배의 데미지</h1>
+        <h1>1/2배의 데미지</h1>
+        <h1>1/4배의 데미지</h1> */}
+      </Card>
+    </Container>
   );
 };
 
 export default Result;
 
-// styled('')``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: var(--color-text);
+`;
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-card);
+  border-radius: 22px;
+  padding: 2rem;
+
+  .pokemon {
+    cursor: default;
+  }
+`;
+
 // export function TypeCalculator() {
 //   const [selectedTypes, setSelectedTypes] = useState<Typekey[]>([]);
 //   const [effectiveness, setEffectiveness] = useState<{ [key in Typekey]: number }>({});
