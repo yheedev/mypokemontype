@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
+// import { useMemo } from 'react';
 
 type OffenseResultType = {
   [key: string]: string[];
@@ -11,38 +12,28 @@ const Result = () => {
   // const theme = useSelector((state: RootState) => state.darkMode.theme);
   const translate = useSelector((state: RootState) => state.language.translations);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
-  const offenseResult = useSelector((state: RootState) => state.offenseCal.result) as OffenseResultType;
+  const offenseResult = useSelector((state: RootState) => state.offenseCal.result as OffenseResultType);
+  // const { translate, isDarkMode, offenseResult } = useMemo(() => result, [result]);
 
   return (
     <Container>
       <Card>
-        {Object.entries(offenseResult).map(
-          ([key, value]) =>
-            value.length > 0 ? (
-              <div key={key}>
-                <h1>{key}배의 데미지</h1>
-                {value.map(type => (
-                  <PokemonType
-                    className="pokemon"
-                    key={String(type)}
-                    text={translate.TypeName[type as keyof typeof translate.TypeName]} // Add type annotation
-                    borderColor={`var(--${type})`}
-                    isDarkMode={isDarkMode}
-                  />
-                ))}
-                {value.join(', ')}
-              </div>
-            ) : null
-
-          // {value.map((type, index) => (
-          //   <p key={index}>{type}</p>
+        {Object.entries(offenseResult).map(([key, value]) =>
+          value.length > 0 ? (
+            <div key={key}>
+              <h1>{key}배의 데미지</h1>
+              {value.map(type => (
+                <PokemonType
+                  className="pokemon"
+                  key={String(type)}
+                  text={translate.TypeName[type as keyof typeof translate.TypeName]} // Add type annotation
+                  borderColor={`var(--${type})`}
+                  isDarkMode={isDarkMode}
+                />
+              ))}
+            </div>
+          ) : null
         )}
-
-        {/* <h1>4배의 데미지</h1>
-        <h1>2배의 데미지</h1>
-        <h1>1배의 데미지</h1>
-        <h1>1/2배의 데미지</h1>
-        <h1>1/4배의 데미지</h1> */}
       </Card>
     </Container>
   );

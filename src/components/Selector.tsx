@@ -6,20 +6,13 @@ import ContainerTypes from './ContainerTypes';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { offenseCal } from '../features/offenseCalSlice';
 
-/**
- * NOTE
- *
- *[x] 셀렉터 내부의 공격, 방어 코드를 분리하는게 나은건지? - ㄴㄴ
- *[x] 공격에서 방어 클릭시 두 번을 클릭해야 UI에서 반영이 됨 active가 아니라 click으로 수정- $isClicked와 onClick으로 수정함,,나도 클릭 하나만 쓰고싶음ㅠ
- *[x] 방어에서 공격 클릭시 종종 UI가 한 번에 전환이 안됨 - navigate+useLocation 쓰니까됨
- *
- *
- */
-
 export const Selector = () => {
-  const theme = useSelector((state: RootState) => state.darkMode.theme);
   //const lang = useSelector((state: RootState) => state.language.lang);
+  const darkMode = useSelector((state: RootState) => state.darkMode.theme);
   const translate = useSelector((state: RootState) => state.language.translations);
+  const type1 = useSelector((state: RootState) => state.offenseCal.type1);
+  const type2 = useSelector((state: RootState) => state.offenseCal.type2);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -38,13 +31,15 @@ export const Selector = () => {
     const currentMode = location.pathname === '/defense' ? 'defense' : 'offense';
     setMode(currentMode);
     setInfo(translate.Info[currentMode]);
-  }, [location.pathname, selectMode, translate.Info]);
 
-  const selectCals = (Mode: 'offense' | 'defense', type1?: string, type2?: string) => {
-    selectMode(Mode);
-    if (Mode === 'offense' && (type1 || type2)) {
-      dispatch(offenseCal({ type1, type2 }));
+    if (currentMode === 'offense') {
+      const payload = { ...(type1 && { type1 }), ...(type2 && { type2 }) };
+      dispatch(offenseCal(payload));
     }
+  }, [location.pathname, selectMode, translate.Info, dispatch, type1, type2]);
+
+  const selectorCals = (Mode: 'offense' | 'defense') => {
+    selectMode(Mode);
   };
 
   return (
@@ -54,17 +49,20 @@ export const Selector = () => {
           <div className="Option">
             <OptionOffense
               className="Offense"
-              $isClicked={mode === 'offense'}
-              onClick={() => selectCals('offense')}
-              theme={theme}
+              $selectedMode={mode === 'offense'}
+              onClick={() => {
+                selectorCals('offense');
+                // dispatch(offenseCal({ type1, type2 }));
+              }}
+              $darkMode={darkMode}
             >
               <span className="OptionText OffenseText">{translate.Mode.offense}</span>
             </OptionOffense>
             <OptionDefense
               className="Defense"
-              $isClicked={mode === 'defense'}
-              onClick={() => selectCals('defense')}
-              theme={theme}
+              $selectedMode={mode === 'defense'}
+              onClick={() => selectorCals('defense')}
+              $darkMode={darkMode}
             >
               <span className="OptionText DefenseText">{translate.Mode.defense}</span>
             </OptionDefense>
@@ -195,42 +193,42 @@ const Card = styled.div`
  *
  */
 
-const OptionOffense = styled.div<{ $isClicked: boolean; theme: string }>`
-  border-bottom: ${props => (props.$isClicked ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)')};
+const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
+  border-bottom: ${props => (props.$selectedMode ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)')};
   cursor: pointer;
 
   .OffenseText {
-    color: ${props => (props.$isClicked ? 'var(--offenseRec)' : 'var(--normal)')};
+    color: ${props => (props.$selectedMode ? 'var(--offenseRec)' : 'var(--normal)')};
     ${props =>
-      props.theme === 'dark' &&
+      props.$darkMode === 'dark' &&
       css`
-        color: ${props.$isClicked ? 'var(--offenseRec)' : 'var(--charcoal)'};
+        color: ${props.$selectedMode ? 'var(--offenseRec)' : 'var(--charcoal)'};
       `}
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props => (props.$isClicked ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)')};
+    border-bottom: ${props => (props.$selectedMode ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)')};
     .OffenseText {
       margin-right: 0.1rem;
     }
   }
 `;
 
-const OptionDefense = styled.div<{ $isClicked: boolean; theme: string }>`
-  border-bottom: ${props => (props.$isClicked ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)')};
+const OptionDefense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
+  border-bottom: ${props => (props.$selectedMode ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)')};
   cursor: pointer;
 
   .DefenseText {
-    color: ${props => (props.$isClicked ? 'var(--defenseRec)' : 'var(--normal)')};
+    color: ${props => (props.$selectedMode ? 'var(--defenseRec)' : 'var(--normal)')};
     ${props =>
-      props.theme === 'dark' &&
+      props.$darkMode === 'dark' &&
       css`
-        color: ${props.$isClicked ? 'var(--defenseRec)' : 'var(--charcoal)'};
+        color: ${props.$selectedMode ? 'var(--defenseRec)' : 'var(--charcoal)'};
       `}
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props => (props.$isClicked ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)')};
+    border-bottom: ${props => (props.$selectedMode ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)')};
     .DefenseText {
     }
   }

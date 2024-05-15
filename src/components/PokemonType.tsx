@@ -20,16 +20,22 @@ interface Props {
   onClick?: (isActive: boolean) => void;
   isActive?: boolean; // 버튼 클릭 UI 확인, isActive를 이 props에서만 관리해야 uptotwo 함수가 정상적으로 작동
   isDarkMode?: boolean;
+  upToTwo?: (type: string) => void;
 }
 
-const PokemonType = ({ text, borderColor, onClick, isActive }: Props) => {
+const PokemonType = ({ text, borderColor, onClick, upToTwo, isActive }: Props) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
+
+  const handleClick = () => {
+    onClick && onClick(!isActive);
+    text && upToTwo && upToTwo(text);
+  };
 
   return (
     <Type
       className={`pill ${isActive ? 'active' : ''}  ${isDarkMode ? 'shadow-btn' : 'shadow-bl'}`}
       borderColor={borderColor}
-      onClick={() => onClick && onClick(!isActive)}
+      onClick={handleClick}
       isDarkMode={isDarkMode}
       isActive={isActive}
     >
@@ -38,7 +44,9 @@ const PokemonType = ({ text, borderColor, onClick, isActive }: Props) => {
   );
 };
 
-const Type = styled.button<Props>`
+const Type = styled.button.withConfig({
+  shouldForwardProp: prop => !['borderColor', 'isActive', 'isDarkMode'].includes(prop),
+})<Props>`
   border: 7px solid ${({ borderColor }) => borderColor};
   width: 5.5rem;
   height: 3rem;

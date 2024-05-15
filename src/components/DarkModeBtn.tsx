@@ -14,6 +14,7 @@ export const DarkModeBtn = () => {
   const theme = useSelector((state: RootState) => state.darkMode.theme);
 
   const handleClick = () => {
+    toggle();
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     dispatch(darkModeSlice.actions.setTheme(newTheme));
   };
@@ -34,7 +35,7 @@ export const DarkModeBtn = () => {
             </>
           )}
         </BtnContainer>{' '}
-        {toggle}
+        {/* {toggle} */}
       </>
     </Btn>
   );
