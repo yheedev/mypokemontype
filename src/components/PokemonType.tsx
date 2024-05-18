@@ -1,15 +1,5 @@
-//import { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { RootState } from 'stores/store';
 import { TypeName } from 'features/types';
-
-/**
- * TODO
- * [x] isActive 전부 onClick으로 바꾸기. 셀렉터의 isActive까지 바꿔야 함 - 그건 안됨 props 하나로 줄이고 속성 줄인걸로 만족
- * [x] props 하나로 수정,
- * [ ] {text}로 바꿨으니까 영어/한국어/일어를 고려해서 letter-spacing를 조절하거나 폰트를 아예 바꿔야할 듯
- */
 
 export type TypeNameElement = (typeof TypeName)[number];
 
@@ -19,13 +9,11 @@ interface Props {
   borderColor: string;
   onClick?: (isActive: boolean) => void;
   isActive?: boolean; // 버튼 클릭 UI 확인, isActive를 이 props에서만 관리해야 uptotwo 함수가 정상적으로 작동
-  isDarkMode?: boolean;
-  upToTwo?: (type: string) => void;
+  isDarkMode: boolean;
+  upToTwo?: (type: string) => void; // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
 }
 
-const PokemonType = ({ text, borderColor, onClick, upToTwo, isActive }: Props) => {
-  const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
-
+const PokemonType = ({ text, borderColor, onClick, upToTwo, isDarkMode, isActive }: Props) => {
   const handleClick = () => {
     onClick && onClick(!isActive);
     text && upToTwo && upToTwo(text);

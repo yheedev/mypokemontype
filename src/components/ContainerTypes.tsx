@@ -5,33 +5,30 @@ import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import { offenseCal } from 'features/offenseCalSlice';
+import { useState } from 'react';
 
 const ContainerTypes = () => {
-  const dispatch = useDispatch();
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
-  const type1 = useSelector((state: RootState) => state.offenseCal.type1);
-  const type2 = useSelector((state: RootState) => state.offenseCal.type2);
+  // const type1 = useSelector((state: RootState) => state.offenseCal.type1);
+  // const type2 = useSelector((state: RootState) => state.offenseCal.type2);
+  const dispatch = useDispatch();
 
-  const upToTwo = (clickedType: string) => {
-    if (clickedType === type1) {
-      dispatch(offenseCal({ type1: type2, type2: undefined }));
-    } else if (clickedType === type2) {
-      dispatch(offenseCal({ type1: type1, type2: undefined }));
-    } else {
-      dispatch(offenseCal({ type1: type2, type2: clickedType }));
-    }
+  const [selectTypes, setSelectTypes] = useState<string[]>([]); // 유저가 셀렉터에서 선택한 0~2개 포켓몬 타입을 저장하는 배열
+
+  const upToTwo = (activeType: string) => {
+    let offenseCalTypes: string[] = selectTypes.includes(activeType)
+      ? selectTypes.filter(type => type !== activeType)
+      : selectTypes.length >= 2
+      ? [selectTypes[1], activeType]
+      : [...selectTypes, activeType];
+
+    setSelectTypes(offenseCalTypes);
+    dispatch(offenseCal({ type1: offenseCalTypes[0] || undefined, type2: offenseCalTypes[1] || undefined }));
+
+    console.log('selectTypes:', selectTypes);
+    console.log('offenseCalTypes:', offenseCalTypes);
   };
-
-  // const upToTwo = (clickedType: string) => {
-  //   const selectorTypes = [type1, type2].filter(Boolean);
-  //   const newTypes = selectorTypes.includes(clickedType)
-  //     ? selectorTypes.filter(type => type !== clickedType)
-  //     : selectorTypes.length >= 2
-  //     ? [selectorTypes[1], clickedType]
-  //     : [...selectorTypes, clickedType];
-  //   dispatch(offenseCal({ type1: newTypes[0] || undefined, type2: newTypes[1] || undefined }));
-  // };
 
   return (
     <Container>
@@ -40,9 +37,9 @@ const ContainerTypes = () => {
           key={String(type)}
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
-          onClick={() => upToTwo(type)} // upTotwo 함수를 호출해서 클릭한 타입을 상태에 반영
+          onClick={() => upToTwo(type)}
           isDarkMode={isDarkMode}
-          isActive={(type === type1 && type1 !== undefined) || (type === type2 && type2 !== undefined)}
+          isActive={selectTypes.includes(type)}
         />
       ))}
     </Container>
