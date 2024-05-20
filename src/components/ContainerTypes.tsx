@@ -1,29 +1,24 @@
 import styled from 'styled-components';
-// import { useState, useEffect } from 'react';
 import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-import { offenseCal } from 'features/offenseCalSlice';
-import { useState } from 'react';
+import { offenseCal, setSelectTypes } from 'features/offenseCalSlice';
 
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
-  // const type1 = useSelector((state: RootState) => state.offenseCal.type1);
-  // const type2 = useSelector((state: RootState) => state.offenseCal.type2);
+  const selectTypes = useSelector((state: RootState) => state.offenseCal.selectTypes) || [];
   const dispatch = useDispatch();
 
-  const [selectTypes, setSelectTypes] = useState<string[]>([]); // 유저가 셀렉터에서 선택한 0~2개 포켓몬 타입을 저장하는 배열
-
-  const upToTwo = (activeType: string) => {
+  const upToTwo = (activeType: string, isActive: boolean) => {
     let offenseCalTypes: string[] = selectTypes.includes(activeType)
       ? selectTypes.filter(type => type !== activeType)
       : selectTypes.length >= 2
       ? [selectTypes[1], activeType]
       : [...selectTypes, activeType];
 
-    setSelectTypes(offenseCalTypes);
+    dispatch(setSelectTypes(offenseCalTypes));
     dispatch(offenseCal({ type1: offenseCalTypes[0] || undefined, type2: offenseCalTypes[1] || undefined }));
 
     console.log('selectTypes:', selectTypes);
@@ -37,7 +32,7 @@ const ContainerTypes = () => {
           key={String(type)}
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
-          onClick={() => upToTwo(type)}
+          onClick={() => upToTwo(type, isActive)}
           isDarkMode={isDarkMode}
           isActive={selectTypes.includes(type)}
         />

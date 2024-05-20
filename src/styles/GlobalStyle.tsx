@@ -40,8 +40,7 @@ ${reset}
     --dark: #A29288;
     --steel: #D1D1E0;
     --fairy: #F4BDC9;
-    --stella: #44628D;
-    
+    //--stella: #44628D;
   }
   
 @font-face {
