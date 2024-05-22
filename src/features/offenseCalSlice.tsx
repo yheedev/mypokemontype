@@ -1,31 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {} from '@reduxjs/toolkit';
 import { TypeValue, TypeName } from './types';
 
 export type OffenseCalState = {
   result: { [key: string]: string[] };
-  type1: string | undefined;
-  type2: string | undefined;
-  selectTypes: string[];
+  offenseType1: string | undefined;
+  offenseType2: string | undefined;
 };
 
 export const offenseCalSlice = createSlice({
   name: 'offenseCal',
   initialState: {
     result: {},
-    type1: undefined as string | undefined,
-    type2: undefined as string | undefined,
-    selectTypes: [] as string[],
+    offenseType1: undefined as string | undefined,
+    offenseType2: undefined as string | undefined,
   },
   reducers: {
     offenseCal: (
       state,
       action: PayloadAction<{
-        type1?: string;
-        type2?: string;
+        offenseType1?: string;
+        offenseType2?: string;
       }>
     ) => {
-      const { type1, type2 } = action.payload;
+      const { offenseType1, offenseType2 } = action.payload;
 
       // 각 효과의 수치를 키로 갖는 빈 배열 설정
       type Effectiveness = {
@@ -48,7 +46,7 @@ export const offenseCalSlice = createSlice({
       }
 
       // 아무 타입도 선택하지 않았을 경우
-      if (!type1 && !type2) {
+      if (!offenseType1 && !offenseType2) {
         const allTypesEffectiveness = allTypesX1().reduce((acc: Effectiveness, curr, index) => {
           const key = curr.toString();
           if (acc[key]) {
@@ -59,8 +57,8 @@ export const offenseCalSlice = createSlice({
         state.result = allTypesEffectiveness;
 
         // 한 가지 타입을 선택했을 경우
-      } else if (type1 && !type2) {
-        let typeArr1 = allTypesX1(type1);
+      } else if (offenseType1 && !offenseType2) {
+        let typeArr1 = allTypesX1(offenseType1);
 
         let singleType = typeArr1.reduce((acc: Effectiveness, curr, index) => {
           const key = curr.toString();
@@ -70,12 +68,12 @@ export const offenseCalSlice = createSlice({
           return acc;
         }, effectiveness);
         state.result = singleType;
-        state.type1 = type1;
+        state.offenseType1 = offenseType1;
       }
       // 두 개의 타입을 선택했을 경우
       else {
-        let typeArr1 = allTypesX1(type1);
-        let typeArr2 = allTypesX1(type1 === type2 ? undefined : type2);
+        let typeArr1 = allTypesX1(offenseType1);
+        let typeArr2 = allTypesX1(offenseType1 === offenseType2 ? undefined : offenseType2);
 
         let doubleTypes = typeArr1.map((value: number, index: number) => {
           // 두 개의 타입을 입력했을 경우 두 타입의 TypeValue 배열 중 더 큰 값을 골라서 하나의 배열로 반영,
@@ -101,15 +99,20 @@ export const offenseCalSlice = createSlice({
         });
 
         state.result = effectiveness;
-        state.type1 = type1;
-        state.type2 = type2;
+        state.offenseType1 = offenseType1;
+        state.offenseType2 = offenseType2;
       }
     },
-    setSelectTypes: (state, action: PayloadAction<string[]>) => {
-      state.selectTypes = action.payload;
-    },
+    // setSelectTypes: (state, action: PayloadAction<string[]>) => {
+    //   state.selectTypes = action.payload;
+    // },
+    // setSelectTypes: (state, action: PayloadAction<{ offenseType1: string | undefined; offenseType2: string | undefined }>) => {
+    //   state.selectTypes = [action.payload.offenseType1, action.payload.offenseType2].filter(
+    //     (type): type is string => type !== undefined
+    //   );
+    // },
   },
 });
 
-export const { offenseCal, setSelectTypes } = offenseCalSlice.actions;
+export const { offenseCal } = offenseCalSlice.actions;
 export default offenseCalSlice.reducer;

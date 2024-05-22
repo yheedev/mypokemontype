@@ -3,26 +3,35 @@ import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-import { offenseCal, setSelectTypes } from 'features/offenseCalSlice';
+import { offenseCal } from 'features/offenseCalSlice';
+import { upToTwo } from 'features/upToTwoSlice';
 
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
-  const selectTypes = useSelector((state: RootState) => state.offenseCal.selectTypes) || [];
   const dispatch = useDispatch();
 
-  const upToTwo = (activeType: string, isActive: boolean) => {
-    let offenseCalTypes: string[] = selectTypes.includes(activeType)
-      ? selectTypes.filter(type => type !== activeType)
-      : selectTypes.length >= 2
-      ? [selectTypes[1], activeType]
-      : [...selectTypes, activeType];
+  // const upToTwo = (activeType: string) => {
+  //   let CalTypes: string[] = selectTypes.includes(activeType)
+  //     ? selectTypes.filter(type => type !== activeType)
+  //     : selectTypes.length >= 2
+  //     ? [selectTypes[1], activeType]
+  //     : [...selectTypes, activeType];
 
-    dispatch(setSelectTypes(offenseCalTypes));
-    dispatch(offenseCal({ type1: offenseCalTypes[0] || undefined, type2: offenseCalTypes[1] || undefined }));
+  //   //dispatch(setSelectTypes(CalTypes));
+  //   //dispatch(offenseCal({ type1: CalTypes[0] || undefined, type2: CalTypes[1] || undefined }));
+  //   dispatch(offenseCal({ type1: CalTypes[0], type2: CalTypes[1] }));
 
-    console.log('selectTypes:', selectTypes);
-    console.log('offenseCalTypes:', offenseCalTypes);
+  //   console.log('selectTypes:', selectTypes);
+  //   console.log('CalTypes:', CalTypes);
+  // };
+
+  const { type1, type2 } = useSelector((state: RootState) => state.upToTwo);
+  const activeTypes = [type1, type2].filter(Boolean);
+
+  const upToTwoHandler = (activeType: string) => {
+    dispatch(upToTwo(activeType));
+    dispatch(offenseCal({ type1, type2 }));
   };
 
   return (
@@ -32,9 +41,17 @@ const ContainerTypes = () => {
           key={String(type)}
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
-          onClick={() => upToTwo(type, isActive)}
+          // onClick={() => upToTwo(type)}
+          // onClick={() => {
+          //   if (selectTypes.includes(type)) {
+          //     dispatch(setSelectTypes(selectTypes.filter(t => t !== type)));
+          //   } else {
+          //     upToTwo(type);
+          //   }
+          // }}
+          onClick={() => upToTwoHandler(type)}
           isDarkMode={isDarkMode}
-          isActive={selectTypes.includes(type)}
+          isActive={activeTypes.includes(type)}
         />
       ))}
     </Container>

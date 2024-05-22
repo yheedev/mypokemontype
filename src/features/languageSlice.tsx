@@ -3,10 +3,6 @@ import ko from '../json/ko.json';
 import en from '../json/en.json';
 import jp from '../json/jp.json';
 
-/**NOTE
- *  로컬에서 각 언어로 적용된거 보려면 크롬 시크릿모드로 확인 (쿠키 때문에)
- */
-
 const langs = {
   ko: ko,
   en: en,
@@ -29,7 +25,7 @@ export const languageSlice = createSlice({
   reducers: {
     setLanguage: (state, action: PayloadAction<'ko' | 'en' | 'jp'>) => {
       state.lang = action.payload;
-      state.translations = langs[action.payload] || ko; // default language
+      state.translations = langs[action.payload] || ko;
     },
   },
 });

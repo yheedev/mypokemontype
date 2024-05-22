@@ -17,3 +17,7 @@ export function useToggleTheme() {
 
   return [toggle];
 }
+
+//
+//TODO
+//[ ] useToggleTheme, useThemeEffect 합치기
