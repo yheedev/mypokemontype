@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {} from '@reduxjs/toolkit';
 import { TypeValue, TypeName } from './types';
 
 export type OffenseCalState = {

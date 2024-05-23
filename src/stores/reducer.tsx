@@ -4,12 +4,12 @@ import { persistReducer } from 'redux-persist';
 import { darkModeSlice, DarkModeState } from '../features/darkModeSlice';
 import { offenseCalSlice, OffenseCalState } from '../features/offenseCalSlice';
 import { languageSlice, langState } from '../features/languageSlice';
-import { upToTwoSlice, UpToTwoState } from '../features/upToTwoSlice';
+import { upToTwoSlice, upToTwoState } from '../features/upToTwoSlice';
 
 export type RootState = {
   darkMode: DarkModeState;
   language: langState;
-  upToTwo: UpToTwoState;
+  upToTwo: upToTwoState;
   offenseCal: OffenseCalState;
 };
 

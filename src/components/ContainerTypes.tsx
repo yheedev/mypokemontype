@@ -3,36 +3,67 @@ import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
+import { useLocation } from 'react-router-dom';
 import { offenseCal } from 'features/offenseCalSlice';
 import { upToTwo } from 'features/upToTwoSlice';
+import { useEffect } from 'react';
 
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
+  const selectTypes = useSelector((state: RootState) => state.uptoTwo.selectTypes);
   const dispatch = useDispatch();
+  const location = useLocation();
 
-  // const upToTwo = (activeType: string) => {
-  //   let CalTypes: string[] = selectTypes.includes(activeType)
-  //     ? selectTypes.filter(type => type !== activeType)
-  //     : selectTypes.length >= 2
-  //     ? [selectTypes[1], activeType]
-  //     : [...selectTypes, activeType];
-
-  //   //dispatch(setSelectTypes(CalTypes));
-  //   //dispatch(offenseCal({ type1: CalTypes[0] || undefined, type2: CalTypes[1] || undefined }));
-  //   dispatch(offenseCal({ type1: CalTypes[0], type2: CalTypes[1] }));
-
-  //   console.log('selectTypes:', selectTypes);
-  //   console.log('CalTypes:', CalTypes);
-  // };
-
-  const { type1, type2 } = useSelector((state: RootState) => state.upToTwo);
-  const activeTypes = [type1, type2].filter(Boolean);
-
-  const upToTwoHandler = (activeType: string) => {
-    dispatch(upToTwo(activeType));
-    dispatch(offenseCal({ type1, type2 }));
+  const passTypes = (type: string) => {
+    dispatch(upToTwo(type));
   };
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      let offenseTypes = {};
+
+      // selectTypes의 길이에 따라 offenseTypes 객체를 구성
+      if (selectTypes.length === 1) {
+        offenseTypes = {
+          offenseType1: selectTypes[0],
+          offenseType2: undefined,
+        };
+      } else if (selectTypes.length === 2) {
+        offenseTypes = {
+          offenseType1: selectTypes[0],
+          offenseType2: selectTypes[1],
+        };
+      }
+
+      dispatch(offenseCal(offenseTypes));
+    }
+  }, [selectTypes, dispatch, location.pathname]);
+  // const passTypes = (type: string) => {
+  //   dispatch(upToTwo(type));
+
+  //   if (location.pathname === '/') {
+  //     let offenseTypes = {};
+
+  //     // selectTypes의 길이에 따라 offenseTypes 객체를 구성
+  //     if (selectTypes.length === 1) {
+  //       offenseTypes = {
+  //         offenseType1: selectTypes[0],
+  //         offenseType2: undefined,
+  //       };
+  //     } else if (selectTypes.length === 2) {
+  //       offenseTypes = {
+  //         offenseType1: selectTypes[0],
+  //         offenseType2: selectTypes[1],
+  //       };
+  //     }
+
+  //     dispatch(offenseCal(offenseTypes));
+  //   }
+  //   // else if (location.pathname === '/defense') {
+  //   //   dispatch(defenseCal(type));
+  //   // }
+  // };
 
   return (
     <Container>
@@ -41,17 +72,11 @@ const ContainerTypes = () => {
           key={String(type)}
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
-          // onClick={() => upToTwo(type)}
-          // onClick={() => {
-          //   if (selectTypes.includes(type)) {
-          //     dispatch(setSelectTypes(selectTypes.filter(t => t !== type)));
-          //   } else {
-          //     upToTwo(type);
-          //   }
-          // }}
-          onClick={() => upToTwoHandler(type)}
+          //onClick={() => upToTwo(type)}
+          //onClick={() => dispatch(upToTwo(type))}
+          onClick={() => passTypes(type)}
           isDarkMode={isDarkMode}
-          isActive={activeTypes.includes(type)}
+          isActive={selectTypes.includes(type)}
         />
       ))}
     </Container>

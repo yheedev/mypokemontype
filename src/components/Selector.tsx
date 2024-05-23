@@ -10,8 +10,8 @@ export const Selector = () => {
   //const lang = useSelector((state: RootState) => state.language.lang);
   const darkMode = useSelector((state: RootState) => state.darkMode.theme);
   const translate = useSelector((state: RootState) => state.language.translations);
-  const type1 = useSelector((state: RootState) => state.offenseCal.type1);
-  const type2 = useSelector((state: RootState) => state.offenseCal.type2);
+  const type1 = useSelector((state: RootState) => state.offenseCal.offenseType1);
+  const type2 = useSelector((state: RootState) => state.offenseCal.offenseType2);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export const Selector = () => {
     setInfo(translate.Info[currentMode]);
 
     if (currentMode === 'offense') {
-      const payload = { ...(type1 && { type1 }), ...(type2 && { type2 }) };
+      const payload = { offenseType1: type1, offenseType2: type2 };
       dispatch(offenseCal(payload));
     }
   }, [location.pathname, selectMode, translate.Info, dispatch, type1, type2]);
