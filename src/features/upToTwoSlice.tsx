@@ -26,25 +26,30 @@ export const upToTwoSlice = createSlice({
     //     : [...state.selectTypes, activeType];
 
     //   state.type1 = state.selectTypes[0];
-    //   state.type2 = state.selectTypes[1];a
+    //   state.type2 = state.selectTypes[1];
     // },
 
     upToTwo: (state, action: PayloadAction<string>) => {
       const activeType = action.payload;
-      // A조건문: selectTypes 내 포켓몬 타입의 선택을 해제할 경우
-      if (state.selectTypes.includes(activeType)) {
-        // type1 해제: type2를 type1에 할당
-        if (activeType === state.type1) {
-          state.type1 = state.type2;
-          state.type2 = undefined;
+
+      if (!state.selectTypes.includes(activeType)) {
+        // type1 할당: 포켓몬 타입 1개만 클릭시 type1에 할당
+        if (state.type1 === undefined) {
+          state.type1 = activeType;
         }
-        // type2 해제: type1은 그대로 type1에 stay
-        else if (activeType === state.type2) {
-          state.type2 = undefined;
+        // type2 할당: 포켓몬 타입 1개 더 추가 클릭시 type2 할당
+        else if (state.type2 === undefined) {
+          state.type2 = activeType;
         }
-        // type1, type2 순서대로 혹은 type2, type1 순서대로 일괄 해제해서 selectTypes 배열을 비움
-        state.selectTypes = state.selectTypes.filter(type => type !== activeType);
+        // 3번째 포켓몬 타입 클릭시 type1 해제, type2를 type1에 새로운 요소를 type2에 할당
+        else if (state.selectTypes.length >= 2) {
+          state.selectTypes = [state.type2, activeType];
+          state.type1 = state.selectTypes[0];
+          state.type2 = state.selectTypes[1];
+        }
+        state.selectTypes = [...state.selectTypes, activeType];
       }
+
       // B조건문: 포켓몬 타입 클릭
       else {
         // type1 할당: 포켓몬 타입 1개만 클릭시 type1에 할당
@@ -57,12 +62,52 @@ export const upToTwoSlice = createSlice({
         }
         // 3번째 포켓몬 타입 클릭시 type1 해제, type2를 type1에 새로운 요소를 type2에 할당
         else if (state.selectTypes.length >= 2) {
-          state.type1 = state.type2;
-          state.type2 = activeType;
-          state.selectTypes = [state.type1, state.type2];
+          state.selectTypes = [state.type2, activeType];
+          state.type1 = state.selectTypes[0];
+          state.type2 = state.selectTypes[1];
+          // state.type1 = state.type2;
+          // state.type2 = activeType;
+          //state.selectTypes = [state.type1, state.type2];
         }
         state.selectTypes = [...state.selectTypes, activeType];
       }
+
+      // A조건문: selectTypes 내 포켓몬 타입의 선택을 해제할 경우
+      // if (state.selectTypes.includes(activeType)) {
+      //   // type1 해제: type2를 type1에 할당
+      //   if (activeType === state.type1) {
+      //     state.type1 = state.type2;
+      //     state.type2 = undefined;
+      //   }
+      //   // type2 해제: type1은 그대로 type1에 stay
+      //   else if (activeType === state.type2) {
+      //     state.type2 = undefined;
+      //   }
+      //   // type1, type2 순서대로 혹은 type2, type1 순서대로 일괄 해제해서 selectTypes 배열을 비움
+      //   state.selectTypes = state.selectTypes.filter(type => type !== activeType);
+      // }
+
+      // // B조건문: 포켓몬 타입 클릭
+      // else {
+      //   // type1 할당: 포켓몬 타입 1개만 클릭시 type1에 할당
+      //   if (state.type1 === undefined) {
+      //     state.type1 = activeType;
+      //   }
+      //   // type2 할당: 포켓몬 타입 1개 더 추가 클릭시 type2 할당
+      //   else if (state.type2 === undefined) {
+      //     state.type2 = activeType;
+      //   }
+      //   // 3번째 포켓몬 타입 클릭시 type1 해제, type2를 type1에 새로운 요소를 type2에 할당
+      //   else if (state.selectTypes.length >= 2) {
+      //     state.selectTypes = [state.type2, activeType];
+      //     state.type1 = state.selectTypes[0];
+      //     state.type2 = state.selectTypes[1];
+      //     // state.type1 = state.type2;
+      //     // state.type2 = activeType;
+      //     //state.selectTypes = [state.type1, state.type2];
+      //   }
+      //   state.selectTypes = [...state.selectTypes, activeType];
+      // }
     },
   },
 });

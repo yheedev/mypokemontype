@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
-// import { useMemo } from 'react';
 
 type OffenseResultType = {
   [key: string]: string[];
@@ -13,27 +12,28 @@ const Result = () => {
   const translate = useSelector((state: RootState) => state.language.translations);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const offenseResult = useSelector((state: RootState) => state.offenseCal.result as OffenseResultType);
-  // const { translate, isDarkMode, offenseResult } = useMemo(() => result, [result]);
+
+  const offenseResultArray = Object.entries(offenseResult)
+    .filter(([key, value]) => value.length > 0)
+    .sort(([keyA], [keyB]) => parseFloat(keyB) - parseFloat(keyA));
 
   return (
     <Container>
       <Card>
-        {Object.entries(offenseResult).map(([key, value]) =>
-          value.length > 0 ? (
-            <div key={key}>
-              <h1>{key}배의 데미지</h1>
-              {value.map(type => (
-                <PokemonType
-                  className="pokemon"
-                  key={String(type)}
-                  text={translate.TypeName[type as keyof typeof translate.TypeName]} // Add type annotation
-                  borderColor={`var(--${type})`}
-                  isDarkMode={isDarkMode}
-                />
-              ))}
-            </div>
-          ) : null
-        )}
+        {offenseResultArray.map(([key, value]) => (
+          <div key={key}>
+            <h1 className="resultEffect">{key}배의 데미지</h1>
+            {value.map(type => (
+              <PokemonType
+                className="pokemon"
+                key={String(type)}
+                text={translate.TypeName[type as keyof typeof translate.TypeName]} // Add type annotation
+                borderColor={`var(--${type})`}
+                isDarkMode={isDarkMode}
+              />
+            ))}
+          </div>
+        ))}
       </Card>
     </Container>
   );
@@ -54,6 +54,14 @@ const Card = styled.div`
   background-color: var(--color-card);
   border-radius: 22px;
   padding: 2rem;
+
+  .resultEffect {
+    font-family: 'NotosansKRBold';
+    font-size: 1.25rem;
+    font-weight: 1000;
+    //margin: 7px 0;
+    margin-bottom: 10px;
+  }
 
   .pokemon {
     cursor: default;

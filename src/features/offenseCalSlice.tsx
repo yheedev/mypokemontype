@@ -30,12 +30,12 @@ export const offenseCalSlice = createSlice({
       };
 
       let effectiveness: Effectiveness = {
-        4: [],
-        2: [],
-        1: [],
-        0.5: [],
-        0.25: [],
-        0: [],
+        '4': [],
+        '2': [],
+        '1': [],
+        '0.5': [],
+        '0.25': [],
+        '0': [],
       };
 
       // TypeValue 배열 및 타입을 선택하지 않았을 경우에는 모든 타입에 대한 효과를 1배로 반환
@@ -97,7 +97,9 @@ export const offenseCalSlice = createSlice({
           }
         });
 
+        //state.result = { ...effectiveness };
         state.result = effectiveness;
+        //state.result = sortedEffectiveness;
         state.offenseType1 = offenseType1;
         state.offenseType2 = offenseType2;
       }

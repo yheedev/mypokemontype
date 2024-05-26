@@ -6,7 +6,6 @@ import { RootState } from 'stores/store';
 import { useLocation } from 'react-router-dom';
 import { offenseCal } from 'features/offenseCalSlice';
 import { upToTwo } from 'features/upToTwoSlice';
-import { useEffect } from 'react';
 
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
@@ -17,53 +16,27 @@ const ContainerTypes = () => {
 
   const passTypes = (type: string) => {
     dispatch(upToTwo(type));
-  };
 
-  useEffect(() => {
     if (location.pathname === '/') {
       let offenseTypes = {};
 
       // selectTypes의 길이에 따라 offenseTypes 객체를 구성
-      if (selectTypes.length === 1) {
+      const newSelectTypes = [...selectTypes, type];
+      if (newSelectTypes.length === 1) {
         offenseTypes = {
-          offenseType1: selectTypes[0],
+          offenseType1: newSelectTypes[0],
           offenseType2: undefined,
         };
-      } else if (selectTypes.length === 2) {
+      } else if (newSelectTypes.length === 2) {
         offenseTypes = {
-          offenseType1: selectTypes[0],
-          offenseType2: selectTypes[1],
+          offenseType1: newSelectTypes[0],
+          offenseType2: newSelectTypes[1],
         };
       }
 
       dispatch(offenseCal(offenseTypes));
     }
-  }, [selectTypes, dispatch, location.pathname]);
-  // const passTypes = (type: string) => {
-  //   dispatch(upToTwo(type));
-
-  //   if (location.pathname === '/') {
-  //     let offenseTypes = {};
-
-  //     // selectTypes의 길이에 따라 offenseTypes 객체를 구성
-  //     if (selectTypes.length === 1) {
-  //       offenseTypes = {
-  //         offenseType1: selectTypes[0],
-  //         offenseType2: undefined,
-  //       };
-  //     } else if (selectTypes.length === 2) {
-  //       offenseTypes = {
-  //         offenseType1: selectTypes[0],
-  //         offenseType2: selectTypes[1],
-  //       };
-  //     }
-
-  //     dispatch(offenseCal(offenseTypes));
-  //   }
-  //   // else if (location.pathname === '/defense') {
-  //   //   dispatch(defenseCal(type));
-  //   // }
-  // };
+  };
 
   return (
     <Container>
