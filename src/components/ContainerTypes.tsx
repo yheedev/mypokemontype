@@ -19,6 +19,7 @@ const ContainerTypes = () => {
 
     if (location.pathname === '/') {
       let offenseTypes = {};
+      // just test
 
       // selectTypes의 길이에 따라 offenseTypes 객체를 구성
       const newSelectTypes = [...selectTypes, type];
