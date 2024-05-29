@@ -51,9 +51,9 @@ export const upToTwoSlice = createSlice({
       } else if (!state.selectTypes.includes(activeType)) {
         // 두 개 다 선택했을 경우에! type1 해제: type2 요소를 type1 요소에 할당 시킴
         if (
-          state.type1 === undefined &&
-          state.type2 === activeType &&
-          state.selectTypes.length === 1 &&
+          state.type1 === activeType &&
+          state.type2 !== undefined &&
+          state.selectTypes.length === 2 &&
           state.type1 !== state.type2 // type1: 'ice', type2: 'ice' 가 되지 말라는거임!!
         ) {
           state.type1 = state.selectTypes[1];
