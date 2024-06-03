@@ -3,45 +3,40 @@ import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-// import { useLocation } from 'react-router-dom';
-// import { offenseCal } from 'features/offenseCalSlice';
-import { upToTwoAndOffenseCal } from 'features/upToTwoSlice';
+import { twoToCal } from 'features/upToTwoSlice';
+import { offenseCal } from 'features/offenseCalSlice';
+import { useLocation } from 'react-router-dom';
 
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
   const selectTypes = useSelector((state: RootState) => state.uptoTwo.selectTypes);
   const dispatch = useDispatch();
-  // const location = useLocation();
+  const location = useLocation();
 
-  // const passTypes = (type: string) => {
-  //   dispatch(upToTwo(type));
-  // };
-
-  const passTypes = (type: string) => {
-    dispatch(upToTwoAndOffenseCal(type));
+  const passTypes = async (type: string) => {
+    dispatch(twoToCal(type));
   };
 
-  // if (location.pathname === '/') {
-  //   let offenseTypes = {};
+  if (location.pathname === '/') {
+    let offenseTypes = {};
 
-  //   // selectTypes의 길이에 따라 offenseTypes 객체를 구성
-  //   const newSelectTypes = [...selectTypes, type];
-  //   if (newSelectTypes.length === 1) {
-  //     offenseTypes = {
-  //       offenseType1: newSelectTypes[0],
-  //       offenseType2: undefined,
-  //     };
-  //   } else if (newSelectTypes.length === 2) {
-  //     offenseTypes = {
-  //       offenseType1: newSelectTypes[0],
-  //       offenseType2: newSelectTypes[1],
-  //     };
-  //   }
+    // selectTypes의 길이에 따라 offenseTypes 객체를 구성
+    const newSelectTypes = [...selectTypes, type];
+    if (newSelectTypes.length === 1) {
+      offenseTypes = {
+        offenseType1: newSelectTypes[0],
+        offenseType2: undefined,
+      };
+    } else if (newSelectTypes.length === 2) {
+      offenseTypes = {
+        offenseType1: newSelectTypes[0],
+        offenseType2: newSelectTypes[1],
+      };
+    }
 
-  //   dispatch(offenseCal(offenseTypes));
-  // }
-  // };
+    dispatch(offenseCal(offenseTypes));
+  }
 
   return (
     <Container>

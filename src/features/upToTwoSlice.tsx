@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-// import { AppThunk } from 'stores/store';
-// import { offenseCal } from './offenseCalSlice';
+import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
+import { AppThunk } from 'stores/store';
+import { offenseCal } from './offenseCalSlice';
+import { GetState } from 'redux-thunk';
 
 export type upToTwoState = {
   type1: string | undefined;
@@ -75,60 +76,30 @@ export const upToTwoSlice = createSlice({
     },
   },
 });
-// export const upToTwoAndOffenseCal =
-//   (type: string): AppThunk =>
-//   async (dispatch, getState) => {
-//     // upToTwo 액션을 먼저 디스패치합니다.
-//     dispatch(upToTwo(type));
 
-//     // 현재 상태를 가져옵니다.
-//     const state = getState();
+export const twoToCal =
+  (activeType: string): AppThunk =>
+  async (dispatch: Dispatch, GetState: GetState) => {
+    dispatch(upToTwoSlice.actions.upToTwo(activeType));
+    const state = GetState(); // thunk 기능인 GetState는 리듀서의 모든 현재 상태를 가져와서 state에 할당
+    const { selectTypes } = state.upToTwo; // state에서 selectTypes를 가져와서 selectTypes에 할당
 
-//     // selectTypes의 길이에 따라 offenseTypes 객체를 구성합니다.
-//     const newSelectTypes = [...state.uptoTwo.selectTypes, type];
-//     let offenseTypes = {};
+    if (selectTypes.length > 0) {
+      const offenseType1 = selectTypes[0];
+      const offenseType2 = selectTypes.length > 1 ? selectTypes[1] : undefined;
 
-//     if (newSelectTypes.length === 1) {
-//       offenseTypes = {
-//         offenseType1: newSelectTypes[0],
-//         offenseType2: undefined,
-//       };
-//     } else if (newSelectTypes.length === 2) {
-//       offenseTypes = {
-//         offenseType1: newSelectTypes[0],
-//         offenseType2: newSelectTypes[1],
-//       };
-//     }
+      dispatch(offenseCal({ offenseType1, offenseType2 }));
+    }
+  };
 
-//     // offenseCal 액션을 디스패치합니다.
-//     dispatch(offenseCal());
-//   };
-
-//   }
-//   state.selectTypes = [...state.selectTypes, activeType];
-// }
+export default upToTwoSlice.reducer;
 
 /**
  * TODO
  *
- * [x] A조건문: selectTypes 내 포켓몬 타입의 선택을 해제할 경우
- * [x] type1 해제: type2를 type1에 할당
- * [x] type2 해제: type1은 그대로 type1에 stay
- * [x] type1, type2 순서대로 혹은 type2, type1 순서대로 일괄 해제해서 selectTypes 배열을 비움: selectTypes 빈 배열 유지 및 offenseCal에 아무 인수도 넣지 않고 반환 (offenseCal의 경우 allTypesX1 반환)
- * [ ] payload 악귀퇴치 (type1, type2 해제하고 나면 type1:'grass'가 아닌 payload:'grass'로 나옴)
-
- * [ ] B조건문: 포켓몬 타입 클릭
- * [ ] type1 할당: 포켓몬 타입 1개만 클릭시 type1에 할당
- * [ ] type2 할당: 포켓몬 타입 1개 더 추가 클릭시 type2 할당
- * [ ] 3번째 포켓몬 타입 클릭시 type1 해제, type2를 type1에 새로운 요소를 type2에 할당 (기존 uptotwo 함수 기능)
- *
- * [ ] A조건문, B조건문 둘 다 offenseCal과 defenseCal에 바로 dispatch할 수 있어야 함.
- * 
- * [ ] `/` 경로와 `/defense/ 경로에 따라 offenseCal과 defenseCal에 dispatch할 수 있어야 함.
  * [ ] uptotwo + offenseCal 혹은 uptotwo+defesecal을 dispatch 하고 싶은거임
- * 
+ * [ ] payload 악귀퇴치 (type1, type2 해제하고 나면 type1:'grass'가 아닌 payload:'grass'로 나옴)
+ * [ ] A조건문, B조건문 둘 다 offenseCal과 defenseCal에 바로 dispatch할 수 있어야 함.
+ * [ ] `/` 경로와 `/defense/ 경로에 따라 offenseCal과 defenseCal에 dispatch할 수 있어야 함.
+ * [ ]
  */
-
-export const { upToTwo } = upToTwoSlice.actions;
-
-export default upToTwoSlice.reducer;

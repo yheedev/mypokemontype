@@ -1,4 +1,4 @@
-import { configureStore, PayloadAction, ThunkAction } from '@reduxjs/toolkit';
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { rootReducer, persistedReducer } from './reducer';
 //import { upToTwoState } from '../features/upToTwoSlice';
@@ -22,5 +22,5 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);
-//export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, PayloadAction<string>>;
+// export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<unknown>>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
