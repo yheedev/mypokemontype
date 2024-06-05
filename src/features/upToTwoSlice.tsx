@@ -1,18 +1,20 @@
-import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from 'stores/store';
 import { offenseCal } from './offenseCalSlice';
-import { GetState } from 'redux-thunk';
+// import { ThunkDispatch } from 'redux-thunk';
 
 export type upToTwoState = {
   type1: string | undefined;
   type2: string | undefined;
   selectTypes: string[];
+  activeType: string | undefined;
 };
 
 export const initialState: upToTwoState = {
   type1: undefined,
   type2: undefined,
   selectTypes: [],
+  activeType: undefined,
 };
 
 export const upToTwoSlice = createSlice({
@@ -21,6 +23,7 @@ export const upToTwoSlice = createSlice({
   reducers: {
     upToTwo: (state, action: PayloadAction<string>) => {
       const activeType = action.payload;
+      state.activeType = activeType;
 
       // 🐟 아무 타입도 선택하지 않은 상태
       if (!state.selectTypes.includes(activeType) && state.selectTypes.length === 0 && state.type1 !== state.type2) {
@@ -79,8 +82,9 @@ export const upToTwoSlice = createSlice({
 
 export const twoToCal =
   (activeType: string): AppThunk =>
-  async (dispatch: Dispatch, GetState: GetState) => {
-    dispatch(upToTwoSlice.actions.upToTwo(activeType));
+  async (dispatch, GetState) => {
+    //dispatch(upToTwoSlice.actions.upToTwo(activeType));
+    dispatch(upToTwo(activeType));
     const state = GetState(); // thunk 기능인 GetState는 리듀서의 모든 현재 상태를 가져와서 state에 할당
     const { selectTypes } = state.upToTwo; // state에서 selectTypes를 가져와서 selectTypes에 할당
 
@@ -93,6 +97,7 @@ export const twoToCal =
   };
 
 export default upToTwoSlice.reducer;
+export const { upToTwo } = upToTwoSlice.actions;
 
 /**
  * TODO
@@ -101,5 +106,6 @@ export default upToTwoSlice.reducer;
  * [ ] payload 악귀퇴치 (type1, type2 해제하고 나면 type1:'grass'가 아닌 payload:'grass'로 나옴)
  * [ ] A조건문, B조건문 둘 다 offenseCal과 defenseCal에 바로 dispatch할 수 있어야 함.
  * [ ] `/` 경로와 `/defense/ 경로에 따라 offenseCal과 defenseCal에 dispatch할 수 있어야 함.
- * [ ]
+
+ * [ ] 나중에 type1, type2 없애고 selectTypes[0], selectTypes[1]으로 갈아엎기 (offenseCal과 셀렉터 컴포넌트도 전부 바꿔야)
  */

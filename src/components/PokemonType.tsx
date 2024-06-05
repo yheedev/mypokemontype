@@ -7,8 +7,8 @@ interface Props {
   className?: string;
   text?: string;
   borderColor: string;
-  onClick?: (isActive: boolean) => void;
-  isActive?: boolean; // 버튼 클릭 UI 확인, isActive를 이 props에서만 관리해야 uptotwo 함수가 정상적으로 작동
+  onClick?: (isActive: boolean) => void; // 클릭했을 때에 불리언 값 전달하는 용도 (ContainerTypes의 passTypes에서 사용)
+  isActive?: boolean; // 타입 버튼 클릭 여부를 시각적으로 확인 가능
   isDarkMode: boolean;
   upToTwo?: (type: string) => void; // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
 }

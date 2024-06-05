@@ -21,7 +21,7 @@ export const persistConfig = {
 export const rootReducer = combineReducers({
   darkMode: darkModeSlice.reducer,
   language: languageSlice.reducer,
-  uptoTwo: upToTwoSlice.reducer,
+  upToTwo: upToTwoSlice.reducer,
   offenseCal: offenseCalSlice.reducer,
 });
 
