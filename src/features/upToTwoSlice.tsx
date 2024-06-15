@@ -1,7 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from 'stores/store';
 import { offenseCal } from './offenseCalSlice';
+import { TypeName } from './types';
 // import { ThunkDispatch } from 'redux-thunk';
+
+export type TypeNameElement = (typeof TypeName)[number];
 
 export type upToTwoState = {
   type1: string | undefined;
@@ -80,20 +83,66 @@ export const upToTwoSlice = createSlice({
   },
 });
 
+// export const twoToCal =
+//   (activeType?: (typeof TypeName)[number]): AppThunk =>
+//   async (dispatch, getState) => {
+//     dispatch(offenseCal({ offenseType1: activeType, offenseType2: activeType }));
+//   };
+
+// export const twoToCal =
+//   (type: typeof TypeName): AppThunk =>
+//   async (dispatch, getState) => {
+//     const { selectTypes } = getState().upToTwo;
+//     let newSelectTypes: typeof type = [...selectTypes];
+
+//     if (newSelectTypes.includes(type)) {
+//       newSelectTypes = newSelectTypes.filter(selectType => selectType !== type);
+//     } else if (newSelectTypes.length < 2) {
+//       newSelectTypes.push(type);
+//     } else {
+//       newSelectTypes = [type];
+//     }
+
+//     dispatch(upToTwo(newSelectTypes));
+
+//     // offenseCal action dispatch
+//     const offenseType1 = newSelectTypes[0];
+//     const offenseType2 = newSelectTypes[1];
+//     dispatch(offenseCal({ offenseType1, offenseType2 }));
+//   };
+
+// export const twoToCal =
+//   (activeType?: (typeof TypeName)[number]): AppThunk =>
+//   async (dispatch, getState) => {
+//     dispatch(upToTwo(activeType as string));
+//     const state = getState();
+//     const { selectTypes } = state.upToTwo;
+
+//     if (selectTypes.length > 0) {
+//       const offenseType1 = selectTypes[0];
+//       const offenseType2 = selectTypes.length > 1 ? selectTypes[1] : undefined;
+
+//       dispatch(offenseCal({ offenseType1, offenseType2 }));
+//     }
+//   };
+
 export const twoToCal =
-  (activeType: string): AppThunk =>
-  async (dispatch, GetState) => {
-    //dispatch(upToTwoSlice.actions.upToTwo(activeType));
-    dispatch(upToTwo(activeType));
-    const state = GetState(); // thunk 기능인 GetState는 리듀서의 모든 현재 상태를 가져와서 state에 할당
-    const { selectTypes } = state.upToTwo; // state에서 selectTypes를 가져와서 selectTypes에 할당
+  (type: TypeNameElement): AppThunk =>
+  async (dispatch, getState) => {
+    // const { selectTypes } = getState().upToTwo;
 
-    if (selectTypes.length > 0) {
-      const offenseType1 = selectTypes[0];
-      const offenseType2 = selectTypes.length > 1 ? selectTypes[1] : undefined;
+    // if (selectTypes.includes(type)) {
+    //   dispatch(upToTwo(type));
+    // } else if (selectTypes.length < 2) {
+    //   dispatch(upToTwo([...selectTypes, type]));
+    // } else {
+    //   dispatch(upToTwo(type));
+    // }
 
-      dispatch(offenseCal({ offenseType1, offenseType2 }));
-    }
+    // offenseCal action dispatch
+    const offenseType1 = getState().upToTwo.selectTypes[0];
+    const offenseType2 = getState().upToTwo.selectTypes[1];
+    dispatch(offenseCal({ offenseType1, offenseType2 }));
   };
 
 export default upToTwoSlice.reducer;
