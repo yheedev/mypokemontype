@@ -5,13 +5,14 @@ import { darkModeSlice, DarkModeState } from '../features/darkModeSlice';
 import { offenseCalSlice, OffenseCalState } from '../features/offenseCalSlice';
 import { languageSlice, langState } from '../features/languageSlice';
 import { upToTwoSlice, upToTwoState } from '../features/upToTwoSlice';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
 
 export type RootState = {
   darkMode: DarkModeState;
   language: langState;
   upToTwo: upToTwoState;
   offenseCal: OffenseCalState;
-};
+} & PersistPartial;
 
 export const persistConfig = {
   key: 'root',

@@ -4,7 +4,7 @@ import { TypeName } from 'features/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'stores/store';
 import { twoToCal } from 'features/upToTwoSlice';
-import { UnknownAction } from '@reduxjs/toolkit';
+//import { UnknownAction } from '@reduxjs/toolkit';
 //import { UnknownAction } from '@reduxjs/toolkit';
 //import { offenseCal } from 'features/offenseCalSlice';
 //import { useLocation } from 'react-router-dom';
@@ -24,11 +24,11 @@ const ContainerTypes = () => {
   //   dispatch(twoToCal(type));
   // };
 
-  const passTypes = (type: (typeof TypeName)[number]) => {
-    console.log(`Clicked: ${type}`);
-    const action = twoToCal(type);
-    dispatch(action as unknown as UnknownAction);
-  };
+  // const passTypes = (type: (typeof TypeName)[number]) => {
+  //   console.log(`Clicked: ${type}`);
+  //   const action = twoToCal(type);
+  //   dispatch(action as unknown as UnknownAction);
+  // };
 
   // NOTE
   //
@@ -80,7 +80,8 @@ const ContainerTypes = () => {
           //onClick={() => dispatch(upToTwo(type))}
           onClick={() => {
             //console.log(`Clicked: ${type}`);
-            passTypes(type);
+            //passTypes(type);
+            twoToCal(type);
           }}
           //onClick={() => dispatch(twoToCal(type) as unknown as UnknownAction)}
           isDarkMode={isDarkMode}
