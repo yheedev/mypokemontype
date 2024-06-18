@@ -88,15 +88,19 @@ export const twoToCal = createAsyncThunk<void, string, { dispatch: AppDispatch; 
     const dispatch = thunkAPI.dispatch;
 
     dispatch(upToTwo(type)); // 1. upToTwo 동작
-    const activeTypes = (thunkAPI.getState().upToTwo as upToTwoState).selectTypes; // 2. upToTwo 의 activeType 받아옴
+    //const activeTypes = (thunkAPI.getState().upToTwo as upToTwoState).selectTypes; // 2. upToTwo 의 activeType 받아옴
+    const selectTypes = (thunkAPI.getState().upToTwo as upToTwoState).selectTypes; // 2. upToTwo 의 selectTypes 받아옴
 
-    activeTypes.forEach(activeType => {
-      dispatch(offenseCal({ offenseType1: activeType }));
+    selectTypes.forEach((activeType, index) => {
+      dispatch(
+        offenseCal({
+          // offenseType1: (selectTypes[0] && activeType) || undefined,
+          // offenseType2: (selectTypes[1] && activeType) || undefined,
+          offenseType1: index === 0 ? activeType : undefined,
+          offenseType2: index === 1 ? activeType : undefined,
+        })
+      );
     }); // 3. activeType을 offenseCal의 인수로 넘겨줌
-
-    // if (activeType) {
-    //   dispatch(offenseCal({ offenseType1: activeType }));
-    // }
   }
 );
 

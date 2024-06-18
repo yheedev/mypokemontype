@@ -1,54 +1,24 @@
 import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from 'stores/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from 'stores/store';
 import { twoToCal } from 'features/upToTwoSlice';
-//import { UnknownAction } from '@reduxjs/toolkit';
-//import { UnknownAction } from '@reduxjs/toolkit';
 //import { offenseCal } from 'features/offenseCalSlice';
 //import { useLocation } from 'react-router-dom';
 
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
-  const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
-  const dispatch = useDispatch();
+  //const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
+  const activeType = useSelector((state: RootState) => state.upToTwo.activeType) ?? [];
+  //const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   //const location = useLocation();
-
-  // const passTypes = (type: (typeof TypeName)[number]) => {
-  //   twoToCal(type)(dispatch);
-  // };
-
-  // const passTypes = (type: (typeof TypeName)[number]) => {
-  //   dispatch(twoToCal(type));
-  // };
-
-  // const passTypes = (type: (typeof TypeName)[number]) => {
-  //   console.log(`Clicked: ${type}`);
-  //   const action = twoToCal(type);
-  //   dispatch(action as unknown as UnknownAction);
-  // };
 
   // NOTE
   //
-
-  // const passTypes = (type: (typeof TypeName)[number]) => {
-  //   return (dispatch: any, getState: () => RootState) => {
-  //     const state = getState();
-  //     const selectTypes = state.upToTwo.selectTypes;
-
-  //     // Dispatch upToTwo with the updated types
-  //     dispatch(upToTwo([...selectTypes, type]));
-
-  //     // Get the updated state
-  //     const updatedState = getState();
-  //     const updatedSelectTypes = updatedState.upToTwo.selectTypes;
-
-  //     // Dispatch offenseCal with the updated types
-  //     dispatch(offenseCal({ offenseType1: updatedSelectTypes[0], offenseType2: updatedSelectTypes[1] }));
-  //   };
-  // };
+  //
 
   // if (location.pathname === '/') {
   //   let offenseTypes = {};
@@ -69,7 +39,7 @@ const ContainerTypes = () => {
 
   //   dispatch(offenseCal(offenseTypes));
   // }
-
+  console.log(activeType);
   return (
     <Container>
       {TypeName.map((type: (typeof TypeName)[number]) => (
@@ -80,12 +50,11 @@ const ContainerTypes = () => {
           //onClick={() => dispatch(upToTwo(type))}
           onClick={() => {
             //console.log(`Clicked: ${type}`);
-            //passTypes(type);
-            twoToCal(type);
+            dispatch(twoToCal(type));
           }}
-          //onClick={() => dispatch(twoToCal(type) as unknown as UnknownAction)}
           isDarkMode={isDarkMode}
-          isActive={selectTypes.includes(type)}
+          //isActive={activeType.includes(type)}
+          isActive={activeType === type}
         />
       ))}
     </Container>
