@@ -23,6 +23,4 @@ function Root() {
     </React.StrictMode>
   );
 }
-// root.render(
-// );
 root.render(<Root />);
