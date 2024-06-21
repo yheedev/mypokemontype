@@ -10,7 +10,7 @@ import { twoToCal } from 'features/upToTwoSlice';
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
-  //const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
+  const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
   const activeType = useSelector((state: RootState) => state.upToTwo.activeType) ?? [];
   //const dispatch = useDispatch();
   const dispatch = useDispatch<AppDispatch>();
@@ -48,9 +48,12 @@ const ContainerTypes = () => {
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
           //onClick={() => dispatch(upToTwo(type))}
+          // onClick={() => {
+          //   //console.log(`Clicked: ${type}`);
+          //   dispatch(twoToCal(type));
+          // }}
           onClick={() => {
-            //console.log(`Clicked: ${type}`);
-            dispatch(twoToCal(type));
+            dispatch(twoToCal(selectTypes));
           }}
           isDarkMode={isDarkMode}
           //isActive={activeType.includes(type)}
