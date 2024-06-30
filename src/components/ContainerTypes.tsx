@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from 'stores/store';
-import { twoToCal } from 'features/upToTwoSlice';
+import { RootState } from 'stores/store';
+import { upToTwo } from 'features/upToTwoSlice';
 //import { offenseCal } from 'features/offenseCalSlice';
 //import { useLocation } from 'react-router-dom';
 
@@ -12,13 +12,8 @@ const ContainerTypes = () => {
   const translate = useSelector((state: RootState) => state.language.translations);
   const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
   const activeType = useSelector((state: RootState) => state.upToTwo.activeType) ?? [];
-  //const dispatch = useDispatch();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   //const location = useLocation();
-
-  // NOTE
-  //
-  //
 
   // if (location.pathname === '/') {
   //   let offenseTypes = {};
@@ -39,7 +34,7 @@ const ContainerTypes = () => {
 
   //   dispatch(offenseCal(offenseTypes));
   // }
-  console.log(activeType);
+  //console.log(activeType);
   return (
     <Container>
       {TypeName.map((type: (typeof TypeName)[number]) => (
@@ -47,16 +42,12 @@ const ContainerTypes = () => {
           key={String(type)}
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
-          //onClick={() => dispatch(upToTwo(type))}
-          // onClick={() => {
-          //   //console.log(`Clicked: ${type}`);
-          //   dispatch(twoToCal(type));
-          // }}
           onClick={() => {
-            dispatch(twoToCal(selectTypes));
+            console.log(`Clicked: ${type}`);
+            dispatch(upToTwo(selectTypes));
           }}
           isDarkMode={isDarkMode}
-          //isActive={activeType.includes(type)}
+          //isActive={selectTypes.includes(type)}
           isActive={activeType === type}
         />
       ))}

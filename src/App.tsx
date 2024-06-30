@@ -19,7 +19,7 @@ export function App() {
     <>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<Offense />} />
+        <Route path="/*" element={<Offense />} />
         <Route path="/Defense" element={<Defense />} />
         <Route path="/More" element={<More />} />
       </Routes>

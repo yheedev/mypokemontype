@@ -58,12 +58,7 @@ export const Selector = () => {
             >
               <span className="OptionText OffenseText">{translate.Mode.offense}</span>
             </OptionOffense>
-            <OptionDefense
-              className="Defense"
-              $selectedMode={mode === 'defense'}
-              onClick={() => selectorCals('defense')}
-              $darkMode={darkMode}
-            >
+            <OptionDefense className="Defense" $selectedMode={mode === 'defense'} onClick={() => selectorCals('defense')} $darkMode={darkMode}>
               <span className="OptionText DefenseText">{translate.Mode.defense}</span>
             </OptionDefense>
           </div>

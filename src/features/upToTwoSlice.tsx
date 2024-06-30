@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppDispatch, RootState } from 'stores/store';
-import { offenseCal } from './offenseCalSlice';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+//import { AppDispatch, RootState } from 'stores/store';
+//import { offenseCal } from './offenseCalSlice';
 import { TypeName } from './types';
 
 export type TypeNameElement = (typeof TypeName)[number];
@@ -19,18 +19,20 @@ export const upToTwoSlice = createSlice({
   name: 'upToTwo',
   initialState,
   reducers: {
-    upToTwo: (state, action: PayloadAction<string>) => {
+    upToTwo: (state, action: PayloadAction<string | string[]>) => {
       const activeType = action.payload;
-      state.activeType = activeType;
+      //state.activeType = activeType;
       // 아무 타입도 선택하지 않은 상태에서는 첫 번째 타입을 선택할 때 activeType을 selectTypes 배열에 추가
 
       // 🐟 아무 타입도 선택하지 않은 상태 (length 0 && selectTypes[0]과 selectTypes[1]이 같지 않음)
-      if (!state.selectTypes.includes(activeType) && state.selectTypes.length === 0 && state.selectTypes[0] !== state.selectTypes[1]) {
+      if (state.selectTypes.length === 0 && state.selectTypes[0] !== state.selectTypes[1]) {
         // 아무 것도 선택하지 않은 상태 => 타입 1개를 클릭하면 selecetType[0]에 할당
-        if (state.selectTypes[0] === undefined && state.selectTypes[1] === undefined) {
-          state.selectTypes.push(activeType);
-          // createSlice 내부의 Immer 라이브러리를 통해 직접 `.push` 를 사용해도 불변성 유지 가능.
-        }
+        // if (state.selectTypes[0] === undefined && state.selectTypes[1] === undefined) {
+        state.selectTypes = [activeType, ...state.selectTypes.slice(1)];
+        // state.selectTypes.push(activeType);
+        // selectTypes[0] === undefined 에서 `state.selectTypes.push(activeType);` 실행하면 selectTypes[0] === activeType 할당
+        // createSlice 내부의 Immer 라이브러리를 통해 직접 `.push` 를 사용해도 불변성 유지 가능.
+        // }
 
         // 🐟 1개의 타입만 선택한 상태 (length 1 && selectTypes[0]과 selectTypes[1]이 같지 않음)
       } else if (
@@ -43,15 +45,16 @@ export const upToTwoSlice = createSlice({
           // selectTypes[0]만 선택한 상태 => selectTypes[0]을 다시 클릭하면 selectTypes[0]을 해제
           state.selectTypes = state.selectTypes.filter(type => type !== activeType);
         }
-      // type1을 선택한 상태에서 type2를 선택하기: type2 할당
+      // selectTypes[0]만 선택한 상태 => selectTypes[1]을 선택 (조건은 length===1, 결과는 length===2)
       if (state.selectTypes[0] === activeType && state.selectTypes[1] === undefined) {
         state.selectTypes[1] = activeType;
-        // state.selectTypes.push(activeType);
+        //state.selectTypes.push(activeType);
+        // selectTypes[0] === activeType 에서 `state.selectTypes.push(activeType);` 실행하면 selectTypes[1] === activeType 할당
 
         // 🐟 2개 타입을 다 선택한 상태
       } else if (state.selectTypes.includes(activeType) && state.selectTypes.length === 2 && state.selectTypes[0] !== state.selectTypes[1])
         if (state.selectTypes[0] === undefined && state.selectTypes[1] === activeType) {
-          // type1, type2 모두 클릭한 상태에서 type1 클릭 해제: type2 요소를 type1 요소에 할당
+          // selectTypes[0], selectTypes[1] 모두 activeType인 상태에서 selectTypes[0]가 activeType 상태 해제: selectTypes[1]를 selectTypes[] 요소에 할당
           state.selectTypes[0] = state.selectTypes[1] && state.selectTypes[1];
           //state.selectTypes[1] = undefined;
         }
@@ -71,31 +74,33 @@ export const upToTwoSlice = createSlice({
 // TODO
 // [ ] twoToCal 내부 if문을 바탕으로 upToTwo if문 덩치 줄이기
 
-export const twoToCal = createAsyncThunk<void, string, { dispatch: AppDispatch; state: RootState }>('upToTwo/twoToCal', async (_, thunkAPI) => {
-  const dispatch = thunkAPI.dispatch;
-  //dispatch(upToTwo(type)); // 1. upToTwo 동작
-  //const activeTypes = (thunkAPI.getState().upToTwo as upToTwoState).selectTypes; // 2. upToTwo 의 activeType 받아옴
-  const selectTypes = (thunkAPI.getState().upToTwo as upToTwoState).selectTypes; // 2. upToTwo 의 selectTypes 받아옴
+// export const twoToCal = createAsyncThunk<void, string[], { dispatch: AppDispatch; state: RootState }>('upToTwo/twoToCal', async (_, thunkAPI) => {
+//   const dispatch = thunkAPI.dispatch;
+//   //dispatch(upToTwo(type)); // 1. upToTwo 동작
+//   //const activeTypes = (thunkAPI.getState().upToTwo as upToTwoState).selectTypes; // 2. upToTwo 의 activeType 받아옴
+//   //const selectTypes = (thunkAPI.getState().upToTwo as upToTwoState).selectTypes; // 2. upToTwo 의 selectTypes 받아옴
+//   const state = thunkAPI.getState().upToTwo as upToTwoState; // upToTwo 상태 전체를 가져옴
+//   const { selectTypes, activeType } = state;
 
-  if (selectTypes.length > 0) {
-    dispatch(
-      offenseCal({
-        offenseType1: selectTypes[0] ?? undefined,
-        offenseType2: selectTypes[1] ?? undefined,
-      })
-    );
-  }
-  // selectTypes.forEach((activeType, index) => {
-  //   dispatch(
-  //     offenseCal({
-  //       // offenseType1: (selectTypes[0] && activeType) || undefined,
-  //       // offenseType2: (selectTypes[1] && activeType) || undefined
-  //       offenseType1: index === 0 ? activeType : undefined,
-  //       offenseType2: index === 1 ? activeType : undefined,
-  //     })
-  //   );
-  // }); // 3. activeType을 offenseCal의 인수로 넘겨줌
-});
+//   if (selectTypes.length > 0) {
+//     dispatch(
+//       offenseCal({
+//         offenseType1: activeType ?? undefined,
+//         offenseType2: activeType ?? undefined,
+//       })
+//     );
+//   }
+// selectTypes.forEach((activeType, index) => {
+//   dispatch(
+//     offenseCal({
+//       // offenseType1: (selectTypes[0] && activeType) || undefined,
+//       // offenseType2: (selectTypes[1] && activeType) || undefined
+//       offenseType1: index === 0 ? activeType : undefined,
+//       offenseType2: index === 1 ? activeType : undefined,
+//     })
+//   );
+// }); // 3. activeType을 offenseCal의 인수로 넘겨줌
+// });
 
 export default upToTwoSlice.reducer;
 export const { upToTwo } = upToTwoSlice.actions;
