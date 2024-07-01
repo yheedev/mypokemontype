@@ -3,7 +3,7 @@ import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-import { upToTwo } from 'features/upToTwoSlice';
+import { upToTwo, remove, add } from 'features/upToTwoSlice';
 //import { offenseCal } from 'features/offenseCalSlice';
 //import { useLocation } from 'react-router-dom';
 
@@ -11,8 +11,8 @@ const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
   const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
-  const activeType = useSelector((state: RootState) => state.upToTwo.activeType) ?? [];
   const dispatch = useDispatch();
+  const activeType = useSelector((state: RootState) => state.upToTwo.activeType);
   //const location = useLocation();
 
   // if (location.pathname === '/') {
@@ -34,7 +34,21 @@ const ContainerTypes = () => {
 
   //   dispatch(offenseCal(offenseTypes));
   // }
-  //console.log(activeType);
+
+  const handleTypeClick = (type: string) => {
+    console.log(`Clicked: ${type}`);
+    console.log(selectTypes);
+
+    // selectTypes 배열에 현재 클릭된 타입이 존재하는지 확인
+    if (selectTypes.includes(type)) {
+      // 이미 존재한다면, remove 액션 디스패치
+      dispatch(upToTwo.remove(type));
+    } else {
+      // 존재하지 않는다면, add 액션 디스패치
+      dispatch(upToTwo.add(type));
+    }
+  };
+
   return (
     <Container>
       {TypeName.map((type: (typeof TypeName)[number]) => (
@@ -44,11 +58,13 @@ const ContainerTypes = () => {
           borderColor={`var(--${type})`}
           onClick={() => {
             console.log(`Clicked: ${type}`);
-            dispatch(upToTwo(selectTypes));
+            console.log(selectTypes);
+            // dispatch(upToTwo(type));
+            handleTypeClick(type);
           }}
           isDarkMode={isDarkMode}
-          //isActive={selectTypes.includes(type)}
-          isActive={activeType === type}
+          isActive={activeType.includes(type)}
+          //isActive={activeType === type}
         />
       ))}
     </Container>
