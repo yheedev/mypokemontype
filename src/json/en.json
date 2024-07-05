@@ -26,5 +26,13 @@
   "Info": {
     "offense": "Get the type your chosen type will attack effectively.",
     "defense": "Get the type your chosen type will defend effectively."
+  },
+  "Result": {
+    "4": "4× Damage",
+    "2": "2× Damage",
+    "1": "1× Damage",
+    "0.5": "½× Damage",
+    "0.25": "¼× Damage",
+    "0": "0× Damage"
   }
 }

@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
+import { Container } from './ContainerTypes';
 
 type OffenseResultType = {
   [key: string]: string[];
@@ -18,54 +19,66 @@ const Result = () => {
     .sort(([keyA], [keyB]) => parseFloat(keyB) - parseFloat(keyA));
 
   return (
-    <Container>
-      <Card>
+    <ResultContainer>
+      <ResultCard>
         {offenseResultArray.map(([key, value]) => (
           <div key={key}>
             <h1 className="resultEffect">{key}배의 데미지</h1>
-            {value.map(type => (
-              <PokemonType
-                className="pokemon"
-                key={String(type)}
-                text={translate.TypeName[type as keyof typeof translate.TypeName]} // Add type annotation
-                borderColor={`var(--${type})`}
-                isDarkMode={isDarkMode}
-              />
-            ))}
+            <Hr />
+            <PokemonContainer>
+              {value.map(type => (
+                <PokemonType
+                  className="pokemon"
+                  key={String(type)}
+                  text={translate.TypeName[type as keyof typeof translate.TypeName]} // Add type annotation
+                  borderColor={`var(--${type})`}
+                  isDarkMode={isDarkMode}
+                />
+              ))}
+            </PokemonContainer>
           </div>
         ))}
-      </Card>
-    </Container>
+      </ResultCard>
+    </ResultContainer>
   );
 };
 
 export default Result;
 
-const Container = styled.div`
-  display: flex;
+const ResultContainer = styled.div`
+  /* display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1rem; */
   color: var(--color-text);
 `;
 
-const Card = styled.div`
+const ResultCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--color-card);
   border-radius: 22px;
-  padding: 2rem;
+  padding: 2rem 2rem 0 2rem;
 
   .resultEffect {
     font-family: 'NotosansKRBold';
     font-size: 1.25rem;
     font-weight: 1000;
-    //margin: 7px 0;
-    margin-bottom: 10px;
+    //margin-bottom: 10px;
   }
 
   .pokemon {
     cursor: default;
+    margin-bottom: 1rem;
   }
+`;
+
+const PokemonContainer = styled(Container)`
+  margin: 2rem 0;
+`;
+
+const Hr = styled.hr`
+  border: 1px solid var(--color-border);
+  margin: 1.5rem 0;
 `;
 
 // export function TypeCalculator() {

@@ -3,8 +3,9 @@ import { PokemonType } from './PokemonType';
 import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-import { upToTwo, remove, add } from 'features/upToTwoSlice';
-//import { offenseCal } from 'features/offenseCalSlice';
+import { add, remove } from 'features/upToTwoSlice';
+import { useEffect } from 'react';
+import { offenseCal } from 'features/offenseCalSlice';
 //import { useLocation } from 'react-router-dom';
 
 const ContainerTypes = () => {
@@ -35,19 +36,20 @@ const ContainerTypes = () => {
   //   dispatch(offenseCal(offenseTypes));
   // }
 
-  const handleTypeClick = (type: string) => {
-    console.log(`Clicked: ${type}`);
-    console.log(selectTypes);
-
-    // selectTypes 배열에 현재 클릭된 타입이 존재하는지 확인
+  const upToTwoAction = (type: string) => {
     if (selectTypes.includes(type)) {
-      // 이미 존재한다면, remove 액션 디스패치
-      dispatch(upToTwo.remove(type));
+      dispatch(remove(type));
     } else {
-      // 존재하지 않는다면, add 액션 디스패치
-      dispatch(upToTwo.add(type));
+      dispatch(add(type));
     }
   };
+
+  useEffect(() => {
+    // selectTypes 배열이 변경될 때마다 offenseCal 액션을 호출합니다.
+    if (selectTypes.length > 0) {
+      dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] }));
+    }
+  }, [selectTypes, dispatch]);
 
   return (
     <Container>
@@ -59,8 +61,8 @@ const ContainerTypes = () => {
           onClick={() => {
             console.log(`Clicked: ${type}`);
             console.log(selectTypes);
-            // dispatch(upToTwo(type));
-            handleTypeClick(type);
+            //dispatch(upToTwo(type));
+            upToTwoAction(type);
           }}
           isDarkMode={isDarkMode}
           isActive={activeType.includes(type)}
@@ -71,12 +73,12 @@ const ContainerTypes = () => {
   );
 };
 
-const Container = styled.div`
+export const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
   align-items: center;
-  margin: 2rem 1rem;
-  gap: 0.7rem 1.3rem;
+  margin: 2rem 2rem;
+  gap: 0.7rem 1rem;
   justify-items: center;
 
   @media (max-width: 767px) {

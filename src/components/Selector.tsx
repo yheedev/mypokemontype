@@ -52,7 +52,6 @@ export const Selector = () => {
               $selectedMode={mode === 'offense'}
               onClick={() => {
                 selectorCals('offense');
-                // dispatch(offenseCal({ type1, type2 }));
               }}
               $darkMode={darkMode}
             >
@@ -94,7 +93,7 @@ const Card = styled.div`
     font-size: 1.5rem;
     font-weight: 1000;
     font-family: 'NotoSansBlack';
-    margin: 1.3rem 1rem;
+    margin: 1.3rem 2rem;
 
     @media (min-width: 280px) and (max-width: 767px) {
       margin: 0.7rem 0.7rem;
@@ -149,7 +148,7 @@ const Card = styled.div`
   .InfoContainer {
     padding: 0 1.56rem 1.25rem;
     border-bottom: 2px solid var(--color-border);
-    margin: 1rem 1rem;
+    margin: 2rem 2rem;
 
     @media (min-width: 280px) and (max-width: 767px) {
       padding: 0.625rem 0px 1.25rem;
