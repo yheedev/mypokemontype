@@ -1,9 +1,17 @@
-function More() {
+import Title from '../components/Title';
+import DarkModeBtn from 'components/DarkModeBtn';
+import { Container, Card } from '../components/Selector';
+
+export const More = () => {
   return (
     <>
-      <h1>More.tsx</h1>
+      <Title />
+      <Container>
+        <Card />
+      </Container>
+      <DarkModeBtn />
     </>
   );
-}
+};
 
 export default More;

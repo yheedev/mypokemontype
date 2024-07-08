@@ -4,28 +4,29 @@ import en from '../json/en.json';
 import jp from '../json/jp.json';
 
 const langs = {
-  ko: ko,
   en: en,
+  ko: ko,
+
   jp: jp,
 };
 
 export interface langState {
-  lang: 'ko' | 'en' | 'jp';
+  lang: 'en' | 'ko' | 'jp';
   translations: typeof ko;
 }
 
 export const initialState: langState = {
-  lang: 'ko', // default language
-  translations: ko,
+  lang: 'en', // default language
+  translations: en,
 };
 
 export const languageSlice = createSlice({
   name: 'language',
   initialState,
   reducers: {
-    setLanguage: (state, action: PayloadAction<'ko' | 'en' | 'jp'>) => {
+    setLanguage: (state, action: PayloadAction<'en' | 'ko' | 'jp'>) => {
       state.lang = action.payload;
-      state.translations = langs[action.payload] || ko;
+      state.translations = langs[action.payload] || 'en';
     },
   },
 });

@@ -13,7 +13,14 @@ interface Props {
   upToTwo?: (type: string) => void; // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
 }
 
-const PokemonType = ({ text, borderColor, onClick, upToTwo, isDarkMode, isActive }: Props) => {
+const PokemonType = ({
+  text,
+  borderColor,
+  onClick,
+  upToTwo,
+  isDarkMode,
+  isActive,
+}: Props) => {
   const handleClick = () => {
     onClick && onClick(!isActive);
     text && upToTwo && upToTwo(text);
@@ -21,7 +28,9 @@ const PokemonType = ({ text, borderColor, onClick, upToTwo, isDarkMode, isActive
 
   return (
     <Type
-      className={`pill ${isActive ? 'active' : ''}  ${isDarkMode ? 'shadow-btn' : 'shadow-bl'}`}
+      className={`pill ${isActive ? 'active' : ''}  ${
+        isDarkMode ? 'shadow-btn' : 'shadow-bl'
+      }`}
       borderColor={borderColor}
       onClick={handleClick}
       isDarkMode={isDarkMode}
@@ -40,14 +49,16 @@ const Type = styled.button.withConfig({
   height: 3rem;
   color: var(--color-background);
   border-radius: 30px;
-  background-color: ${({ borderColor, isActive }) => (isActive ? borderColor : 'var(--color-card)')};
+  background-color: ${({ borderColor, isActive }) =>
+    isActive ? borderColor : 'var(--color-card)'};
 
   .TypeText {
     font-family: 'NotoSansBlack';
     font-size: 1rem;
     letter-spacing: 4px;
     padding-top: 0.5rem;
-    color: ${({ isDarkMode, isActive }) => (isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)')};
+    color: ${({ isDarkMode, isActive }) =>
+      isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)'};
   }
 
   @media (min-width: 768px) and (min-width: 1023px) {

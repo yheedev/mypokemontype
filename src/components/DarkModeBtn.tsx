@@ -48,11 +48,6 @@ const Btn = styled.div`
 
 const BtnContainer = styled.button`
   transform: translateY(-10%);
-  /**
-  TODO
-  [ ] 모바일에서는 셀렉터 -> 결과 -> 버튼 순서로 버튼이 가장 하단에 내려가게 만들기
-  [ ] 타블렛에서는 화면의 가장 좌측 하단에 고정되게 만들기
-  */
   margin-left: -3rem;
   position: absolute;
   background: none;
@@ -60,14 +55,14 @@ const BtnContainer = styled.button`
   left: 1rem;
 `;
 
-const toggleStyles = css`
+export const toggleStyles = css`
   fill: var(--color-toggle);
   position: relative;
   width: 12rem;
   height: 6.1rem;
 `;
 
-const iconStyles = css`
+export const iconStyles = css`
   width: 1.5rem;
   height: 1.5rem;
   position: absolute;

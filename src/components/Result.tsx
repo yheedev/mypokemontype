@@ -12,7 +12,9 @@ const Result = () => {
   // const theme = useSelector((state: RootState) => state.darkMode.theme);
   const translate = useSelector((state: RootState) => state.language.translations);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
-  const offenseResult = useSelector((state: RootState) => state.offenseCal.result as OffenseResultType);
+  const offenseResult = useSelector(
+    (state: RootState) => state.offenseCal.result as OffenseResultType
+  );
 
   const offenseResultArray = Object.entries(offenseResult)
     .filter(([key, value]) => value.length > 0)
@@ -141,19 +143,3 @@ const Hr = styled.hr`
 //     </div>
 //   );
 // }
-
-/**
- * TODO
- * 
- * [ ] 기본적으로 항상 1배의 데미지로 모든 타입이 보임 > 결과 카드 만들기
- * [ ] pill 마다 어떻게 포켓몬 타입 넣을지 고민
- * [ ] 타입 중에서는 최소 1개, 최대 2개의 타입까지 누를 수 있음 (셀렉터에서 처리?)
- * [x] 두 개의 타입을 누른 다음에 세 번째 타입을 누르면 맨 처음에 누른 타입의 선택이 해제되면서 두 개의 타입까지만 클릭할 수 있게 함
- * [ ] 배열 내의 더한 숫자(타입) 어떻게 결과에 전달할지?
-[ ] 그 결과를 각각의 타입 컴포넌트에 어떻게 전달할지
-[ ] 만약 4배의 데미지가 없으면 아예 설명도 생략하게 조건문
-[ ] 그리고 4배가 없으면 2배에 불 아이콘이 가도록 조건문
- * [ ] result 렌더링
- * [ ] result 스타일링
- * 
- */
