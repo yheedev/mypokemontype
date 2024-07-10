@@ -2,35 +2,46 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type upToTwoState = {
   selectTypes: string[];
-  activeType: string;
+  //activeType: string;
 };
 
 export const initialState: upToTwoState = {
   selectTypes: [],
-  activeType: '',
+  //activeType: '',
 };
 
 export const upToTwoSlice = createSlice({
   name: 'upToTwo',
   initialState,
   reducers: {
-    add(state, action: PayloadAction<string>) {
+    add(state, action: PayloadAction<any>) {
       const type = action.payload;
-      const index = state.selectTypes.indexOf(type);
-      if (index === -1) {
-        if (state.selectTypes.length < 2) {
-          state.selectTypes.push(type);
-        } else {
-          state.selectTypes.shift();
-          state.selectTypes.push(type);
-        }
+      //const selectType = state.selectTypes;
+      if (state.selectTypes.length < 2) {
+        // selectTypes 배열의 길이가 2 미만이면, 새로운 타입을 배열에 추가
+        state.selectTypes.push(type);
+      } else {
+        // selectTypes 배열의 길이가 2 이상이면, 배열의 첫 번째 요소를 제거하고 새로운 타입을 배열에 추가
+        state.selectTypes.shift();
+        state.selectTypes.push(type);
       }
-      state.activeType = type;
+
+      // const index = state.selectTypes.indexOf(type);
+      // if (index === -1) {
+      //   if (state.selectTypes.length < 2) {
+      //     state.selectTypes.push(type);
+      //   } else {
+      //     state.selectTypes.shift();
+      //     state.selectTypes.push(type);
+      //   }
+      // }
+      // 인덱스 쓰지말고 구현
     },
-    remove(state, action: PayloadAction<string>) {
-      state.selectTypes = state.selectTypes.filter(type => type !== action.payload);
-      if (state.activeType === action.payload) {
-        state.activeType = state.selectTypes[state.selectTypes.length - 1] || '';
+    remove(state, action: PayloadAction<any>) {
+      //const type = action.payload;
+      // state.selectTypes = state.selectTypes.filter(type => type !== action.payload);
+      if (state.selectTypes === action.payload) {
+        state.selectTypes.push(state.selectTypes[state.selectTypes.length - 1] || '');
       }
     },
 

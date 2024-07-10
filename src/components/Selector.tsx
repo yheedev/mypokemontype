@@ -187,6 +187,7 @@ export const Card = styled.div`
 /**
  * TODO
  * [ ] 모바일에서 info 텍스트 두 문장으로 줄바꿈 하기
+ * [ ] 영어, 일본어일 떄 text-indent 다르게 설정
  */
 
 const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`

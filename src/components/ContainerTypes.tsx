@@ -13,7 +13,6 @@ const ContainerTypes = () => {
   const translate = useSelector((state: RootState) => state.language.translations);
   const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
   const dispatch = useDispatch();
-  const activeType = useSelector((state: RootState) => state.upToTwo.activeType);
   //const location = useLocation();
 
   // if (location.pathname === '/') {
@@ -45,9 +44,14 @@ const ContainerTypes = () => {
   };
 
   useEffect(() => {
-    // selectTypes 배열이 변경될 때마다 offenseCal 액션을 호출합니다.
-    if (selectTypes.length > 0) {
-      dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] }));
+    if (selectTypes.length === 0 && selectTypes[0] !== selectTypes[1]) {
+      dispatch(offenseCal({ offenseType1: undefined, offenseType2: undefined }));
+    } else if (selectTypes.length === 1 && selectTypes[0] !== selectTypes[1]) {
+      dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
+    } else if (selectTypes.length === 2 && selectTypes[0] !== selectTypes[1]) {
+      dispatch(
+        offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] })
+      );
     }
   }, [selectTypes, dispatch]);
 
@@ -65,13 +69,15 @@ const ContainerTypes = () => {
             upToTwoAction(type);
           }}
           isDarkMode={isDarkMode}
-          isActive={activeType.includes(type)}
-          //isActive={activeType === type}
+          isActive={selectTypes.includes(type)}
         />
       ))}
     </Container>
   );
 };
+
+// TODO
+// 애니 써도됨
 
 export const Container = styled.div`
   display: grid;

@@ -12,6 +12,7 @@ export const DarkModeBtn = () => {
   const dispatch = useDispatch();
   const toggle = useToggleTheme()[0];
   const theme = useSelector((state: RootState) => state.darkMode.theme);
+  //const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
 
   const handleClick = () => {
     toggle();
@@ -90,3 +91,7 @@ const MoonIcon = styled(Moon)`
 `;
 
 export default DarkModeBtn;
+
+// TODO
+
+// [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화

@@ -7,7 +7,8 @@ import { toggleStyles } from '../components/DarkModeBtn';
 
 export const MoreBtn = () => {
   const navigate = useNavigate();
-  const theme = useSelector((state: RootState) => state.darkMode.theme);
+  //const theme = useSelector((state: RootState) => state.darkMode.theme);
+  const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
 
   const goToMore = () => {
     //const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -16,12 +17,7 @@ export const MoreBtn = () => {
 
   return (
     <Btn onClick={goToMore}>
-      <></>
-      {theme === 'dark' ? (
-        <PokeballIcon className="Pokeball moreIcon shadow-bl" />
-      ) : (
-        <PokeballIcon className="moreIcon shadow-gr" />
-      )}
+      <PokeballIcon isDarkMode={isDarkMode} className="Pokeball moreIcon shadow-bl" />
     </Btn>
   );
 };
@@ -34,9 +30,11 @@ const Btn = styled.div`
   /* bottom: 1rem; */
 `;
 
-const PokeballIcon = styled(Pokeball)`
+const PokeballIcon = styled(Pokeball).withConfig({
+  shouldForwardProp: prop => !['isDarkMode'].includes(prop),
+})<{ isDarkMode: boolean }>`
   ${toggleStyles}
-  fill: var(--color-toggleIcon);
+  //fill: var(--color-toggleIcon);
   width: 3.12rem;
   height: 3.12rem;
 `;
