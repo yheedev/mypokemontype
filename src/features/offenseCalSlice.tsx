@@ -5,6 +5,8 @@ export type OffenseCalState = {
   result: { [key: string]: string[] };
   offenseType1: string | undefined;
   offenseType2: string | undefined;
+  // offenseType1, offenseType2 둘 다 selectTypes 배열의 상태에 따라 달라짐.
+  // selectTypes 배열을 받아와야 함.
 };
 
 export const offenseCalSlice = createSlice({
@@ -39,25 +41,30 @@ export const offenseCalSlice = createSlice({
       };
 
       // TypeValue 배열 및 타입을 선택하지 않았을 경우에는 모든 타입에 대한 효과를 1배로 반환
-      function allTypesX1(type?: string): readonly number[] {
-        // return type ? TypeValue[type] : new Array(19).fill(1);
-        return type && type in TypeValue ? TypeValue[type as keyof typeof TypeValue] : new Array(18).fill(1);
+      function allTypes1x(type?: string): readonly number[] {
+        // selectTypes.length === 0일 때?
+        return type && type in TypeValue
+          ? TypeValue[type as keyof typeof TypeValue]
+          : new Array(18).fill(1);
       }
 
       // 아무 타입도 선택하지 않았을 경우
       if (!offenseType1 && !offenseType2) {
-        const allTypesEffectiveness = allTypesX1().reduce((acc: Effectiveness, curr, index) => {
-          const key = curr.toString();
-          if (acc[key]) {
-            acc[key].push(TypeName[index]);
-          }
-          return acc;
-        }, effectiveness);
+        const allTypesEffectiveness = allTypes1x().reduce(
+          (acc: Effectiveness, curr, index) => {
+            const key = curr.toString();
+            if (acc[key]) {
+              acc[key].push(TypeName[index]);
+            }
+            return acc;
+          },
+          effectiveness
+        );
         state.result = allTypesEffectiveness;
 
         // 한 가지 타입을 선택했을 경우
       } else if (offenseType1 && !offenseType2) {
-        let typeArr1 = allTypesX1(offenseType1);
+        let typeArr1 = allTypes1x(offenseType1);
 
         let singleType = typeArr1.reduce((acc: Effectiveness, curr, index) => {
           const key = curr.toString();
@@ -71,8 +78,10 @@ export const offenseCalSlice = createSlice({
       }
       // 두 개의 타입을 선택했을 경우
       else {
-        let typeArr1 = allTypesX1(offenseType1);
-        let typeArr2 = allTypesX1(offenseType1 === offenseType2 ? undefined : offenseType2);
+        let typeArr1 = allTypes1x(offenseType1);
+        let typeArr2 = allTypes1x(
+          offenseType1 === offenseType2 ? undefined : offenseType2
+        );
 
         let doubleTypes = typeArr1.map((value: number, index: number) => {
           // 두 개의 타입을 입력했을 경우 두 타입의 TypeValue 배열 중 더 큰 값을 골라서 하나의 배열로 반영,
@@ -97,21 +106,11 @@ export const offenseCalSlice = createSlice({
           }
         });
 
-        //state.result = { ...effectiveness };
         state.result = effectiveness;
-        //state.result = sortedEffectiveness;
         state.offenseType1 = offenseType1;
         state.offenseType2 = offenseType2;
       }
     },
-    // setSelectTypes: (state, action: PayloadAction<string[]>) => {
-    //   state.selectTypes = action.payload;
-    // },
-    // setSelectTypes: (state, action: PayloadAction<{ offenseType1: string | undefined; offenseType2: string | undefined }>) => {
-    //   state.selectTypes = [action.payload.offenseType1, action.payload.offenseType2].filter(
-    //     (type): type is string => type !== undefined
-    //   );
-    // },
   },
 });
 

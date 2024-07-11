@@ -27,5 +27,5 @@
   },
   "include": ["src", "@types", "./@types/custom.d.ts"],
   // "tsconfig.json"
-  "exclude": ["node_modules", "build"]
+  "exclude": ["node_modules", "build", "tests", "./@types/offenseCalSlice/index.d.ts"]
 }
