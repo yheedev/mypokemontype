@@ -49,6 +49,8 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-flow": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
     "@testing-library/react": "^14.1.2",
     "@types/jest": "^29.5.12",
     "@types/redux-persist": "^4.3.1",

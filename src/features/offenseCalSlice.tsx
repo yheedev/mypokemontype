@@ -5,8 +5,6 @@ export type OffenseCalState = {
   result: { [key: string]: string[] };
   offenseType1: string | undefined;
   offenseType2: string | undefined;
-  // offenseType1, offenseType2 둘 다 selectTypes 배열의 상태에 따라 달라짐.
-  // selectTypes 배열을 받아와야 함.
 };
 
 export const offenseCalSlice = createSlice({
@@ -42,7 +40,6 @@ export const offenseCalSlice = createSlice({
 
       // TypeValue 배열 및 타입을 선택하지 않았을 경우에는 모든 타입에 대한 효과를 1배로 반환
       function allTypes1x(type?: string): readonly number[] {
-        // selectTypes.length === 0일 때?
         return type && type in TypeValue
           ? TypeValue[type as keyof typeof TypeValue]
           : new Array(18).fill(1);
@@ -85,9 +82,9 @@ export const offenseCalSlice = createSlice({
 
         let doubleTypes = typeArr1.map((value: number, index: number) => {
           // 두 개의 타입을 입력했을 경우 두 타입의 TypeValue 배열 중 더 큰 값을 골라서 하나의 배열로 반영,
-          // 두 타입 중 하나라도 0배의 효과를 가지면 0을 반환
+          // 두 개의 숫자 배열 내 요소 중 0과 1을 비교할 때에는 1을 반환
           if (value === 0 || typeArr2[index] === 0) {
-            return 0;
+            return 1;
           }
           return Math.max(value, typeArr2[index]);
         });
