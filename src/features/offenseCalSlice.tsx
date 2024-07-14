@@ -81,11 +81,9 @@ export const offenseCalSlice = createSlice({
         );
 
         let doubleTypes = typeArr1.map((value: number, index: number) => {
-          // 두 개의 타입을 입력했을 경우 두 타입의 TypeValue 배열 중 더 큰 값을 골라서 하나의 배열로 반영,
-          // 두 개의 숫자 배열 내 요소 중 0과 1을 비교할 때에는 1을 반환
-          if (value === 0 || typeArr2[index] === 0) {
-            return 1;
-          }
+          // if (value === 0 || typeArr2[index] === 0) {
+          //   return 1;
+          // }
           return Math.max(value, typeArr2[index]);
         });
 
