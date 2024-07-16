@@ -3,29 +3,74 @@ import { RootState } from 'stores/store';
 import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
 import { Container } from './ContainerTypes';
+import { ReactComponent as Fire } from '../svg/Fire.svg';
+import { useLocation } from 'react-router-dom';
 
-type OffenseResultType = {
+type ResultType = {
   [key: string]: string[];
 };
 
 const Result = () => {
-  // const theme = useSelector((state: RootState) => state.darkMode.theme);
+  const location = useLocation();
   const translate = useSelector((state: RootState) => state.language.translations);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
-  const offenseResult = useSelector(
-    (state: RootState) => state.offenseCal.result as OffenseResultType
+  const result = useSelector((state: RootState) =>
+    location.pathname === '/defense'
+      ? (state.defenseCal.result as ResultType)
+      : (state.offenseCal.result as ResultType)
   );
 
-  const offenseResultArray = Object.entries(offenseResult)
+  const ResultArray = Object.entries(result)
     .filter(([key, value]) => value.length > 0)
     .sort(([keyA], [keyB]) => parseFloat(keyB) - parseFloat(keyA));
 
   return (
     <ResultContainer>
       <ResultCard>
-        {offenseResultArray.map(([key, value]) => (
+        {location.pathname === '/' &&
+          ResultArray.map(([key, value], index) => (
+            <div key={key}>
+              <h1 className="resultEffect">{key}배의 데미지</h1>
+              {index === 0 && <Fire />}
+              <Hr />
+              <PokemonContainer>
+                {value.map(type => (
+                  <PokemonType
+                    className="pokemon"
+                    key={String(type)}
+                    text={translate.TypeName[type as keyof typeof translate.TypeName]}
+                    borderColor={`var(--${type})`}
+                    isDarkMode={isDarkMode}
+                  />
+                ))}
+              </PokemonContainer>
+            </div>
+          ))}
+        {location.pathname === '/defense' &&
+          ResultArray.map(([key, value], index) => (
+            // `/defense` 경로에 대한 렌더링 로직
+            // 예시로 작성된 코드이며, 실제 defenseResultArray에 맞는 컴포넌트 구조로 수정 필요
+            <div key={key}>
+              <h1 className="resultEffect">{key}배의 데미지</h1>
+              {index === ResultArray.length - 1 && <Fire />}
+              <Hr />
+              <PokemonContainer>
+                {value.map(type => (
+                  <PokemonType
+                    className="pokemon"
+                    key={String(type)}
+                    text={translate.TypeName[type as keyof typeof translate.TypeName]}
+                    borderColor={`var(--${type})`}
+                    isDarkMode={isDarkMode}
+                  />
+                ))}
+              </PokemonContainer>
+            </div>
+          ))}
+        {/* {ResultArray.map(([key, value], index) => (
           <div key={key}>
             <h1 className="resultEffect">{key}배의 데미지</h1>
+            {index === 0 && <Fire />}
             <Hr />
             <PokemonContainer>
               {value.map(type => (
@@ -39,7 +84,7 @@ const Result = () => {
               ))}
             </PokemonContainer>
           </div>
-        ))}
+        ))} */}
       </ResultCard>
     </ResultContainer>
   );
@@ -48,9 +93,6 @@ const Result = () => {
 export default Result;
 
 const ResultContainer = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  gap: 1rem; */
   color: var(--color-text);
 `;
 
@@ -65,7 +107,6 @@ const ResultCard = styled.div`
     font-family: 'NotosansKRBold';
     font-size: 1.25rem;
     font-weight: 1000;
-    //margin-bottom: 10px;
   }
 
   .pokemon {
@@ -83,63 +124,5 @@ const Hr = styled.hr`
   margin: 1.5rem 0;
 `;
 
-// export function TypeCalculator() {
-//   const [selectedTypes, setSelectedTypes] = useState<Typekey[]>([]);
-//   const [effectiveness, setEffectiveness] = useState<{ [key in Typekey]: number }>({});
-
-//   useEffect(() => {
-//     if (selectedTypes.length === 0) {
-//       // 선택된 타입이 없으면 (selectedTypes 배열의 요소가 0이면) 전체 포켓몬의 타입의 효과를 1배로 보여줍니다.
-//       const defaultEffectiveness = Object.keys(TypeValue).reduce((acc, type) => {
-//         acc[type as Typekey] = 1;
-//         return acc;
-//       }, {} as { [key in Typekey]: number });
-//       setEffectiveness(defaultEffectiveness);
-//     } else {
-//       const newEffectiveness = calculateEffectiveness(selectedTypes);
-//       setEffectiveness(newEffectiveness);
-//     }
-//   }, [selectedTypes]);
-
-//   function selectType(type: Typekey) {
-//     setSelectedTypes(prev => [...prev, type]);
-//   }
-
-//   function deselectType(type: Typekey) {
-//     setSelectedTypes(prev => prev.filter(t => t !== type));
-//   }
-
-//   function calculateEffectiveness(selectedTypes: Typekey[]) {
-//     const effectiveness = Object.keys(Types).reduce((acc, type) => {
-//       acc[type as Typekey] = 1; // 기본 효과는 1
-//       return acc;
-//     }, {} as { [key in Typekey]: number });
-
-//     selectedTypes.forEach(selectedType => {
-//       const typeValue = Types[selectedType];
-//       Object.keys(typeValue).forEach(type => {
-//         // 선택된 타입에 대한 효과를 계산합니다.
-//         effectiveness[type as Typekey] *= typeValue[type as Typekey];
-//       });
-//     });
-
-//     return effectiveness;
-//   }
-
-//   return (
-//     <div>
-//       {Object.keys(Types).map(type => (
-//         <button key={type} onClick={() => selectType(type as Typekey)}>
-//           {type}
-//         </button>
-//       ))}
-//       <div>
-//         {Object.entries(effectiveness).map(([type, multiplier]) => (
-//           <div key={type}>
-//             {type}: {multiplier}배
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
+// TODO;
+// [ ] 동일한 result 컴포넌트 내에서 `/`, `/defense` 다른 경로로 보여주기 vs defenseResult, offenseResult 컴포넌트 따로 만들어서 속도 테스트

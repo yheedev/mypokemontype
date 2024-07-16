@@ -4,14 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../stores/store';
 import ContainerTypes from './ContainerTypes';
 import { useNavigate, useLocation } from 'react-router-dom';
-//import { offenseCal } from '../features/offenseCalSlice';
 
 export const Selector = () => {
   //const lang = useSelector((state: RootState) => state.language.lang);
   const darkMode = useSelector((state: RootState) => state.darkMode.theme);
   const translate = useSelector((state: RootState) => state.language.translations);
-  const type1 = useSelector((state: RootState) => state.offenseCal.offenseType1);
-  const type2 = useSelector((state: RootState) => state.offenseCal.offenseType2);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,11 +29,9 @@ export const Selector = () => {
     setMode(currentMode);
     setInfo(translate.Info[currentMode]);
 
-    // if (currentMode === 'offense') {
-    //   const payload = { offenseType1: type1, offenseType2: type2 };
-    //   //dispatch(offenseCal(payload));
-    // }
-  }, [location.pathname, selectMode, translate.Info, dispatch, type1, type2]);
+    if (currentMode === 'offense') {
+    }
+  }, [location.pathname, selectMode, translate.Info, dispatch]);
 
   const selectorCals = (Mode: 'offense' | 'defense') => {
     selectMode(Mode);
@@ -49,7 +44,7 @@ export const Selector = () => {
           <div className="Option">
             <OptionOffense
               className="Offense"
-              $selectedMode={mode === 'offense'}
+              $selectedMode={mode === 'offense'} // 스타일
               onClick={() => {
                 selectorCals('offense');
               }}

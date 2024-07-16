@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import { add, remove } from 'features/upToTwoSlice';
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { offenseCal } from 'features/offenseCalSlice';
-//import { useLocation } from 'react-router-dom';
+import { defenseCal } from 'features/defenseCalSlice';
 
 const ContainerTypes = () => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
   const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const upToTwoAction = (type: any) => {
     if (selectTypes.includes(type)) {
@@ -22,19 +24,41 @@ const ContainerTypes = () => {
     }
   };
 
+  // useEffect(() => {
+  //   if (selectTypes.length === 0) {
+  //     dispatch(offenseCal({ offenseType1: undefined, offenseType2: undefined }));
+  //   } else if (selectTypes.length === 1) {
+  //     dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
+  //   } else if (selectTypes.length === 2) {
+  //     dispatch(
+  //       offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] })
+  //     );
+  //   }
+  // }, [selectTypes, dispatch]);
+
   useEffect(() => {
-    if (selectTypes.length === 0) {
-      dispatch(offenseCal({ offenseType1: undefined, offenseType2: undefined }));
-    } else if (selectTypes.length === 1) {
-      dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
-    } else if (selectTypes.length === 2) {
-      dispatch(
-        offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] })
-      );
+    if (location.pathname === '/') {
+      if (selectTypes.length === 0) {
+        dispatch(offenseCal({ offenseType1: undefined, offenseType2: undefined }));
+      } else if (selectTypes.length === 1) {
+        dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
+      } else if (selectTypes.length === 2) {
+        dispatch(
+          offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] })
+        );
+      }
+    } else if (location.pathname === '/defense') {
+      if (selectTypes.length === 0) {
+        dispatch(defenseCal({ defenseType1: undefined, defenseType2: undefined }));
+      } else if (selectTypes.length === 1) {
+        dispatch(defenseCal({ defenseType1: selectTypes[0], defenseType2: undefined }));
+      } else if (selectTypes.length === 2) {
+        dispatch(
+          defenseCal({ defenseType1: selectTypes[0], defenseType2: selectTypes[1] })
+        );
+      }
     }
-    // TODO
-    // 여기서 selectTypes.length를 조작하는 로직과 offenseCalSlice.tsx의 offenseType1, offenseType2를 연결해야..
-  }, [selectTypes, dispatch]);
+  }, [location.pathname, selectTypes, dispatch]);
 
   return (
     <Container>
@@ -44,8 +68,8 @@ const ContainerTypes = () => {
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
           onClick={() => {
-            console.log(`Clicked: ${type}`);
-            console.log(selectTypes);
+            console.log(defenseCal({ defenseType1: 'fire', defenseType2: 'undefined' }));
+            console.log(offenseCal({ offenseType1: 'fire', offenseType2: 'undefined' }));
             upToTwoAction(type);
           }}
           isDarkMode={isDarkMode}
@@ -70,25 +94,3 @@ export const Container = styled.div`
 `;
 
 export default ContainerTypes;
-
-//const location = useLocation();
-
-// if (location.pathname === '/') {
-//   let offenseTypes = {};
-
-//   // selectTypes의 길이에 따라 offenseTypes 객체를 구성
-//   const newSelectTypes = [...selectTypes, type];
-//   if (newSelectTypes.length === 1) {
-//     offenseTypes = {
-//       offenseType1: newSelectTypes[0],
-//       offenseType2: undefined,
-//     };
-//   } else if (newSelectTypes.length === 2) {
-//     offenseTypes = {
-//       offenseType1: newSelectTypes[0],
-//       offenseType2: newSelectTypes[1],
-//     };
-//   }
-
-//   dispatch(offenseCal(offenseTypes));
-// }

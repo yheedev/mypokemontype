@@ -1,17 +1,19 @@
 import { combineReducers } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
-import { darkModeSlice, DarkModeState } from '../features/darkModeSlice';
-import { offenseCalSlice, OffenseCalState } from '../features/offenseCalSlice';
+import { darkModeSlice, darkModeState } from '../features/darkModeSlice';
+import { offenseCalSlice, offenseCalState } from '../features/offenseCalSlice';
 import { languageSlice, langState } from '../features/languageSlice';
 import { upToTwoSlice, upToTwoState } from '../features/upToTwoSlice';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
+import { defenseCalState, defenseCalSlice } from 'features/defenseCalSlice';
 
 export type RootState = {
-  darkMode: DarkModeState;
+  darkMode: darkModeState;
   language: langState;
   upToTwo: upToTwoState;
-  offenseCal: OffenseCalState;
+  offenseCal: offenseCalState;
+  defenseCal: defenseCalState;
 } & PersistPartial;
 
 export const persistConfig = {
@@ -24,6 +26,7 @@ export const rootReducer = combineReducers({
   language: languageSlice.reducer,
   upToTwo: upToTwoSlice.reducer,
   offenseCal: offenseCalSlice.reducer,
+  defenseCal: defenseCalSlice.reducer,
 });
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

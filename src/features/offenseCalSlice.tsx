@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TypeValue, TypeName } from './types';
 
-export type OffenseCalState = {
+export type offenseCalState = {
   result: { [key: string]: string[] };
   offenseType1: string | undefined;
   offenseType2: string | undefined;
@@ -45,56 +45,41 @@ export const offenseCalSlice = createSlice({
           : new Array(18).fill(1);
       }
 
-      // 아무 타입도 선택하지 않았을 경우
       if (!offenseType1 && !offenseType2) {
-        const allTypesEffectiveness = allTypes1x().reduce(
-          (acc: Effectiveness, curr, index) => {
-            const key = curr.toString();
-            if (acc[key]) {
-              acc[key].push(TypeName[index]);
-            }
-            return acc;
-          },
-          effectiveness
-        );
-        state.result = allTypesEffectiveness;
+        TypeName.forEach((typeName, index) => {
+          effectiveness['1'].push(typeName);
+        });
+        state.result = effectiveness;
+      }
 
-        // 한 가지 타입을 선택했을 경우
-      } else if (offenseType1 && !offenseType2) {
+      // 1개의 타입을 선택: 해당 포켓몬 타입의 TypeValue를 그대로 반환
+      else if (offenseType1 && !offenseType2) {
         let typeArr1 = allTypes1x(offenseType1);
-
-        let singleType = typeArr1.reduce((acc: Effectiveness, curr, index) => {
+        typeArr1.forEach((curr, index) => {
           const key = curr.toString();
-          if (acc[key]) {
-            acc[key].push(TypeName[index]);
+          if (effectiveness[key]) {
+            effectiveness[key].push(TypeName[index]);
           }
-          return acc;
-        }, effectiveness);
-        state.result = singleType;
+        });
+        //TypeValue 내 숫자들에 해당하는 effectiveness 배열 내에 해당 타입을 넣어서 반환함
+        state.result = effectiveness;
         state.offenseType1 = offenseType1;
       }
-      // 두 개의 타입을 선택했을 경우
+      // 2개의 타입을 선택: 2개의 TypeValue 객체에서 동일한 인덱스 요소의 숫자끼리 비교해서 더 큰 값으로 하나의 배열을 반환
       else {
-        let typeArr1 = allTypes1x(offenseType1);
-        let typeArr2 = allTypes1x(
-          offenseType1 === offenseType2 ? undefined : offenseType2
-        );
+        const calculateMaxEffectiveness = (
+          type1: string | undefined,
+          type2: string | undefined
+        ) => {
+          const typeArr1 = allTypes1x(type1);
+          const typeArr2 = allTypes1x(type1 === type2 ? undefined : type2);
+          return typeArr1.map((value, index) => Math.max(value, typeArr2[index]));
+        };
 
-        let doubleTypes = typeArr1.map((value: number, index: number) => {
-          // if (value === 0 || typeArr2[index] === 0) {
-          //   return 1;
-          // }
-          return Math.max(value, typeArr2[index]);
-        });
+        const doubleTypes = calculateMaxEffectiveness(offenseType1, offenseType2);
 
-        const filteredEffectiveness: Effectiveness = {};
-        for (const [key, value] of Object.entries(effectiveness)) {
-          if (value.length > 0) {
-            filteredEffectiveness[key] = value;
-          }
-        }
-
-        doubleTypes.forEach((value: number, index) => {
+        //TypeValue 내 숫자들에 해당하는 effectiveness 배열 내에 해당 타입을 넣어서 반환함
+        doubleTypes.forEach((value, index) => {
           const key = value.toString();
           if (key in effectiveness) {
             effectiveness[key].push(TypeName[index]);

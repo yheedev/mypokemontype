@@ -55,6 +55,5 @@
     "@types/jest": "^29.5.12",
     "@types/redux-persist": "^4.3.1",
     "jest": "^27.5.1"
-  },
-  "homepage": "https://stillcorners.github.io/mypokemontype"
+  }
 }
