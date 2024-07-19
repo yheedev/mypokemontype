@@ -20,8 +20,11 @@ export const defenseCalSlice = createSlice({
       action: PayloadAction<{
         defenseType1?: string;
         defenseType2?: string;
+        type?: string;
       }>
     ) => {
+      //const { type } = action.payload;
+      //const typeIndex = TypeName.indexOf(type as any);
       const { defenseType1, defenseType2 } = action.payload;
 
       // 각 효과의 수치를 키로 갖는 빈 배열 설정
@@ -45,29 +48,69 @@ export const defenseCalSlice = createSlice({
           : new Array(18).fill(1);
       }
 
-      // 아무 타입도 선택하지 않았을 경우
       if (!defenseType1 && !defenseType2) {
-        TypeName.forEach((typeName, index) => {
+        TypeName.forEach(typeName => {
           effectiveness['1'].push(typeName);
+          allTypes1x();
         });
+
         state.result = effectiveness;
+        // 한 개의 타입을 선택했을 경우
       } else if (defenseType1 && !defenseType2) {
-        const defenseArr = TypeValue[defenseType1 as keyof typeof TypeValue];
+        // 18개의 TypeValue 배열에서 defenseType1의 인덱스에 해당하는 모든 요소를 하나의 배열로 반환
+        const typeArr1 = TypeName.indexOf(defenseType1 as any);
+        const defenseArray = Object.values(TypeValue).map(
+          typeArray => typeArray[typeArr1]
+        );
 
-        // 각 효과의 수치를 키로 갖는 빈 객체 설정
-        let effectiveness: { [key: string]: string[] } = {};
-
-        // defenseArr 배열을 순회하며 각 타입으로부터 받는 피해 배율에 따라 타입 이름을 effectiveness 객체에 추가
-        defenseArr.forEach((effectValue, index) => {
-          const effectKey = effectValue.toString(); // 피해 배율을 문자열 키로 변환
-          if (!effectiveness[effectKey]) {
-            effectiveness[effectKey] = []; // 해당 키에 대한 배열이 없으면 초기화
+        // defenseArray를 effectiveness 객체에 매핑
+        defenseArray.forEach((value, index) => {
+          const key = value.toString();
+          if (key in effectiveness) {
+            effectiveness[key].push(TypeName[index]);
           }
-          effectiveness[effectKey].push(TypeName[index]); // 해당 피해 배율에 타입 이름 추가
         });
 
-        // 최종적으로 계산된 effectiveness 객체를 state에 저장 또는 반환
         state.result = effectiveness;
+        state.defenseType1 = defenseType1;
+        // 두 개의 타입을 선택했을 경우
+      } else if (defenseType1 && defenseType2) {
+        // 18개의 TypeValue 배열에서 defenseType1, defenseType2의 인덱스에 해당하는 모든 요소를 각각 하나씩 배열로 반환
+        const typeArr1 = TypeName.indexOf(defenseType1 as any);
+        const defenseArray1 = Object.values(TypeValue).map(
+          typeArray => typeArray[typeArr1]
+        );
+        const typeArr2 = TypeName.indexOf(defenseType2 as any);
+        const defenseArray2 = Object.values(TypeValue).map(
+          typeArray => typeArray[typeArr2]
+        );
+        console.log(defenseType1, defenseArray1, defenseType2, defenseArray2);
+        // defenseArray1, defenseArray2를 비교해서 새로운 1개의 배열 반환
+        const combinedDefenseArray = defenseArray1.map((value1, index) => {
+          const value2 = defenseArray2[index];
+          if (value1 === 2 && value2 === 2) {
+            return 4; // 두 값이 모두 2일 경우 4를 반환합니다.
+          } else if (value1 > 1 || value2 > 1) {
+            return Math.max(value1, value2); // 더 큰 값이 1보다 크면 그 값을 선택합니다.
+          } else {
+            return Math.min(value1, value2); // 더 작은 값이 1보다 작으면 그 값을 선택합니다.
+            // TODO 새로운 조건 추가
+            // [ ] 0.5와 2를 비교하면 1을 출력
+            // [ ] 0.5와 0.5를 비교하면 0.25를 출력
+          }
+        });
+
+        // combinedDefenseArray를 effectiveness 객체에 매핑합니다.
+        combinedDefenseArray.forEach((value, index) => {
+          const key = value.toString();
+          if (key in effectiveness) {
+            effectiveness[key].push(TypeName[index]);
+          }
+        });
+
+        state.result = effectiveness;
+        state.defenseType1 = defenseType1;
+        state.defenseType2 = defenseType2;
       }
     },
   },

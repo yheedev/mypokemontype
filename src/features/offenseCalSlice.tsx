@@ -46,7 +46,7 @@ export const offenseCalSlice = createSlice({
       }
 
       if (!offenseType1 && !offenseType2) {
-        TypeName.forEach((typeName, index) => {
+        TypeName.forEach(typeName => {
           effectiveness['1'].push(typeName);
         });
         state.result = effectiveness;

@@ -24,18 +24,6 @@ const ContainerTypes = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (selectTypes.length === 0) {
-  //     dispatch(offenseCal({ offenseType1: undefined, offenseType2: undefined }));
-  //   } else if (selectTypes.length === 1) {
-  //     dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
-  //   } else if (selectTypes.length === 2) {
-  //     dispatch(
-  //       offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] })
-  //     );
-  //   }
-  // }, [selectTypes, dispatch]);
-
   useEffect(() => {
     if (location.pathname === '/') {
       if (selectTypes.length === 0) {
@@ -68,8 +56,6 @@ const ContainerTypes = () => {
           text={translate.TypeName[type]}
           borderColor={`var(--${type})`}
           onClick={() => {
-            console.log(defenseCal({ defenseType1: 'fire', defenseType2: 'undefined' }));
-            console.log(offenseCal({ offenseType1: 'fire', offenseType2: 'undefined' }));
             upToTwoAction(type);
           }}
           isDarkMode={isDarkMode}

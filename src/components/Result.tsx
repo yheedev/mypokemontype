@@ -14,13 +14,19 @@ const Result = () => {
   const location = useLocation();
   const translate = useSelector((state: RootState) => state.language.translations);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
-  const result = useSelector((state: RootState) =>
-    location.pathname === '/defense'
-      ? (state.defenseCal.result as ResultType)
-      : (state.offenseCal.result as ResultType)
+
+  const offenseResult = useSelector(
+    (state: RootState) => state.offenseCal.result as ResultType
+  );
+  const defenseResult = useSelector(
+    (state: RootState) => state.defenseCal.result as ResultType
   );
 
-  const ResultArray = Object.entries(result)
+  const offenseResultArray = Object.entries(offenseResult)
+    .filter(([key, value]) => value.length > 0)
+    .sort(([keyA], [keyB]) => parseFloat(keyB) - parseFloat(keyA));
+
+  const defenseResultArray = Object.entries(defenseResult)
     .filter(([key, value]) => value.length > 0)
     .sort(([keyA], [keyB]) => parseFloat(keyB) - parseFloat(keyA));
 
@@ -28,7 +34,7 @@ const Result = () => {
     <ResultContainer>
       <ResultCard>
         {location.pathname === '/' &&
-          ResultArray.map(([key, value], index) => (
+          offenseResultArray.map(([key, value], index) => (
             <div key={key}>
               <h1 className="resultEffect">{key}배의 데미지</h1>
               {index === 0 && <Fire />}
@@ -47,12 +53,11 @@ const Result = () => {
             </div>
           ))}
         {location.pathname === '/defense' &&
-          ResultArray.map(([key, value], index) => (
+          defenseResultArray.map(([key, value], index) => (
             // `/defense` 경로에 대한 렌더링 로직
-            // 예시로 작성된 코드이며, 실제 defenseResultArray에 맞는 컴포넌트 구조로 수정 필요
             <div key={key}>
               <h1 className="resultEffect">{key}배의 데미지</h1>
-              {index === ResultArray.length - 1 && <Fire />}
+              {index === defenseResultArray.length - 1 && <Fire />}
               <Hr />
               <PokemonContainer>
                 {value.map(type => (
@@ -126,3 +131,4 @@ const Hr = styled.hr`
 
 // TODO;
 // [ ] 동일한 result 컴포넌트 내에서 `/`, `/defense` 다른 경로로 보여주기 vs defenseResult, offenseResult 컴포넌트 따로 만들어서 속도 테스트
+// [ ] 1배 상태에서는 fire svg 안보이게 하기
