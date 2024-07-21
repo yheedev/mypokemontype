@@ -23,8 +23,6 @@ export const defenseCalSlice = createSlice({
         type?: string;
       }>
     ) => {
-      //const { type } = action.payload;
-      //const typeIndex = TypeName.indexOf(type as any);
       const { defenseType1, defenseType2 } = action.payload;
 
       // 각 효과의 수치를 키로 갖는 빈 배열 설정
@@ -84,28 +82,40 @@ export const defenseCalSlice = createSlice({
         const defenseArray2 = Object.values(TypeValue).map(
           typeArray => typeArray[typeArr2]
         );
-        console.log(defenseType1, defenseArray1, defenseType2, defenseArray2);
+
         // defenseArray1, defenseArray2를 비교해서 새로운 1개의 배열 반환
         const combinedDefenseArray = defenseArray1.map((value1, index) => {
           const value2 = defenseArray2[index];
           if (value1 === 2 && value2 === 2) {
-            return 4; // 두 값이 모두 2일 경우 4를 반환합니다.
-          } else if (value1 > 1 || value2 > 1) {
-            return Math.max(value1, value2); // 더 큰 값이 1보다 크면 그 값을 선택합니다.
+            return 4; // 두 값이 모두 2일 경우 4를 반환
+          } else if ((value1 === 1 && value2 === 2) || (value1 === 2 && value2 === 1)) {
+            return 2; // 두 값 중 하나가 2이고 다른 하나가 1일 경우 2를 반환
+          } else if (
+            (value1 === 0.5 && value2 === 2) ||
+            (value1 === 2 && value2 === 0.5)
+          ) {
+            return 1; // 두 값 중 하나가 0.5이고 다른 하나가 2일 경우 1을 반환
+          } else if (
+            (value1 === 1 && value2 === 0.5) ||
+            (value1 === 0.5 && value2 === 1)
+          ) {
+            return 0.5; // 두 값 중 하나가 0.5이고 다른 하나가 1일 경우 0.5를 반환합니다.
+          } else if (value1 === 0.5 && value2 === 0.5) {
+            return 0.25; // 두 값이 모두 0.5일 경우 0.25를 반환합니다.
+          } else if (value1 === 0 || value2 === 0) {
+            return 0; // 두 값 중 하나가 0일 경우 0을 반환합니다.
           } else {
-            return Math.min(value1, value2); // 더 작은 값이 1보다 작으면 그 값을 선택합니다.
-            // TODO 새로운 조건 추가
-            // [ ] 0.5와 2를 비교하면 1을 출력
-            // [ ] 0.5와 0.5를 비교하면 0.25를 출력
+            return 1;
           }
         });
 
-        // combinedDefenseArray를 effectiveness 객체에 매핑합니다.
-        combinedDefenseArray.forEach((value, index) => {
-          const key = value.toString();
-          if (key in effectiveness) {
-            effectiveness[key].push(TypeName[index]);
+        combinedDefenseArray.forEach((effect, index) => {
+          const typeName = TypeName[index];
+          const effectKey = effect.toString();
+          if (!effectiveness[effectKey]) {
+            effectiveness[effectKey] = [];
           }
+          effectiveness[effectKey].push(typeName);
         });
 
         state.result = effectiveness;
