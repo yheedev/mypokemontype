@@ -22,19 +22,15 @@ export const MoreBtn = () => {
   );
 };
 
-const Btn = styled.div`
-  position: absolute;
+const Btn = styled.button`
   background: none;
   border: none;
-  left: 7.5rem;
-  /* bottom: 1rem; */
 `;
 
 const PokeballIcon = styled(Pokeball).withConfig({
   shouldForwardProp: prop => !['isDarkMode'].includes(prop),
 })<{ isDarkMode: boolean }>`
   ${toggleStyles}
-  //fill: var(--color-toggleIcon);
   width: 3.12rem;
   height: 3.12rem;
 `;

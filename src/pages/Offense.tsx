@@ -1,9 +1,10 @@
 import Title from '../components/Title';
-import DarkModeBtn from 'components/DarkModeBtn';
+// import DarkModeBtn from 'components/DarkModeBtn';
 import { Selector } from 'components/Selector';
 import Result from 'components/Result';
 import styled from 'styled-components';
-import MoreBtn from 'components/MoreBtn';
+// import MoreBtn from 'components/MoreBtn';
+import BtnMenu from 'components/BtnMenu';
 
 const Container = styled.div`
   display: grid;
@@ -17,12 +18,12 @@ const Container = styled.div`
   }
 `;
 
-const Menu = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: row-reverse;
-`;
+// export const Menu = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-content: center;
+//   /* flex-direction: row-reverse; */
+// `;
 
 function Offense() {
   return (
@@ -32,10 +33,11 @@ function Offense() {
         <Selector />
         <Result />
       </Container>
-      <Menu>
+      <BtnMenu />
+      {/* <Menu>
         <MoreBtn />
         <DarkModeBtn />
-      </Menu>
+      </Menu> */}
     </>
   );
 }

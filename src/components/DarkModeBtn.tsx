@@ -43,24 +43,20 @@ export const DarkModeBtn = () => {
 };
 
 const Btn = styled.div`
-  height: auto;
-  min-height: 100%;
+  /* height: auto;
+  min-height: 100%; */
 `;
 
 const BtnContainer = styled.button`
-  transform: translateY(-10%);
-  margin-left: -3rem;
-  position: absolute;
   background: none;
   border: none;
-  left: 1rem;
 `;
 
 export const toggleStyles = css`
   fill: var(--color-toggle);
   position: relative;
-  width: 12rem;
-  height: 6.1rem;
+  width: 5.5rem;
+  height: 2.5rem;
 `;
 
 export const iconStyles = css`
@@ -69,7 +65,7 @@ export const iconStyles = css`
   position: absolute;
   transform: translate(-50%, -50%);
   fill: var(--color-toggleIcon);
-  top: 48.5%;
+  top: 48%;
 `;
 
 const ToggleOffIcon = styled(ToggleOff)`
@@ -82,19 +78,19 @@ const ToggleOnIcon = styled(ToggleOn)`
 
 const SunIcon = styled(Sun)`
   ${iconStyles}
-  left: 57%;
+  left: 73%;
 `;
 
 const MoonIcon = styled(Moon)`
   ${iconStyles}
-  left: 44%;
+  left: 60%;
 `;
 
 export default DarkModeBtn;
 
 // TODO
-
+// [x] toggle svg 여백 줄이기 (viewBox)
 // [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
-// [ ] 걍 버튼들 전부 다시 결과 컴포넌트 아래로 정렬하기 /왜냐하면 결과 컴포넌트 크기에 따라 지금 셀렉터 밑에 있는 버튼들 높이가 들썩거린다
-// [ ] 버튼들의 순서는 [more / 다크모드버튼]
+// [x] 걍 버튼들 전부 다시 결과 컴포넌트 아래로 정렬하기 /왜냐하면 결과 컴포넌트 크기에 따라 지금 셀렉터 밑에 있는 버튼들 높이가 들썩거린다
+// [x] 버튼들의 순서는 [more / 다크모드버튼]
 // [ ] 불 버튼 스타일 작성할 때 alt 작성해야겠지
