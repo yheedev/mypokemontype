@@ -1,9 +1,8 @@
 import Title from '../components/Title';
-import DarkModeBtn from 'components/DarkModeBtn';
 import Result from 'components/Result';
 import { Selector } from 'components/Selector';
 import styled from 'styled-components';
-import MoreBtn from 'components/MoreBtn';
+import BtnMenu from 'components/BtnMenu';
 
 const Container = styled.div`
   display: grid;
@@ -17,13 +16,6 @@ const Container = styled.div`
   }
 `;
 
-const Menu = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  flex-direction: row-reverse;
-`;
-
 function Defense() {
   return (
     <>
@@ -32,10 +24,7 @@ function Defense() {
         <Selector />
         <Result />
       </Container>
-      <Menu>
-        <MoreBtn />
-        <DarkModeBtn />
-      </Menu>
+      <BtnMenu />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { ReactComponent as Pokeball } from '../svg/Pokeball.svg';
+import { ReactComponent as Pokeball } from '../img/Pokeball.svg';
 import { RootState } from 'stores/store';
 import { useSelector } from 'react-redux';
 import { toggleStyles } from '../components/DarkModeBtn';
@@ -38,4 +38,4 @@ const PokeballIcon = styled(Pokeball).withConfig({
 export default MoreBtn;
 
 // TODO
-// [ ] MORE 버튼이 왼쪽, 다크모드 버튼이 오른쪽에 가도록 (다크모드 버튼 absolute 다시 작성)
+// [x] MORE 버튼이 왼쪽, 다크모드 버튼이 오른쪽에 가도록 (다크모드 버튼 absolute 다시 작성)

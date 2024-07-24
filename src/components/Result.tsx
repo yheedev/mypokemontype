@@ -3,7 +3,7 @@ import { RootState } from 'stores/store';
 import styled from 'styled-components';
 import { PokemonType } from './PokemonType';
 import { Container } from './ContainerTypes';
-import { ReactComponent as Fire } from '../svg/Fire.svg';
+import { ReactComponent as Fire } from '../img/Fire.svg';
 import { useLocation } from 'react-router-dom';
 
 type ResultType = {
@@ -108,6 +108,10 @@ const ResultCard = styled.div`
   border-radius: 22px;
   padding: 2rem 2rem 0 2rem;
 
+  @media (min-width: 280px) and (max-width: 767px) {
+    padding: 2rem 0.8rem 0rem;
+  }
+
   .resultEffect {
     font-family: 'NotosansKRBold';
     font-size: 1.25rem;
@@ -124,11 +128,15 @@ const PokemonContainer = styled(Container)`
   margin: 2rem 0;
 `;
 
-const Hr = styled.hr`
+export const Hr = styled.hr`
   border: 1px solid var(--color-border);
-  margin: 1.5rem 0;
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    margin: 1em 0.64em 0rem;
+  }
 `;
 
 // TODO;
 // [ ] 동일한 result 컴포넌트 내에서 `/`, `/defense` 다른 경로로 보여주기 vs defenseResult, offenseResult 컴포넌트 따로 만들어서 속도 테스트
 // [ ] 1배 상태에서는 fire svg 안보이게 하기
+// [ ] 공격은 2배, 1배, 0.5배... 순서, 방어는 0.5배, 1배, 2배... 순서로 보여주기

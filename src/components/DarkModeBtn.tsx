@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import { darkModeSlice } from 'features/darkModeSlice';
 import { useToggleTheme } from 'hooks/useToggleTheme';
-import { ReactComponent as Sun } from '../svg/Sun.svg';
-import { ReactComponent as ToggleOff } from '../svg/ToggleOff.svg';
-import { ReactComponent as Moon } from '../svg/Moon.svg';
-import { ReactComponent as ToggleOn } from '../svg/ToggleOn.svg';
+import { ReactComponent as Sun } from '../img/Sun.svg';
+import { ReactComponent as ToggleOff } from '../img/ToggleOff.svg';
+import { ReactComponent as Moon } from '../img/Moon.svg';
+import { ReactComponent as ToggleOn } from '../img/ToggleOn.svg';
 
 export const DarkModeBtn = () => {
   const dispatch = useDispatch();
@@ -93,4 +93,9 @@ export default DarkModeBtn;
 // [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
 // [x] 걍 버튼들 전부 다시 결과 컴포넌트 아래로 정렬하기 /왜냐하면 결과 컴포넌트 크기에 따라 지금 셀렉터 밑에 있는 버튼들 높이가 들썩거린다
 // [x] 버튼들의 순서는 [more / 다크모드버튼]
-// [ ] 불 버튼 스타일 작성할 때 alt 작성해야겠지
+// [ ] 이미지, 버튼 등 alt 전부 작성
+// [ ] 하루에 한 번 light house 점수 확인
+// [ ] scss 코드로 압축할 수 있는 css 코드 있는지 확인
+// [ ] 타이틀 폰트 사이즈가 가끔 너무 작아진다
+// [ ] 크로스브라우징 신경 쓰기
+// [ ] 결과 컴포넌트의 불 아이콘 퍼블리싱

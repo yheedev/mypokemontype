@@ -30,14 +30,19 @@ export const Title = styled.header`
   margin: 6rem 0 0.3rem;
   cursor: pointer;
 
-  @media (min-width: 768px) and (min-width: 1023px) {
+  @media (min-width: 768px) and (max-width: 1181px) {
     margin: 6rem 0 0.3rem;
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    margin: 4.5rem 1em 0.3rem;
-    font-size: 1.6rem;
+    margin: 4.5rem 1.2em 0.3rem;
+    font-size: 1.5rem;
     text-align: left;
   }
 `;
+
+//TODO;
+
+// [ ] 타이틀 호환이슈 있는 부분: 모바일 - 갤럭시 S8+ (360X740)
+// [ ]

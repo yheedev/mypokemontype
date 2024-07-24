@@ -70,8 +70,10 @@ const Type = styled.button.withConfig({
     }
   }
 
-  @media (max-width: 767px) {
-    border: 6px solid ${({ borderColor }) => borderColor};
+  @media (min-width: 280px) and (max-width: 767px) {
+    width: 5rem;
+    height: 3rem;
+    border: 4.5px solid ${({ borderColor }) => borderColor};
 
     .TypeText {
       font-weight: 300;

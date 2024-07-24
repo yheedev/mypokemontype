@@ -68,15 +68,29 @@ const ContainerTypes = () => {
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  // 그리드 컨테이너 내의 세로 크기와 개수 정의
+  // auto-fill: 가능한 많은 세로 개수로 채움
+  // pc: 111x59, 모바일:90x55
   align-items: center;
   margin: 2rem 2rem;
   gap: 0.7rem 1rem;
   justify-items: center;
 
-  @media (max-width: 767px) {
-    gap: 1rem;
-  }
+  /* @media (max-width: 667px) {
+    margin: 1rem;
+    //gap: 0.5rem;
+  } */
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    gap: 0.6rem 0.4rem;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    margin: 0 0.8rem 2rem;
+  } // 모바일
+  // [x] pokemonType 컴포넌트들 위아래 간격 맞추기
+  // [x] 모바일일 때 결과 컴포넌트도 셀렉터 컴포넌트와 padding 맞추기
+  // [ ] 셀렉터 info 컴포넌트 다시
+  // [ ] 모바일에서 option 아랫부분 hr이 짧음
 `;
 
 export default ContainerTypes;
