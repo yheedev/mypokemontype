@@ -44,7 +44,7 @@ export const Selector = () => {
           <div className="Option">
             <OptionOffense
               className="Offense"
-              $selectedMode={mode === 'offense'} // 스타일
+              $selectedMode={mode === 'offense'}
               onClick={() => {
                 selectorCals('offense');
               }}
@@ -93,7 +93,7 @@ export const Card = styled.div`
     font-size: 1.5rem;
     font-weight: 1000;
     font-family: 'NotoSansBlack';
-    margin: 1.3rem 1.5rem;
+    margin: 1.3rem 1.5rem 0rem;
   }
 
   .Offense,
@@ -138,16 +138,14 @@ export const Card = styled.div`
   .Defense {
     border-right: none;
     border-left: 2px solid var(--color-border);
-    /* border-bottom: 2px solid var(--color-border); */
   }
 
   .InfoContainer {
-    padding: 0 1.56rem 1.25rem;
     border-bottom: 2px solid var(--color-border);
-    margin: 2rem 1.5rem;
+    margin: 2rem 1rem 1.5rem;
 
     @media (min-width: 280px) and (max-width: 767px) {
-      padding: 0.625rem 0px 1.25rem;
+      padding: 0rem 0rem 1rem;
     }
   }
 
@@ -162,24 +160,23 @@ export const Card = styled.div`
     letter-spacing: 1.5px;
     padding: 1.5rem 0;
     text-align: center;
+    margin-bottom: 1.5rem;
 
     @media (min-width: 280px) and (max-width: 767px) {
       font-size: 0.9rem;
       letter-spacing: 1.5px;
-      padding: 0.5rem 2rem 0.5rem;
+      padding: 0.5rem 2.5rem 0.5rem;
       font-weight: 400;
-      word-wrap: break-word;
       overflow-wrap: break-word;
       white-space: normal;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
     }
   }
 `;
 
 /**
  * TODO
- * [ ] 모바일에서 info 텍스트 두 문장으로 줄바꿈 하기
- * [ ] info 텍스트 폰트 더 굵게
- * [ ] 아이폰 XS에서 셀렉터, 결과 모두 2줄씩 나옴,,
  * [ ] 영어, 일본어일 떄 text-indent 다르게 설정
  */
 

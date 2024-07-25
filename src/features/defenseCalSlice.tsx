@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TypeValue, TypeName } from './types';
 
 export type defenseCalState = {
-  result: { [key: string]: string[] };
-  defenseType1: string | undefined;
-  defenseType2: string | undefined;
+  result?: { [key: string]: string[] };
+  defenseType1?: string | undefined;
+  defenseType2?: string | undefined;
 };
 
 export const defenseCalSlice = createSlice({

@@ -21,7 +21,7 @@ export const DarkModeBtn = () => {
   };
 
   return (
-    <Btn>
+    <Btn aria-label="Click to switch to dark mode or light mode.">
       <>
         <BtnContainer onClick={handleClick}>
           {theme === 'dark' ? (
@@ -89,11 +89,7 @@ const MoonIcon = styled(Moon)`
 export default DarkModeBtn;
 
 // TODO
-// [x] toggle svg 여백 줄이기 (viewBox)
 // [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
-// [x] 걍 버튼들 전부 다시 결과 컴포넌트 아래로 정렬하기 /왜냐하면 결과 컴포넌트 크기에 따라 지금 셀렉터 밑에 있는 버튼들 높이가 들썩거린다
-// [x] 버튼들의 순서는 [more / 다크모드버튼]
-// [ ] 이미지, 버튼 등 alt 전부 작성
 // [ ] 하루에 한 번 light house 점수 확인
 // [ ] scss 코드로 압축할 수 있는 css 코드 있는지 확인
 // [ ] 타이틀 폰트 사이즈가 가끔 너무 작아진다

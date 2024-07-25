@@ -11,14 +11,18 @@ export const More = () => {
       <Title />
       <Container>
         <MoreCard>
-          <img src={Lucario} alt="Lucario" className="Lucario" />
+          <img
+            src={Lucario}
+            alt="Lucario, one of the famous Pokemon"
+            className="Lucario"
+          />
           <Text>
             <Contact>
               Contact:
               <br />
               yheedev@gmail.com
             </Contact>
-            <Hr />
+            <HrMore />
             <Noti>Unofficial fannmade project</Noti>
           </Text>
         </MoreCard>
@@ -32,7 +36,6 @@ export const MoreCard = styled(Card)`
   flex-direction: row;
   align-content: center;
   flex-wrap: wrap;
-  // [x] 반응형 디자인으로 flex-wrap 될 때 Text 컴포넌트 위 아래 간격 같은지 확인
   gap: 2rem;
   padding: 3rem;
   margin: 3rem 20rem;
@@ -54,7 +57,6 @@ export const MoreCard = styled(Card)`
     } // 모바일
   }
 `;
-// [x] 아이패드 에어 820x1180이 모바일 반응형으로 나옴,,
 
 export const Text = styled.div`
   @media (min-width: 280px) and (max-width: 500px) {
@@ -74,8 +76,12 @@ export const Noti = styled.h3`
   font-family: 'NotoSansBlack';
   font-size: 1rem;
   @media (min-width: 280px) and (max-width: 767px) {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   } // 모바일
+`;
+
+export const HrMore = styled(Hr)`
+  margin: 1rem 0;
 `;
 
 export default More;

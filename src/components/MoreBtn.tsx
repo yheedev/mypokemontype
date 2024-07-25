@@ -16,7 +16,10 @@ export const MoreBtn = () => {
   };
 
   return (
-    <Btn onClick={goToMore}>
+    <Btn
+      onClick={goToMore}
+      aria-label="Go to more page: contact information for the developer of <My Pokemon Type> and about the purpose of this project."
+    >
       <PokeballIcon isDarkMode={isDarkMode} className="Pokeball moreIcon shadow-bl" />
     </Btn>
   );
@@ -36,6 +39,3 @@ const PokeballIcon = styled(Pokeball).withConfig({
 `;
 
 export default MoreBtn;
-
-// TODO
-// [x] MORE 버튼이 왼쪽, 다크모드 버튼이 오른쪽에 가도록 (다크모드 버튼 absolute 다시 작성)

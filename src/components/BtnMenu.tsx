@@ -10,11 +10,8 @@ export const Menu = styled.div`
 `;
 
 export const BtnMenu = () => {
-  function test() {
-    console.log('test');
-  }
   return (
-    <ButtonContainer onClick={test}>
+    <ButtonContainer>
       <MoreBtn />
       <DarkModeBtn />
     </ButtonContainer>
