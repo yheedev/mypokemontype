@@ -6,7 +6,7 @@ import ContainerTypes from './ContainerTypes';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export const Selector = () => {
-  //const lang = useSelector((state: RootState) => state.language.lang);
+  const lang = useSelector((state: RootState) => state.language.lang);
   const darkMode = useSelector((state: RootState) => state.darkMode.theme);
   const translate = useSelector((state: RootState) => state.language.translations);
 
@@ -39,7 +39,7 @@ export const Selector = () => {
 
   return (
     <Container>
-      <Card>
+      <Card lang={lang}>
         <CardContainer>
           <div className="Option">
             <OptionOffense
@@ -80,7 +80,7 @@ export const Container = styled.div`
 
 const CardContainer = styled.div``;
 
-export const Card = styled.div`
+export const Card = styled.div<{ lang: string }>`
   display: flex;
   flex-direction: column;
   background-color: var(--color-card);
@@ -92,13 +92,13 @@ export const Card = styled.div`
     grid-template-columns: 1fr 1fr;
     font-size: 1.5rem;
     font-weight: 1000;
-    font-family: 'NotoSansBlack';
+    font-family: 'Noto Sans KR', sans-serif;
     margin: 1.3rem 1.5rem 0rem;
   }
 
   .Offense,
   .Defense {
-    letter-spacing: 20px;
+    letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '3px')};
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,9 +109,15 @@ export const Card = styled.div`
     border-top: none;
     text-align: center;
     vertical-align: middle;
-    text-indent: 3px;
+    text-indent: ${({ lang }) => (lang === 'ko' ? '1.25rem' : '0rem')};
 
     @media (min-width: 280px) and (max-width: 767px) {
+      padding: 0.5rem 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    @media (min-width: 280px) and (max-width: 767px) {
+      letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '0px')};
       padding: 0.5rem 0 0.5rem;
       font-size: 1.1rem;
     }
@@ -119,7 +125,7 @@ export const Card = styled.div`
 
   .OptionText {
     display: inline-block;
-    letter-spacing: 7px;
+    letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '2.5px')};
 
     @media (min-width: 280px) and (max-width: 767px) {
       padding-bottom: 0.5rem;
@@ -154,17 +160,19 @@ export const Card = styled.div`
     align-items: center;
     justify-content: space-around;
     grid-column: span 1;
-    font-family: 'NotoSansBlack';
-    font-weight: 900;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 800; //900
     font-size: 1.5rem;
-    letter-spacing: 1.5px;
+    letter-spacing: ${({ lang }) => (lang === 'ko' ? '1.5px' : '0.5px')};
     padding: 1.5rem 0;
     text-align: center;
     margin-bottom: 1.5rem;
+    word-break: ${({ lang }) => (lang === 'ko' ? ' keep-all' : 'normal')};
+    // TODO
+    // [x] 일본어일때는 padding 기준으로 info text를 끊어야 함 word-break 없애기 이거 때문에 반응형꺶ㅈ미
 
     @media (min-width: 280px) and (max-width: 767px) {
       font-size: 0.9rem;
-      letter-spacing: 1.5px;
       padding: 0.5rem 2.5rem 0.5rem;
       font-weight: 400;
       overflow-wrap: break-word;

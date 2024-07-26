@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { TypeName } from 'features/types';
+import { useSelector } from 'react-redux';
+import { RootState } from 'stores/store';
 
 export type TypeNameElement = (typeof TypeName)[number];
 
@@ -25,12 +27,14 @@ const PokemonType = ({
     onClick && onClick(!isActive);
     text && upToTwo && upToTwo(text);
   };
+  const lang = useSelector((state: RootState) => state.language.lang);
 
   return (
     <Type
       className={`pill ${isActive ? 'active' : ''}  ${
         isDarkMode ? 'shadow-btn' : 'shadow-bl'
       }`}
+      lang={lang}
       borderColor={borderColor}
       onClick={handleClick}
       isDarkMode={isDarkMode}
@@ -45,8 +49,8 @@ const Type = styled.button.withConfig({
   shouldForwardProp: prop => !['borderColor', 'isActive', 'isDarkMode'].includes(prop),
 })<Props>`
   border: 7px solid ${({ borderColor }) => borderColor};
-  width: 5.5rem;
-  height: 3rem;
+  width: 6.8em;
+  height: 3.3rem;
   color: var(--color-background);
   border-radius: 30px;
   background-color: ${({ borderColor, isActive }) =>
@@ -55,7 +59,7 @@ const Type = styled.button.withConfig({
   .TypeText {
     font-family: 'NotoSansBlack';
     font-size: 1rem;
-    letter-spacing: 4px;
+    letter-spacing: ${({ lang }) => (lang === 'ko' ? '4px' : '1.5px')};
     padding-top: 0.5rem;
     color: ${({ isDarkMode, isActive }) =>
       isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)'};
@@ -66,18 +70,19 @@ const Type = styled.button.withConfig({
 
     .TypeText {
       font-weight: 500;
-      letter-spacing: 2px;
+      letter-spacing: ${({ lang }) => (lang === 'ko' ? '2px' : '1px')};
     }
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
     width: 5rem;
-    height: 3rem;
+    height: 2.85rem;
     border: 4.5px solid ${({ borderColor }) => borderColor};
 
     .TypeText {
-      font-weight: 300;
-      letter-spacing: 2px;
+      font-size: 0.85rem;
+      font-weight: ${({ lang }) => (lang === 'jp' ? '1000' : '300')};
+      letter-spacing: ${({ lang }) => (lang === 'ko' ? '2px' : '0.5px')};
     }
   }
 `;

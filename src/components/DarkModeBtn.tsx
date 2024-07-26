@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
-import { darkModeSlice } from 'features/darkModeSlice';
-import { useToggleTheme } from 'hooks/useToggleTheme';
+import { darkModeSlice, useToggleTheme } from 'features/darkModeSlice';
 import { ReactComponent as Sun } from '../img/Sun.svg';
 import { ReactComponent as ToggleOff } from '../img/ToggleOff.svg';
 import { ReactComponent as Moon } from '../img/Moon.svg';
@@ -89,9 +88,12 @@ const MoonIcon = styled(Moon)`
 export default DarkModeBtn;
 
 // TODO
-// [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
 // [ ] 하루에 한 번 light house 점수 확인
-// [ ] scss 코드로 압축할 수 있는 css 코드 있는지 확인
-// [ ] 타이틀 폰트 사이즈가 가끔 너무 작아진다
-// [ ] 크로스브라우징 신경 쓰기
-// [ ] 결과 컴포넌트의 불 아이콘 퍼블리싱
+
+// [x] 타이틀 폰트 사이즈가 가끔 너무 작아진다
+// [x] 크로스브라우징 신경 쓰기
+// [x] 결과 컴포넌트의 불 아이콘 퍼블리싱
+
+// 나중에 TODO
+// [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
+// [ ] scss 코드로 압축할 수 있는 css 코드 있는지 확인 -> 리팩토링 나중에

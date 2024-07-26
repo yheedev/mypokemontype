@@ -4,18 +4,18 @@ import { Container, Card } from '../components/Selector';
 import BtnMenu from 'components/BtnMenu';
 import Lucario from '../img/Lucario.webp';
 import { Hr } from 'components/Result';
+import { useSelector } from 'react-redux';
+import { RootState } from 'stores/store';
 
 export const More = () => {
+  const lang = useSelector((state: RootState) => state.language.lang);
+
   return (
     <>
       <Title />
       <Container>
-        <MoreCard>
-          <img
-            src={Lucario}
-            alt="Lucario, one of the famous Pokemon"
-            className="Lucario"
-          />
+        <MoreCard lang={lang}>
+          <img src={Lucario} alt="Lucario, one of the Pokemon" className="Lucario" />
           <Text>
             <Contact>
               Contact:
