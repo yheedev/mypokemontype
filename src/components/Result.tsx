@@ -114,7 +114,7 @@ const ResultCard = styled.div`
   }
 
   .resultEffect {
-    font-family: 'NotosansKRBold';
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 1.25rem;
     font-weight: 1000;
 
@@ -172,7 +172,7 @@ export const FlameIcon = styled(Flame)<{ color: string }>`
 
 // TODO;
 // [ ] 동일한 result 컴포넌트 내에서 `/`, `/defense` 다른 경로로 보여주기 vs defenseResult, offenseResult 컴포넌트 따로 만들어서 속도 테스트
-// [ ] 폰트들 위치 가장 상위로 옮기거나 가져오는 방법 고민하기 (lighthouse가 폰트 가져오는데 가장 오래걸린댄다,,)
+// [x] 폰트들 위치 가장 상위로 옮기거나 가져오는 방법 고민하기 (lighthouse가 폰트 가져오는데 가장 오래걸린댄다,,)
 
 // [ ] 컴포넌트 폴더 내에서,, 버튼들과 다른 것들 폴더 나누기
 // [ ] 결과에 있는 pokemonType 컴포넌트에 `cursor: default;` 적용
@@ -180,7 +180,6 @@ export const FlameIcon = styled(Flame)<{ color: string }>`
 // [ ] 언젠가 뒤로,, 버튼을 만들고 싶다
 // [ ] 불 아이콘 클릭시 툴박스..?
 // [ ] 1배 상태에서는 fire svg 안보이게 하기
-// [ ] 한자 안 꺠지고 숫자ㄱㅊ은 폰트로 바꾸기..
 
 // [x] 불 아이콘 퍼블리싱 하는 중,,
 // [x] 공격은 2배, 1배, 0.5배... 순서, 방어는 0.5배, 1배, 2배... 순서로 보여주기

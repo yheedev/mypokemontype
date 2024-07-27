@@ -57,7 +57,7 @@ const Type = styled.button.withConfig({
     isActive ? borderColor : 'var(--color-card)'};
 
   .TypeText {
-    font-family: 'NotoSansBlack';
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 1rem;
     letter-spacing: ${({ lang }) => (lang === 'ko' ? '4px' : '1.5px')};
     padding-top: 0.5rem;

@@ -2,10 +2,10 @@ import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import { darkModeSlice, useToggleTheme } from 'features/darkModeSlice';
-import { ReactComponent as Sun } from '../img/Sun.svg';
-import { ReactComponent as ToggleOff } from '../img/ToggleOff.svg';
-import { ReactComponent as Moon } from '../img/Moon.svg';
-import { ReactComponent as ToggleOn } from '../img/ToggleOn.svg';
+import { ReactComponent as Sun } from 'img/Sun.svg';
+import { ReactComponent as ToggleOff } from 'img/ToggleOff.svg';
+import { ReactComponent as Moon } from 'img/Moon.svg';
+import { ReactComponent as ToggleOn } from 'img/ToggleOn.svg';
 
 export const DarkModeBtn = () => {
   const dispatch = useDispatch();
@@ -21,29 +21,27 @@ export const DarkModeBtn = () => {
 
   return (
     <Btn aria-label="Click to switch to dark mode or light mode.">
-      <>
-        <BtnContainer onClick={handleClick}>
-          {theme === 'dark' ? (
-            <>
-              <ToggleOffIcon className="Toggle ToggleOff shadow-bl"></ToggleOffIcon>
-              <SunIcon className="ToggleIcon shadow-bl" />
-            </>
-          ) : (
-            <>
-              <ToggleOnIcon className="shadow-bl Toggle ToggleOff"></ToggleOnIcon>
-              <MoonIcon className="ToggleIcon shadow-gr" />
-            </>
-          )}
-        </BtnContainer>{' '}
-        {/* {toggle} */}
-      </>
+      <BtnContainer onClick={handleClick}>
+        {theme === 'dark' ? (
+          <>
+            <ToggleOffIcon className="Toggle ToggleOff shadow-bl"></ToggleOffIcon>
+            <SunIcon className="ToggleIcon shadow-bl" />
+          </>
+        ) : (
+          <>
+            <ToggleOnIcon className="shadow-bl Toggle ToggleOff"></ToggleOnIcon>
+            <MoonIcon className="ToggleIcon shadow-gr" />
+          </>
+        )}
+      </BtnContainer>{' '}
+      {/* {toggle} */}
     </Btn>
   );
 };
 
-const Btn = styled.div`
-  /* height: auto;
-  min-height: 100%; */
+const Btn = styled.button`
+  background: none;
+  border: none;
 `;
 
 const BtnContainer = styled.button`
@@ -77,12 +75,12 @@ const ToggleOnIcon = styled(ToggleOn)`
 
 const SunIcon = styled(Sun)`
   ${iconStyles}
-  left: 73%;
+  left: 79%;
 `;
 
 const MoonIcon = styled(Moon)`
   ${iconStyles}
-  left: 60%;
+  left: 68%;
 `;
 
 export default DarkModeBtn;
@@ -94,6 +92,5 @@ export default DarkModeBtn;
 // [x] 크로스브라우징 신경 쓰기
 // [x] 결과 컴포넌트의 불 아이콘 퍼블리싱
 
-// 나중에 TODO
 // [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
 // [ ] scss 코드로 압축할 수 있는 css 코드 있는지 확인 -> 리팩토링 나중에

@@ -20,7 +20,7 @@ export default MainTitle;
 
 export const Title = styled.header`
   font-size: 3rem;
-  font-family: 'Helios';
+  font-family: 'HeliosExtBlack', sans-serif;
   color: var(--color-Title);
   display: flex;
   justify-content: center;

@@ -185,7 +185,7 @@ export const Card = styled.div<{ lang: string }>`
 
 /**
  * TODO
- * [ ] 영어, 일본어일 떄 text-indent 다르게 설정
+ * [x] 영어, 일본어일 떄 text-indent 다르게 설정
  */
 
 const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`

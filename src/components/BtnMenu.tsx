@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import MoreBtn from './MoreBtn';
-import DarkModeBtn from './DarkModeBtn';
+import MoreBtn from './btn/MoreBtn';
+import DarkModeBtn from './btn/DarkModeBtn';
+import LangBtn from './btn/LangBtn';
 
 export const Menu = styled.div`
   display: flex;
@@ -13,6 +14,7 @@ export const BtnMenu = () => {
   return (
     <ButtonContainer>
       <MoreBtn />
+      <LangBtn />
       <DarkModeBtn />
     </ButtonContainer>
   );
@@ -25,6 +27,7 @@ export const ButtonContainer = styled.div`
   align-items: center;
   transform: translateX(-10%);
   right: 0;
+  gap: 0.5rem;
 `;
 
 export default BtnMenu;

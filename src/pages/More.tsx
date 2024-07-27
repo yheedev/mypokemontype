@@ -65,7 +65,7 @@ export const Text = styled.div`
 `;
 
 export const Contact = styled.h1`
-  font-family: 'Helios';
+  font-family: 'HeliosExtBlack', sans-serif;
   font-size: 1.5rem;
   @media (min-width: 280px) and (max-width: 767px) {
     font-size: 1rem;
@@ -73,7 +73,7 @@ export const Contact = styled.h1`
 `;
 
 export const Noti = styled.h3`
-  font-family: 'NotoSansBlack';
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 1rem;
   @media (min-width: 280px) and (max-width: 767px) {
     font-size: 0.8rem;

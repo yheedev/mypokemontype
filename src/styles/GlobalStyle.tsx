@@ -1,8 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 import { lightTheme, darkTheme } from './theme';
-import Helios from './Helios.woff';
-//import NotosansKRBlack from './NotoSansKRBlack.otf';
 
 export const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -43,17 +41,9 @@ ${reset}
     //--stella: #44628D;
     
   }
-  
-@font-face {
-    font-family: 'Helios';
-        src: local('./Helios.woff'), local('Helios');
-        font-style: normal;
-        src: url(${Helios}) format('truetype');
-  }
 
   //TODO
-  // [ ] 폰트 전부 CDN 에서 가져오기 
-  //https://www.cdnfonts.com/helios-antique.font 
+  // [x] 폰트 전부 CDN 에서 가져오기 
 
   * { 
   margin: 0;
@@ -112,8 +102,6 @@ li {
   .shadow-btn {
     filter: drop-shadow(0px 2px 2px #93896b);
   }
-
-
 `;
 
 export default GlobalStyle;

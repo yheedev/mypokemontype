@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { ReactComponent as Pokeball } from '../img/Pokeball.svg';
+import { ReactComponent as Pokeball } from 'img/Pokeball.svg';
 import { RootState } from 'stores/store';
 import { useSelector } from 'react-redux';
-import { toggleStyles } from '../components/DarkModeBtn';
+import { toggleStyles } from './DarkModeBtn';
 
 export const MoreBtn = () => {
   const navigate = useNavigate();
@@ -36,6 +36,8 @@ const PokeballIcon = styled(Pokeball).withConfig({
   ${toggleStyles}
   width: 3.12rem;
   height: 3.12rem;
+  align-items: center;
+  display: flex;
 `;
 
 export default MoreBtn;
