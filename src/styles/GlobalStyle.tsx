@@ -42,9 +42,6 @@ ${reset}
     
   }
 
-  //TODO
-  // [x] 폰트 전부 CDN 에서 가져오기 
-
   * { 
   margin: 0;
   padding: 0;

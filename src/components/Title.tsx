@@ -41,8 +41,3 @@ export const Title = styled.header`
     text-indet: left;
   } // 모바일
 `;
-
-//TODO;
-
-// [x] 타이틀 호환이슈 있는 부분: 모바일 - 갤럭시 S8+ (360X740)
-// [x] 피그마 보고 타이틀 상하 위치 반응형 다시 맞추기

@@ -168,8 +168,6 @@ export const Card = styled.div<{ lang: string }>`
     text-align: center;
     margin-bottom: 1.5rem;
     word-break: ${({ lang }) => (lang === 'ko' ? ' keep-all' : 'normal')};
-    // TODO
-    // [x] 일본어일때는 padding 기준으로 info text를 끊어야 함 word-break 없애기 이거 때문에 반응형꺶ㅈ미
 
     @media (min-width: 280px) and (max-width: 767px) {
       font-size: 0.9rem;
@@ -182,11 +180,6 @@ export const Card = styled.div<{ lang: string }>`
     }
   }
 `;
-
-/**
- * TODO
- * [x] 영어, 일본어일 떄 text-indent 다르게 설정
- */
 
 const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
   border-bottom: ${props =>
