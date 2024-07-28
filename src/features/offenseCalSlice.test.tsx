@@ -57,7 +57,6 @@ describe('offenseCalSlice', () => {
     const expectedKeys = ['2', '1', '0.5'];
 
     testEffectiveness(ContainerTypes, expectedKeys);
-    console.log(ContainerTypes);
   });
 
   describe('땅, 바위 / 고스트, 풀 / 고스트, 얼음 / 전기, 악 / 바위, 불꽃 / 불꽃, 땅 / 물, 페어리 / 전기, 벌레 / 물, 드래곤', () => {

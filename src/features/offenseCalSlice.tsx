@@ -89,7 +89,6 @@ export const offenseCalSlice = createSlice({
         state.result = effectiveness;
         state.offenseType1 = offenseType1;
         state.offenseType2 = offenseType2;
-        console.log(effectiveness);
       }
     },
   },
