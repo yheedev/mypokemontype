@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import kr from '../json/kr.json';
 import us from '../json/us.json';
 import jp from '../json/jp.json';
-exports.handler = async (event: { Records: { cf: { request: any } }[] }) => {
+
+export const handler = async (event: { Records: { cf: { request: any } }[] }) => {
   const request = event.Records[0].cf.request;
   const headers = request.headers;
 
