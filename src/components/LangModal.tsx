@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { setLanguage } from '../features/languageSlice';
+import { language } from '../features/languageSlice';
 import { Card } from '../components/Selector';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
@@ -19,8 +19,8 @@ const LangModal = ({ onClose }: { onClose: () => void }) => {
     }
   };
 
-  const handleLanguageChange = (language: 'kr' | 'us' | 'jp') => {
-    dispatch(setLanguage(language));
+  const handleLanguageChange = (languages: 'kr' | 'us' | 'jp') => {
+    dispatch(language(languages));
     onClose();
   };
 
@@ -86,6 +86,9 @@ const ModalTitle = styled.h1`
 const ModalText = styled.h2`
   font-size: 1rem;
   color: var(--color-modalText);
+  cursor: pointer;
+  width: 6rem;
+  text-align: center;
 `;
 
 const HrModal = styled.hr`

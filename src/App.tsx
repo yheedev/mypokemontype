@@ -3,7 +3,7 @@ import { GlobalStyle } from './styles/GlobalStyle';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './stores/store';
-import { setLanguage } from './features/languageSlice';
+import { language } from './features/languageSlice';
 import Offense from './pages/Offense';
 import Defense from './pages/Defense';
 import More from './pages/More';
@@ -20,7 +20,7 @@ export function App() {
     const langCookie = document.cookie.split('; ').find(row => row.startsWith('lang='));
     const lang = langCookie ? langCookie.split('=')[1] : 'en';
 
-    dispatch(setLanguage(lang as 'kr' | 'us' | 'jp'));
+    dispatch(language(lang as 'kr' | 'us' | 'jp'));
   }, [dispatch]);
 
   return (

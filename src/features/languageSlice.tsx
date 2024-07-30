@@ -16,14 +16,13 @@ export const handler = async (event: { Records: { cf: { request: any } }[] }) =>
   lang = country === 'US' ? 'us' : country === 'JP' ? 'jp' : 'kr';
 
   headers['set-cookie'] = [{ key: 'Set-Cookie', value: `lang=${lang}; Path=/` }];
-  console.log('View country', country);
+
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('lang', lang);
+  }
+
   return request;
 };
-
-export interface langState {
-  lang: 'kr' | 'us' | 'jp';
-  translations: typeof kr;
-}
 
 const langs = {
   us: us,
@@ -31,22 +30,25 @@ const langs = {
   jp: jp,
 };
 
-export const initialState: langState = {
-  lang: 'kr', // default language
-  translations: kr,
+export type langState = {
+  lang: 'kr' | 'us' | 'jp';
+  translations: typeof kr;
 };
 
 export const languageSlice = createSlice({
   name: 'language',
-  initialState,
+  initialState: {
+    lang: 'kr',
+    translations: kr,
+  },
   reducers: {
-    setLanguage: (state, action: PayloadAction<'kr' | 'us' | 'jp'>) => {
+    language: (state, action: PayloadAction<'kr' | 'us' | 'jp'>) => {
       state.lang = action.payload;
       state.translations = langs[action.payload] || kr;
+      localStorage.setItem('lang', action.payload);
     },
   },
 });
 
-export const { setLanguage } = languageSlice.actions;
-
+export const { language } = languageSlice.actions;
 export default languageSlice.reducer;
