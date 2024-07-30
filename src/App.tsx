@@ -11,17 +11,15 @@ import More from './pages/More';
 export function App() {
   const dispatch = useDispatch();
   const darkMode = useSelector((state: RootState) => state.darkMode.theme);
+  const lang = useSelector((state: RootState) => state.language.lang);
 
   useEffect(() => {
     document.body.setAttribute('data-theme', darkMode);
   }, [darkMode]);
 
   useEffect(() => {
-    const langCookie = document.cookie.split('; ').find(row => row.startsWith('lang='));
-    const lang = langCookie ? langCookie.split('=')[1] : 'en';
-
     dispatch(language(lang as 'kr' | 'us' | 'jp'));
-  }, [dispatch]);
+  }, [dispatch, lang]);
 
   return (
     <>
