@@ -44,7 +44,7 @@ const Btn = styled.button`
   border: none;
 `;
 
-const BtnContainer = styled.button`
+const BtnContainer = styled.div`
   background: none;
   border: none;
 `;

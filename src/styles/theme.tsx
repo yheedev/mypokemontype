@@ -41,6 +41,10 @@ export const lightTheme = css`
     --color-notSelected: var(--notselectedforLight);
     --color-toggle: var(--black);
     --color-toggleIcon: var(--lightGray);
+    --color-modalCard: var(--charcoal);
+    --color-modalTitle: var(--lightGray);
+    --color-modalText: var(--lightGray);
+    --color-modalBorder: var(--white);
 
     ::selection {
       background: var(--fighting);
@@ -61,6 +65,10 @@ export const darkTheme = css`
     --color-toggle: var(--lightGray);
     --color-toggleIcon: var(--charcoal);
     --color-shadow: var(--shadow);
+    --color-modalCard: var(--lightGray);
+    --color-modalTitle: var(--black);
+    --color-modalText: var(--black);
+    --color-modalBorder: var(--charcoal);
 
     ::selection {
       background: var(--steel);

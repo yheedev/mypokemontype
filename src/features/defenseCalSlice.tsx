@@ -30,6 +30,7 @@ export const defenseCalSlice = createSlice({
         [key in number | string]: string[];
       };
 
+      const EffectValues = [0, 0.25, 0.5, 1, 2, 4];
       let effectiveness: Effectiveness = {
         '4': [],
         '2': [],
@@ -86,24 +87,30 @@ export const defenseCalSlice = createSlice({
         // defenseArray1, defenseArray2를 비교해서 새로운 1개의 배열 반환
         const combinedDefenseArray = defenseArray1.map((value1, index) => {
           const value2 = defenseArray2[index];
-          if (value1 === 2 && value2 === 2) {
-            return 4; // 두 값이 모두 2일 경우 4를 반환
-          } else if ((value1 === 1 && value2 === 2) || (value1 === 2 && value2 === 1)) {
-            return 2; // 두 값 중 하나가 2이고 다른 하나가 1일 경우 2를 반환
-          } else if (
-            (value1 === 0.5 && value2 === 2) ||
-            (value1 === 2 && value2 === 0.5)
-          ) {
-            return 1; // 두 값 중 하나가 0.5이고 다른 하나가 2일 경우 1을 반환
-          } else if (
-            (value1 === 1 && value2 === 0.5) ||
-            (value1 === 0.5 && value2 === 1)
-          ) {
-            return 0.5; // 두 값 중 하나가 0.5이고 다른 하나가 1일 경우 0.5를 반환합니다.
-          } else if (value1 === 0.5 && value2 === 0.5) {
-            return 0.25; // 두 값이 모두 0.5일 경우 0.25를 반환합니다.
-          } else if (value1 === 0 || value2 === 0) {
-            return 0; // 두 값 중 하나가 0일 경우 0을 반환합니다.
+          // if (value1 === 2 && value2 === 2) {
+          //   return 4; // 두 값이 모두 2일 경우 4를 반환
+          // } else if ((value1 === 1 && value2 === 2) || (value1 === 2 && value2 === 1)) {
+          //   return 2; // 두 값 중 하나가 2이고 다른 하나가 1일 경우 2를 반환
+          // } else if (
+          //   (value1 === 0.5 && value2 === 2) ||
+          //   (value1 === 2 && value2 === 0.5)
+          // ) {
+          //   return 1; // 두 값 중 하나가 0.5이고 다른 하나가 2일 경우 1을 반환
+          // } else if (
+          //   (value1 === 1 && value2 === 0.5) ||
+          //   (value1 === 0.5 && value2 === 1)
+          // ) {
+          //   return 0.5; // 두 값 중 하나가 0.5이고 다른 하나가 1일 경우 0.5를 반환합니다.
+          // } else if (value1 === 0.5 && value2 === 0.5) {
+          //   return 0.25; // 두 값이 모두 0.5일 경우 0.25를 반환합니다.
+          // } else if (value1 === 0 || value2 === 0) {
+          //   return 0; // 두 값 중 하나가 0일 경우 0을 반환합니다.
+          // } else {
+          //   return 1;
+          // }
+          const value = value1 * value2;
+          if (EffectValues.indexOf(value) > -1) {
+            return value;
           } else {
             return 1;
           }

@@ -3,17 +3,24 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import { ReactComponent as Globe } from 'img/Globe.svg';
 import { toggleStyles } from './DarkModeBtn';
+import LangModal from 'components/LangModal';
+import { useState } from 'react';
 
 export const LangBtn = () => {
-  // const dispatch = useDispatch();
-  // TODO
-  // [ ] 나중에 모달창을 만들어야겠지..
+  const [isModalOpen, setModalOpen] = useState(false);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
+  const toggleModal = () => setModalOpen(!isModalOpen);
 
   return (
-    <Btn aria-label="Click to select your language: Korean, English, Japanese.">
-      <GlobeIcon isDarkMode={isDarkMode} className="Globe shadow-bl" />
-    </Btn>
+    <>
+      <Btn
+        onClick={toggleModal}
+        aria-label="Click to select your language: Korean, English, Japanese."
+      >
+        <GlobeIcon isDarkMode={isDarkMode} className="Globe shadow-bl" />
+      </Btn>
+      {isModalOpen && <LangModal onClose={toggleModal} />}
+    </>
   );
 };
 

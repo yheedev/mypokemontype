@@ -25,6 +25,7 @@ export const offenseCalSlice = createSlice({
       const { offenseType1, offenseType2 } = action.payload;
 
       // 각 효과의 수치를 키로 갖는 빈 배열 설정
+      // TODO 주석 추가 성능,, 고민,,,
       type Effectiveness = {
         [key in number | string]: string[];
       };

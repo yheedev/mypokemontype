@@ -29,5 +29,11 @@
   },
   "Result": {
     "x damage": "x damage"
+  },
+  "languege": {
+    "languegeSettings": "Language Settings",
+    "Korean": "Korean",
+    "English": "English",
+    "Japanese": "Japanese"
   }
 }

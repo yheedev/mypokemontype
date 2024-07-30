@@ -29,5 +29,11 @@
   },
   "Result": {
     "x damage": "배의 데미지"
+  },
+  "languege": {
+    "languegeSettings": "언어 설정",
+    "Korean": "한국어",
+    "English": "영어",
+    "Japanese": "일본어"
   }
 }

@@ -34,6 +34,7 @@ const ContainerTypes = () => {
         dispatch(
           offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] })
         );
+        //스위치로 바꾸기, 함수로 만들어서 중복 제거
       }
     } else if (location.pathname === '/defense') {
       if (selectTypes.length === 0) {

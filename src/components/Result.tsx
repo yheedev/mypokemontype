@@ -47,8 +47,10 @@ const Result = () => {
                     color={flameColor}
                   />
                 )}
-                <h1 className="resultEffect">{key}배의 데미지</h1>
-                {/* {translate.Result} */}
+                <h1 className="resultEffect">
+                  {key}
+                  {translate.Result['x damage']}
+                </h1>
               </TitleContainer>
               <Hr />
               <PokemonContainer>
@@ -75,7 +77,11 @@ const Result = () => {
                     color={flameColor}
                   />
                 )}
-                <h1 className="resultEffect">{key}배의 데미지</h1>
+                <h1 className="resultEffect">
+                  {key}
+                  {translate.Result['x damage']}
+                  {/* 배의 데미지 */}
+                </h1>
               </TitleContainer>
               <Hr />
               <PokemonContainer>
