@@ -62,7 +62,7 @@ export const iconStyles = css`
   position: absolute;
   transform: translate(-50%, -50%);
   fill: var(--color-toggleIcon);
-  top: 48%;
+  top: 40%;
 `;
 
 const ToggleOffIcon = styled(ToggleOff)`

@@ -24,6 +24,15 @@ export const handler = async (event: { Records: { cf: { request: any } }[] }) =>
   return request;
 };
 
+const getCookie = (name: string) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  return null;
+};
+
+const initialLang = getCookie('lang') || 'kr';
+
 const langs = {
   us: us,
   kr: kr,
@@ -38,8 +47,10 @@ export type langState = {
 export const languageSlice = createSlice({
   name: 'language',
   initialState: {
-    lang: 'kr',
-    translations: kr,
+    // lang: 'kr',
+    // translations: kr,
+    lang: initialLang as 'kr' | 'us' | 'jp',
+    translations: langs[initialLang as 'kr' | 'us' | 'jp'] || kr,
   },
   reducers: {
     language: (state, action: PayloadAction<'kr' | 'us' | 'jp'>) => {

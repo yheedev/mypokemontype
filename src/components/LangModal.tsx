@@ -62,7 +62,7 @@ const Modal = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  opacity: 70%;
+  opacity: 80%;
   font-family: 'Noto Sans KR', sans-serif;
 `;
 

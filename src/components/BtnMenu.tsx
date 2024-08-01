@@ -22,7 +22,7 @@ export const BtnMenu = () => {
 
 export const ButtonContainer = styled.div`
   display: flex;
-  padding: 1rem;
+  padding: 1rem 1rem 2rem;
   position: absolute;
   align-items: center;
   transform: translateX(-10%);

@@ -189,11 +189,11 @@ const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
   cursor: pointer;
 
   .OffenseText {
-    color: ${props => (props.$selectedMode ? 'var(--offenseRec)' : 'var(--normal)')};
+    color: ${props => (props.$selectedMode ? 'var(--offenseRec)' : 'var(--color-text)')};
     ${props =>
       props.$darkMode === 'dark' &&
       css`
-        color: ${props.$selectedMode ? 'var(--offenseRec)' : 'var(--charcoal)'};
+        color: ${props.$selectedMode ? 'var(--offenseRec)' : 'var(--color-text)'};
       `}
   }
 
@@ -216,11 +216,11 @@ const OptionDefense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
   cursor: pointer;
 
   .DefenseText {
-    color: ${props => (props.$selectedMode ? 'var(--defenseRec)' : 'var(--normal)')};
+    color: ${props => (props.$selectedMode ? 'var(--defenseRec)' : 'var(--color-text)')};
     ${props =>
       props.$darkMode === 'dark' &&
       css`
-        color: ${props.$selectedMode ? 'var(--defenseRec)' : 'var(--charcoal)'};
+        color: ${props.$selectedMode ? 'var(--defenseRec)' : 'var(--color-text)'};
       `}
   }
 
