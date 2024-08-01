@@ -11,6 +11,7 @@ module.exports = {
       plugins: [
         '@babel/plugin-transform-modules-commonjs',
         '@babel/plugin-transform-runtime',
+        '@babel/plugin-syntax-dynamic-import',
       ],
     },
   },
