@@ -11,9 +11,12 @@ export const handler = async (event: { Records: { cf: { request: any } }[] }) =>
     ? headers['cloudfront-viewer-country'][0].value
     : 'KR';
 
-  let lang = 'kr';
+  let lang = 'kr'; // 디폴트 값이 한국어
 
-  lang = country === 'US' ? 'us' : country === 'JP' ? 'jp' : 'kr';
+  const EngCode = ['US', 'CA', 'GB', 'AU', 'NZ', 'IE', 'ZA']; // 미국, 캐나다, 영국, 호주, 뉴질랜드, 아일랜드, 남아공
+
+  lang = EngCode.includes(country) ? 'us' : country === 'JP' ? 'jp' : 'kr';
+  // 맨 처음에 접속하는 유저의 위치가 영어권이면 영어로, 일본이면 일본어로, 그 외에는 한국어로 자동으로 언어 설정
 
   headers['set-cookie'] = [{ key: 'Set-Cookie', value: `lang=${lang}; Path=/` }];
 
@@ -47,8 +50,6 @@ export type langState = {
 export const languageSlice = createSlice({
   name: 'language',
   initialState: {
-    // lang: 'kr',
-    // translations: kr,
     lang: initialLang as 'kr' | 'us' | 'jp',
     translations: langs[initialLang as 'kr' | 'us' | 'jp'] || kr,
   },
