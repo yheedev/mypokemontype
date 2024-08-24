@@ -11,6 +11,8 @@ export const handler = async (event: { Records: { cf: { request: any } }[] }) =>
     ? headers['cloudfront-viewer-country'][0].value
     : 'KR';
 
+  console.log('Detected country:', country);
+
   let lang = 'kr'; // 디폴트 값이 한국어
 
   const EngCode = ['US', 'CA', 'GB', 'AU', 'NZ', 'IE', 'ZA']; // 미국, 캐나다, 영국, 호주, 뉴질랜드, 아일랜드, 남아공
