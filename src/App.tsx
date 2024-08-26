@@ -4,18 +4,21 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './stores/store';
 import { language } from './features/languageSlice';
+import { useThemeEffect } from 'features/darkModeSlice';
 import Offense from './pages/Offense';
 import Defense from './pages/Defense';
 import More from './pages/More';
 
 export function App() {
   const dispatch = useDispatch();
-  const darkMode = useSelector((state: RootState) => state.darkMode.theme);
+  //const darkMode = useSelector((state: RootState) => state.darkMode.theme);
   const lang = useSelector((state: RootState) => state.language.lang);
 
-  useEffect(() => {
-    document.body.setAttribute('data-theme', darkMode);
-  }, [darkMode]);
+  // useEffect(() => {
+  //   document.body.setAttribute('data-theme', darkMode);
+  // }, [darkMode]);
+
+  useThemeEffect();
 
   useEffect(() => {
     dispatch(language(lang as 'kr' | 'us' | 'jp'));

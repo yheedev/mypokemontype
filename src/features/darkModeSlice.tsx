@@ -27,9 +27,9 @@ export function useToggleTheme() {
 
   const toggle = () => {
     if (darkMode === 'dark') {
-      dispatch(darkModeSlice.actions.setTheme('light'));
+      dispatch(darkModeSlice.actions.setTheme('light')); // 현재 테마가 다크모드면 라이트모드로 변경
     } else {
-      dispatch(darkModeSlice.actions.setTheme('dark'));
+      dispatch(darkModeSlice.actions.setTheme('dark')); // 현재 테마가 라이트모드면 다크모드로 변경
     }
   };
 
@@ -49,13 +49,6 @@ export function useThemeEffect() {
   useEffect(() => {
     document.body.dataset.theme = darkMode;
   }, [darkMode]);
-
-  useEffect(() => {
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (darkMode === 'light' && systemPrefersDark) {
-      dispatch(darkModeSlice.actions.setTheme('dark'));
-    }
-  }, [dispatch, darkMode]);
 }
 
 export const { setTheme } = darkModeSlice.actions;
