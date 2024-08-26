@@ -49,6 +49,13 @@ export function useThemeEffect() {
   useEffect(() => {
     document.body.dataset.theme = darkMode;
   }, [darkMode]);
+
+  useEffect(() => {
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (darkMode === 'light' && systemPrefersDark) {
+      dispatch(darkModeSlice.actions.setTheme('dark'));
+    }
+  }, [dispatch, darkMode]);
 }
 
 export const { setTheme } = darkModeSlice.actions;
