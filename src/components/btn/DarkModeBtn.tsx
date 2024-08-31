@@ -11,7 +11,6 @@ export const DarkModeBtn = () => {
   const dispatch = useDispatch();
   const toggle = useToggleTheme()[0];
   const theme = useSelector((state: RootState) => state.darkMode.theme);
-  //const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
 
   const handleClick = () => {
     toggle();
@@ -86,7 +85,5 @@ const MoonIcon = styled(Moon)`
 export default DarkModeBtn;
 
 // TODO
-// [ ] 하루에 한 번 light house 점수 확인
-
 // [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
 // [ ] scss 코드로 압축할 수 있는 css 코드 있는지 확인 -> 리팩토링 나중에

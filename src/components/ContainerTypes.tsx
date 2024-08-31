@@ -31,10 +31,9 @@ const ContainerTypes = () => {
       } else if (selectTypes.length === 1) {
         dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
       } else if (selectTypes.length === 2) {
-        dispatch(
-          offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] })
-        );
-        //스위치로 바꾸기, 함수로 만들어서 중복 제거
+        dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] }));
+        //TODO
+        // [ ] 스위치로 바꾸기, 함수로 만들어서 중복 제거
       }
     } else if (location.pathname === '/defense') {
       if (selectTypes.length === 0) {
@@ -42,9 +41,7 @@ const ContainerTypes = () => {
       } else if (selectTypes.length === 1) {
         dispatch(defenseCal({ defenseType1: selectTypes[0], defenseType2: undefined }));
       } else if (selectTypes.length === 2) {
-        dispatch(
-          defenseCal({ defenseType1: selectTypes[0], defenseType2: selectTypes[1] })
-        );
+        dispatch(defenseCal({ defenseType1: selectTypes[0], defenseType2: selectTypes[1] }));
       }
     }
   }, [location.pathname, selectTypes, dispatch]);
@@ -83,6 +80,3 @@ export const Container = styled.div`
 `;
 
 export default ContainerTypes;
-
-//TODO
-//[ ] hover 스타일 추가

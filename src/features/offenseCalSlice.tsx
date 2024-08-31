@@ -23,9 +23,6 @@ export const offenseCalSlice = createSlice({
       }>
     ) => {
       const { offenseType1, offenseType2 } = action.payload;
-
-      // 각 효과의 수치를 키로 갖는 빈 배열 설정
-      // TODO 주석 추가 성능,, 고민,,,
       type Effectiveness = {
         [key in number | string]: string[];
       };
@@ -41,9 +38,7 @@ export const offenseCalSlice = createSlice({
 
       // TypeValue 배열 및 타입을 선택하지 않았을 경우에는 모든 타입에 대한 효과를 1배로 반환
       function allTypes1x(type?: string): readonly number[] {
-        return type && type in TypeValue
-          ? TypeValue[type as keyof typeof TypeValue]
-          : new Array(18).fill(1);
+        return type && type in TypeValue ? TypeValue[type as keyof typeof TypeValue] : new Array(18).fill(1);
       }
 
       if (!offenseType1 && !offenseType2) {
@@ -68,10 +63,7 @@ export const offenseCalSlice = createSlice({
       }
       // 2개의 타입을 선택: 2개의 TypeValue 객체에서 동일한 인덱스 요소의 숫자끼리 비교해서 더 큰 값으로 하나의 배열을 반환
       else {
-        const calculateMaxEffectiveness = (
-          type1: string | undefined,
-          type2: string | undefined
-        ) => {
+        const calculateMaxEffectiveness = (type1: string | undefined, type2: string | undefined) => {
           const typeArr1 = allTypes1x(type1);
           const typeArr2 = allTypes1x(type1 === type2 ? undefined : type2);
           return typeArr1.map((value, index) => Math.max(value, typeArr2[index]));
