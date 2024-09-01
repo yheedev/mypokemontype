@@ -24,7 +24,7 @@ const ContainerTypes = () => {
     }
   };
 
-  const handleCalculation = useCallback(
+  const pathCal = useCallback(
     (path: string, types: string[]) => {
       switch (path) {
         case '/':
@@ -52,8 +52,8 @@ const ContainerTypes = () => {
 
   useEffect(() => {
     const types = [selectTypes[0], selectTypes[1]];
-    handleCalculation(location.pathname, types);
-  }, [location.pathname, selectTypes, dispatch, handleCalculation]);
+    pathCal(location.pathname, types);
+  }, [location.pathname, selectTypes, dispatch, pathCal]);
 
   return (
     <Container>

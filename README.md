@@ -1,4 +1,4 @@
-# [개인] 리액트 웹 앱 포켓몬 타입 계산기: [My Pokemon Type](https://mypkmn.info)
+## [개인] 리액트 웹 앱 포켓몬 타입 계산기: [My Pokemon Type](https://mypkmn.info)
 
 > <aside>
 
@@ -167,4 +167,8 @@ export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
 <img src="./png/lighthouse.png" width="300px">
 </div>
 
-FOIT 현상 해결, 콘솔에 뜨는 브라우저 오류 해결, index.js 컴파일, 백그라운드 색상 대비 개선 등을 통해 라이트 하우스 점수 개선을 할 수 있었습니다.
+- FOIT 현상 해결
+- 콘솔에 뜨는 브라우저 오류 해결 (index.js 컴파일..)
+- 백그라운드 색상 대비 개선
+
+등을 통해 라이트 하우스 점수 개선을 할 수 있었습니다... (작성 중입니다)
