@@ -39,7 +39,6 @@ ${reset}
     --steel: #D1D1E0;
     --fairy: #F4BDC9;
     //--stella: #44628D;
-    
   }
 
   * { 

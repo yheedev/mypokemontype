@@ -15,12 +15,8 @@ const Result = () => {
   const translate = useSelector((state: RootState) => state.language.translations);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
 
-  const offenseResult = useSelector(
-    (state: RootState) => state.offenseCal.result as ResultType
-  );
-  const defenseResult = useSelector(
-    (state: RootState) => state.defenseCal.result as ResultType
-  );
+  const offenseResult = useSelector((state: RootState) => state.offenseCal.result as ResultType);
+  const defenseResult = useSelector((state: RootState) => state.defenseCal.result as ResultType);
 
   const offenseResultArray = Object.entries(offenseResult)
     .filter(([key, value]) => value.length > 0)
@@ -30,8 +26,7 @@ const Result = () => {
     .filter(([key, value]) => value.length > 0)
     .sort(([keyA], [keyB]) => parseFloat(keyA) - parseFloat(keyB));
 
-  const flameColor =
-    location.pathname === '/' ? 'var(--offenseRec)' : 'var(--defenseRec)';
+  const flameColor = location.pathname === '/' ? 'var(--offenseRec)' : 'var(--defenseRec)';
 
   return (
     <ResultContainer>
@@ -43,7 +38,7 @@ const Result = () => {
                 {index === 0 && (
                   <FlameIcon
                     className="fire"
-                    aria-label="the most recommended Pokemon types for offense or defense."
+                    aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
                     color={flameColor}
                   />
                 )}
@@ -61,6 +56,7 @@ const Result = () => {
                     text={translate.TypeName[type as keyof typeof translate.TypeName]}
                     borderColor={`var(--${type})`}
                     isDarkMode={isDarkMode}
+                    cursor={'default'}
                   />
                 ))}
               </PokemonContainer>
@@ -73,14 +69,13 @@ const Result = () => {
                 {index === 0 && (
                   <FlameIcon
                     className="fire"
-                    aria-label="the most recommended Pokemon types for offense or defense."
+                    aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
                     color={flameColor}
                   />
                 )}
                 <h1 className="resultEffect">
                   {key}
                   {translate.Result['x damage']}
-                  {/* 배의 데미지 */}
                 </h1>
               </TitleContainer>
               <Hr />
@@ -92,6 +87,7 @@ const Result = () => {
                     text={translate.TypeName[type as keyof typeof translate.TypeName]}
                     borderColor={`var(--${type})`}
                     isDarkMode={isDarkMode}
+                    cursor="default"
                   />
                 ))}
               </PokemonContainer>
@@ -132,6 +128,7 @@ const ResultCard = styled.div`
 
 const PokemonContainer = styled(Container)`
   margin: 1rem 0rem 1.5rem;
+  cursor: default;
 
   @media (min-width: 280px) and (max-width: 767px) {
     margin: 1em 0.5rem;
@@ -176,7 +173,6 @@ export const FlameIcon = styled(Flame)<{ color: string }>`
 
 // TODO;
 
-// [ ] 결과에 있는 pokemonType 컴포넌트에 `cursor: default;` 적용
 // [ ] 뒤로가기 버튼 만들기
-// [ ] 아이콘 클릭시 툴박스
+// [ ] 아이콘 hover할 때 툴박스
 // [ ] 1배 상태에서는 fire svg 안보이게 하기

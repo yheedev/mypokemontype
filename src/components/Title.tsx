@@ -36,7 +36,7 @@ export const Title = styled.header`
   } // 태블릿
 
   @media (min-width: 280px) and (max-width: 767px) {
-    margin: 2rem 1.2em 0.3rem; // 화면이 작기 때문에 margin-top이 더 높은 디자인 배제
+    margin: 2rem 1.2em 0.3rem; // 화면이 작기 때문에 모바일에선 margin-top이 더 높은 디자인 배제
     font-size: 1.3rem;
     text-indet: left;
   } // 모바일

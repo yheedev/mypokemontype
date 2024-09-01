@@ -19,7 +19,7 @@ export const DarkModeBtn = () => {
   };
 
   return (
-    <Btn aria-label="Click to switch to dark mode or light mode.">
+    <Btn aria-label="클릭하면 다크 모드 혹은 라이트 모드로 변경됩니다.">
       <BtnContainer onClick={handleClick}>
         {theme === 'dark' ? (
           <>

@@ -13,10 +13,7 @@ export const LangBtn = () => {
 
   return (
     <>
-      <Btn
-        onClick={toggleModal}
-        aria-label="Click to select your language: Korean, English, Japanese."
-      >
+      <Btn onClick={toggleModal} aria-label="클릭해서 한국어, 영어, 일본어 중 언어를 선택할 수 있습니다.">
         <GlobeIcon isDarkMode={isDarkMode} className="Globe shadow-bl" />
       </Btn>
       {isModalOpen && <LangModal onClose={toggleModal} />}

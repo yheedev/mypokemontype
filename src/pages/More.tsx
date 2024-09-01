@@ -15,7 +15,7 @@ export const More = () => {
       <Title />
       <Container>
         <MoreCard lang={lang}>
-          <img src={Lucario} alt="Lucario, one of the Pokemon" className="Lucario" />
+          <img src={Lucario} alt="포켓몬 루카리오" className="Lucario" />
           <Text>
             <Contact>
               Contact:

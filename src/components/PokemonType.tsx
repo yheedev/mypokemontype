@@ -9,20 +9,14 @@ interface Props {
   className?: string;
   text?: string;
   borderColor: string;
-  onClick?: (isActive: boolean) => void; // 클릭했을 때에 불리언 값 전달하는 용도 (ContainerTypes의 passTypes에서 사용)
+  onClick?: (isActive: boolean) => void; // 클릭했을 때에 불리언 값 전달하는 용도
   isActive?: boolean; // 타입 버튼 클릭 여부를 시각적으로 확인 가능
   isDarkMode: boolean;
   upToTwo?: (type: string) => void; // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
+  cursor?: string;
 }
 
-const PokemonType = ({
-  text,
-  borderColor,
-  onClick,
-  upToTwo,
-  isDarkMode,
-  isActive,
-}: Props) => {
+const PokemonType = ({ text, borderColor, onClick, upToTwo, isDarkMode, isActive }: Props) => {
   const handleClick = () => {
     onClick && onClick(!isActive);
     text && upToTwo && upToTwo(text);
@@ -31,14 +25,13 @@ const PokemonType = ({
 
   return (
     <Type
-      className={`pill ${isActive ? 'active' : ''}  ${
-        isDarkMode ? 'shadow-btn' : 'shadow-bl'
-      }`}
+      className={`pill ${isActive ? 'active' : ''}  ${isDarkMode ? 'shadow-btn' : 'shadow-bl'}`}
       lang={lang}
       borderColor={borderColor}
       onClick={handleClick}
       isDarkMode={isDarkMode}
       isActive={isActive}
+      cursor={onClick ? 'pointer' : 'default'}
     >
       <span className="TypeText">{text}</span>
     </Type>
@@ -53,16 +46,15 @@ const Type = styled.button.withConfig({
   height: 3.3rem;
   color: var(--color-background);
   border-radius: 30px;
-  background-color: ${({ borderColor, isActive }) =>
-    isActive ? borderColor : 'var(--color-card)'};
+  background-color: ${({ borderColor, isActive }) => (isActive ? borderColor : 'var(--color-card)')};
+  cursor: ${({ cursor }) => cursor};
 
   .TypeText {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 1rem;
     letter-spacing: ${({ lang }) => (lang === 'ko' ? '4px' : '1.5px')};
     padding-top: 0.5rem;
-    color: ${({ isDarkMode, isActive }) =>
-      isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)'};
+    color: ${({ isDarkMode, isActive }) => (isDarkMode && isActive ? 'var(--color-card)' : 'var(--color-text)')};
   }
 
   @media (min-width: 768px) and (min-width: 1023px) {

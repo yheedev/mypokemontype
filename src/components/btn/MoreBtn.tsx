@@ -7,19 +7,13 @@ import { toggleStyles } from './DarkModeBtn';
 
 export const MoreBtn = () => {
   const navigate = useNavigate();
-  //const theme = useSelector((state: RootState) => state.darkMode.theme);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
 
   const goToMore = () => {
-    //const newTheme = theme === 'dark' ? 'light' : 'dark';
     navigate('/more');
   };
-
   return (
-    <Btn
-      onClick={goToMore}
-      aria-label="Go to more page: contact information for the developer of <My Pokemon Type> and about the purpose of this project."
-    >
+    <Btn onClick={goToMore} aria-label="<My Pokemon Type> 프로젝트 개발자의 연락처 정보가 있는 페이지로 이동합니다.">
       <PokeballIcon isDarkMode={isDarkMode} className="Pokeball moreIcon shadow-bl" />
     </Btn>
   );

@@ -4,7 +4,7 @@ import { TypeName } from 'features/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'stores/store';
 import { add, remove } from 'features/upToTwoSlice';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { offenseCal } from 'features/offenseCalSlice';
 import { defenseCal } from 'features/defenseCalSlice';
@@ -24,45 +24,64 @@ const ContainerTypes = () => {
     }
   };
 
+  const handleCalculation = useCallback(
+    (path: string, types: string[]) => {
+      switch (path) {
+        case '/':
+          dispatch(
+            offenseCal({
+              offenseType1: types[0],
+              offenseType2: types[1],
+            })
+          );
+          break;
+        case '/defense':
+          dispatch(
+            defenseCal({
+              defenseType1: types[0],
+              defenseType2: types[1],
+            })
+          );
+          break;
+        default:
+          break;
+      }
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
-    if (location.pathname === '/') {
-      if (selectTypes.length === 0) {
-        dispatch(offenseCal({ offenseType1: undefined, offenseType2: undefined }));
-      } else if (selectTypes.length === 1) {
-        dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
-      } else if (selectTypes.length === 2) {
-        dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: selectTypes[1] }));
-        //TODO
-        // [ ] 스위치로 바꾸기, 함수로 만들어서 중복 제거
-      }
-    } else if (location.pathname === '/defense') {
-      if (selectTypes.length === 0) {
-        dispatch(defenseCal({ defenseType1: undefined, defenseType2: undefined }));
-      } else if (selectTypes.length === 1) {
-        dispatch(defenseCal({ defenseType1: selectTypes[0], defenseType2: undefined }));
-      } else if (selectTypes.length === 2) {
-        dispatch(defenseCal({ defenseType1: selectTypes[0], defenseType2: selectTypes[1] }));
-      }
-    }
-  }, [location.pathname, selectTypes, dispatch]);
+    const types = [selectTypes[0], selectTypes[1]];
+    handleCalculation(location.pathname, types);
+  }, [location.pathname, selectTypes, dispatch, handleCalculation]);
 
   return (
     <Container>
       {TypeName.map((type: (typeof TypeName)[number]) => (
-        <PokemonType
-          key={String(type)}
-          text={translate.TypeName[type]}
-          borderColor={`var(--${type})`}
-          onClick={() => {
-            upToTwoAction(type);
-          }}
-          isDarkMode={isDarkMode}
-          isActive={selectTypes.includes(type)}
-        />
+        <Wrapper key={String(type)}>
+          <PokemonType
+            key={String(type)}
+            text={translate.TypeName[type]}
+            borderColor={`var(--${type})`}
+            onClick={() => {
+              upToTwoAction(type);
+            }}
+            isDarkMode={isDarkMode}
+            isActive={selectTypes.includes(type)}
+            cursor="pointer"
+          />
+        </Wrapper>
       ))}
     </Container>
   );
 };
+
+const Wrapper = styled.div`
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+  }
+`;
 
 export const Container = styled.div`
   display: grid;
@@ -76,7 +95,7 @@ export const Container = styled.div`
     gap: 0.6rem 0.4rem;
     grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
     margin: 0 0.8rem 2rem;
-  } // 모바일
+  }
 `;
 
 export default ContainerTypes;

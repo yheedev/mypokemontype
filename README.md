@@ -1,29 +1,37 @@
-# [개인] 리액트 웹 앱 포켓몬 타입 계산기: My Pokemon Type
+# [개인] 리액트 웹 앱 포켓몬 타입 계산기: [My Pokemon Type](https://mypkmn.info)
 
 > <aside>
 
-> ## 배포 페이지: https://mypkmn.info
+> ## 배포 페이지: https://mypkmn.info | 피그마 페이지: https://lrl.kr/xW4m
 >
-> ### 피그마 페이지: https://www.figma.com/file/5pYGKquszfFywM5rGQJhbH/My-Pok%C3%A9mon-Type?type=design&node-id=0%3A1&mode=design&t=QdwaURy73UpRzHTJ-1
+> `My Pokemon Type`은 사용자가 자신 또는 상대방의 포켓몬 타입을 선택하면, 공격과 방어 시 효과적인 포켓몬 타입을 계산하는 반응형 리액트 웹 애플리케이션입니다.
 >
-> `My Pokemon Type`은 사용자가 자신 또는 상대방의 포켓몬 타입을 선택하면, 공격과 방어 시 효율적인 포켓몬 타입을 추천해주는 반응형 리액트 웹 애플리케이션입니다.
-
+> **공격** 계산 시, 선택한 포켓몬 타입이 `공격할 때에 가장 큰 데미지를 줄 수 있는 포켓몬 타입`이 결과에 표시됩니다. **방어** 계산 시, 선택한 포켓몬 타입이 `공격을 받을 때에 데미지를 가장 적게 주는 타입`을 계산해서 결과를 제공합니다.
+>
+> <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+> <img src="./png/PC_dark_en.png" width="660px" alt="PC에서 접속한 My Pokemon Type 웹 앱의 다크 모드, 영어, 방어 계산 결과 상태의 스크린샷 이미지">
+> </div>
+>
+> <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 20px;">
+> <img src="./png/iPad_light_kr.png" height="450px" alt="태블릿에서 접속한 My Pokemon Type 웹 앱의 라이트 모드, 한국어, 방어 계산 결과 상태의 스크린샷 이미지">
+> <img src="./png/Mobile_dark_jp.png" height="450px" alt="모바일에서 접속한 My Pokemon Type 웹 앱의 다크 모드, 일본어, 방어 계산 결과 상태의 스크린샷 이미지">
+> <img src="./png/more_Mobile_light.png" height="450px" alt="모바일에서 접속한 My Pokemon Type 웹 앱의 다크 모드, MORE 페이지의 스크린샷 이미지">
+> </div>
+>
 > </aside>
 
-## `My Pokemon Type` README 목차
+# `My Pokemon Type` README 목차
 
 1. [`My Pokemon Type` 프로젝트의 기능](#1-my-pokemon-type-프로젝트의-기능)
 2. [사용한 스택 및 선정 이유](#2-사용한-스택-및-선정-이유)
 3. [배운 점 및 도전 과제](#3-배운-점-및-도전-과제)
 
-- [1) `Redux Toolkit`과 `Redux Persist` 세팅 과정](#)
-- 2. 사용자 기기 선호 테마에 따라 다크/라이트 테마 지원
-- 3. 모든 상태를 로컬 스토리지에 저장하기
-- 4. 사용자 위치에 따라 자동으로 언어 지원
-- 5. AWS Amplify를 사용한 배포
-- 6. 포켓몬 타입의 공격 계산 함수와 방어 계산 함수 구현과 테스트
-- 7. 라이트 하우스 점수 개선 (성능 30점대 → 96점)
-- 8. 기획, UI/UX, 반응형 디자인, 피그마
+   1. [모든 상태를 로컬 스토리지에 저장하기](#16-redux-toolkit과-redux-persist-세팅-모든-상태를-로컬-스토리지에-저장하기)
+   2. [사용자 기기 선호 테마에 따라 다크/라이트 테마 지원](#26-사용자-기기-선호-테마에-따라-다크라이트-테마-지원)
+   3. [사용자 위치에 따라 자동으로 언어 지원](#36-사용자-위치에-따라-자동으로-언어-지원)
+   4. [AWS Amplify를 사용한 배포](#46-aws-amplify를-사용한-배포)
+   5. [포켓몬 타입의 공격 계산 함수와 방어 계산 함수 구현과 테스트](#56-포켓몬-타입의-공격-계산-함수와-방어-계산-함수-구현과-테스트)
+   6. [라이트 하우스 점수 개선 (성능 30점대 → 98점, 그외 모두 100점)](#66-라이트-하우스-점수-개선-성능-30점대--98점-그외-모두-100점)
 
 ## 1) `My Pokemon Type` 프로젝트의 기능
 
@@ -37,9 +45,7 @@
 
 5. 반응형 UI를 구현해서 PC, 태블릿, 모바일 기기에서 접속이 가능합니다.
 
-6. 사용자가 셀렉터에서 포켓몬 타입을 최대 2개까지만 클릭 가능하도록 만들어서 실용성을 개선했습니다. 2개 이상 클릭하면 가장 마지막에 클릭한 포켓몬 타입의 클릭이 해제 됩니다.
-
-   또한, 결과 컴포넌트에서 가장 효과적인 타입에 강조 아이콘을 사용하고 공격과 방어의 효과적인 타입의 배치 순서를 바꿔서 직관적으로 효과적인 타입을 알 수 있습니다. 이를 통해 사용자가 보다 직관적으로 최적의 포켓몬 타입을 선택할 수 있도록 기획해서 사용자 경험 향상을 고민했습니다.
+6. 사용자가 셀렉터에서 포켓몬 타입을 최대 2개까지만 클릭 가능하도록 만들어서 실용성을 개선했습니다. 또한 결과 컴포넌트에서는 가장 효과적인 타입에 강조 아이콘을 사용하고 공격과 방어 결과 간의 배치 순서를 바꿔서 사용자가 보다 직관적으로 최적의 포켓몬 타입을 선택할 수 있도록 기획해서 사용자 경험 향상을 고민했습니다.
 
 ## 2) 사용한 스택 및 선정 이유
 
@@ -155,6 +161,10 @@ export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
 - 테스트 유틸리티 함수: `filterEmptyArrays` 함수를 사용하여 결과에서 빈 배열을 필터링합니다.
 - 테스트 케이스 작성: `describe`와 `it` 블록을 사용하여 다양한 포켓몬 타입 조합에 대한 테스트 케이스를 작성했습니다. 각 테스트 케이스는 `offenseCal` 액션을 디스패치하고, 결과를 검증합니다.
 
-### 6/6) 라이트 하우스 점수 개선 (성능 30점대 → 96점, 그외 모두 100점)
+### 6/6) 라이트 하우스 점수 개선 (성능 30점대 → 98점, 그외 모두 100점)
+
+<div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+<img src="./png/lighthouse.png" width="300px">
+</div>
 
 FOIT 현상 해결, 콘솔에 뜨는 브라우저 오류 해결, index.js 컴파일, 백그라운드 색상 대비 개선 등을 통해 라이트 하우스 점수 개선을 할 수 있었습니다.
