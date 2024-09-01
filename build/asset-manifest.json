@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "./static/js/main.0c641d9a.js",
+    "static/media/Lucario.webp": "./static/media/Lucario.31d501bec73728349327.webp",
+    "static/media/Globe.svg": "./static/media/Globe.24de5598a08110e518f7805e45921f31.svg",
+    "index.html": "./index.html",
+    "static/media/Flame.svg": "./static/media/Flame.9cf1994305c38830952f91eab5c28a9e.svg",
+    "static/media/Pokeball.svg": "./static/media/Pokeball.a2c6f1f1f2d2179eba8abf1dc816ecd7.svg",
+    "static/media/Sun.svg": "./static/media/Sun.bd476c7c80f5159582f3077ea490f92b.svg",
+    "static/media/Moon.svg": "./static/media/Moon.d0c86a82919d9ec0e0086ffca10719df.svg",
+    "static/media/Close.svg": "./static/media/Close.3fc4f57ae360d087433ab5f5e97a3e34.svg",
+    "static/media/ToggleOff.svg": "./static/media/ToggleOff.37dbf5b4b879b6e35a2ec30ea257857b.svg",
+    "static/media/ToggleOn.svg": "./static/media/ToggleOn.d40723f0fe1fa41086c7c6dc8039df62.svg",
+    "main.0c641d9a.js.map": "./static/js/main.0c641d9a.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.0c641d9a.js"
+  ]
+}
