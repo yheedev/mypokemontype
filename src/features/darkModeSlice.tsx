@@ -27,9 +27,9 @@ export function useToggleTheme() {
 
   const toggle = () => {
     if (darkMode === 'dark') {
-      dispatch(darkModeSlice.actions.setTheme('light')); // 현재 테마가 다크모드면 라이트모드로 변경
+      dispatch(darkModeSlice.actions.setTheme('light'));
     } else {
-      dispatch(darkModeSlice.actions.setTheme('dark')); // 현재 테마가 라이트모드면 다크모드로 변경
+      dispatch(darkModeSlice.actions.setTheme('dark'));
     }
   };
 
