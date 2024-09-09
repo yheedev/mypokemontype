@@ -170,5 +170,6 @@ export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
 - FOIT 현상 해결
 - 콘솔에 뜨는 브라우저 오류 해결 (index.js 컴파일..)
 - 백그라운드 색상 대비 개선
+- CORB 디버깅
 
 등을 통해 라이트 하우스 점수 개선을 할 수 있었습니다... (작성 중입니다)

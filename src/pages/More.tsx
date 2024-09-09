@@ -72,7 +72,7 @@ export const Contact = styled.h1`
   } // 모바일
 `;
 
-export const Noti = styled.h3`
+export const Noti = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1rem;
   @media (min-width: 280px) and (max-width: 767px) {
