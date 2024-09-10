@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import kr from '../json/kr.json';
 import us from '../json/us.json';
 import jp from '../json/jp.json';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 
 const getCookie = (name: string) => {
   const value = `; ${document.cookie}`;
@@ -38,29 +40,20 @@ export const languageSlice = createSlice({
   },
 });
 
+export const LangChange = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const country = getCookie('cloudfront-viewer-country') || 'KR';
+    const EngCode = ['US', 'CA', 'GB', 'AU', 'NZ', 'IE', 'ZA'];
+    const lang = EngCode.includes(country) ? 'us' : country === 'JP' ? 'jp' : 'kr';
+    dispatch(language(lang as 'kr' | 'us' | 'jp'));
+
+    document.documentElement.lang = lang;
+  }, [dispatch]);
+
+  return null;
+};
+
 export const { language } = languageSlice.actions;
 export default languageSlice.reducer;
-
-// const testEvent = {
-//   Records: [
-//     {
-//       cf: {
-//         request: {
-//           headers: {
-//             'cloudfront-viewer-country': [
-//               {
-//                 key: 'CloudFront-Viewer-Country',
-//                 value: 'JP',
-//               },
-//             ],
-//           },
-//         },
-//       },
-//     },
-//   ],
-// };
-
-// handler(testEvent).then(response => {
-//   console.log('Response:', response);
-// });
-// 테스트: CloudFront-Viewer-Country 헤더가 올바르게 전달
