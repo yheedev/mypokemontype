@@ -45,6 +45,7 @@ export const LangChange = () => {
 
   useEffect(() => {
     const country = getCookie('cloudfront-viewer-country') || 'KR';
+    console.log('Country(cloudfront-viewer-country 쿠키의 값):', country);
     const EngCode = ['US', 'CA', 'GB', 'AU', 'NZ', 'IE', 'ZA'];
     const lang = EngCode.includes(country) ? 'us' : country === 'JP' ? 'jp' : 'kr';
     dispatch(language(lang as 'kr' | 'us' | 'jp'));
