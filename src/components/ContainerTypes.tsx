@@ -93,7 +93,7 @@ export const Container = styled.div`
 
   @media (min-width: 280px) and (max-width: 767px) {
     gap: 0.6rem 0.4rem;
-    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    /* grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); */
     margin: 0 0.8rem 2rem;
   }
 `;

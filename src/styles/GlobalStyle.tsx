@@ -17,7 +17,7 @@ ${reset}
   --black: #000000;  
   --shadow: #453333;
 
-    --offenseRec: #E83737;
+    --offenseRec: #e34e4e;  // 원래  #E83737; #db5757, 
     --defenseRec: #6897A9;
 
     --normal: #C6C6A7;

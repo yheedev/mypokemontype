@@ -43,7 +43,7 @@ const Type = styled.button.withConfig({
 })<Props>`
   border: 7px solid ${({ borderColor }) => borderColor};
   width: 6.8em;
-  height: 3.3rem;
+  height: 3.1rem;
   color: var(--color-background);
   border-radius: 30px;
   background-color: ${({ borderColor, isActive }) => (isActive ? borderColor : 'var(--color-card)')};
@@ -67,8 +67,8 @@ const Type = styled.button.withConfig({
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    width: 5rem;
-    height: 2.85rem;
+    width: 4.8rem;
+    height: 2.6rem;
     border: 4.5px solid ${({ borderColor }) => borderColor};
 
     .TypeText {
