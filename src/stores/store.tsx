@@ -11,7 +11,6 @@ export const store = configureStore({
         ignoredPaths: ['payload.err', 'err'],
       },
     }),
-  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
