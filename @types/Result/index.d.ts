@@ -1,1 +1,1 @@
-declare module 'Result';
+// declare module 'Result';

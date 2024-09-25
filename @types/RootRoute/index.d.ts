@@ -1,1 +1,1 @@
-declare module 'RootRoute';
+// declare module 'RootRoute';

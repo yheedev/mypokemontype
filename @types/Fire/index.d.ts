@@ -1,1 +1,1 @@
-declare module 'Fire';
+// declare module 'Fire';

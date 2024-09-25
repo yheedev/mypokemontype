@@ -1,1 +1,1 @@
-declare module 'defense';
+// declare module 'defense';

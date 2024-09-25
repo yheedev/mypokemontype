@@ -1,1 +1,1 @@
-declare module 'offense';
+// declare module 'offense';

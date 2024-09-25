@@ -1,1 +1,1 @@
-declare module 'darkMode';
+// declare module 'darkMode';

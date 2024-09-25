@@ -22,7 +22,7 @@
     "noImplicitAny": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "typeRoots": ["./@types", "./node_modules/@types"]
+    "typeRoots": ["./@types/index.d.ts", "./node_modules/@types"]
     // "types": ["react/next", "react-dom/next"]
   },
   "include": ["src", "@types", "./@types/custom.d.ts"],
