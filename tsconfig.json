@@ -23,9 +23,7 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "typeRoots": ["./@types/index.d.ts", "./node_modules/@types"]
-    // "types": ["react/next", "react-dom/next"]
   },
   "include": ["src", "@types", "./@types/custom.d.ts"],
-  // "tsconfig.json"
   "exclude": ["node_modules", "build", "tests", "./@types/offenseCalSlice/index.d.ts"]
 }
