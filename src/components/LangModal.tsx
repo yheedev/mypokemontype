@@ -19,7 +19,7 @@ const LangModal = ({ onClose }: { onClose: () => void }) => {
     }
   };
 
-  const handleLanguageChange = (languages: 'kr' | 'us' | 'jp') => {
+  const handleLanguageChange = (languages: 'ko' | 'en' | 'ja') => {
     dispatch(language(languages));
     onClose();
   };
@@ -29,17 +29,11 @@ const LangModal = ({ onClose }: { onClose: () => void }) => {
       <ModalContent lang={lang} onClick={e => e.stopPropagation()}>
         {' '}
         <ModalTitle>{translate.languege.languegeSettings}</ModalTitle>
-        <ModalText onClick={() => handleLanguageChange('kr')}>
-          {translate.languege.Korean}
-        </ModalText>
+        <ModalText onClick={() => handleLanguageChange('ko')}>{translate.languege.Korean}</ModalText>
         <HrModal />
-        <ModalText onClick={() => handleLanguageChange('us')}>
-          {translate.languege.English}
-        </ModalText>
+        <ModalText onClick={() => handleLanguageChange('en')}>{translate.languege.English}</ModalText>
         <HrModal />
-        <ModalText onClick={() => handleLanguageChange('jp')}>
-          {translate.languege.Japanese}
-        </ModalText>
+        <ModalText onClick={() => handleLanguageChange('ja')}>{translate.languege.Japanese}</ModalText>
         <ModalBtn onClick={onClose}>
           <CloseIcon />
         </ModalBtn>

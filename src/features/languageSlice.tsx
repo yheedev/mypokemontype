@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import kr from '../json/kr.json';
-import us from '../json/us.json';
-import jp from '../json/jp.json';
+import ko from '../json/ko.json';
+import en from '../json/en.json';
+import ja from '../json/ja.json';
 
 const getCookie = (name: string) => {
   const value = `; ${document.cookie}`;
@@ -10,29 +10,42 @@ const getCookie = (name: string) => {
   return null;
 };
 
-const initialLang = getCookie('lang') || 'kr';
+const getInitialLang = () => {
+  const cookieLang = getCookie('lang');
+  if (cookieLang) return cookieLang;
+
+  const acceptLang = navigator.language || navigator.languages[0];
+  if (acceptLang.startsWith('ko')) return 'ko';
+  if (acceptLang.startsWith('en')) return 'en';
+  if (acceptLang.startsWith('ja')) return 'ja';
+
+  return 'ko';
+};
+
+// const initialLang = getCookie('lang') || 'ko';
+const initialLang = getInitialLang();
 
 const langs = {
-  kr: kr,
-  us: us,
-  jp: jp,
+  ko: ko,
+  en: en,
+  ja: ja,
 };
 
 export type langState = {
-  lang: 'kr' | 'us' | 'jp';
-  translations: typeof kr;
+  lang: 'ko' | 'en' | 'ja';
+  translations: typeof ko;
 };
 
 export const languageSlice = createSlice({
   name: 'language',
   initialState: {
-    lang: initialLang as 'kr' | 'us' | 'jp',
-    translations: langs[initialLang as 'kr' | 'us' | 'jp'] || kr,
+    lang: initialLang as 'ko' | 'en' | 'ja',
+    translations: langs[initialLang as 'ko' | 'en' | 'ja'] || ko,
   },
   reducers: {
-    language: (state, action: PayloadAction<'kr' | 'us' | 'jp'>) => {
+    language: (state, action: PayloadAction<'ko' | 'en' | 'ja'>) => {
       state.lang = action.payload;
-      state.translations = langs[action.payload] || kr;
+      state.translations = langs[action.payload] || ko;
       localStorage.setItem('lang', action.payload);
     },
   },

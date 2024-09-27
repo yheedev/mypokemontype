@@ -36,7 +36,7 @@ export function useToggleTheme() {
   return [toggle];
 }
 
-// 사용자의 디바이스 시스템 설정에 따라 다크모드 또는 라이트모드를 설정
+// 사용자의 디바이스가 선호하는 라이트/다크모드에 따라 다크모드 또는 라이트모드를 설정
 export function useThemeEffect() {
   const dispatch = useDispatch();
   const darkMode = useSelector((state: RootState) => state.darkMode.theme);

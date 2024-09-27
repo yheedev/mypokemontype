@@ -16,7 +16,7 @@ export function App() {
   useThemeEffect();
 
   useEffect(() => {
-    dispatch(language(lang as 'kr' | 'us' | 'jp'));
+    dispatch(language(lang as 'ko' | 'en' | 'ja'));
   }, [dispatch, lang]);
 
   return (
