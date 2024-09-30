@@ -3,33 +3,30 @@ import ko from '../json/ko.json';
 import en from '../json/en.json';
 import ja from '../json/ja.json';
 
-const getCookie = (name: string) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
-  return null;
-};
-
-const EngCode = ['US', 'CA', 'GB', 'AU', 'NZ', 'IE', 'ZA'];
+// 기존의 대문자 국가 코드들을 소문자로 변경하는 작업은 cloudfront function에서 처리 완료 후 진행
+const EngCode = ['us', 'ca', 'gb', 'au', 'nz', 'ie', 'za'];
 
 const getInitialLang = (): 'ko' | 'en' | 'ja' => {
-  const cookieLang = getCookie('lang');
-  if (cookieLang) return cookieLang as 'ko' | 'en' | 'ja';
+  const localStorageLang = localStorage.getItem('lang');
+  if (localStorageLang) return localStorageLang as 'ko' | 'en' | 'ja';
 
-  const locationLang = (window as any).locationLang || document.documentElement.lang;
-  if (locationLang) {
-    if (EngCode.includes(locationLang)) {
+  // URL 경로에서 언어 코드 추출
+  const pathLang = window.location.pathname.split('/')[1];
+  if (pathLang === 'en' || pathLang === 'ja' || pathLang === 'ko') {
+    return pathLang as 'ko' | 'en' | 'ja';
+  }
+
+  const viewerCountry = (window as any).viewerCountry;
+  if (viewerCountry) {
+    if (EngCode.includes(viewerCountry.toLowerCase())) {
       return 'en';
-    } else if (locationLang === 'JP') {
+    } else if (viewerCountry.toLowerCase() === 'jp') {
       return 'ja';
     } else {
       return 'ko';
     }
   }
   return 'ko';
-
-  // 1. location 헤더의 값 (ex: KR, US, JP..)을 브라우저에서 받아옴
-  // 2. 각각 ko, en, ja로 매핑하여 리턴함.
 };
 
 const initialLang = getInitialLang();
@@ -48,13 +45,13 @@ export type langState = {
 export const languageSlice = createSlice({
   name: 'language',
   initialState: {
-    lang: initialLang as 'ko' | 'en' | 'ja',
-    translations: langs[initialLang as 'ko' | 'en' | 'ja'] || ko,
+    lang: initialLang,
+    translations: langs[initialLang],
   },
   reducers: {
     language: (state, action: PayloadAction<'ko' | 'en' | 'ja'>) => {
       state.lang = action.payload;
-      state.translations = langs[action.payload] || ko;
+      state.translations = langs[action.payload];
       localStorage.setItem('lang', action.payload);
     },
   },
