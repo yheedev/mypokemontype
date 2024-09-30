@@ -10,19 +10,28 @@ const getCookie = (name: string) => {
   return null;
 };
 
-const getInitialLang = () => {
+const EngCode = ['US', 'CA', 'GB', 'AU', 'NZ', 'IE', 'ZA'];
+
+const getInitialLang = (): 'ko' | 'en' | 'ja' => {
   const cookieLang = getCookie('lang');
-  if (cookieLang) return cookieLang;
+  if (cookieLang) return cookieLang as 'ko' | 'en' | 'ja';
 
-  const acceptLang = navigator.language || navigator.languages[0];
-  if (acceptLang.startsWith('ko')) return 'ko';
-  if (acceptLang.startsWith('en')) return 'en';
-  if (acceptLang.startsWith('ja')) return 'ja';
-
+  const locationLang = (window as any).locationLang || document.documentElement.lang;
+  if (locationLang) {
+    if (EngCode.includes(locationLang)) {
+      return 'en';
+    } else if (locationLang === 'JP') {
+      return 'ja';
+    } else {
+      return 'ko';
+    }
+  }
   return 'ko';
+
+  // 1. location 헤더의 값 (ex: KR, US, JP..)을 브라우저에서 받아옴
+  // 2. 각각 ko, en, ja로 매핑하여 리턴함.
 };
 
-// const initialLang = getCookie('lang') || 'ko';
 const initialLang = getInitialLang();
 
 const langs = {

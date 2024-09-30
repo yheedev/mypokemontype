@@ -17,7 +17,9 @@ export function App() {
 
   useEffect(() => {
     dispatch(language(lang as 'ko' | 'en' | 'ja'));
-  }, [dispatch, lang]);
+    // }, [dispatch, lang]);
+  });
+  // lang 상태가 변경(렌더링)될 때마다 dispatch 호출하는건 불필요함 (이미 리덕스에서 관리 중)
 
   return (
     <>
