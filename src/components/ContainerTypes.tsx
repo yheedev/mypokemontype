@@ -10,6 +10,7 @@ import { offenseCal } from 'features/offenseCalSlice';
 import { defenseCal } from 'features/defenseCalSlice';
 
 const ContainerTypes = () => {
+  const lang = useSelector((state: RootState) => state.language.lang);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
   const translate = useSelector((state: RootState) => state.language.translations);
   const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
@@ -27,7 +28,7 @@ const ContainerTypes = () => {
   const pathCal = useCallback(
     (path: string, types: string[]) => {
       switch (path) {
-        case '/':
+        case `/${lang}`:
           dispatch(
             offenseCal({
               offenseType1: types[0],
@@ -35,7 +36,7 @@ const ContainerTypes = () => {
             })
           );
           break;
-        case '/defense':
+        case `/${lang}/defense`:
           dispatch(
             defenseCal({
               defenseType1: types[0],
@@ -47,7 +48,7 @@ const ContainerTypes = () => {
           break;
       }
     },
-    [dispatch]
+    [dispatch, lang]
   );
 
   useEffect(() => {

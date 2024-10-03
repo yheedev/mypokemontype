@@ -7,10 +7,11 @@ import { toggleStyles } from './DarkModeBtn';
 
 export const MoreBtn = () => {
   const navigate = useNavigate();
+  const lang = useSelector((state: RootState) => state.language.lang);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
 
   const goToMore = () => {
-    navigate('/more');
+    navigate(`/${lang}/more`);
   };
   return (
     <Btn onClick={goToMore} aria-label="<My Pokemon Type> 프로젝트 개발자의 연락처 정보가 있는 페이지로 이동합니다.">

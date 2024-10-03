@@ -11,6 +11,7 @@ type ResultType = {
 };
 
 const Result = () => {
+  const lang = useSelector((state: RootState) => state.language.lang);
   const location = useLocation();
   const translate = useSelector((state: RootState) => state.language.translations);
   const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
@@ -26,12 +27,12 @@ const Result = () => {
     .filter(([key, value]) => value.length > 0)
     .sort(([keyA], [keyB]) => parseFloat(keyA) - parseFloat(keyB));
 
-  const flameColor = location.pathname === '/' ? 'var(--offenseRec)' : 'var(--defenseRec)';
+  const flameColor = location.pathname === `/${lang}` ? 'var(--offenseRec)' : 'var(--defenseRec)';
 
   return (
     <ResultContainer>
       <ResultCard>
-        {location.pathname === '/' &&
+        {location.pathname === `/${lang}` &&
           offenseResultArray.map(([key, value], index) => (
             <div key={key}>
               <TitleContainer>
@@ -62,7 +63,7 @@ const Result = () => {
               </PokemonContainer>
             </div>
           ))}
-        {location.pathname === '/defense' &&
+        {location.pathname === `/${lang}/defense` &&
           defenseResultArray.map(([key, value], index) => (
             <div key={key}>
               <TitleContainer>

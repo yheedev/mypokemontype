@@ -19,19 +19,17 @@ export const Selector = () => {
   const selectMode = useCallback(
     (Mode: 'offense' | 'defense') => {
       setMode(Mode);
-      navigate(Mode === 'offense' ? '/' : '/defense');
+      navigate(Mode === 'offense' ? `/${lang}` : `/${lang}/defense`);
     },
-    [navigate]
+    [navigate, lang]
   );
 
   useEffect(() => {
-    const currentMode = location.pathname === '/defense' ? 'defense' : 'offense';
+    // [ ] 여기도 `/${lang}/defense`?
+    const currentMode = location.pathname === `/${lang}/defense` ? 'defense' : 'offense';
     setMode(currentMode);
     setInfo(translate.Info[currentMode]);
-
-    if (currentMode === 'offense') {
-    }
-  }, [location.pathname, selectMode, translate.Info, dispatch]);
+  }, [location.pathname, translate.Info, dispatch, lang]);
 
   const selectorCals = (Mode: 'offense' | 'defense') => {
     selectMode(Mode);
@@ -52,12 +50,7 @@ export const Selector = () => {
             >
               <span className="OptionText OffenseText">{translate.Mode.offense}</span>
             </OptionOffense>
-            <OptionDefense
-              className="Defense"
-              $selectedMode={mode === 'defense'}
-              onClick={() => selectorCals('defense')}
-              $darkMode={darkMode}
-            >
+            <OptionDefense className="Defense" $selectedMode={mode === 'defense'} onClick={() => selectorCals('defense')} $darkMode={darkMode}>
               <span className="OptionText DefenseText">{translate.Mode.defense}</span>
             </OptionDefense>
           </div>
@@ -161,7 +154,7 @@ export const Card = styled.div<{ lang: string }>`
     justify-content: space-around;
     grid-column: span 1;
     font-family: 'Noto Sans KR', sans-serif;
-    font-weight: 800; //900
+    font-weight: 800;
     font-size: 1.5rem;
     letter-spacing: ${({ lang }) => (lang === 'ko' ? '1.5px' : '0.5px')};
     padding: 1.5rem 0;
@@ -182,10 +175,7 @@ export const Card = styled.div<{ lang: string }>`
 `;
 
 const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
-  border-bottom: ${props =>
-    props.$selectedMode
-      ? '7px solid var(--offenseRec)'
-      : '2px solid var(--color-border)'};
+  border-bottom: ${props => (props.$selectedMode ? '7px solid var(--offenseRec)' : '2px solid var(--color-border)')};
   cursor: pointer;
 
   .OffenseText {
@@ -198,10 +188,7 @@ const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props =>
-      props.$selectedMode
-        ? '4px solid var(--offenseRec)'
-        : '2px solid var(--color-border)'};
+    border-bottom: ${props => (props.$selectedMode ? '4px solid var(--offenseRec)' : '2px solid var(--color-border)')};
     .OffenseText {
       margin-right: 0.1rem;
     }
@@ -209,10 +196,7 @@ const OptionOffense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
 `;
 
 const OptionDefense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
-  border-bottom: ${props =>
-    props.$selectedMode
-      ? '7px solid var(--defenseRec)'
-      : '2px solid var(--color-border)'};
+  border-bottom: ${props => (props.$selectedMode ? '7px solid var(--defenseRec)' : '2px solid var(--color-border)')};
   cursor: pointer;
 
   .DefenseText {
@@ -225,10 +209,7 @@ const OptionDefense = styled.div<{ $selectedMode: boolean; $darkMode: string }>`
   }
 
   @media (min-width: 280px) and (max-width: 767px) {
-    border-bottom: ${props =>
-      props.$selectedMode
-        ? '5px solid var(--defenseRec)'
-        : '2px solid var(--color-border)'};
+    border-bottom: ${props => (props.$selectedMode ? '5px solid var(--defenseRec)' : '2px solid var(--color-border)')};
     .DefenseText {
     }
   }
