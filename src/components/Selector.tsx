@@ -25,7 +25,6 @@ export const Selector = () => {
   );
 
   useEffect(() => {
-    // [ ] 여기도 `/${lang}/defense`?
     const currentMode = location.pathname === `/${lang}/defense` ? 'defense' : 'offense';
     setMode(currentMode);
     setInfo(translate.Info[currentMode]);

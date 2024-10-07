@@ -8,24 +8,47 @@ const EngCode = ['us', 'ca', 'gb', 'au', 'nz', 'ie', 'za'];
 
 const getInitialLang = (): 'ko' | 'en' | 'ja' => {
   const localStorageLang = localStorage.getItem('lang');
-  if (localStorageLang) return localStorageLang as 'ko' | 'en' | 'ja';
+  if (localStorageLang) {
+    console.log(`LocalStorage Language: ${localStorageLang}`);
+    return localStorageLang as 'ko' | 'en' | 'ja';
+  }
 
   // URL 경로에서 언어 코드 추출
   const pathLang = window.location.pathname.split('/')[1];
   if (pathLang === 'en' || pathLang === 'ja' || pathLang === 'ko') {
+    console.log(`Path Language: ${pathLang}`);
     return pathLang as 'ko' | 'en' | 'ja';
   }
 
+  // const viewerCountry = (window as any).viewerCountry;
+  // if (viewerCountry) {
+  //   if (EngCode.includes(viewerCountry.toLowerCase())) {
+  //     return 'en';
+  //   } else if (viewerCountry.toLowerCase() === 'jp') {
+  //     return 'ja';
+  //   } else {
+  //     return 'ko';
+  //   }
+  // }
   const viewerCountry = (window as any).viewerCountry;
   if (viewerCountry) {
-    if (EngCode.includes(viewerCountry.toLowerCase())) {
+    const countryCode = viewerCountry.toLowerCase();
+    console.log(`Viewer Country: ${countryCode}`);
+    if (EngCode.includes(countryCode)) {
+      console.log('Detected Language: en');
       return 'en';
-    } else if (viewerCountry.toLowerCase() === 'jp') {
+    } else if (countryCode === 'jp') {
+      console.log('Detected Language: ja');
       return 'ja';
     } else {
+      console.log('Detected Language: ko');
       return 'ko';
     }
+  } else {
+    console.log('Viewer Country: Unknown');
   }
+
+  console.log('Default Language: ko');
   return 'ko';
 };
 

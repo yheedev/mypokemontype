@@ -1,14 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useSelector } from 'react-redux';
+import { RootState } from '../stores/store';
 
 function MainTitle() {
   const navigate = useNavigate();
+  const lang = useSelector((state: RootState) => state.language.lang);
 
   return (
     <Title
       className="Title"
       onClick={() => {
-        navigate('/');
+        navigate(`/${lang}`);
       }}
     >
       My Pokemon Type
