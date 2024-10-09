@@ -28,7 +28,7 @@ module.exports = {
       inject: 'body',
       scriptLoading: 'defer',
       templateParameters: {
-        scriptType: 'text/javascript',
+        scriptType: 'text/babel',
       },
       minify: {
         removeComments: true,
