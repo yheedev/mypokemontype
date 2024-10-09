@@ -49,11 +49,13 @@
     <meta name="twitter:image" content="https://mypkmn.info/public/thumbnail.png" />
     <base href="/" />
     <title>My Pokémon Type | Pokémon Type Calculator</title>
-    <%= htmlWebpackPlugin.tags.bodyTags %>
   </head>
   <body>
     <div id="root" role="main"></div>
     <!-- <script src="/dist/index.js" type="text/js" defer></script> -->
-    <script src="/dist/index.js" type="text/js" defer></script>
+    <script src="/dist/index.js" type="text/babel" defer></script>
+    <% for (var chunk in htmlWebpackPlugin.files.chunks) { %> <% for (var file in htmlWebpackPlugin.files.chunks[chunk].entry) { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry[file] %>" type="text/javascript" defer></script>
+    <% } %> <% } %>
   </body>
 </html>
