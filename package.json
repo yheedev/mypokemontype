@@ -2,7 +2,7 @@
   "name": "my-pokemon-type",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "./",
   "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
