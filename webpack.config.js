@@ -1,13 +1,12 @@
 import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 module.exports = {
   mode: 'production',
   entry: './src/index.tsx',
   output: {
     filename: '[name].[contenthash].js',
-    // path: path.resolve(__dirname, '../dist'),
-    path: path.resolve(__dirname, 'dist'),
+    // '../dist' 절대 아님 ./dist 일 수는 있음
+    path: path.resolve(__dirname, '/dist'),
     clean: true,
   },
   resolve: {
@@ -22,20 +21,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      inject: 'body',
-      scriptLoading: 'defer',
-      templateParameters: {
-        scriptType: 'text/babel',
-      },
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-      },
-    }),
-  ],
   optimization: {
     splitChunks: {
       chunks: 'all',
