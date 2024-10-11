@@ -14,25 +14,19 @@ export function App() {
 
   useThemeEffect();
 
-  useEffect(() => {
-    // viewerCountry 값을 HTTP 응답 헤더에서 읽어 window 객체에 설정
-    // const viewerCountry = document.cookie.split('; ').find(row => row.startsWith('x-viewer-country='));
-    // if (viewerCountry) {
-    //   window.viewerCountry = viewerCountry.split('=')[1];
-    // }
-
-    const pathLang = window.location.pathname.split('/')[1];
-    if (pathLang !== lang) {
-      navigate(`/${lang}`);
-    }
-  }, [lang, navigate]);
-
   // useEffect(() => {
   //   const pathLang = window.location.pathname.split('/')[1];
   //   if (pathLang !== lang) {
   //     navigate(`/${lang}`);
   //   }
   // }, [lang, navigate]);
+
+  useEffect(() => {
+    const pathLang = window.location.pathname.split('/')[1];
+    if (pathLang && pathLang !== lang) {
+      navigate(`/${lang}`); // 현재 경로가 언어 경로와 맞지 않을 때만 navigate 호출
+    }
+  }, [lang, navigate]);
 
   useEffect(() => {
     dispatch(language(lang as 'ko' | 'en' | 'ja'));
