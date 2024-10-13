@@ -14,13 +14,7 @@ export function App() {
 
   useThemeEffect();
 
-  // useEffect(() => {
-  //   const pathLang = window.location.pathname.split('/')[1];
-  //   if (pathLang !== lang) {
-  //     navigate(`/${lang}`);
-  //   }
-  // }, [lang, navigate]);
-
+  // 로컬에서 테스트할 때 localhost:3000/ko (O) / localhost:3000 (X)
   useEffect(() => {
     const pathLang = window.location.pathname.split('/')[1];
     if (pathLang && pathLang !== lang) {

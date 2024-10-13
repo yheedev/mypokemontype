@@ -17,6 +17,7 @@ export const darkModeSlice = createSlice({
   reducers: {
     setTheme: (state, action: PayloadAction<'dark' | 'light'>) => {
       state.theme = action.payload as darkModeState['theme'];
+      localStorage.setItem('userTheme', state.theme);
     },
   },
 });
@@ -36,14 +37,20 @@ export function useToggleTheme() {
   return [toggle];
 }
 
-// 사용자의 디바이스가 선호하는 라이트/다크모드에 따라 다크모드 또는 라이트모드를 설정
 export function useThemeEffect() {
   const dispatch = useDispatch();
   const darkMode = useSelector((state: RootState) => state.darkMode.theme);
 
   useEffect(() => {
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    dispatch(darkModeSlice.actions.setTheme(systemPrefersDark ? 'dark' : 'light'));
+    // 로컬 스토리지에 저장된 사용자 테마가 없으면 시스템 설정에 따라 테마 설정
+    // 그렇지 않으면 사용자의 디바이스가 선호하는 라이트/다크모드에 따라 테마 설정
+    const userTheme = localStorage.getItem('userTheme');
+    if (!userTheme) {
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      dispatch(darkModeSlice.actions.setTheme(systemPrefersDark ? 'dark' : 'light'));
+    } else {
+      dispatch(darkModeSlice.actions.setTheme(userTheme as 'dark' | 'light'));
+    }
   }, [dispatch]);
 
   useEffect(() => {
