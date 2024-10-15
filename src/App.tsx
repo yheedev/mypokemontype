@@ -14,11 +14,10 @@ export function App() {
 
   useThemeEffect();
 
-  // 로컬에서 테스트할 때 localhost:3000/ko (O) / localhost:3000 (X)
   useEffect(() => {
     const pathLang = window.location.pathname.split('/')[1];
-    if (pathLang && pathLang !== lang) {
-      navigate(`/${lang}`); // 현재 경로가 언어 경로와 맞지 않을 때만 navigate 호출
+    if (pathLang !== lang) {
+      navigate(`/${lang}`); // 기본적으로 localhost:3000가 아닌 localhost:3000/{lang}로 시작함
     }
   }, [lang, navigate]);
 
