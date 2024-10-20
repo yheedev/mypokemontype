@@ -1,55 +1,51 @@
-// function handler(event) {
-//   var request = event.request;
-//   var headers = request.headers;
-//   var supportedCountries = ['en', 'ja'];
-//   var defaultCountryCode = 'ko';
-//   var uri = request.uri;
-//   var newURI;
+function (event) {
+  var request = event.request;
+  var headers = request.headers;
+  var defaultCountryCode = 'ko';
+  var supportedCountries = ['en', 'ja'];
+  var uri = request.uri;
+  var newURI;
 
-//   if (uri.startsWith('/static/')) {
-//     return request;
-//   } // 경로가 `/static/js/main.a342a225.js` 자체는 통과
+  if (uri.startsWith('/static/') || uri.startsWith('/en') || uri.startsWith('/ja') || uri.startsWith('/ko')) {
+    return request;
+  } // `/static/js/main.a342a225.js`, `/en/`, `/ja/`, `/ko/`로 시작하는 경우 origin에 그대로 전달
 
-//   if (uri.startsWith('/en') || uri.startsWith('/ja') || uri.startsWith('/ko')) {
-//     return request;
-//   } // 이미 언어 코드가 포함된 uri는 통과함 (ex: /en/more)
-//   //
+  if (headers['cloudfront-viewer-country']) {
+    // cloudfront-viewer-country 헤더가 있는 경우
+    var countryCode = headers['cloudfront-viewer-country'].value.toLowerCase(); // cloudfront-viewer-country 헤더 값이 소문자로 변환된다.
+    console.log(`Viewer Country (테스트 값: us): ${countryCode}`);
 
-//   if (headers['cloudfront-viewer-country']) {
-//     var countryCode = headers['cloudfront-viewer-country'].value.toLowerCase();
-//     // console.log(`Viewer Country (테스트 값: us): ${countryCode}`);
+    if (supportedCountries.includes(countryCode)) {
+      newURI = '/' + countryCode + uri;
+    } else {
+      newURI = '/' + defaultCountryCode + uri;
+    }
 
-//     if (supportedCountries.includes(countryCode)) {
-//       return {
-//         statusCode: 302,
-//         statusDescription: 'Found',
-//         headers: {
-//           location: { value: '/' + countryCode + uri },
-//         },
-//       };
-//     } else {
-//       // 지원되지 않는 국가 코드인 경우 기본값(ko)으로 리디렉션
-//       return {
-//         statusCode: 302,
-//         statusDescription: 'Found',
-//         headers: {
-//           location: { value: '/' + defaultCountryCode + uri },
-//         },
-//       };
-//     }
-//   } else {
-//     console.log('CloudFront-Viewer-Country header not found');
-//   }
+    if (newURI !== uri) {
+      return {
+        statusCode: 302,
+        statusDescription: 'Found',
+        headers: {
+          location: { value: newURI },
+        },
+      };
+    }
+  } else if (uri.endsWith('/') && uri.length > 1) {
+    var trimmedURI = uri.slice(0, -1); // 마지막 슬래시 제거
+    // if (trimmedURI === '') {
+    //   trimmedURI = '/'; // URI가 빈 문자열이 되지 않도록 기본 '/' 설정
+    // }
+    return {
+      statusCode: 302,
+      statusDescription: 'Found',
+      headers: {
+        location: { value: trimmedURI },
+      },
+    };
+  }
 
-//   // 헤더가 없으면 기본값으로 리디렉션
-//   return {
-//     statusCode: 302,
-//     statusDescription: 'Found',
-//     headers: {
-//       location: { value: '/' + defaultCountryCode + uri },
-//     },
-//   };
-// }
+  return request;
+}
 
 //     if (supportedCountries.includes(countryCode)) {
 //       newURI = '/' + countryCode + request.uri; // 지원하는 국가 목록이면 지원함
