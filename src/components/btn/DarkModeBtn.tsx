@@ -33,7 +33,6 @@ export const DarkModeBtn = () => {
           </>
         )}
       </BtnContainer>{' '}
-      {/* {toggle} */}
     </Btn>
   );
 };
@@ -85,5 +84,4 @@ const MoonIcon = styled(Moon)`
 export default DarkModeBtn;
 
 // TODO
-// [ ] 다크모드 버튼 누를 때 파비콘 색깔도 같이 변화
 // [ ] scss 코드로 압축할 수 있는 css 코드 있는지 확인 -> 리팩토링 나중에

@@ -173,7 +173,6 @@ export const FlameIcon = styled(Flame)<{ color: string }>`
 `;
 
 // TODO;
-
 // [ ] 뒤로가기 버튼 만들기
 // [ ] 아이콘 hover할 때 툴박스
 // [ ] 1배 상태에서는 fire svg 안보이게 하기

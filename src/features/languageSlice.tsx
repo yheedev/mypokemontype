@@ -11,7 +11,6 @@ const getInitialLang = (): 'ko' | 'en' | 'ja' => {
 
   const pathLang = window.location.pathname.split('/')[1];
   if (pathLang === 'en' || pathLang === 'ja' || pathLang === 'ko') {
-    console.log(`Path Language: ${pathLang}`);
     return pathLang as 'ko' | 'en' | 'ja';
   }
 
