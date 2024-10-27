@@ -26,17 +26,11 @@
 2. [사용한 스택 및 선정 이유](#2-사용한-스택-및-선정-이유)
 3. [배운 점 및 도전 과제](#3-배운-점-및-도전-과제)
 
-   1. [모든 상태를 로컬 스토리지에 저장하기](#16-redux-toolkit과-redux-persist-세팅-모든-상태를-로컬-스토리지에-저장하기)
+   1. [모든 상태를 로컬 스토리지에 저장하기](#15-redux-toolkit과-redux-persist-세팅-모든-상태를-로컬-스토리지에-저장하기)
    2. [사용자의 디바이스가 선호하는 테마를 자동으로 선택](#26-사용자-기기-선호-테마에-따라-다크라이트-테마-지원)
    3. [AWS Amplify를 사용한 배포](#36-aws-amplify를-사용한-배포)
    4. [라이트 하우스 점수 성능 30점대에서 98점으로 상승 그외 모두 만점](#66-라이트-하우스-점수-개선-성능-30점대--98점-그외-모두-100점)
    5. [포켓몬 타입의 공격 계산 함수와 방어 계산 함수 구현과 테스트](#56-포켓몬-타입의-공격-계산-함수와-방어-계산-함수-구현과-테스트)
-
-   6. [모든 상태를 로컬 스토리지에 저장하기](#redux-toolkit과-redux-persist-세팅-모든-상태를-로컬-스토리지에-저장하기)
-   7. [사용자의 디바이스가 선호하는 테마를 자동으로 선택](#사용자-기기-선호-테마에-따라-다크라이트-테마-지원)
-   8. [AWS Amplify를 사용한 배포](#aws-amplify를-사용한-배포)
-   9. [라이트 하우스 점수 성능 30점대에서 98점으로 상승 그외 모두 만점](#45-라이트-하우스-점수-개선-성능-30점대에서-98점-그외-모두-100점)
-   10. [포켓몬 타입의 공격 계산 함수와 방어 계산 함수 구현과 테스트](#포켓몬-타입의-공격-계산-함수와-방어-계산-함수-구현과-테스트)
 
 ## 1) `My Pokemon Type` 프로젝트의 기능
 
@@ -51,6 +45,7 @@
 5. 기존의 포켓몬 타입 계산기 사이트들을 사용하면서 느꼈던 불편한 점을 개선해보았습니다.
 
    - 사용자가 타입 선택지에서 포켓몬 타입을 최대 2개까지만 클릭 가능하도록 만들어서 편의성을 개선했습니다.
+     - 가장 마지막에 클릭했던 포켓몬 타입의 클릭은 자동으로 클릭 해제가 됩니다.
    - 결과에서 가장 효과적인 타입에 강조 아이콘을 사용했습니다.
    - 보편적으로 공격을 할 때에는 결과의 숫자가 높을 수록, 방어를 할 때에는 효과가 결과의 숫자가 낮을 수록 뛰어납니다.
      - 공격과 방어 계산 결과 간의 배치 순서를 바꿔서 사용자가 보다 직관적으로 최적의 포켓몬 타입을 선택할 수 있도록 기획해서 사용자 경험 향상을 고민했습니다.
@@ -102,38 +97,38 @@
 - `persistConfig`: 상태를 로컬 스토리지에 저장하도록 설정하는 역할을 합니다.
 - `Redux Persist`의 `rootReducer`: 프로젝트에서 여러 상태를 관리하기 위해 각 상태별로 세부 reducer를 정의하고, 이를 하나로 결합하는 역할을 합니다. 그리고 `rootReducer`에 포함된 모든 상태를 로컬 스토리지에 저장하고, 애플리케이션이 다시 로드될 때 상태를 복원할 수 있도록 설정할 수 있습니다.
 
-```tsx
-// reducer.tsx
-import { combineReducers } from 'redux';
-import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
-import { darkModeSlice, darkModeState } from '../features/darkModeSlice';
+  ```tsx
+  // reducer.tsx
+  import { combineReducers } from 'redux';
+  import storage from 'redux-persist/lib/storage';
+  import { persistReducer } from 'redux-persist';
+  import { darkModeSlice, darkModeState } from '../features/darkModeSlice';
 
-export type RootState = { darkMode: darkModeState } & PersistPartial;
+  export type RootState = { darkMode: darkModeState } & PersistPartial;
 
-export const persistConfig = { key: 'root', storage };
+  export const persistConfig = { key: 'root', storage };
 
-export const rootReducer = combineReducers({ darkMode: darkModeSlice.reduce });
+  export const rootReducer = combineReducers({ darkMode: darkModeSlice.reduce });
 
-export const persistedReducer = persistReducer(persistConfig, rootReducer);
-export default persistedReducer;
-```
+  export const persistedReducer = persistReducer(persistConfig, rootReducer);
+  export default persistedReducer;
+  ```
 
 2. `Redux Toolkit`에서 정의한 리듀서들을 컴포넌트에서 사용할 때에는 `useSelector`, `useDispatch` 사용하기
 
 - `useSelector`는 Redux 스토어의 상태를 선택하는 데 사용됩니다. 컴포넌트는 `useSelector`를 통해 필요한 상태를 구독하고, 상태가 변경될 때마다 자동으로 리렌더링됩니다.
 - `useDispatch`는 Redux 스토어에 액션을 디스패치하는 데 사용됩니다. 컴포넌트는 useDispatch를 통해 액션을 디스패치하여 상태를 변경할 수 있습니다.
 
-```tsx
-// darkModeBtn.tsx
-const theme = useSelector((state: RootState) => state.darkMode.theme);
+  ```tsx
+  // darkModeBtn.tsx
+  const theme = useSelector((state: RootState) => state.darkMode.theme);
 
-const handleClick = () => {
-  toggle();
-  const newTheme = theme === 'dark' ? 'light' : 'dark';
-  dispatch(darkModeSlice.actions.setTheme(newTheme));
-};
-```
+  const handleClick = () => {
+    toggle();
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    dispatch(darkModeSlice.actions.setTheme(newTheme));
+  };
+  ```
 
 ### 2/5. 사용자의 기기 선호 테마에 따라 다크/라이트 테마 지원
 
@@ -141,13 +136,11 @@ const handleClick = () => {
 
 2. 사용자 기기가 선호 테마에 따라 동적으로 적용: 애플리케이션에 있는 다크모드 버튼을 누르면 다크모드 리듀서 액션이 디스패치 됩니다. 이를 통해 리덕스 상태가 업데이트 되고 `styled-component`로 작성한 테마가 변경 됩니다. 또한 사용자의 시스템 테마 설정을 감지해서 초기 테마를 설정할 수 있는데, 이 기능을 구현하기 위해 `window.matchMedia`를 사용했습니다.
 
-### 3/5. AWS Amplify를 사용해서 배포 시간을 90초 대로 단축 및 배포 과정 단순화
-
-배포 과정 단순화 /
+### 3/5. AWS Amplify, Route 53을 사용해서 배포 시간을 90초 대로 단축, 자동 빌드 및 배포, 리디렉션 관리, SSL 인증서 제공
 
 1. AWS Amplify 콘솔에서 새로 생성합니다. 깃허브를 클릭하고 'only select repo' -> `My Pokemon Type` 깃허브 저장소를 클릭해서 Amplify에서 해당 깃허브 저장소에 접근할 수 있는 권한을 부여합니다.
    - 이는 `Amplify`가 추후에 자동으로 코드 변경사항을 자동으로 빌드, 테스트, 배포 하기 위해서는 Amplify의 접근을 허용하는게 필요하기 때문입니다.
-2. 이후 바로 `Amplify` 브랜치가 생성되지 않고 배포 에러가 발생할 수 있는데, `npm ci`를 실행하거나 의존성 라이브러리들을 최신 버전으로 업데이트해주는게 필요했습니다.
+2. 이후 바로 `Amplify` 브랜치가 생성되지 않고 배포 에러가 발생할 수 있는데, `npm ci`를 실행하거나 의존성 라이브러리들을 최신 버전으로 업데이트해서 해결할 수 있었습니다.
 3. `Amplify` 브랜치가 생성된 다음에는 다시 쓰기 및 리디렉션에서 클라이언트의 코드에 맞게 하나의 URL에서 다른 URL로 경로를 다시 라우팅하도록 수정해줍니다.
 
 ```json
@@ -190,47 +183,89 @@ const handleClick = () => {
 ]
 ```
 
-4. `Amplify` 콘솔의 사용자 지정 도메인에서 `Route53`에 등록했던 `mypkmn.info` 도메인을 등록해주는 과정이 필요합니다.
+4. `Amplify` 콘솔의 사용자 지정 도메인에서 SSL 인증서와 함께 `Route53`에 등록했던 `mypkmn.info` 도메인을 등록해줍니다. 이 과정 이후에 `mypkmn.info`에 접속해도 `www.mypkmn.info`로 자동으로 리디렉션 됩니다.
 
-이후에는 IDE 터미널에서 push를 하면 변경 사항이 배포 페이지에 자동으로 반영되는게 무척 편했습니다. 앞으로 개인 프로젝트를 할 때에는 Amplify만 쓰고 싶을 정도로 Amplify가 너무 좋았습니다. 난이도가 낮다고 보긴 어렵지만 프론트엔드 개발에 집중할 수 있다는 점이 좋았습니다.
+이후에는 터미널에서 push를 하면 변경사항이 배포 페이지에 자동으로 반영되어서 무척 편했습니다. `Amplify`의 난이도가 낮진 않았지만 프론트엔드 개발에 집중할 수 있다는 점이 좋았습니다.
 
-Amplify를 사용했던 자세한 내용은 블로그에 정리해두었습니다.
+AWS 서비스를 사용하며 세팅했던 더 자세한 내용은 블로그 포스트에 정리해두었습니다.
 https://www.notion.so/stillcorners/CI-CD-3-64a96d7866f94484817f933f8e42a081#fd32a259e4b1494aa794292b3a9745f9
 
-### 5/5. 포켓몬 타입의 공격 계산 함수와 방어 계산 함수 구현과 테스트
+### 4/5. 공격, 방어 계산 함수 작성과 테스트
 
-`My Pokemon Type` 프로젝트에서는 포켓몬 타입 간의 상성을 계산하기 위해 TypeScript와 Redux Toolkit을 사용하여 공격 계산 함수를 구현했습니다. 이를 통해 사용자가 선택한 포켓몬 타입의 공격 효과와 방어 효과를 정확하게 계산할 수 있었습니다.
+해당 웹 앱은 사용자가 선택한 포켓몬 타입의 공격, 방어 효과를 정확하게 계산하기 위해 TypeScript와 Redux Toolkit을 사용하여 공격, 방어 계산 함수를 작성해서 정확한 결과를 도출할 수 있었습니다.
 
-1. 타입 정의: `types.ts` 파일에서 포켓몬 타입과 각 타입 간의 상성 값을 정의했습니다. `TypeName` 배열은 모든 포켓몬 타입을 포함하고 있으며, `TypeValue` 객체는 각 타입에 대한 상성 값을 배열로 저장하고 있습니다.
+1. 타입 정의: `types.ts` 파일에서 포켓몬 타입과 각 타입 간의 상성 값을 정의했습니다. `TypeName` 배열은 18개의 모든 포켓몬 타입을 포함하고 있으며, `TypeValue` 객체는 각 타입에 대한 상성 값을 배열로 저장하고 있습니다. 실제로는 모든 타입들을 0번째부터 17번째까지 차례대로 작성했습니다.
 
-```ts
-//type.ts
-export const TypeName = ['normal', 'fighting', ... ]
+   ```ts
+   //type.ts
+   export const TypeName = ['normal', 'fighting', ... ]
 
-export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
-  normal: [1, 1, 1, 1, 1, 0.5, 1, 0, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  fighting: [2, 1, 0.5, 0.5, 1, 2, 0.5, 0, 2, 1, 1, 1, 1, 0.5, 2, 1, 2, 0.5],
-  ...}
-```
+   export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
+     normal: [1, 1, 1, 1, 1, 0.5, 1, 0, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+     fighting: [2, 1, 0.5, 0.5, 1, 2, 0.5, 0, 2, 1, 1, 1, 1, 0.5, 2, 1, 2, 0.5],
+     ...}
+   ```
 
-2. 리듀서 작성: `offenseCalSlice.tsx` 파일과 `defenseCalSlice.tsx` 파일에서 `createSlice`를 사용하여 각각 공격 계산과 방어 계산에 해당하는 리듀서를 작성했습니다. 이를 통해 선택한 포켓몬 타입과 그에 해당하는 결과의 상태가 모두 관리되며 로컬 스토리지에 저장됩니다.
+2. 리듀서 작성: 공격, 방어 함수를 작성할 때 `createSlice`를 사용하여 각각의 함수를 작성했습니다. 이를 통해 선택한 포켓몬 타입과 그에 해당하는 함수의 결과의 상태가 모두 `RootState`에서 관리되며 로컬 스토리지에 저장됩니다.
 
-3. 공격 함수 `offenseCal`, 방어 함수 `defenseCal` 작성: `allType1x`와 같은 유틸리티 함수를 만들고 다양한 메소드를 사용해서 중복 작업을 간결하게 처리하려 노력했습니다. `offenseCalState`와 `defenseCalState` 타입을 최소한으로 정의한 뒤에 상태 관리를 일관되게 처리했고 코드의 구조를 정리해서 가독성을 확보했습니다. `0, 0.25, 0.5, 1, 2, 4`에 해당하는 `effectiveness` 객체를 사용해서 반환된 결과를 `effectiveness` 객체에 저장하고, 이를 통해 빠르게 결과를 참조할 수 있도록 했습니다.
+3. 공격 함수 `offenseCal`, 방어 함수 `defenseCal` 작성
 
-4. `Jest`를 사용한 테스트: 공격 계산 함수의 정확성을 검증하기 위해 다양한 테스트 케이스를 작성해보았습니다. 이를 통해 공격 함수가 예상대로 정확하게 동작하는 것을 확인할 수 있었습니다.
+- `offenseCalState`와 `defenseCalState` 타입을 정의한 뒤에 해당 함수에서 선택된 타입의 결과들을 type1, type2에 올 수 있도록 했습니다.
+- 사용자가 아무 것도 선택하지 않을 경우 결과에서 모든 타입을 1배의 효과로 반환합니다. 이를 반환하기 위해 `allType1x`와 같은 유틸리티 함수를 만들어서 중복 작업을 간결하게 처리했습니다.
+- 0배, 0.25배, 0.5배, 1배, 2배, 4배 효과에 해당하는 이 숫자들을 `effectiveness` 객체에 담아서 반환된 결과를 `effectiveness` 객체에 저장하고, 이를 통해 빠르게 결과를 참조할 수 있도록 했습니다.
 
-- 테스트 유틸리티 함수: `filterEmptyArrays` 함수를 사용하여 결과에서 빈 배열을 필터링합니다.
-- 테스트 케이스 작성: `describe`와 `it` 블록을 사용하여 다양한 포켓몬 타입 조합에 대한 테스트 케이스를 작성했습니다. 각 테스트 케이스는 `offenseCal` 액션을 디스패치하고, 결과를 검증합니다.
+  ```tsx
+  // offenseCalSlice.tsx
+    let effectiveness: Effectiveness = { '4': [], '2': [], '1': [], '0.5': [], '0.25': [], '0': []
+    };
+    // 이하 생략
 
-### 6/6) 라이트 하우스 점수 개선 (성능 30점대 → 98점, 그외 모두 100점)
+    else if (offenseType1 && !offenseType2) {
+      let typeArr1 = allTypes1x(offenseType1);
+      typeArr1.forEach((curr, index) => {
+        const key = curr.toString();
+        if (effectiveness[key]) {
+          effectiveness[key].push(TypeName[index]);
+        }});
+
+      state.result = effectiveness;
+      state.offenseType1 = offenseType1
+      };
+  ```
+
+  - 예를 들어 사용자가 노멀 타입 하나를 선택했다면 `normal: [1, 1, 1, 1, 1, 0.5, 1, 0, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1]`을 선택하는게 될 것입니다.
+    그러면 아래처럼 노멀 타입이 갖는 배열의 각각의 요소가 `effectiveness` 배열에 담길텐데, 이 결과 그대로 결과 컴포넌트에 렌더링이 됩니다.
+
+    ```tsx
+    let effectiveness: Effectiveness = {
+      '4': [],
+      '2': [],
+      '1': ['normal', 'fighting', 'flying', 'poison', 'ground' 'bug', 'fire', 'water', 'grass', 'electric', 'psychic', 'ice', 'dragon', 'dark', 'fairy'],
+      '0.5': ['rock', 'steel'],
+      '0.25': [],
+      '0': ['ghost'],
+    };
+    ```
+
+  - 아무 타입도 들어가지 않은 빈 배열은 렌더링되지 않도록 결과 컴포넌트에서 함수를 작성해두었습니다.
+
+4. `Jest`를 사용한 테스트: 공격 계산 함수의 정확성을 검증하기 위해 다양한 테스트 케이스를 작성했습니다. 이 과정에서 `Jest`의 사용 방법과 유틸리티를 익힐 수 있었고 공격 함수가 예상대로 정확하게 동작하는걸 테스트할 수 있었습니다.
+
+### 5/5. 라이트 하우스 점수 개선 (성능 30점대 → 98점, 그외 모두 100점)
 
 <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
 <img src="./png/lighthouse.png" width="300px">
 </div>
 
-- FOIT 현상 해결
-- 콘솔에 뜨는 브라우저 오류 해결 (index.js 컴파일..)
-- 백그라운드 색상 대비 개선
-- CORB 디버깅
+1. FOIT 현상 해결
+2. 콘솔에 뜨는 브라우저 오류 해결 (index.js 컴파일..)
+3. 백그라운드 색상 대비 개선
+4. CORB 디버깅
+5. Amplify
 
 등을 통해 라이트 하우스 점수 개선을 할 수 있었습니다... (작성 중입니다)
+
+- [ ] 라이트하우스 점수 개선 사진 삭제? 수정?
+- [ ] 수정한 리드미 블로그에 복붙하기: https://www.notion.so/stillcorners/AWS-My-Pokemon-Type-5f42a1faa9844482925f5709ea9e9e01?pvs=25
+- [ ] 라이트하우스 점수 개선 블로그 주소 올리기?
+- [ ] 리덕스 블로그 주소 올리기?

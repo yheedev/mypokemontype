@@ -30,7 +30,3 @@ function Offense() {
 }
 
 export default Offense;
-
-// TODO
-// [ ] 갤럭시 폴드는 우측에 셀렉터 좌측에 결과 보여주기
-// [ ] 모바일 세로 화면일 때 우측에 셀렉터, 좌측에 결과
