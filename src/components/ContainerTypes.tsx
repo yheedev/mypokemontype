@@ -51,6 +51,27 @@ const ContainerTypes = () => {
     [dispatch, lang]
   );
 
+  // useCallback 사용 전
+  //   useEffect(() => {
+  //   if (location.pathname === '/') {
+  //     if (selectTypes.length === 0) {
+  //       dispatch(offenseCal({ offenseType1: undefined, offenseType2: undefined }));
+  //     } else if (selectTypes.length === 1) {
+  //       dispatch(offenseCal({ offenseType1: selectTypes[0], offenseType2: undefined }));
+  //     } else if (selectTypes.length === 2) {
+  //     }
+  //   } else if (location.pathname === '/defense') {
+  //     if (selectTypes.length === 0) {
+  //       dispatch(defenseCal({ defenseType1: undefined, defenseType2: undefined }));
+  //     } else if (selectTypes.length === 1) {
+  //       dispatch(defenseCal({ defenseType1: selectTypes[0], defenseType2: undefined }));
+  //     } else if (selectTypes.length === 2) {
+  //         defenseCal({ defenseType1: selectTypes[0], defenseType2: selectTypes[1] })
+  //       );
+  //     }
+  //   }
+  // }, [location.pathname, selectTypes, dispatch]);
+
   useEffect(() => {
     const types = [selectTypes[0], selectTypes[1]];
     pathCal(location.pathname, types);
