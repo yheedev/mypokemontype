@@ -24,8 +24,8 @@
     "defense": "Defense"
   },
   "Info": {
-    "offense": "Get the type your chosen type will attack effectively.",
-    "defense": "Get the type your chosen type will defend effectively."
+    "offense": "Choose the attack type.",
+    "defense": "Choose the defending Pokemon types."
   },
   "Result": {
     "x damage": "x damage"
