@@ -2,7 +2,7 @@
 
 > <aside>
 
-> ## 배포 페이지: https://mypkmn.info | 피그마 페이지: https://lrl.kr/xW4m
+> ## 배포 페이지: https://www.mypkmn.info | 피그마 페이지: https://lrl.kr/xW4m
 
 My Pokemon Type은 포켓몬 배틀에서 가장 중요한 타입 상성을 직관적이고 효율적으로 계산할 수 있도록 돕는 웹 애플리케이션입니다.
 
