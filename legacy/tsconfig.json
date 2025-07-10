@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "es6"],
+    "rootDir": "legacy/src",
+    "sourceMap": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "jsx": "react-jsx",
+    "baseUrl": "legacy/src",
+    "typeRoots": [
+      "./@types/index.d.ts",
+      "./node_modules/@types"
+    ]
+  },
+  "include": [
+    "legacy/src",
+    "@types",
+    "./@types/custom.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "tests",
+    "./@types/offenseCalSlice/index.d.ts"
+  ]
+}

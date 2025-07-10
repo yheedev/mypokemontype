@@ -1,0 +1,39 @@
+{
+  "TypeName": {
+    "normal": "normal",
+    "fighting": "fighting",
+    "flying": "flying",
+    "poison": "poison",
+    "ground": "ground",
+    "rock": "rock",
+    "bug": "bug",
+    "ghost": "ghost",
+    "steel": "steel",
+    "fire": "fire",
+    "water": "water",
+    "grass": "grass",
+    "electric": "electric",
+    "psychic": "psychic",
+    "ice": "ice",
+    "dragon": "dragon",
+    "dark": "dark",
+    "fairy": "fairy"
+  },
+  "Mode": {
+    "offense": "Offense",
+    "defense": "Defense"
+  },
+  "Info": {
+    "offense": "Choose the attack type.",
+    "defense": "Choose the defending Pokemon types."
+  },
+  "Result": {
+    "x damage": "x damage"
+  },
+  "languege": {
+    "languegeSettings": "Language Settings",
+    "Korean": "Korean",
+    "English": "English",
+    "Japanese": "Japanese"
+  }
+}
