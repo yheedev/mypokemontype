@@ -1,99 +1,139 @@
-import { useSelector } from 'react-redux';
-import { RootState } from 'stores/store';
-import styled from 'styled-components';
-import { PokemonType } from './PokemonType';
-import { Container } from './ContainerTypes';
-import { ReactComponent as Flame } from '../img/Flame.svg';
-import { useLocation } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { RootState } from "stores/store";
+import styled from "styled-components";
+import { PokemonType } from "./PokemonType";
+import { Container } from "./ContainerTypes";
+import { ReactComponent as Flame } from "../img/Flame.svg";
+import { useLocation } from "react-router-dom";
 
 type ResultType = {
   [key: string]: string[];
 };
 
 const Result = () => {
-  const lang = useSelector((state: RootState) => state.language.lang);
+  const lang = useSelector(
+    (state: RootState) => state.language.lang
+  );
   const location = useLocation();
-  const translate = useSelector((state: RootState) => state.language.translations);
-  const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
+  const translate = useSelector(
+    (state: RootState) =>
+      state.language.translations
+  );
+  const isDarkMode = useSelector(
+    (state: RootState) =>
+      state.darkMode.theme === "dark"
+  );
 
-  const offenseResult = useSelector((state: RootState) => state.offenseCal.result as ResultType);
-  const defenseResult = useSelector((state: RootState) => state.defenseCal.result as ResultType);
+  const offenseResult = useSelector(
+    (state: RootState) =>
+      state.offenseCal.result as ResultType
+  );
+  const defenseResult = useSelector(
+    (state: RootState) =>
+      state.defenseCal.result as ResultType
+  );
 
-  const offenseResultArray = Object.entries(offenseResult)
+  const offenseResultArray = Object.entries(
+    offenseResult
+  )
     .filter(([key, value]) => value.length > 0)
-    .sort(([keyA], [keyB]) => parseFloat(keyB) - parseFloat(keyA));
+    .sort(
+      ([keyA], [keyB]) =>
+        parseFloat(keyB) - parseFloat(keyA)
+    );
 
-  const defenseResultArray = Object.entries(defenseResult)
+  const defenseResultArray = Object.entries(
+    defenseResult
+  )
     .filter(([key, value]) => value.length > 0)
-    .sort(([keyA], [keyB]) => parseFloat(keyA) - parseFloat(keyB));
+    .sort(
+      ([keyA], [keyB]) =>
+        parseFloat(keyA) - parseFloat(keyB)
+    );
 
-  const flameColor = location.pathname === `/${lang}` ? 'var(--offenseRec)' : 'var(--defenseRec)';
+  const flameColor =
+    location.pathname === `/${lang}`
+      ? "var(--offenseRec)"
+      : "var(--defenseRec)";
 
   return (
     <ResultContainer>
       <ResultCard>
         {location.pathname === `/${lang}` &&
-          offenseResultArray.map(([key, value], index) => (
-            <div key={key}>
-              <TitleContainer>
-                {index === 0 && (
-                  <FlameIcon
-                    className="fire"
-                    aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
-                    color={flameColor}
-                  />
-                )}
-                <h1 className="resultEffect">
-                  {key}
-                  {translate.Result['x damage']}
-                </h1>
-              </TitleContainer>
-              <Hr />
-              <PokemonContainer>
-                {value.map(type => (
-                  <PokemonType
-                    className="pokemon"
-                    key={String(type)}
-                    text={translate.TypeName[type as keyof typeof translate.TypeName]}
-                    borderColor={`var(--${type})`}
-                    isDarkMode={isDarkMode}
-                    cursor={'default'}
-                  />
-                ))}
-              </PokemonContainer>
-            </div>
-          ))}
-        {location.pathname === `/${lang}/defense` &&
-          defenseResultArray.map(([key, value], index) => (
-            <div key={key}>
-              <TitleContainer>
-                {index === 0 && (
-                  <FlameIcon
-                    className="fire"
-                    aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
-                    color={flameColor}
-                  />
-                )}
-                <h1 className="resultEffect">
-                  {key}
-                  {translate.Result['x damage']}
-                </h1>
-              </TitleContainer>
-              <Hr />
-              <PokemonContainer>
-                {value.map(type => (
-                  <PokemonType
-                    className="pokemon"
-                    key={String(type)}
-                    text={translate.TypeName[type as keyof typeof translate.TypeName]}
-                    borderColor={`var(--${type})`}
-                    isDarkMode={isDarkMode}
-                    cursor="default"
-                  />
-                ))}
-              </PokemonContainer>
-            </div>
-          ))}
+          offenseResultArray.map(
+            ([key, value], index) => (
+              <div key={key}>
+                <TitleContainer>
+                  {index === 0 && (
+                    <FlameIcon
+                      className="fire"
+                      aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
+                      color={flameColor}
+                    />
+                  )}
+                  <h1 className="resultEffect">
+                    {key}
+                    {translate.Result["x damage"]}
+                  </h1>
+                </TitleContainer>
+                <Hr />
+                <PokemonContainer>
+                  {value.map((type) => (
+                    <PokemonType
+                      className="pokemon"
+                      key={String(type)}
+                      text={
+                        translate.TypeName[
+                          type as keyof typeof translate.TypeName
+                        ]
+                      }
+                      borderColor={`var(--${type})`}
+                      isDarkMode={isDarkMode}
+                      cursor={"default"}
+                    />
+                  ))}
+                </PokemonContainer>
+              </div>
+            )
+          )}
+        {location.pathname ===
+          `/${lang}/defense` &&
+          defenseResultArray.map(
+            ([key, value], index) => (
+              <div key={key}>
+                <TitleContainer>
+                  {index === 0 && (
+                    <FlameIcon
+                      className="fire"
+                      aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
+                      color={flameColor}
+                    />
+                  )}
+                  <h1 className="resultEffect">
+                    {key}
+                    {translate.Result["x damage"]}
+                  </h1>
+                </TitleContainer>
+                <Hr />
+                <PokemonContainer>
+                  {value.map((type) => (
+                    <PokemonType
+                      className="pokemon"
+                      key={String(type)}
+                      text={
+                        translate.TypeName[
+                          type as keyof typeof translate.TypeName
+                        ]
+                      }
+                      borderColor={`var(--${type})`}
+                      isDarkMode={isDarkMode}
+                      cursor="default"
+                    />
+                  ))}
+                </PokemonContainer>
+              </div>
+            )
+          )}
       </ResultCard>
     </ResultContainer>
   );
@@ -117,7 +157,7 @@ const ResultCard = styled.div`
   }
 
   .resultEffect {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
     font-size: 1.25rem;
     font-weight: 1000;
 
@@ -152,7 +192,9 @@ const TitleContainer = styled.div`
   align-items: center;
 `;
 
-export const FlameIcon = styled(Flame)<{ color: string }>`
+export const FlameIcon = styled(Flame)<{
+  color: string;
+}>`
   border: 3px solid;
   border-radius: 50%;
   padding: 0.1rem;
