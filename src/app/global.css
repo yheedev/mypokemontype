@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url('https://db.onlinewebfonts.com/c/fd18e391776fea6256be11db6ed387f8?family=HeliosExtBlack');
+
+@import 'tailwindcss';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+html {
+  font-size: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'NotoSans', 'sans-serif', 'Arial';
+  font-size: 16px;
+  background-color: var(--color-background);
+  box-sizing: border-box;
+}
+
+br {
+  display: inline;
+}
+
+:layer base {
+  /* ${lightTheme}
+  ${darkTheme} */
+  :root {
+    --white: #ffffff;
+    --lightGray: #dddbdb;
+    --borderGray: #dfe0e1;
+    --charcoal: #4f4d4d;
+    --sealBrown: #171010;
+    --black: #000000;
+    --shadow: #453333;
+
+    --offenseRec: #e34e4e;
+    --defenseRec: #6897a9;
+
+    --normal: #c6c6a7;
+    --fire: #f5ac78;
+    --water: #9db7f5;
+    --electric: #fae078;
+    --grass: #a7db8d;
+    --ice: #bce6e6;
+    --fighting: #d67873;
+    --poison: #c183c1;
+    --ground: #ebd69d;
+    --flying: #c6b7f5;
+    --psychic: #fa92b2;
+    --bug: #c6d16e;
+    --rock: #d1c17d;
+    --ghost: #a292bc;
+    --dragon: #a27dfa;
+    --dark: #a29288;
+    --steel: #d1d1e0;
+    --fairy: #f4bdc9;
+    /* --stella: #44628D; */
+  }
+
+  /* .dark {} */
+  /* 
+  - [ ] 기존 컬러 중 다크 모드 쓰는 부분 등록  */
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* 
+
+import { createGlobalStyle } from 'styled-components';
+import { reset } from 'styled-reset';
+import { lightTheme, darkTheme } from '../../legacy/src/styles/theme';
+
+export const GlobalStyle = createGlobalStyle`
+${reset}
+
+:root {
+  ${lightTheme}
+  ${darkTheme}
+
+  --white: #FFFFFF;
+  --lightGray: #DDDBDB;
+  --borderGray: #DFE0E1;
+  --charcoal: #4F4D4D;
+  --sealBrown: #171010;
+  --black: #000000;  
+  --shadow: #453333;
+
+    --offenseRec: #e34e4e;  // 원래  #E83737; #db5757, 
+    --defenseRec: #6897A9;
+
+    --normal: #C6C6A7;
+    --fire: #F5AC78;
+    --water: #9DB7F5;
+    --electric: #FAE078;
+    --grass: #A7DB8D;
+    --ice: #BCE6E6;
+    --fighting: #D67873;
+    --poison: #C183C1;
+    --ground: #EBD69D;
+    --flying: #C6B7F5;
+    --psychic: #FA92B2;
+    --bug: #C6D16E;
+    --rock: #D1C17D;
+    --ghost: #A292BC;
+    --dragon: #A27DFA;
+    --dark: #A29288;
+    --steel: #D1D1E0;
+    --fairy: #F4BDC9;
+    //--stella: #44628D;
+  }
+
+
+
+.toggle {
+      fill: var(--color-toggle);
+
+      .toggleIcon {
+        fill: var(--color-toggleIcon);
+      }
+    }
+
+
+li {
+  list-style: none;
+}
+
+  a {
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  [hidden] {
+  display: none;
+}
+
+  .shadow-bl {
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.30));
+  }
+
+  .shadow-gr {
+    filter: drop-shadow(0px 2px 2px var(--lightGray));
+  }
+  
+  .shadow-btn {
+    filter: drop-shadow(0px 2px 2px #93896b);
+  }
+`;
+
+export default GlobalStyle; */
