@@ -16,6 +16,7 @@ html {
 * {
   box-sizing: border-box;
 }
+
 *::before,
 *::after {
   box-sizing: border-box;
@@ -81,6 +82,8 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* 다크모드 */
+
     --text: #dddbdb;
     --background: #4f4d4d;
     --card: #171010;

@@ -1,18 +1,20 @@
 import Title from '@/components/UI/Title'
+import Selector from '@/components/UI/Selector'
 // import { Selector } from 'components/Selector'
 // import Result from 'components/Result'
 // import BtnMenu from 'components/BtnMenu'
 
 function Offense() {
   return (
-    <>
+    <div>
       <Title />
       <div className="m-4 grid grid-cols-2 gap-12 p-4 lg:grid-cols-2">
-        {/* <Selector />
-        <Result /> */}
+        <Selector />
       </div>
+      {/* <Result /> */}
+      {/* </div> */}
       {/* <BtnMenu /> */}
-    </>
+    </div>
   )
 }
 

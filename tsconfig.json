@@ -24,7 +24,7 @@
       "@/types/*": ["./src/types/*"],
       "@/stores/*": ["./src/stores/*"],
       "@/styles/*": ["./src/styles/*"],
-      "@/utils/*": ["./src/utils/*"],
+      "@/lib/*": ["./src/lib/*"],
       "@/hooks/*": ["./src/hooks/*"],
       "@/locales/*": ["./public/locales/*"]
     }

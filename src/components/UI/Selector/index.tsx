@@ -1,3 +1,18 @@
+'use client'
+
+import Card from '@/components/UI/Card'
+import SelectorMode from '@/components/UI/SelectorMode'
+
+export default function Selector() {
+  return (
+    <Card>
+      <div className="mx-[1.5rem] mt-[1.3rem] mb-0 grid grid-cols-2 justify-evenly font-['Noto_Sans_KR'] text-[1.5rem] font-extrabold">
+        <SelectorMode lang={lang} translate={translate} />
+      </div>
+    </Card>
+  )
+}
+
 // import { useState, useEffect, useCallback } from 'react'
 // import styled, { css } from 'styled-components'
 // import { useSelector, useDispatch } from 'react-redux'
@@ -9,7 +24,7 @@
 //   const lang = useSelector((state: RootState) => state.language.lang)
 //   const darkMode = useSelector((state: RootState) => state.darkMode.theme)
 //   const translate = useSelector(
-//     (state: RootState) => state.language.translations
+//     (state: RootState) => state.language.translations,
 //   )
 
 //   const navigate = useNavigate()
@@ -23,7 +38,7 @@
 //       setMode(Mode)
 //       navigate(Mode === 'offense' ? `/${lang}` : `/${lang}/defense`)
 //     },
-//     [navigate, lang]
+//     [navigate, lang],
 //   )
 
 //   useEffect(() => {

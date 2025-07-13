@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       '@types': path.resolve(__dirname, 'src/types'),
       '@stores': path.resolve(__dirname, 'src/stores'),
       '@styles': path.resolve(__dirname, 'src/styles'),
-      '@utils': path.resolve(__dirname, 'src/utils'),
+      '@lib': path.resolve(__dirname, 'src/lib'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@localses': path.resolve(__dirname, 'public/locales'),
     }
