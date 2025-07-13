@@ -1,34 +1,34 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import ko from '../json/ko.json';
-import en from '../json/en.json';
-import ja from '../json/ja.json';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import ko from '../json/ko.json'
+import en from '../json/en.json'
+import ja from '../json/ja.json'
 
 const getInitialLang = (): 'ko' | 'en' | 'ja' => {
-  const localStorageLang = localStorage.getItem('lang');
+  const localStorageLang = localStorage.getItem('lang')
   if (localStorageLang) {
-    return localStorageLang as 'ko' | 'en' | 'ja';
+    return localStorageLang as 'ko' | 'en' | 'ja'
   }
 
-  const pathLang = window.location.pathname.split('/')[1];
+  const pathLang = window.location.pathname.split('/')[1]
   if (pathLang === 'en' || pathLang === 'ja' || pathLang === 'ko') {
-    return pathLang as 'ko' | 'en' | 'ja';
+    return pathLang as 'ko' | 'en' | 'ja'
   }
 
-  return 'ko';
-};
+  return 'ko'
+}
 
 const langs = {
   ko: ko,
   en: en,
   ja: ja,
-};
+}
 
 export type langState = {
-  lang: 'ko' | 'en' | 'ja';
-  translations: typeof ko;
-};
+  lang: 'ko' | 'en' | 'ja'
+  translations: typeof ko
+}
 
-const initialLang = getInitialLang();
+const initialLang = getInitialLang()
 
 export const languageSlice = createSlice({
   name: 'language',
@@ -38,12 +38,12 @@ export const languageSlice = createSlice({
   },
   reducers: {
     language: (state, action: PayloadAction<'ko' | 'en' | 'ja'>) => {
-      state.lang = action.payload;
-      state.translations = langs[action.payload];
-      localStorage.setItem('lang', action.payload);
+      state.lang = action.payload
+      state.translations = langs[action.payload]
+      localStorage.setItem('lang', action.payload)
     },
   },
-});
+})
 
-export const { language } = languageSlice.actions;
-export default languageSlice.reducer;
+export const { language } = languageSlice.actions
+export default languageSlice.reducer

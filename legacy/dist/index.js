@@ -38,16 +38,16 @@
 // root.render(/*#__PURE__*/ _react.default.createElement(Root, null));
 
 // es 모듈
-import { createRoot } from 'react-dom/client';
-import App from './App';
-import { Provider } from 'react-redux';
-import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { store, persistor } from './stores/store';
-import { PersistGate } from 'redux-persist/integration/react';
+import { createRoot } from 'react-dom/client'
+import App from './App'
+import { Provider } from 'react-redux'
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { store, persistor } from './stores/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
-const container = document.getElementById('root');
-const root = createRoot(container);
+const container = document.getElementById('root')
+const root = createRoot(container)
 
 function Root() {
   return (
@@ -60,7 +60,7 @@ function Root() {
         </BrowserRouter>
       </Provider>
     </React.StrictMode>
-  );
+  )
 }
 
-root.render(<Root />);
+root.render(<Root />)

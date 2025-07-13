@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 //import ThemeProvider from '#contexts/ThemeProvider'
-import './globals.css'
+import './global.css'
 import Layout from '@/components/Layout'
 
 export const metadata: Metadata = {
@@ -86,11 +86,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="ko">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+        ></meta>
+      </head>
       <body>
         {/* <ThemeProvider> */}
         <Layout>{children}</Layout>

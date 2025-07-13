@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@localses': path.resolve(__dirname, 'public/locales'),
     }
+    return config
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
 }
 

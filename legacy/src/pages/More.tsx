@@ -1,14 +1,14 @@
-import Title from '../components/Title';
-import styled from 'styled-components';
-import { Container, Card } from '../components/Selector';
-import BtnMenu from 'components/BtnMenu';
-import Lucario from '../img/Lucario.webp';
-import { Hr } from 'components/Result';
-import { useSelector } from 'react-redux';
-import { RootState } from 'stores/store';
+import Title from '../components/Title'
+import styled from 'styled-components'
+import { Container, Card } from '../components/Selector'
+import BtnMenu from 'components/BtnMenu'
+import Lucario from '../img/Lucario.webp'
+import { Hr } from 'components/Result'
+import { useSelector } from 'react-redux'
+import { RootState } from 'stores/store'
 
 export const More = () => {
-  const lang = useSelector((state: RootState) => state.language.lang);
+  const lang = useSelector((state: RootState) => state.language.lang)
 
   return (
     <>
@@ -29,8 +29,8 @@ export const More = () => {
       </Container>
       <BtnMenu />
     </>
-  );
-};
+  )
+}
 
 export const MoreCard = styled(Card)`
   flex-direction: row;
@@ -56,13 +56,13 @@ export const MoreCard = styled(Card)`
       width: 12rem;
     } // 모바일
   }
-`;
+`
 
 export const Text = styled.div`
   @media (min-width: 280px) and (max-width: 500px) {
     margin-top: 1rem;
   } // 모바일
-`;
+`
 
 export const Contact = styled.h1`
   font-family: 'HeliosExtBlack', sans-serif;
@@ -70,7 +70,7 @@ export const Contact = styled.h1`
   @media (min-width: 280px) and (max-width: 767px) {
     font-size: 1rem;
   } // 모바일
-`;
+`
 
 export const Noti = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
@@ -78,10 +78,10 @@ export const Noti = styled.p`
   @media (min-width: 280px) and (max-width: 767px) {
     font-size: 0.8rem;
   } // 모바일
-`;
+`
 
 export const HrMore = styled(Hr)`
   margin: 1rem 0;
-`;
+`
 
-export default More;
+export default More

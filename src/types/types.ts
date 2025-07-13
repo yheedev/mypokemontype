@@ -17,7 +17,7 @@ export const TypeName = [
   'dragon',
   'dark',
   'fairy',
-] as const;
+] as const
 
 export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
   normal: [1, 1, 1, 1, 1, 0.5, 1, 0, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -42,4 +42,4 @@ export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
 
   dark: [1, 0.5, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 0.5, 0.5],
   fairy: [1, 2, 1, 0.5, 1, 1, 1, 1, 0.5, 0.5, 1, 1, 1, 1, 1, 2, 2, 1],
-} as const;
+} as const

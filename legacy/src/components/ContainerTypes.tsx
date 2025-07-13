@@ -1,29 +1,35 @@
-import styled from 'styled-components';
-import { PokemonType } from './PokemonType';
-import { TypeName } from 'features/types';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'stores/store';
-import { add, remove } from 'features/upToTwoSlice';
-import { useCallback, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { offenseCal } from 'features/offenseCalSlice';
-import { defenseCal } from 'features/defenseCalSlice';
+import styled from 'styled-components'
+import { PokemonType } from './PokemonType'
+import { TypeName } from 'features/types'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'stores/store'
+import { add, remove } from 'features/upToTwoSlice'
+import { useCallback, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { offenseCal } from 'features/offenseCalSlice'
+import { defenseCal } from 'features/defenseCalSlice'
 
 const ContainerTypes = () => {
-  const lang = useSelector((state: RootState) => state.language.lang);
-  const isDarkMode = useSelector((state: RootState) => state.darkMode.theme === 'dark');
-  const translate = useSelector((state: RootState) => state.language.translations);
-  const selectTypes = useSelector((state: RootState) => state.upToTwo.selectTypes);
-  const dispatch = useDispatch();
-  const location = useLocation();
+  const lang = useSelector((state: RootState) => state.language.lang)
+  const isDarkMode = useSelector(
+    (state: RootState) => state.darkMode.theme === 'dark',
+  )
+  const translate = useSelector(
+    (state: RootState) => state.language.translations,
+  )
+  const selectTypes = useSelector(
+    (state: RootState) => state.upToTwo.selectTypes,
+  )
+  const dispatch = useDispatch()
+  const location = useLocation()
 
   const upToTwoAction = (type: any) => {
     if (selectTypes.includes(type)) {
-      dispatch(remove(type));
+      dispatch(remove(type))
     } else {
-      dispatch(add(type));
+      dispatch(add(type))
     }
-  };
+  }
 
   const pathCal = useCallback(
     (path: string, types: string[]) => {
@@ -33,23 +39,23 @@ const ContainerTypes = () => {
             offenseCal({
               offenseType1: types[0],
               offenseType2: types[1],
-            })
-          );
-          break;
+            }),
+          )
+          break
         case `/${lang}/defense`:
           dispatch(
             defenseCal({
               defenseType1: types[0],
               defenseType2: types[1],
-            })
-          );
-          break;
+            }),
+          )
+          break
         default:
-          break;
+          break
       }
     },
-    [dispatch, lang]
-  );
+    [dispatch, lang],
+  )
 
   // useCallback 사용 전
   //   useEffect(() => {
@@ -73,9 +79,9 @@ const ContainerTypes = () => {
   // }, [location.pathname, selectTypes, dispatch]);
 
   useEffect(() => {
-    const types = [selectTypes[0], selectTypes[1]];
-    pathCal(location.pathname, types);
-  }, [location.pathname, selectTypes, dispatch, pathCal]);
+    const types = [selectTypes[0], selectTypes[1]]
+    pathCal(location.pathname, types)
+  }, [location.pathname, selectTypes, dispatch, pathCal])
 
   return (
     <Container>
@@ -86,7 +92,7 @@ const ContainerTypes = () => {
             text={translate.TypeName[type]}
             borderColor={`var(--${type})`}
             onClick={() => {
-              upToTwoAction(type);
+              upToTwoAction(type)
             }}
             isDarkMode={isDarkMode}
             isActive={selectTypes.includes(type)}
@@ -95,15 +101,15 @@ const ContainerTypes = () => {
         </Wrapper>
       ))}
     </Container>
-  );
-};
+  )
+}
 
 const Wrapper = styled.div`
   &:hover {
     transform: scale(1.1);
     transition: transform 0.2s;
   }
-`;
+`
 
 export const Container = styled.div`
   display: grid;
@@ -118,6 +124,6 @@ export const Container = styled.div`
     /* grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); */
     margin: 0 0.8rem 2rem;
   }
-`;
+`
 
-export default ContainerTypes;
+export default ContainerTypes

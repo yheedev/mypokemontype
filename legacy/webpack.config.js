@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'path'
 
 module.exports = {
   mode: 'production',
@@ -25,4 +25,4 @@ module.exports = {
       chunks: 'all',
     },
   },
-};
+}

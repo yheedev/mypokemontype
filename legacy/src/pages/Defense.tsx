@@ -1,8 +1,8 @@
-import Title from '../components/Title';
-import Result from 'components/Result';
-import { Selector } from 'components/Selector';
-import styled from 'styled-components';
-import BtnMenu from 'components/BtnMenu';
+import Title from '../components/Title'
+import Result from 'components/Result'
+import { Selector } from 'components/Selector'
+import styled from 'styled-components'
+import BtnMenu from 'components/BtnMenu'
 
 const Container = styled.div`
   display: grid;
@@ -14,7 +14,7 @@ const Container = styled.div`
   @media (max-width: 1023px) {
     grid-template-columns: 1fr;
   }
-`;
+`
 
 function Defense() {
   return (
@@ -26,7 +26,7 @@ function Defense() {
       </Container>
       <BtnMenu />
     </>
-  );
+  )
 }
 
-export default Defense;
+export default Defense

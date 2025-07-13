@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-@import url('https://db.onlinewebfonts.com/c/fd18e391776fea6256be11db6ed387f8?family=HeliosExtBlack');
 
 @import 'tailwindcss';
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+
+@font-face {
+  font-family: 'Helios';
+  src: url('https://db.onlinewebfonts.com/t/fd18e391776fea6256be11db6ed387f8.woff2')
+    format('woff2');
+  font-display: swap;
+}
 
 html {
   font-size: 100%;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 *::before,
@@ -24,17 +25,20 @@ body {
   font-family: 'NotoSans', 'sans-serif', 'Arial';
   font-size: 16px;
   background-color: var(--color-background);
+  background: var(--background);
+  color: var(--text);
   box-sizing: border-box;
 }
 
-br {
-  display: inline;
-}
-
-:layer base {
-  /* ${lightTheme}
-  ${darkTheme} */
+@layer base {
   :root {
+    /* 공통 컬러 + 라이트모드 */
+    --text: #000000;
+    --background: #dddbdb;
+    --card: #ffffff;
+    --border: #dfe0e1;
+    --disable: #c6c6a7;
+
     --white: #ffffff;
     --lightGray: #dddbdb;
     --borderGray: #dfe0e1;
@@ -66,95 +70,40 @@ br {
     --fairy: #f4bdc9;
     /* --stella: #44628D; */
   }
-
-  /* .dark {} */
-  /* 
-  - [ ] 기존 컬러 중 다크 모드 쓰는 부분 등록  */
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
+/* @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
+} */
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --text: #dddbdb;
+    --background: #4f4d4d;
+    --card: #171010;
+    --disable: #4f4d4d; /* 라이트하우스 접근성 개선 필요할 경우 컬러 수정 */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-/* 
-
-import { createGlobalStyle } from 'styled-components';
-import { reset } from 'styled-reset';
-import { lightTheme, darkTheme } from '../../legacy/src/styles/theme';
-
-export const GlobalStyle = createGlobalStyle`
-${reset}
-
-:root {
-  ${lightTheme}
-  ${darkTheme}
-
-  --white: #FFFFFF;
-  --lightGray: #DDDBDB;
-  --borderGray: #DFE0E1;
-  --charcoal: #4F4D4D;
-  --sealBrown: #171010;
-  --black: #000000;  
-  --shadow: #453333;
-
-    --offenseRec: #e34e4e;  // 원래  #E83737; #db5757, 
-    --defenseRec: #6897A9;
-
-    --normal: #C6C6A7;
-    --fire: #F5AC78;
-    --water: #9DB7F5;
-    --electric: #FAE078;
-    --grass: #A7DB8D;
-    --ice: #BCE6E6;
-    --fighting: #D67873;
-    --poison: #C183C1;
-    --ground: #EBD69D;
-    --flying: #C6B7F5;
-    --psychic: #FA92B2;
-    --bug: #C6D16E;
-    --rock: #D1C17D;
-    --ghost: #A292BC;
-    --dragon: #A27DFA;
-    --dark: #A29288;
-    --steel: #D1D1E0;
-    --fairy: #F4BDC9;
-    //--stella: #44628D;
+@layer base {
+  br {
+    display: inline;
   }
 
+  .toggle {
+    fill: var(--color-toggle);
 
-
-.toggle {
-      fill: var(--color-toggle);
-
-      .toggleIcon {
-        fill: var(--color-toggleIcon);
-      }
+    .toggleIcon {
+      fill: var(--color-toggleIcon);
     }
+  }
 
-
-li {
-  list-style: none;
-}
+  li {
+    list-style: none;
+  }
 
   a {
     text-decoration: none;
@@ -165,20 +114,18 @@ li {
   }
 
   [hidden] {
-  display: none;
-}
+    display: none;
+  }
 
   .shadow-bl {
-    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.30));
+    filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
   }
 
   .shadow-gr {
     filter: drop-shadow(0px 2px 2px var(--lightGray));
   }
-  
+
   .shadow-btn {
     filter: drop-shadow(0px 2px 2px #93896b);
   }
-`;
-
-export default GlobalStyle; */
+}

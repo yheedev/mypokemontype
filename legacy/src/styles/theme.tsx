@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from 'styled-components'
 
 const Styles = css`
   body {
@@ -29,7 +29,7 @@ const Styles = css`
       }
     }
   }
-`;
+`
 
 export const lightTheme = css`
   [data-theme='light'] {
@@ -52,7 +52,7 @@ export const lightTheme = css`
     }
     ${Styles};
   }
-`;
+`
 
 export const darkTheme = css`
   [data-theme='dark'] {
@@ -76,4 +76,4 @@ export const darkTheme = css`
     }
     ${Styles}
   }
-`;
+`

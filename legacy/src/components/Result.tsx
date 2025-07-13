@@ -1,149 +1,126 @@
-import { useSelector } from "react-redux";
-import { RootState } from "stores/store";
-import styled from "styled-components";
-import { PokemonType } from "./PokemonType";
-import { Container } from "./ContainerTypes";
-import { ReactComponent as Flame } from "../img/Flame.svg";
-import { useLocation } from "react-router-dom";
+import { useSelector } from 'react-redux'
+import { RootState } from 'stores/store'
+import styled from 'styled-components'
+import { PokemonType } from './PokemonType'
+import { Container } from './ContainerTypes'
+import { ReactComponent as Flame } from '../img/Flame.svg'
+import { useLocation } from 'react-router-dom'
 
 type ResultType = {
-  [key: string]: string[];
-};
+  [key: string]: string[]
+}
 
 const Result = () => {
-  const lang = useSelector(
-    (state: RootState) => state.language.lang
-  );
-  const location = useLocation();
+  const lang = useSelector((state: RootState) => state.language.lang)
+  const location = useLocation()
   const translate = useSelector(
-    (state: RootState) =>
-      state.language.translations
-  );
+    (state: RootState) => state.language.translations,
+  )
   const isDarkMode = useSelector(
-    (state: RootState) =>
-      state.darkMode.theme === "dark"
-  );
+    (state: RootState) => state.darkMode.theme === 'dark',
+  )
 
   const offenseResult = useSelector(
-    (state: RootState) =>
-      state.offenseCal.result as ResultType
-  );
+    (state: RootState) => state.offenseCal.result as ResultType,
+  )
   const defenseResult = useSelector(
-    (state: RootState) =>
-      state.defenseCal.result as ResultType
-  );
-
-  const offenseResultArray = Object.entries(
-    offenseResult
+    (state: RootState) => state.defenseCal.result as ResultType,
   )
-    .filter(([key, value]) => value.length > 0)
-    .sort(
-      ([keyA], [keyB]) =>
-        parseFloat(keyB) - parseFloat(keyA)
-    );
 
-  const defenseResultArray = Object.entries(
-    defenseResult
-  )
+  const offenseResultArray = Object.entries(offenseResult)
     .filter(([key, value]) => value.length > 0)
-    .sort(
-      ([keyA], [keyB]) =>
-        parseFloat(keyA) - parseFloat(keyB)
-    );
+    .sort(([keyA], [keyB]) => parseFloat(keyB) - parseFloat(keyA))
+
+  const defenseResultArray = Object.entries(defenseResult)
+    .filter(([key, value]) => value.length > 0)
+    .sort(([keyA], [keyB]) => parseFloat(keyA) - parseFloat(keyB))
 
   const flameColor =
-    location.pathname === `/${lang}`
-      ? "var(--offenseRec)"
-      : "var(--defenseRec)";
+    location.pathname === `/${lang}` ? 'var(--offenseRec)' : 'var(--defenseRec)'
 
   return (
     <ResultContainer>
       <ResultCard>
         {location.pathname === `/${lang}` &&
-          offenseResultArray.map(
-            ([key, value], index) => (
-              <div key={key}>
-                <TitleContainer>
-                  {index === 0 && (
-                    <FlameIcon
-                      className="fire"
-                      aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
-                      color={flameColor}
-                    />
-                  )}
-                  <h1 className="resultEffect">
-                    {key}
-                    {translate.Result["x damage"]}
-                  </h1>
-                </TitleContainer>
-                <Hr />
-                <PokemonContainer>
-                  {value.map((type) => (
-                    <PokemonType
-                      className="pokemon"
-                      key={String(type)}
-                      text={
-                        translate.TypeName[
-                          type as keyof typeof translate.TypeName
-                        ]
-                      }
-                      borderColor={`var(--${type})`}
-                      isDarkMode={isDarkMode}
-                      cursor={"default"}
-                    />
-                  ))}
-                </PokemonContainer>
-              </div>
-            )
-          )}
-        {location.pathname ===
-          `/${lang}/defense` &&
-          defenseResultArray.map(
-            ([key, value], index) => (
-              <div key={key}>
-                <TitleContainer>
-                  {index === 0 && (
-                    <FlameIcon
-                      className="fire"
-                      aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
-                      color={flameColor}
-                    />
-                  )}
-                  <h1 className="resultEffect">
-                    {key}
-                    {translate.Result["x damage"]}
-                  </h1>
-                </TitleContainer>
-                <Hr />
-                <PokemonContainer>
-                  {value.map((type) => (
-                    <PokemonType
-                      className="pokemon"
-                      key={String(type)}
-                      text={
-                        translate.TypeName[
-                          type as keyof typeof translate.TypeName
-                        ]
-                      }
-                      borderColor={`var(--${type})`}
-                      isDarkMode={isDarkMode}
-                      cursor="default"
-                    />
-                  ))}
-                </PokemonContainer>
-              </div>
-            )
-          )}
+          offenseResultArray.map(([key, value], index) => (
+            <div key={key}>
+              <TitleContainer>
+                {index === 0 && (
+                  <FlameIcon
+                    className="fire"
+                    aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
+                    color={flameColor}
+                  />
+                )}
+                <h1 className="resultEffect">
+                  {key}
+                  {translate.Result['x damage']}
+                </h1>
+              </TitleContainer>
+              <Hr />
+              <PokemonContainer>
+                {value.map((type) => (
+                  <PokemonType
+                    className="pokemon"
+                    key={String(type)}
+                    text={
+                      translate.TypeName[
+                        type as keyof typeof translate.TypeName
+                      ]
+                    }
+                    borderColor={`var(--${type})`}
+                    isDarkMode={isDarkMode}
+                    cursor={'default'}
+                  />
+                ))}
+              </PokemonContainer>
+            </div>
+          ))}
+        {location.pathname === `/${lang}/defense` &&
+          defenseResultArray.map(([key, value], index) => (
+            <div key={key}>
+              <TitleContainer>
+                {index === 0 && (
+                  <FlameIcon
+                    className="fire"
+                    aria-label="결과에서 공격과 방어에 가장 효과적인 포켓몬 타입을 강조하는 아이콘입니다."
+                    color={flameColor}
+                  />
+                )}
+                <h1 className="resultEffect">
+                  {key}
+                  {translate.Result['x damage']}
+                </h1>
+              </TitleContainer>
+              <Hr />
+              <PokemonContainer>
+                {value.map((type) => (
+                  <PokemonType
+                    className="pokemon"
+                    key={String(type)}
+                    text={
+                      translate.TypeName[
+                        type as keyof typeof translate.TypeName
+                      ]
+                    }
+                    borderColor={`var(--${type})`}
+                    isDarkMode={isDarkMode}
+                    cursor="default"
+                  />
+                ))}
+              </PokemonContainer>
+            </div>
+          ))}
       </ResultCard>
     </ResultContainer>
-  );
-};
+  )
+}
 
-export default Result;
+export default Result
 
 const ResultContainer = styled.div`
   color: var(--color-text);
-`;
+`
 
 const ResultCard = styled.div`
   display: flex;
@@ -157,7 +134,7 @@ const ResultCard = styled.div`
   }
 
   .resultEffect {
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 1.25rem;
     font-weight: 1000;
 
@@ -165,7 +142,7 @@ const ResultCard = styled.div`
       margin: 1em 0.64em 0rem;
     }
   }
-`;
+`
 
 const PokemonContainer = styled(Container)`
   margin: 1rem 0rem 1.5rem;
@@ -174,7 +151,7 @@ const PokemonContainer = styled(Container)`
   @media (min-width: 280px) and (max-width: 767px) {
     margin: 1em 0.5rem;
   }
-`;
+`
 
 export const Hr = styled.hr`
   border: 1px solid var(--color-border);
@@ -183,17 +160,17 @@ export const Hr = styled.hr`
   @media (min-width: 280px) and (max-width: 767px) {
     margin: 0.8em 0.64em 0rem;
   }
-`;
+`
 
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
   justify-content: flex-end;
   align-items: center;
-`;
+`
 
 export const FlameIcon = styled(Flame)<{
-  color: string;
+  color: string
 }>`
   border: 3px solid;
   border-radius: 50%;
@@ -212,7 +189,7 @@ export const FlameIcon = styled(Flame)<{
   @media (min-width: 280px) and (max-width: 767px) {
     margin: 1rem 0 0 0;
   }
-`;
+`
 
 // TODO;
 // [ ] 뒤로가기 버튼 만들기

@@ -1,48 +1,56 @@
-import React, { useRef } from 'react';
-import styled from 'styled-components';
-import { language } from '../features/languageSlice';
-import { Card } from '../components/Selector';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'stores/store';
-import { ReactComponent as Close } from '../img/Close.svg';
-import ReactDOM from 'react-dom';
+import React, { useRef } from 'react'
+import styled from 'styled-components'
+import { language } from '../features/languageSlice'
+import { Card } from '../components/Selector'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'stores/store'
+import { ReactComponent as Close } from '../img/Close.svg'
+import ReactDOM from 'react-dom'
 
 const LangModal = ({ onClose }: { onClose: () => void }) => {
-  const dispatch = useDispatch();
-  const lang = useSelector((state: RootState) => state.language.lang);
-  const translate = useSelector((state: RootState) => state.language.translations);
-  const modalBackground = useRef<HTMLDivElement>(null);
+  const dispatch = useDispatch()
+  const lang = useSelector((state: RootState) => state.language.lang)
+  const translate = useSelector(
+    (state: RootState) => state.language.translations,
+  )
+  const modalBackground = useRef<HTMLDivElement>(null)
 
   const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === modalBackground.current) {
-      onClose();
+      onClose()
     }
-  };
+  }
 
   const handleLanguageChange = (languages: 'ko' | 'en' | 'ja') => {
-    dispatch(language(languages));
-    onClose();
-  };
+    dispatch(language(languages))
+    onClose()
+  }
 
   const modalContent = (
     <Modal lang={lang} ref={modalBackground} onClick={handleBackgroundClick}>
-      <ModalContent lang={lang} onClick={e => e.stopPropagation()}>
+      <ModalContent lang={lang} onClick={(e) => e.stopPropagation()}>
         {' '}
         <ModalTitle>{translate.languege.languegeSettings}</ModalTitle>
-        <ModalText onClick={() => handleLanguageChange('ko')}>{translate.languege.Korean}</ModalText>
+        <ModalText onClick={() => handleLanguageChange('ko')}>
+          {translate.languege.Korean}
+        </ModalText>
         <HrModal />
-        <ModalText onClick={() => handleLanguageChange('en')}>{translate.languege.English}</ModalText>
+        <ModalText onClick={() => handleLanguageChange('en')}>
+          {translate.languege.English}
+        </ModalText>
         <HrModal />
-        <ModalText onClick={() => handleLanguageChange('ja')}>{translate.languege.Japanese}</ModalText>
+        <ModalText onClick={() => handleLanguageChange('ja')}>
+          {translate.languege.Japanese}
+        </ModalText>
         <ModalBtn onClick={onClose}>
           <CloseIcon />
         </ModalBtn>
       </ModalContent>
     </Modal>
-  );
+  )
 
-  return ReactDOM.createPortal(modalContent, document.body);
-};
+  return ReactDOM.createPortal(modalContent, document.body)
+}
 
 const Modal = styled.div`
   position: fixed;
@@ -58,7 +66,7 @@ const Modal = styled.div`
   z-index: 1000;
   opacity: 80%;
   font-family: 'Noto Sans KR', sans-serif;
-`;
+`
 
 const ModalContent = styled(Card)`
   background: var(--color-modalCard);
@@ -69,13 +77,13 @@ const ModalContent = styled(Card)`
   gap: 1rem;
   border: 2px solid var(--color-border);
   align-items: center;
-`;
+`
 
 const ModalTitle = styled.h1`
   font-size: 1.5rem;
   color: var(--color-modalTitle);
   margin-bottom: 1rem;
-`;
+`
 
 const ModalText = styled.h2`
   font-size: 1rem;
@@ -83,22 +91,22 @@ const ModalText = styled.h2`
   cursor: pointer;
   width: 6rem;
   text-align: center;
-`;
+`
 
 const HrModal = styled.hr`
   border: 1px solid var(--color-modalBorder);
   width: 5rem;
-`;
+`
 
 const ModalBtn = styled.button<{
-  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void
 }>`
   background: none;
   border: none;
   cursor: pointer;
   width: 5em;
   margin-top: 0.5rem;
-`;
+`
 
 const CloseIcon = styled(Close)`
   width: 2em;
@@ -110,6 +118,6 @@ const CloseIcon = styled(Close)`
   & path {
     fill: var(--offenseRec);
   }
-`;
+`
 
-export default LangModal;
+export default LangModal

@@ -1,37 +1,37 @@
-import { configureStore } from '@reduxjs/toolkit';
-import offenseCalSlice, { offenseCal } from './offenseCalSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import offenseCalSlice, { offenseCal } from './offenseCalSlice'
 
 function filterEmptyArrays(result: { [x: string]: string[] }) {
-  const filteredResult: { [key: string]: string[] } = {};
-  Object.keys(result).forEach(key => {
+  const filteredResult: { [key: string]: string[] } = {}
+  Object.keys(result).forEach((key) => {
     if (result[key].length > 0) {
-      filteredResult[key] = result[key];
+      filteredResult[key] = result[key]
     }
-  });
-  return filteredResult;
+  })
+  return filteredResult
 }
 
 describe('offenseCalSlice', () => {
-  let store = configureStore({ reducer: { offenseCal: offenseCalSlice } });
+  let store = configureStore({ reducer: { offenseCal: offenseCalSlice } })
 
   beforeEach(() => {
-    store = configureStore({ reducer: { offenseCal: offenseCalSlice } });
-  });
+    store = configureStore({ reducer: { offenseCal: offenseCalSlice } })
+  })
 
   function testEffectiveness(
     ContainerTypes: { offenseType1: string; offenseType2: string }[],
-    expectedKeys: string[]
+    expectedKeys: string[],
   ) {
     ContainerTypes.forEach(({ offenseType1, offenseType2 }) => {
       it(`${offenseType1}, ${offenseType2} 이종타입 내 effectiveness 배열 비교`, () => {
-        store.dispatch(offenseCal({ offenseType1, offenseType2 }));
-        const state = store.getState().offenseCal;
-        const filteredResult = filterEmptyArrays(state.result);
-        const resultKeys = Object.keys(filteredResult);
+        store.dispatch(offenseCal({ offenseType1, offenseType2 }))
+        const state = store.getState().offenseCal
+        const filteredResult = filterEmptyArrays(state.result)
+        const resultKeys = Object.keys(filteredResult)
 
-        expect(resultKeys.sort()).toEqual(expectedKeys.sort());
-      });
-    });
+        expect(resultKeys.sort()).toEqual(expectedKeys.sort())
+      })
+    })
   }
 
   describe('얼음, 페어리 / 얼음, 드래곤 / 에스퍼, 고스트 / 비행, 바위 / 강철, 전기 / 독, 얼음 / 악, 격투 / 비행, 벌레 / 불꽃, 물 / 강철, 풀 / 풀, 땅 / 드래곤, 노멀 / 전기, 바위 / 에스퍼, 페어리 / 물, 얼음 / 땅, 전기', () => {
@@ -52,12 +52,12 @@ describe('offenseCalSlice', () => {
       { offenseType1: 'psychic', offenseType2: 'fairy' },
       { offenseType1: 'water', offenseType2: 'ice' },
       { offenseType1: 'ground', offenseType2: 'electric' },
-    ];
+    ]
 
-    const expectedKeys = ['2', '1', '0.5'];
+    const expectedKeys = ['2', '1', '0.5']
 
-    testEffectiveness(ContainerTypes, expectedKeys);
-  });
+    testEffectiveness(ContainerTypes, expectedKeys)
+  })
 
   describe('땅, 바위 / 고스트, 풀 / 고스트, 얼음 / 전기, 악 / 바위, 불꽃 / 불꽃, 땅 / 물, 페어리 / 전기, 벌레 / 물, 드래곤', () => {
     const ContainerTypes = [
@@ -69,12 +69,12 @@ describe('offenseCalSlice', () => {
       { offenseType1: 'water', offenseType2: 'fairy' },
       { offenseType1: 'electric', offenseType2: 'bug' },
       { offenseType1: 'water', offenseType2: 'dragon' },
-    ];
+    ]
 
-    const expectedKeys = ['2', '1'];
+    const expectedKeys = ['2', '1']
 
-    testEffectiveness(ContainerTypes, expectedKeys);
-  });
+    testEffectiveness(ContainerTypes, expectedKeys)
+  })
 
   // 여기부터 노멀만,,,
 
@@ -121,7 +121,7 @@ describe('offenseCalSlice', () => {
 
   //   testEffectiveness(ContainerTypes, expectedKeys);
   // });
-});
+})
 
 // 다음엔 더 효율적으로 작성해보고 싶다
 

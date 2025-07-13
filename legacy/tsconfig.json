@@ -22,16 +22,9 @@
     "noImplicitAny": true,
     "jsx": "react-jsx",
     "baseUrl": "legacy/src",
-    "typeRoots": [
-      "./@types/index.d.ts",
-      "./node_modules/@types"
-    ]
+    "typeRoots": ["./@types/index.d.ts", "./node_modules/@types"]
   },
-  "include": [
-    "legacy/src",
-    "@types",
-    "./@types/custom.d.ts"
-  ],
+  "include": ["legacy/src", "@types", "./@types/custom.d.ts"],
   "exclude": [
     "node_modules",
     "build",
