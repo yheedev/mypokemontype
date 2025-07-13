@@ -1,17 +1,13 @@
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
+import { useLanguageStore } from '@/stores/languageStore'
 
-export default function SelectorMode({
-  lang,
-  translate,
-}: {
-  lang: string
-  translate: any
-}) {
+export default function SelectorMode() {
   const pathname = usePathname()
   const router = useRouter()
 
+  const { lang, translate } = useLanguageStore()
   const [mode, setMode] = useState<'offense' | 'defense'>('offense')
 
   useEffect(() => {
@@ -24,29 +20,71 @@ export default function SelectorMode({
   }
 
   return (
-    <div className="mx-[1.5rem] mt-[1.3rem] grid grid-cols-2 justify-evenly font-['Noto_Sans_KR'] text-[1.5rem] font-black">
-      <button
+    <div className="mt-1 grid cursor-pointer grid-cols-2 justify-evenly font-['Noto_Sans_KR'] text-2xl font-black">
+      {' '}
+      {/** .Option */}
+      <div /** .Offense / OptionOffense */
         className={cn(
-          'flex items-center justify-center pt-2 pb-6 text-center align-middle',
-          lang === 'ko' ? 'indent-[1.25rem] tracking-[7px]' : 'tracking-[3px]',
-          'mr-[0.8rem]',
-          mode === 'offense' ? 'underline' : '',
+          'flex items-center justify-center justify-items-center border-t-0 border-r-0 border-l-0 px-[4rem] py-2 pb-6 text-center align-middle md:py-2 lg:pt-2',
+          lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[3px]',
+          mode === 'offense'
+            ? 'border-b-[4px] border-[var(--offenseRec)] text-[var(--offenseRec)] lg:border-b-[7px]'
+            : 'border-b-[2px] border-[var(--color-border)] text-[var(--color-text)]',
         )}
         onClick={() => onSelect('offense')}
       >
-        {translate.Mode.offense}
-      </button>
-
-      <button
+        <span
+          className={cn(
+            'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
+            lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
+            mode === 'offense',
+          )}
+        >
+          {' '}
+          {/**  .OptionText .OffenseText / OptionText OffenseText */}
+          {translate.Mode.offense}
+        </span>
+      </div>
+      <div /** .Defense / OptionDefense */
         className={cn(
-          'flex items-center justify-center pt-2 pb-6 text-center align-middle',
+          'flex items-center justify-center justify-items-center border-t-0 border-r-0 border-l-2 py-2 pb-6 text-center align-middle md:py-2 lg:pt-2',
           lang === 'ko' ? 'indent-[1.25rem] tracking-[7px]' : 'tracking-[3px]',
-          mode === 'defense' ? 'underline' : '',
+          mode === 'defense'
+            ? 'border-b-[4px] border-[var(--defenseRec)] text-[var(--defenseRec)] lg:border-b-[7px]'
+            : 'border-b-[2px] border-[var(--color-border)] text-[var(--color-text)]',
         )}
         onClick={() => onSelect('defense')}
       >
-        {translate.Mode.defense}
-      </button>
+        <span
+          className={cn(
+            'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
+            lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
+            mode === 'defense',
+          )}
+        >
+          {' '}
+          {/** OptionText DefenseText */}
+          {translate.Mode.defense}
+        </span>
+      </div>
+      <div className="mx-4 mt-8 mb-6 border-solid sm:pb-4 lg:border-b-2">
+        {/* .InfoContainer */}
+
+        <div
+          // .info
+          className={cn(
+            'pt-0.5rem align-center col-span-1 mb-2 flex justify-around px-10 pb-2 text-center text-[0.9rem] leading-5 font-normal break-words whitespace-normal lg:mb-6 lg:px-0 lg:py-6 lg:text-2xl lg:font-extrabold',
+            lang === 'ko'
+              ? 'tracking-[1.5px] break-keep'
+              : 'tracking-[0.5px] break-normal',
+          )}
+        >
+          <span>infoinfoinfoinfoinfo</span>
+        </div>
+      </div>
     </div>
   )
 }
+
+// TODO
+// [ ] 왜 가로로 안 넓어지는가..................

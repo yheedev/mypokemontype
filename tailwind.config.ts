@@ -13,6 +13,11 @@ const config: Config = {
       lg: { max: '1023px' },
       // xxl: '1440px', // PC
     },
+    colors: {
+      border: 'var(--color-border)',
+      card: 'var(--color-card)',
+      text: 'var(--color-text)',
+    },
   },
 }
 

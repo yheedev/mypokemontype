@@ -6,8 +6,9 @@ import SelectorMode from '@/components/UI/SelectorMode'
 export default function Selector() {
   return (
     <Card>
-      <div className="mx-[1.5rem] mt-[1.3rem] mb-0 grid grid-cols-2 justify-evenly font-['Noto_Sans_KR'] text-[1.5rem] font-extrabold">
-        <SelectorMode lang={lang} translate={translate} />
+      <div className="mx-[1.5rem] mb-0 grid justify-evenly font-['Noto_Sans_KR'] text-[1.5rem] font-extrabold">
+        {/* div에 mt-[1.3rem] grid-cols-2 삭제 */}
+        <SelectorMode />
       </div>
     </Card>
   )
@@ -104,60 +105,60 @@ export default function Selector() {
 //   flex-direction: column;
 //   background-color: var(--color-card);
 //   border-radius: 22px;
+// 이것들 Card에 다 작성함
 
 //   .Option {
-//     justify-content: space-evenly;
-//     display: grid;
-//     grid-template-columns: 1fr 1fr;
-//     font-size: 1.5rem;
-//     font-weight: 1000;
-//     font-family: 'Noto Sans KR', sans-serif;
-//     margin: 1.3rem 1.5rem 0rem;
+//     //justify-content: space-evenly;
+//     //display: grid;
+//     //grid-template-columns: 1fr 1fr;
+//     //font-size: 1.5rem;
+//     //font-weight: 1000;
+//     //font-family: 'Noto Sans KR', sans-serif;
+//     //margin: 1.3rem 1.5rem 0rem;
 //   }
 
 //   .Offense,
 //   .Defense {
-//     letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '3px')};
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     justify-items: center;
-//     border-top: none;
-//     display: flex;
-//     padding: 0.5rem 0 1.5rem;
-//     border-top: none;
-//     text-align: center;
-//     vertical-align: middle;
-//     text-indent: ${({ lang }) => (lang === 'ko' ? '1.25rem' : '0rem')};
+//     //letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '3px')};
+//     //display: flex;
+//     //justify-content: center;
+//     //align-items: center;
+//     //justify-items: center;
+//     //display: flex;
+//     //padding: 0.5rem 0 1.5rem;
+//     //border-top: none;
+//     //text-align: center;
+//     //vertical-align: middle;
+//     //text-indent: ${({ lang }) => (lang === 'ko' ? '1.25rem' : '0rem')};
 
-//     @media (min-width: 280px) and (max-width: 767px) {
+//     //@media (min-width: 280px) and (max-width: 767px) {
 //       padding: 0.5rem 0 0.5rem;
 //       font-size: 1.1rem;
 //     }
 
-//     @media (min-width: 280px) and (max-width: 767px) {
+//     //@media (min-width: 280px) and (max-width: 767px) {
 //       letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '0px')};
-//       padding: 0.5rem 0 0.5rem;
+//       padding: 0.5rem 0 0.5rem; 위 가로 아래
 //       font-size: 1.1rem;
 //     }
 //   }
 
 //   .OptionText {
-//     display: inline-block;
-//     letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '2.5px')};
+//     //display: inline-block;
+//     //letter-spacing: ${({ lang }) => (lang === 'ko' ? '7px' : '2.5px')};
 
-//     @media (min-width: 280px) and (max-width: 767px) {
+//     //@media (min-width: 280px) and (max-width: 767px) {
 //       padding-bottom: 0.5rem;
 //     }
 //   }
 
 //   .OffenseText {
-//     margin-right: 0.8rem;
+//     //margin-right: 0.8rem;
 //   }
 
 //   .Offense {
-//     border-left: none;
-//     border-right: none;
+//     //border-left: none;
+//     //border-right: none;
 //   }
 
 //   .Defense {

@@ -8,7 +8,7 @@ function Offense() {
   return (
     <div>
       <Title />
-      <div className="m-4 grid grid-cols-2 gap-12 p-4 lg:grid-cols-2">
+      <div className="m-4 grid grid-cols-1 gap-12 p-4 lg:grid-cols-2">
         <Selector />
       </div>
       {/* <Result /> */}
@@ -31,3 +31,5 @@ export default Offense
 //     grid-template-columns: 1fr;
 //   }
 // `;
+
+// 6:18:17

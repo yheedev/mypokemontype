@@ -1,3 +1,41 @@
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
+import ko from '@/locales/ko/ko.json'
+import en from '@/locales/en/en.json'
+import ja from '@/locales/ja/ja.json'
+
+export type Language = 'ko' | 'en' | 'ja'
+export const langs = { ko, en, ja }
+
+interface LanguageStore {
+  lang: Language
+  translate: typeof ko
+  setLanguage: (lang: Language) => void
+}
+
+export const useLanguageStore = create<LanguageStore>()(
+  persist(
+    (set, get) => ({
+      lang: 'ko',
+      translate: langs['ko'], // 초기값은 'ko', 이후 hydration 되며 자동 대체됨
+      setLanguage: (lang: Language) => {
+        set({
+          lang,
+          translate: langs[lang],
+        })
+      },
+    }),
+    {
+      name: 'language-storage',
+      partialize: (state) => ({ lang: state.lang }),
+      onRehydrateStorage: () => (state) => {
+        const lang = state?.lang || 'ko'
+        state!.translate = langs[lang]
+      },
+    },
+  ),
+)
+
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 // import ko from '../json/ko.json'
 // import en from '../json/en.json'
