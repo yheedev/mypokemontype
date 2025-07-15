@@ -1,21 +1,21 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import HttpBackend from 'i18next-http-backend'
 
-import ko from '@/locales/ko/ko.json'
-import en from '@/locales/en/en.json'
-import ja from '@/locales/ja/ja.json'
-
-i18n.use(initReactI18next).init({
-  fallbackLng: 'ko',
-  resources: {
-    ko: { translation: ko },
-    en: { translation: en },
-    ja: { translation: ja },
-  },
-  lng: 'ko',
-  interpolation: {
-    escapeValue: false,
-  },
-})
+i18n
+  .use(HttpBackend)
+  .use(initReactI18next)
+  .init({
+    fallbackLng: 'ko',
+    ns: ['translation'],
+    defaultNS: 'translation',
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
+    lng: 'ko',
+    interpolation: {
+      escapeValue: false,
+    },
+  })
 
 export default i18n
