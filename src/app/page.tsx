@@ -1,11 +1,15 @@
-import Offense from '@/components/Layout/Offense'
+import Offense from '@/app/[lang]/page'
+import { redirect } from 'next/navigation'
+import { PATH } from '@/app/routes'
 
 export default function Main() {
-  return (
-    <main>
-      <Offense />
-    </main>
-  )
+  redirect(PATH.offense.replace(':lang', 'ko'))
+
+  // return (
+  //   <main>
+  //     <Offense />
+  //   </main>
+  // )
 }
 
 // import { useNavigate } from 'react-router-dom';

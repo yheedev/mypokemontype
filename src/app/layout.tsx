@@ -100,11 +100,14 @@ export default function RootLayout({
       <body>
         {/* <ThemeProvider> */}
         <Layout>{children}</Layout>
+
         {/* </ThemeProvider>  */}
       </body>
     </html>
   )
 }
+// TODO
+// - [ ] layout 추가
 
 // import { createRoot } from 'react-dom/client'
 // import App from '../../legacy/src/App'

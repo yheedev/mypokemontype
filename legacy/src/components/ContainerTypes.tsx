@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { PokemonType } from './PokemonType'
+import { PokemonType } from '../../../src/components/UI/Pill'
 import { TypeName } from 'features/types'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'stores/store'

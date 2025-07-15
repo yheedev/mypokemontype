@@ -159,9 +159,9 @@ export const Card = styled.div<{ lang: string }>`
   }
 
   .info {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+    //display: flex;
+    //align-items: center;
+    //justify-content: space-around;
     grid-column: span 1;
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 800;

@@ -21,11 +21,9 @@
   },
   "Mode": {
     "offense": "Offense",
-    "defense": "Defense"
-  },
-  "Info": {
-    "offense": "Choose the attack type.",
-    "defense": "Choose the defending Pokemon types."
+    "defense": "Defense",
+    "offenseInfo": "Choose the attack type.",
+    "defenseInfo": "Choose the defending Pokemon types."
   },
   "Result": {
     "x damage": "x damage"

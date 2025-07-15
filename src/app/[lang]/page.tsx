@@ -1,12 +1,12 @@
+'use client'
+
 import Title from '@/components/UI/Title'
 import Selector from '@/components/UI/Selector'
-// import { Selector } from 'components/Selector'
-// import Result from 'components/Result'
-// import BtnMenu from 'components/BtnMenu'
+import React from 'react'
 
-function Offense() {
+export default function Offense({ params }: { params: { lang: string } }) {
   return (
-    <div>
+    <main>
       <Title />
       <div className="m-4 grid grid-cols-1 gap-12 p-4 lg:grid-cols-2">
         <Selector />
@@ -14,11 +14,13 @@ function Offense() {
       {/* <Result /> */}
       {/* </div> */}
       {/* <BtnMenu /> */}
-    </div>
+    </main>
   )
 }
 
-export default Offense
+// import { Selector } from 'components/Selector'
+// import Result from 'components/Result'
+// import BtnMenu from 'components/BtnMenu'
 
 // const Container = styled.div`
 //   display: grid;
@@ -31,5 +33,3 @@ export default Offense
 //     grid-template-columns: 1fr;
 //   }
 // `;
-
-// 6:18:17
