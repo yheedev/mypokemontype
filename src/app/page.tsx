@@ -4,13 +4,13 @@ import { PATH } from '@/app/routes'
 
 export default function Main() {
   redirect(PATH.offense.replace(':lang', 'ko'))
-
-  // return (
-  //   <main>
-  //     <Offense />
-  //   </main>
-  // )
 }
+
+// return (
+//   <main>
+//     <Offense />
+//   </main>
+// )
 
 // import { useNavigate } from 'react-router-dom';
 // import { GlobalStyle } from '../../legacy/src/styles/GlobalStyle';

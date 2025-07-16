@@ -1,7 +1,7 @@
-import i18n from '@/i18n'
+import i18n from 'i18next'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { langs, getInitialLang } from '@/constants/langs'
+import { getInitialLang } from '@/utils/langs'
 import { LanguageStore } from '@/types/language'
 
 export const useLanguageStore = create<LanguageStore>()(
@@ -12,11 +12,10 @@ export const useLanguageStore = create<LanguageStore>()(
 
       return {
         lang: initialLang,
-        translate: langs[initialLang],
         setLanguage: (lang) => {
           localStorage.setItem('lang', lang)
           i18n.changeLanguage(lang)
-          set({ lang, translate: langs[lang] })
+          set({ lang })
         },
       }
     },
