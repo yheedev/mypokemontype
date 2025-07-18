@@ -1,13 +1,7 @@
 import { PATH } from '@/app/routes'
 import Link from 'next/link'
-//import { useNavigate } from 'react-router-dom';
-//import { styled } from 'styled-components';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '../stores/store';
 
 export default function Title() {
-  // const lang = useSelector((state: RootState) => state.language.lang)
-
   return (
     <header className="text-var(--color-text) mx-[1.2rem] mt-8 mb-[0.3rem] flex justify-center text-center font-[Helios] text-[1.3rem] md:mx-0 md:mt-16 md:mb-[0.3rem] md:text-[2.5rem] lg:mx-0 lg:mt-20 lg:mb-[0.3rem] lg:text-[3rem]">
       <Link
@@ -19,6 +13,13 @@ export default function Title() {
     </header>
   )
 }
+
+//import { useNavigate } from 'react-router-dom';
+//import { styled } from 'styled-components';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../stores/store';
+
+// const lang = useSelector((state: RootState) => state.language.lang)
 
 // export const Title = styled.header`
 //   font-size: 3rem;

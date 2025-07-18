@@ -36,7 +36,13 @@ export const Pill = ({
     <div
       className={
         cn(
-          'rounded-[30px] text-[var(--color-background)] sm:h-[2.6rem] sm:w-[4.8rem] lg:h-[3.1rem] lg:w-[6.8rem]',
+          'rounded-[30px] text-[var(--color-background)]',
+          'sm:h-[2.6rem] sm:w-[4.8rem]',
+          'lg:h-[3.1rem] lg:w-[6.8rem]',
+          isActive ? `bg-[var(--${pokemonTypeName})]` : 'bg-color-card',
+          // isdarkMode ? btnShadow : pillShadow,
+          'border-[var(--${pokemonTypeName})]',
+          'sm:border-[4.5px] md:border-[6px] lg:border-[7px]',
         )
         //`pill ${isActive ? 'active' : ''} ${isDarkMode ? 'shadow-btn' : 'shadow-bl'}`
         // TODO

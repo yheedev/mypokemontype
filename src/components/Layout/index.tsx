@@ -1,11 +1,26 @@
-import type { ReactNode } from 'react'
-import Title from '../UI/Title'
+'use client'
 
-export default function Layout({ children }: { children: ReactNode }) {
+import { useEffect, useState } from 'react'
+import i18n from 'i18next'
+import { initI18n } from '@/i18n'
+import { useLanguageStore } from '@/stores/useLanguageStore'
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const lang = useLanguageStore((state) => state.lang)
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    initI18n().then(() => {
+      i18n.changeLanguage(lang).then(() => setReady(true))
+    })
+  }, [lang])
+
+  if (!ready) return null
+
   return (
-    <div>
+    <div lang={lang}>
       {/* <main className="bg-background flex-1 overflow-y-auto"> */}
-      <Title />
+      {/* <Title /> */}
       {children}
       {/* </main> */}
     </div>

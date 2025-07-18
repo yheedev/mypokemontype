@@ -1,31 +1,23 @@
-import i18n from 'i18next'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { getInitialLang } from '@/utils/langs'
+import { getInitialLang, saveLang } from '@/utils/langs'
 import { LanguageStore } from '@/types/language'
 
 export const useLanguageStore = create<LanguageStore>()(
   persist(
-    (set) => {
-      const initialLang = getInitialLang()
-      i18n.changeLanguage(initialLang)
-
-      return {
-        lang: initialLang,
-        setLanguage: (lang) => {
-          localStorage.setItem('lang', lang)
-          i18n.changeLanguage(lang)
-          set({ lang })
-        },
-      }
-    },
+    (set) => ({
+      lang: getInitialLang(),
+      setLanguage: (lang) => {
+        saveLang(lang)
+        set({ lang })
+      },
+    }),
     {
       name: 'language-storage',
       partialize: (state) => ({ lang: state.lang }),
     },
   ),
 )
-
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 // import ko from '../json/ko.json'
 // import en from '../json/en.json'
