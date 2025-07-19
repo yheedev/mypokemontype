@@ -18,8 +18,6 @@ export const TypePillGroup = ({
 }) => {
   const pathname = usePathname()
   const { selectedTypes, toggleType } = useUpToTwoStore()
-  const { t } = useTranslation()
-  const { lang } = useLanguageStore()
 
   useEffect(() => {
     onUpdate([selectedTypes[0], selectedTypes[1]])
