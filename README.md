@@ -1,4 +1,4 @@
-## [개인] 리액트 웹 앱 포켓몬 타입 계산기: [My Pokemon Type](https://mypkmn.info)
+## [개인] 리액트 웹 앱 포켓몬 타입 계산기: [My Pokemon Type](https://www.mypkmn.info)
 
 > <aside>
 
@@ -14,17 +14,19 @@ My Pokemon Type은 포켓몬 배틀에서 가장 중요한 타입 상성을 직�
 
 > <aside>
 > <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-> <img src="./png/PC_dark_en.png" width="660px" alt="PC에서 접속한 My Pokemon Type 웹 앱의 다크 모드, 영어, 방어 계산 결과 상태의 스크린샷 이미지">
+> <img src="./public/img/README_png/PC_dark_en.png" width="660px" alt="PC에서 접속한 My Pokemon Type 웹 앱의 다크 모드, 영어, 방어 계산 결과 상태의 스크린샷 이미지">
 > </div>
 >
 > <div style="display: flex; gap: 10px; justify-content: center; align-items: center; margin-bottom: 20px;">
-> <img src="./png/iPad_light_kr.png" height="450px" alt="태블릿에서 접속한 My Pokemon Type 웹 앱의 라이트 모드, 한국어, 방어 계산 결과 상태의 스크린샷 이미지">
-> <img src="./png/Mobile_dark_jp.png" height="450px" alt="모바일에서 접속한 My Pokemon Type 웹 앱의 다크 모드, 일본어, 방어 계산 결과 상태의 스크린샷 이미지">
-> <img src="./png/more_Mobile_light.png" height="450px" alt="모바일에서 접속한 My Pokemon Type 웹 앱의 다크 모드, MORE 페이지의 스크린샷 이미지">
+> <img src="./public/img/README_png/iPad_light_kr.png" height="450px" alt="태블릿에서 접속한 My Pokemon Type 웹 앱의 라이트 모드, 한국어, 방어 계산 결과 상태의 스크린샷 이미지">
+> <img src="./public/img/README_png/Mobile_dark_jp.png" height="450px" alt="모바일에서 접속한 My Pokemon Type 웹 앱의 다크 모드, 일본어, 방어 계산 결과 상태의 스크린샷 이미지">
+> <img src="./public/img/README_png/more_Mobile_light.png" height="450px" alt="모바일에서 접속한 My Pokemon Type 웹 앱의 다크 모드, MORE 페이지의 스크린샷 이미지">
 > </div>
 > </aside>
 
 # 사용 스택
+
+2025. 7: 현재 Next.js 15, Zustand, Tailwind CSS로 마이그레이션 중입니다
 
 - TypeScript, React, React-router-dom
 - 상태 관리: Redux-toolkit, Redux-persist
