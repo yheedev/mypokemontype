@@ -9,7 +9,7 @@ import { TypeName } from '@/constants/pokemon'
 import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
 
-export const TypePillGroup = ({
+export const PillGroup = ({
   isDarkMode,
   onUpdate,
 }: {

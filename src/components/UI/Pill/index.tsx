@@ -74,7 +74,7 @@ export const Pill = ({
           lang === 'ja' ? 'font-black' : 'font-light',
         )}
       >
-        {t('TypeName.$(type)')}
+        {t(`TypeName.${pokemonTypeName}`)}
       </span>
     </div>
   )

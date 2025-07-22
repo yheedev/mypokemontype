@@ -4,7 +4,7 @@ import { persistReducer } from 'redux-persist'
 import { darkModeSlice, darkModeState } from '../features/darkModeSlice'
 import { offenseCalSlice, offenseCalState } from '../features/offenseCalSlice'
 import { languageSlice, langState } from '../features/languageSlice'
-import { upToTwoSlice, upToTwoState } from '../features/upToTwoSlice'
+import { upToTwoSlice, upToTwoState } from '../../../src/stores/useUpToTwoStore'
 import { PersistPartial } from 'redux-persist/es/persistReducer'
 import { defenseCalState, defenseCalSlice } from 'features/defenseCalSlice'
 
