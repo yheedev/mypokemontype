@@ -24,9 +24,18 @@ export const PillGroup = ({
   }, [pathname, selectedTypes, onUpdate])
 
   return (
-    <div className="grid grid-cols-3 justify-items-center gap-3 px-4 py-6 sm:grid-cols-4 md:grid-cols-6">
+    <div
+      // Container
+      className={cn(
+        'grid place-items-center justify-items-center',
+        'grid-cols-[repeat(auto-fill,_minmax(80px,_1fr))]',
+        'gap-x-4 gap-y-3',
+        'justify-items-center px-4 py-6',
+      )}
+    >
       {TypeName.map((type) => (
         <div
+          // wrapper
           key={type}
           className="transition-transform duration-200 hover:scale-110"
         >

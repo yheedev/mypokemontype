@@ -2,7 +2,6 @@
 
 import Card from '@/components/UI/Card'
 import SelectorMode from '@/components/UI/SelectorMode'
-import { Pill } from '@/components/UI/Pill'
 import { PillGroup } from '@/components/UI/PillGroup'
 
 export default function Selector() {
@@ -12,14 +11,6 @@ export default function Selector() {
         {/* div에 mt-[1.3rem] grid-cols-2 삭제 */}
         <SelectorMode />
         <PillGroup isDarkMode={false} onUpdate={() => {}} />
-        {/* <Pill
-          pokemonTypeName="fairy"
-          onClick={() => {}}
-          upToTwo={() => {}}
-          isDarkMode={false}
-          isActive={false}
-          cursor="pointer"
-        /> */}
       </div>
     </Card>
   )

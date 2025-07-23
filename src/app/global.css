@@ -95,6 +95,15 @@ body {
   }
 }
 
+@layer utilities {
+  .shadowPill {
+    filter: drop-shadow(0px 2px 2px var(--pill-shadow));
+  }
+  .shadowBtn {
+    filter: drop-shadow(0px 2px 2px var(--btn-shadow));
+  }
+}
+
 @layer base {
   br {
     display: inline;

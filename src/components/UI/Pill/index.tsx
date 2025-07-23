@@ -2,7 +2,6 @@ import { TypeName } from '@/constants/pokemon'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
-import { btnShadow, pillShadow } from '@/styles/style'
 
 export type TypeNameElement = (typeof TypeName)[number]
 
@@ -34,13 +33,18 @@ export const Pill = ({
 
   return (
     <div
+      lang={lang}
+      onClick={handleClick}
       className={
         cn(
-          'rounded-[30px] text-[var(--color-background)]',
+          'flex items-center justify-center rounded-[30px] text-sm text-[var(--color-background)]',
+          'dutation-200 transition-all ease-in-out',
           'sm:h-[2.6rem] sm:w-[4.8rem]',
           'lg:h-[3.1rem] lg:w-[6.8rem]',
-          isActive ? `bg-[var(--${pokemonTypeName})]` : 'bg-color-card',
-          // isdarkMode ? btnShadow : pillShadow,
+          isActive
+            ? `bg-[var(--${pokemonTypeName})] text-[var(--card)]`
+            : 'bg-color-card',
+          isDarkMode ? 'shadowPill' : 'shadowBtn',
           'border-[var(--${pokemonTypeName})]',
           'sm:border-[4.5px] md:border-[6px] lg:border-[7px]',
         )
@@ -57,21 +61,21 @@ export const Pill = ({
           ? `var(--${pokemonTypeName})`
           : `var(--color-card)`,
       }}
-      lang={lang}
-      onClick={handleClick}
+
       // isDarkMode={isDarkMode}
       // isActive={isActive}
       // cursor={onClick ? 'pointer' : 'default'}
     >
       <span
         className={cn(
-          'font-[Noto Sans KR] sm:text-[0.85rem] md:font-medium lg:pt-2 lg:text-base',
+          'font-[Noto Sans KR]',
           isActive && isDarkMode ? 'text-color-card' : 'text-color-text',
           onClick ? 'cursor-pointer' : 'cursor-default',
           lang === 'ko'
-            ? 'sm: tracking-[2px] md:tracking-[2px] lg:tracking-[4px]'
-            : 'sm:tracking-3 md:tracking-[1px] lg:tracking-[1.5px]',
-          lang === 'ja' ? 'font-black' : 'font-light',
+            ? 'tracking-[2px] md:tracking-[3px] lg:tracking-[4px]'
+            : 'tracking-[1px] md:tracking-[1.5px] lg:tracking-[2px]',
+          lang === 'ja' ? 'font-black' : 'font-bold',
+          'text-base sm:text-[0.9rem] md:text-[1rem]',
         )}
       >
         {t(`TypeName.${pokemonTypeName}`)}
@@ -107,7 +111,7 @@ export const Pill = ({
 
 //     .TypeText {
 //       //font-weight: 500;
-//       //letter-spacing: ${({ lang }) => (lang === 'ko' ? '2px' : '1px')};
+//       //letter-spacing: ${({ lang }) => (lang === 'ko' ? '2px' : '1px')};n
 //     }
 //   }
 
