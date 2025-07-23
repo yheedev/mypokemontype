@@ -65,6 +65,14 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     type: 'website',
   },
+  icons: {
+    icon: [
+      {
+        href: '/img/svg/Pokeball.svg',
+        url: '/img/svg/Pokeballs.svg',
+      },
+    ],
+  },
 
   // icons: {
   //   icon: [
