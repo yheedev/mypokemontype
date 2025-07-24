@@ -11,7 +11,7 @@ interface Props {
   borderColor: string
   onClick?: (isActive: boolean) => void // 클릭했을 때에 불리언 값 전달하는 용도
   isActive?: boolean // 타입 버튼 클릭 여부를 시각적으로 확인 가능
-  isDarkMode: boolean
+  isDarkMode?: boolean
   upToTwo?: (type: string) => void // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
   cursor?: string
 }

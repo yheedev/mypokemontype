@@ -26,7 +26,8 @@
       "@/styles/*": ["./src/styles/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/hooks/*": ["./src/hooks/*"],
-      "@/locales/*": ["./public/locales/*"]
+      "@/locales/*": ["./public/locales/*"],
+      "@/svg/*": ["./public/img/svg/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

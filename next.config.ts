@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       '@lib': path.resolve(__dirname, 'src/lib'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@localses': path.resolve(__dirname, 'public/locales'),
+      '@svg': path.resolve(__dirname, 'public/img/svg'),
     }
     return config
   },

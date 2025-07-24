@@ -3,24 +3,57 @@ import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useTranslation } from 'react-i18next'
+import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
+import { useOffenseCalStore } from '@/stores/useOffenseCalStore'
+import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
 
 export default function SelectorMode() {
   const pathname = usePathname()
   const router = useRouter()
   const { t } = useTranslation()
-
   const { lang } = useLanguageStore()
+
+  const { selectedTypes } = useUpToTwoStore()
+  const offenseCalculate = useOffenseCalStore((state) => state.calculate)
+  const defenseCalculate = useDefenseCalStore((state) => state.calculate)
+
   const [mode, setMode] = useState<'offense' | 'defense'>('offense')
 
   useEffect(() => {
-    setMode(pathname?.includes('/defense') ? 'defense' : 'offense')
+    const currentMode = pathname?.includes('/defense') ? 'defense' : 'offense'
+    setMode(currentMode)
   }, [pathname])
+  // useEffect(() => {
+  //   setMode(pathname?.includes('/defense') ? 'defense' : 'offense')
+  // }, [pathname])
   // TODO
   // - [ ] 성능 측정해보고 useEffect 계속 쓸지 offenseCal/defenseCal에 모드 상태 추가할지 결정
+
+  useEffect(() => {
+    if (selectedTypes.length === 0) return
+
+    const [type1, type2] = selectedTypes
+
+    if (mode === 'offense') {
+      offenseCalculate({ type1, type2 })
+    } else {
+      defenseCalculate({ type1, type2 })
+    }
+  }, [selectedTypes, mode, offenseCalculate, defenseCalculate])
 
   const onSelect = (newMode: 'offense' | 'defense') => {
     setMode(newMode)
     router.push(newMode === 'offense' ? `/${lang}` : `/${lang}/defense`)
+
+    const [type1, type2] = selectedTypes
+
+    if (selectedTypes.length > 0) {
+      if (newMode === 'offense') {
+        offenseCalculate({ type1, type2 })
+      } else {
+        defenseCalculate({ type1, type2 })
+      }
+    }
   }
 
   return (

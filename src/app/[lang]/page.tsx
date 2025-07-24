@@ -1,5 +1,7 @@
 'use client'
+
 import Selector from '@/components/UI/Selector'
+import Result from '@/components/UI/Result'
 import React from 'react'
 
 export default function Offense({ params }: { params: { lang: string } }) {
@@ -7,8 +9,8 @@ export default function Offense({ params }: { params: { lang: string } }) {
     <main>
       <div className="m-4 grid grid-cols-1 gap-12 p-4 lg:grid-cols-2">
         <Selector />
+        <Result />
       </div>
-      {/* <Result /> */}
       {/* </div> */}
       {/* <BtnMenu /> */}
     </main>

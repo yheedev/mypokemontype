@@ -1,60 +1,141 @@
+'use client'
+
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, devtools } from 'zustand/middleware'
 import { TypeCalState } from '@/types/calState'
-import { TypeName, TypeValue } from '@/constants/pokemon'
+import { TypeName } from '@/constants/pokemon'
 import { getEffectArray } from '@/utils/allTypes1x'
 import { EMPTY_EFFECTIVENESS_MAP } from '@/constants/effectiveness'
 
 export const useOffenseCalStore = create<TypeCalState>()(
-  persist(
-    (set) => ({
-      result: {},
-      type1: undefined,
-      type2: undefined,
+  typeof window !== 'undefined'
+    ? devtools(
+        persist(
+          (set) => ({
+            result: {},
+            type1: undefined,
+            type2: undefined,
 
-      calculate: ({ type1, type2 }) => {
-        const effectiveness = structuredClone(EMPTY_EFFECTIVENESS_MAP)
+            calculate: ({ type1, type2 }) => {
+              const effectiveness = structuredClone(EMPTY_EFFECTIVENESS_MAP)
 
-        if (!type1 && !type2) {
-          const base = getEffectArray()
-          base.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        } else if (type1 && !type2) {
-          const base = getEffectArray(type1)
-          base.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        } else {
-          const base1 = getEffectArray(type1)
-          const base2 = getEffectArray(type1 === type2 ? undefined : type2)
-          const combined = base1.map((v, i) => Math.max(v, base2[i]))
+              if (!type1 && !type2) {
+                const base = getEffectArray()
+                base.forEach((value, index) => {
+                  const key = value.toString()
+                  if (key in effectiveness)
+                    effectiveness[key].push(TypeName[index])
+                })
+              } else if (type1 && !type2) {
+                const base = getEffectArray(type1)
+                base.forEach((value, index) => {
+                  const key = value.toString()
+                  if (key in effectiveness)
+                    effectiveness[key].push(TypeName[index])
+                })
+              } else {
+                const base1 = getEffectArray(type1)
+                const base2 = getEffectArray(
+                  type1 === type2 ? undefined : type2,
+                )
+                const combined = base1.map((v, i) => Math.max(v, base2[i]))
 
-          combined.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        }
+                combined.forEach((value, index) => {
+                  const key = value.toString()
+                  if (key in effectiveness)
+                    effectiveness[key].push(TypeName[index])
+                })
+              }
 
-        set(() => ({
-          result: effectiveness,
-          type1,
-          type2,
-        }))
-      },
-    }),
-    {
-      name: 'offense-cal-storage',
-      partialize: (state) => ({
-        result: state.result,
-        type1: state.type1,
-        type2: state.type2,
+              set(
+                () => ({
+                  result: effectiveness,
+                  type1,
+                  type2,
+                }),
+                false,
+                'offense/calculate', // 액션명 (DevTools에서 표시됨)
+              )
+            },
+          }),
+          {
+            name: 'offense-cal-storage',
+            partialize: (state) => ({
+              result: state.result,
+              type1: state.type1,
+              type2: state.type2,
+            }),
+          },
+        ),
+        { name: 'OffenseCalStore' }, // DevTools 상 store 이름
+      )
+    : (set) => ({
+        result: {},
+        type1: undefined,
+        type2: undefined,
+        calculate: () => {},
       }),
-    },
-  ),
 )
+
+// import { create } from 'zustand'
+// import { persist, devtools } from 'zustand/middleware'
+// import { TypeCalState } from '@/types/calState'
+// import { TypeName, TypeValue } from '@/constants/pokemon'
+// import { getEffectArray } from '@/utils/allTypes1x'
+// import { EMPTY_EFFECTIVENESS_MAP } from '@/constants/effectiveness'
+
+// export const useOffenseCalStore = create<TypeCalState>()(
+//   devtools(
+//     persist(
+//       (set) => ({
+//         result: {},
+//         type1: undefined,
+//         type2: undefined,
+
+//         calculate: ({ type1, type2 }) => {
+//           const effectiveness = structuredClone(EMPTY_EFFECTIVENESS_MAP)
+
+//           if (!type1 && !type2) {
+//             const base = getEffectArray()
+//             base.forEach((value, index) => {
+//               const key = value.toString()
+//               if (key in effectiveness) effectiveness[key].push(TypeName[index])
+//             })
+//           } else if (type1 && !type2) {
+//             const base = getEffectArray(type1)
+//             base.forEach((value, index) => {
+//               const key = value.toString()
+//               if (key in effectiveness) effectiveness[key].push(TypeName[index])
+//             })
+//           } else {
+//             const base1 = getEffectArray(type1)
+//             const base2 = getEffectArray(type1 === type2 ? undefined : type2)
+//             const combined = base1.map((v, i) => Math.max(v, base2[i]))
+
+//             combined.forEach((value, index) => {
+//               const key = value.toString()
+//               if (key in effectiveness) effectiveness[key].push(TypeName[index])
+//             })
+//           }
+
+//           set(() => ({
+//             result: effectiveness,
+//             type1,
+//             type2,
+//           }))
+//         },
+//       }),
+//       {
+//         name: 'offense-cal-storage',
+//         partialize: (state) => ({
+//           result: state.result,
+//           type1: state.type1,
+//           type2: state.type2,
+//         }),
+//       },
+//     ),
+//   ),
+// )
 
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 // import { TypeValue, TypeName } from './types'
