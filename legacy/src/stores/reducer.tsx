@@ -2,7 +2,10 @@ import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 import { darkModeSlice, darkModeState } from '../features/darkModeSlice'
-import { offenseCalSlice, offenseCalState } from '../features/offenseCalSlice'
+import {
+  offenseCalSlice,
+  offenseCalState,
+} from '../../../src/stores/useOffenseCalStore'
 import { languageSlice, langState } from '../features/languageSlice'
 import { upToTwoSlice, upToTwoState } from '../../../src/stores/useUpToTwoStore'
 import { PersistPartial } from 'redux-persist/es/persistReducer'
