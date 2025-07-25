@@ -2,7 +2,7 @@
 
 //import { notFound } from 'next/navigation'
 import Layout from '@/components/Layout'
-import { initI18n } from '@/i18n'
+import { initI18n } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 

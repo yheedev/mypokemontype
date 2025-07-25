@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import i18n from 'i18next'
-import { initI18n } from '@/i18n'
+import { initI18n } from '@/lib/i18n'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
