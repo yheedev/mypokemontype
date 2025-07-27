@@ -1,7 +1,12 @@
-export const PATH = {
-  offense: '/:lang',
-  defense: '/:lang/defense',
-  more: '/:lang/more',
+import { useLanguageStore } from '@/stores/useLanguageStore'
+
+export const PATH = () => {
+  const lang = useLanguageStore.getState().lang
+  return {
+    offense: `/${lang}`,
+    defense: `/${lang}/defense`,
+    more: `/${lang}/more`,
+  }
 }
 
 // // import { Routes, Route } from 'react-router-dom';

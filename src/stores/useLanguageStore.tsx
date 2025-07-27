@@ -5,19 +5,23 @@ import { LanguageStore } from '@/types/language'
 
 export const useLanguageStore = create<LanguageStore>()(
   persist(
-    (set) => ({
-      lang: getInitialLang(),
-      setLanguage: (lang) => {
-        saveLang(lang)
-        set({ lang })
-      },
-    }),
+    (set) => {
+      const lang = getInitialLang()
+      return {
+        lang,
+        setLanguage: (lang) => {
+          saveLang(lang)
+          set({ lang })
+        },
+      }
+    },
     {
       name: 'language-storage',
       partialize: (state) => ({ lang: state.lang }),
     },
   ),
 )
+
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 // import ko from '../json/ko.json'
 // import en from '../json/en.json'

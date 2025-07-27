@@ -110,7 +110,6 @@ export default function RootLayout({
         <Title />
         {/* <ThemeProvider> */}
         <Layout>{children}</Layout>
-
         {/* </ThemeProvider>  */}
       </body>
     </html>

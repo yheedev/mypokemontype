@@ -1,9 +1,17 @@
 import Offense from '@/app/[lang]/page'
 import { redirect } from 'next/navigation'
 import { PATH } from '@/app/routes'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Main() {
-  redirect(PATH.offense.replace(':lang', 'ko'))
+  const router = useRouter()
+
+  useEffect(() => {
+    router.replace(PATH().offense)
+  })
+
+  redirect(PATH().offense)
 }
 
 // return (

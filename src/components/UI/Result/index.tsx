@@ -6,8 +6,8 @@ import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useOffenseCalStore } from '@/stores/useOffenseCalStore'
 import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
 import { Pill } from '@/components/UI/Pill'
-// import Image from 'next/image'
-// import Flame from '@/svg/Flame.svg'
+import Card from '@/components/UI/Card'
+import BestIcon from '@/components/UI/BestIcon'
 
 export default function Result() {
   const lang = useLanguageStore((state) => state.lang)
@@ -41,11 +41,12 @@ export default function Result() {
   }
 
   return (
-    <div className="text-[--color-text]">
+    <Card>
       <div className="flex flex-col rounded-[22px] bg-[--color-card] p-8 sm:p-4">
         {sortedArray.map(([key, value], index) => (
           <div key={key}>
             <div className="flex flex-row-reverse items-center justify-end">
+              <BestIcon />
               {/* {index === 0 && (
                 // <Flame
                 //   color={flameColor}
@@ -94,7 +95,7 @@ export default function Result() {
           </div>
         ))}
       </div>
-    </div>
+    </Card>
   )
 }
 
@@ -267,28 +268,6 @@ export default function Result() {
 //   flex-direction: row-reverse;
 //   justify-content: flex-end;
 //   align-items: center;
-// `
-
-// export const FlameIcon = styled(Flame)<{
-//   color: string
-// }>`
-//   border: 3px solid;
-//   border-radius: 50%;
-//   padding: 0.1rem;
-//   width: 2rem;
-//   height: 2rem;
-//   stroke: ${({ color }) => color};
-//   fill: ${({ color }) => color};
-//   stroke-width: 12;
-//   margin-left: 0.7rem;
-
-//   & g {
-//     fill: ${({ color }) => color};
-//   }
-
-//   @media (min-width: 280px) and (max-width: 767px) {
-//     margin: 1rem 0 0 0;
-//   }
 // `
 
 // // TODO;
