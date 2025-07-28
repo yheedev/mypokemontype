@@ -3,9 +3,12 @@ import path from 'path'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    turbo: false,
+  } as any,
   webpack: (config: any) => {
     config.resolve.alias = {
-      ...config(config.resolve.alias || {}),
+      ...(config.resolve.alias || {}),
       '@src': path.resolve(__dirname, 'src/app'),
       '@components': path.resolve(__dirname, 'src/components'),
       '@types': path.resolve(__dirname, 'src/types'),
@@ -14,8 +17,13 @@ const nextConfig: NextConfig = {
       '@lib': path.resolve(__dirname, 'src/lib'),
       '@hooks': path.resolve(__dirname, 'src/hooks'),
       '@localses': path.resolve(__dirname, 'public/locales'),
-      '@svg': path.resolve(__dirname, 'public/img/svg'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
     }
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
     return config
   },
   eslint: {

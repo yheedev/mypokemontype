@@ -1,7 +1,6 @@
 import { usePathname } from 'next/navigation'
-import Flame from '@/svg/Flame.svg'
 import { cn } from '@/lib/utils'
-import { PATH } from '@/app/routes'
+import Flame from '@/assets/Flame.svg'
 
 export default function BestIcon({ alt = '가장 효과적인 포켓몬 타입' }) {
   const pathname = usePathname()
@@ -12,14 +11,8 @@ export default function BestIcon({ alt = '가장 효과적인 포켓몬 타입' 
     : 'fill-[var(--defenseRec)] stroke-[var(--defenseRec)]'
 
   return (
-    <div
-      className={cn(
-        'mt-4 ml-3 h-8 w-8 rounded-full border-4 border-current p-[0.1rem]',
-        color,
-      )}
-      aria-label={alt}
-    >
-      <Flame className="h-full w-full" />
+    <div className={cn(color)} aria-label={alt}>
+      <Flame className="mt-4 ml-2 h-8 w-8 rounded-full border-4 border-current p-[0.1rem]" />
     </div>
   )
 }
