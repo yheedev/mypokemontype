@@ -58,7 +58,7 @@ export const useDefenseCalStore = create<TypeCalState>()(
       },
     }),
     {
-      name: 'defense-cal-storage',
+      name: 'mypkmn-defenseCal',
       partialize: (state) => ({
         result: state.result,
         type1: state.type1,

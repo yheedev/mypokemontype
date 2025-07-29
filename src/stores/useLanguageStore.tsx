@@ -16,7 +16,7 @@ export const useLanguageStore = create<LanguageStore>()(
       }
     },
     {
-      name: 'language-storage',
+      name: 'mypkmn-lang',
       partialize: (state) => ({ lang: state.lang }),
     },
   ),
