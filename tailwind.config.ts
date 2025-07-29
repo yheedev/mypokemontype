@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: ['./**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     fontFamily: {
       helios: ['Helios', 'sans-serif'],
@@ -13,11 +14,11 @@ const config: Config = {
       lg: { max: '1023px' },
       // xxl: '1440px', // PC
     },
-    colors: {
-      border: 'var(--color-border)',
-      card: 'var(--color-card)',
-      text: 'var(--color-text)',
-    },
+    // colors: {
+    //   border: 'var(--border)',
+    //   card: 'var(--card)',
+    //   text: 'var(--text)',
+    // },
   },
 }
 

@@ -9,14 +9,16 @@ export const useDarkModeStore = create<DarkModeState>()(
 
       setTheme: (theme) => {
         set({ theme })
-        document.body.dataset.theme = theme
+        document.body.classList.remove('dark', 'light')
+        document.body.classList.add(theme)
       },
 
       toggleTheme: () => {
         const current = get().theme
         const newTheme: Theme = current === 'dark' ? 'light' : 'dark'
         set({ theme: newTheme })
-        document.body.dataset.theme = newTheme
+        document.body.classList.remove('dark', 'light')
+        document.body.classList.add(newTheme)
       },
 
       initTheme: () => {

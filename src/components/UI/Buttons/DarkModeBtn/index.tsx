@@ -1,13 +1,14 @@
 'use client'
 
 import { useDarkModeStore } from '@/stores/useDarkModeStore'
-import { ReactComponent as Sun } from '@/assets/Sun.svg'
-import { ReactComponent as ToggleOff } from '@/assets/ToggleOff.svg'
-import { ReactComponent as Moon } from '@/assets/Moon.svg'
-import { ReactComponent as ToggleOn } from '@/assets/ToggleOn.svg'
-import clsx from 'clsx'
+import Sun from '@/assets/Sun.svg'
+import ToggleOff from '@/assets/ToggleOff.svg'
+import Moon from '@/assets/Moon.svg'
+import ToggleOn from '@/assets/ToggleOn.svg'
+import { themeToggle, themeToggleIcon } from '@/lib/classUtil'
+import { cn } from '@/lib/utils'
 
-export default function DarkModeToggle() {
+export default function DarkModeBtn() {
   const theme = useDarkModeStore((state) => state.theme)
   const toggleTheme = useDarkModeStore((state) => state.toggleTheme)
 
@@ -15,26 +16,18 @@ export default function DarkModeToggle() {
     <button
       aria-label="클릭하면 다크 모드 혹은 라이트 모드로 변경됩니다."
       onClick={toggleTheme}
-      className="border-none bg-transparent p-0"
+      className="btnShadow border-none bg-none"
     >
-      <div className="fill-toggle text-toggleIcon relative h-[2.5rem] w-[5.5rem]">
+      <div className="themeToggle">
         {theme === 'dark' ? (
           <>
-            <ToggleOff className="shadow-bl h-full w-full" />
-            <Sun
-              className={clsx(
-                'shadow-bl absolute top-[40%] left-[79%] h-6 w-6 -translate-x-1/2 -translate-y-1/2',
-              )}
-            />
+            <ToggleOff className={cn(themeToggle)} />
+            <Sun className={cn(themeToggleIcon, 'btnIconShadow left-[68%]')} />
           </>
         ) : (
           <>
-            <ToggleOn className="shadow-bl h-full w-full" />
-            <Moon
-              className={clsx(
-                'shadow-gr absolute top-[40%] left-[68%] h-6 w-6 -translate-x-1/2 -translate-y-1/2',
-              )}
-            />
+            <ToggleOn className={cn(themeToggle)} />
+            <Moon className={cn(themeToggleIcon, 'btnIconShadow left-[38%]')} />
           </>
         )}
       </div>
@@ -91,14 +84,14 @@ export default function DarkModeToggle() {
 //   border: none;
 // `
 
-// export const toggleStyles = css`
+// export const toggleStyles = css` // classUtil 분리 (themeToggle)
 //   fill: var(--color-toggle);
 //   position: relative;
 //   width: 5.5rem;
-//   height: 2.5rem;
+//   height: 2.5rem; h-10
 // `
 
-// export const iconStyles = css`
+// export const iconStyles = css` // classUtil 분리 (themeToggleIcon)
 //   width: 1.5rem;
 //   height: 1.5rem;
 //   position: absolute;

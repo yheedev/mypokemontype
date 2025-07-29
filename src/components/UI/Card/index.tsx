@@ -11,7 +11,7 @@ export default function Card({ children, className }: CardProps) {
   return (
     <div
       className={cn(
-        'mx-auto flex max-w-xl flex-col gap-4 rounded-[22px] bg-[#171010] p-6 text-[var(--color-text)] shadow-md',
+        'mx-auto flex max-w-xl flex-col gap-4 rounded-[22px] bg-[var(--card)] p-6 text-[var(--text)] shadow-md',
         className,
       )}
     >
@@ -19,6 +19,3 @@ export default function Card({ children, className }: CardProps) {
     </div>
   )
 }
-
-// TODO
-// - [ ] 왜 카드 색깔이 background랑 똑같이 나오는지,,

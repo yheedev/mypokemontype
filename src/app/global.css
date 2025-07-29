@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
-
 @import 'tailwindcss';
-
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -29,32 +27,37 @@ html {
 body {
   font-family: 'NotoSans', 'sans-serif', 'Arial';
   font-size: 16px;
-  background-color: var(--color-background);
-  color: var(--text);
+  background-color: var(--background);
   box-sizing: border-box;
 }
 
 @layer base {
   :root {
     /* 공통 컬러 + 라이트모드 */
-    --text: #000000;
-    --background: #dddbdb;
-    --card: #ffffff;
-    --border: #dfe0e1;
-    --disable: #c6c6a7;
-
-    --pill-shadow: #93896b;
-    --moon-shadow: #dddbdb;
-    --btn-shadow: rgba(0, 0, 0, 0.3);
-
     --white: #ffffff;
+    --olive: #c6c6a7;
     --lightGray: #dddbdb;
     --borderGray: #dfe0e1;
     --charcoal: #4f4d4d;
     --sealBrown: #171010;
     --black: #000000;
-    --shadow: #453333;
+    --black-shadow: rgba(0, 0, 0, 0.3);
+    --gray-shadow: rgba(221, 219, 219, 0.5);
 
+    --text: var(--black);
+    --background: var(--lightGray);
+    --card: var(--white);
+    --border: var(--borderGray);
+    --disable: var(--olive);
+
+    --btn: var(--black); /* 버튼 3개 컬러 */
+    --btn-shadow: var(--black-shadow); /* 버튼 3개의 그림자 컬러 */
+    --btn-icon: var(--lightGray); /* 다크모드 버튼 내 아이콘 컬러 */
+    --btn-icon-shadow: var(--gray-shadow);
+    /* 다크모드 버튼 내 아이콘의 그림자 컬러 */
+    --pill-shadow: var(--black-shadow);
+
+    /* --shadow: #453333; */
     --offenseRec: #e34e4e;
     --defenseRec: #6897a9;
 
@@ -80,29 +83,29 @@ body {
   }
 }
 
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-} */
+.dark {
+  --text: var(--lightGray);
+  --background: var(--charcoal);
+  --card: var(--sealBrown);
+  --disable: var(--charcoal);
+  /* 라이트하우스 접근성 개선 필요할 경우 컬러 수정 */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* 다크모드 */
-
-    --text: #dddbdb;
-    --card: #171010;
-    --disable: #4f4d4d; /* 라이트하우스 접근성 개선 필요할 경우 컬러 수정 */
-  }
+  --btn: var(--lightGray);
+  --btn-shadow: var(--black-shadow);
+  --btn-icon: var(--charcoal);
+  --btn-icon-shadow: var(--black-shadow);
+  --pill-shadow: var(--gray-shadow);
 }
 
 @layer utilities {
-  .shadowPill {
-    filter: drop-shadow(0px 2px 2px var(--pill-shadow));
-  }
-  .shadowBtn {
+  .btnShadow {
     filter: drop-shadow(0px 2px 2px var(--btn-shadow));
+  }
+  .btnIconShadow {
+    filter: drop-shadow(0px 2px 2px var(--btn-icon-shadow));
+  }
+  .pillShadow {
+    filter: drop-shadow(0px 2px 2px var(--pill-shadow));
   }
 }
 
@@ -111,13 +114,13 @@ body {
     display: inline;
   }
 
-  .toggle {
+  /* .toggle {
     fill: var(--color-toggle);
 
     .toggleIcon {
       fill: var(--color-toggleIcon);
     }
-  }
+  } */
 
   a {
     text-decoration: none;
@@ -131,134 +134,18 @@ body {
     display: none;
   }
 
-  .shadow-bl {
+  /* .shadow-bl {
     filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.3));
-  }
+  } */
   /*  다크모드 토글/태양 아이콘, 라이트모드 토글, 랭버튼 아이콘, more 버튼 아이콘, */
 
-  .shadow-gr {
+  /* .shadow-gr {
     filter: drop-shadow(0px 2px 2px var(--lightGray));
-  }
+  } */
   /* 다크모드 달 아이콘 */
 
-  .shadow-btn {
+  /* .shadow-btn {
     filter: drop-shadow(0px 2px 2px #93896b);
   }
-  /*pill만*/
-}
-
-@theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-}
-
-:root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+  pill만 */
 }

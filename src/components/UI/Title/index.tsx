@@ -1,9 +1,15 @@
 import { PATH } from '@/app/routes'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 export default function Title() {
   return (
-    <header className="text-var(--color-text) mx-[1.2rem] mt-8 mb-[0.3rem] flex justify-center text-center font-[Helios] text-[1.3rem] md:mx-0 md:mt-16 md:mb-[0.3rem] md:text-[2.5rem] lg:mx-0 lg:mt-20 lg:mb-[0.3rem] lg:text-[3rem]">
+    <header
+      className={cn(
+        'btnShadow mx-[1.2rem] mt-8 mb-[0.3rem] flex justify-center text-center font-[Helios] text-[1.3rem] text-[var(--text)]',
+        'md:mx-0 md:mt-16 md:mb-[0.3rem] md:text-[2.5rem] lg:mx-0 lg:mt-20 lg:mb-[0.3rem] lg:text-[3rem]',
+      )}
+    >
       <Link
         href={PATH().offense}
         aria-label="메인 페이지이자 공격 계산 페이지로 이동"
