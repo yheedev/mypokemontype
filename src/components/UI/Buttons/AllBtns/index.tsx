@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import MoreBtn from './btn/MoreBtn'
 import DarkModeBtn from './btn/DarkModeBtn'
-import LangBtn from './btn/LangBtn'
+import LangBtn from '../LangBtn/LangBtn'
 
 export const Menu = styled.div`
   display: flex;
@@ -31,6 +31,3 @@ export const ButtonContainer = styled.div`
 `
 
 export default BtnMenu
-
-// TODO
-// [ ] 버튼 hover 애니메이션, 툴박스
