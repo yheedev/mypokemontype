@@ -128,7 +128,3 @@ export default function SelectorMode() {
     </>
   )
 }
-
-// TODO
-// [ ] 왜 가로로 안 넓어지는가..................
-// [ ] 셀렉터 padding, margin 디테일 이후에 수정

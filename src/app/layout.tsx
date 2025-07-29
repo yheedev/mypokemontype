@@ -115,8 +115,6 @@ export default function RootLayout({
     </html>
   )
 }
-// TODO
-// - [ ] layout 추가
 
 // import { createRoot } from 'react-dom/client'
 // import App from '../../legacy/src/App'
