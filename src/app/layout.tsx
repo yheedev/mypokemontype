@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 //import ThemeProvider from '#contexts/ThemeProvider'
 import './global.css'
 import Layout from '@/components/Layout'
-import Title from '@/components/UI/Title'
 
 export const metadata: Metadata = {
   title: {
@@ -107,7 +106,6 @@ export default function RootLayout({
         ></meta>
       </head>
       <body>
-        <Title />
         {/* <ThemeProvider> */}
         <Layout>{children}</Layout>
         {/* </ThemeProvider>  */}

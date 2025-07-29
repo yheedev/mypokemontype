@@ -10,12 +10,14 @@ TODO
 - [x] 스켈레톤 적용
   - [ ] 스켈레톤 사이즈 수정
 - [ ] 새로운 도메인 구입
+- [ ] 404 페이지 추가 ({ notFound } from 'next/navigation')
 
 ## 로직
 
 - [ ] SelectMode의 useEffect 계속 사용할지/PATH 사용
 - [ ] 셀렉터 선택 해제할 때 allType1x 호출
 - [ ] /defense: 페이지 연결, 방어 계산 로직 연결
+- [ ] 다크모드 전체 적용
 
 ## 최적화/배포
 
@@ -24,7 +26,14 @@ TODO
 
 ## UI
 
-- [ ] pill(포켓몬 타입): hover animation 추가, 스타일 수정, shadow 적용
+- [ ] pill(포켓몬 타입): hover animation 추가, 스타일 수정
+  - [x] shadow 적용
 - [ ] 레이아웃 수정해서 전체 반응형/그리드 수정
-- [ ] 다크모드 적용
-- [ ] divider 컴포넌트 분리
+- [x] 다크모드 적용
+- [x] divider 컴포넌트 분리
+- [x] 카드 컴포넌트 분리
+- [x] 셀렉터 모드 (SelectMode) 컴포넌트 분리
+- [x] 추천 아이콘 컴포넌트 (BestIcon) 분리
+- [ ] 언어 선택 모달 shadcn dialog 컴포넌트 사용
+- [x] global.css 정리
+- [x] 자주 사용되는 스타일 클래스 classUtil에 정리

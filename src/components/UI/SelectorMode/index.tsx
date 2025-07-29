@@ -58,7 +58,7 @@ export default function SelectorMode() {
 
   return (
     <>
-      <div className="mt-1 grid cursor-pointer grid-cols-2 justify-evenly font-['Noto_Sans_KR'] text-2xl font-black">
+      <div className="color-[--text] mt-1 grid cursor-pointer grid-cols-2 justify-evenly font-['Noto_Sans_KR'] text-2xl font-black">
         {' '}
         {/** .Option */}
         <div /** .Offense / OptionOffense */
@@ -67,7 +67,7 @@ export default function SelectorMode() {
             lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[3px]',
             mode === 'offense'
               ? 'border-b-[4px] border-[var(--offenseRec)] text-[var(--offenseRec)] lg:border-b-[7px]'
-              : 'border-b-[2px] border-[var(--color-border)] text-[var(--color-text)]',
+              : 'border-b-[2px] border-[var(--border)] text-[var(--color-text)]',
           )}
           onClick={() => onSelect('offense')}
         >
@@ -91,7 +91,7 @@ export default function SelectorMode() {
               : 'tracking-[3px]',
             mode === 'defense'
               ? 'border-b-[4px] border-[var(--defenseRec)] text-[var(--defenseRec)] lg:border-b-[7px]'
-              : 'border-b-[2px] border-[var(--color-border)] text-[var(--color-text)]',
+              : 'border-b-[2px] border-[var(--border)] text-[var(--color-text)]',
           )}
           onClick={() => onSelect('defense')}
         >
@@ -108,7 +108,7 @@ export default function SelectorMode() {
           </span>
         </div>
       </div>
-      <div className="mx-4 mt-8 mb-6 border-b-2 border-solid sm:pb-4">
+      <div className="mx-4 mt-8 mb-6 border-b-2 border-[var(--border)] sm:pb-4">
         {/* .InfoContainer */}
 
         <div

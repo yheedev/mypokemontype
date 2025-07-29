@@ -8,6 +8,8 @@ import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
 import { Pill } from '@/components/UI/Pill'
 import Card from '@/components/UI/Card'
 import BestIcon from '@/components/UI/BestIcon'
+import Divider from '@/components/UI/Divider'
+import { TypeNameElement } from '@/constants/pokemon'
 
 export default function Result() {
   const lang = useLanguageStore((state) => state.lang)
@@ -28,8 +30,6 @@ export default function Result() {
         : parseFloat(keyA) - parseFloat(keyB),
     )
 
-  //  const flameColor = isOffense ? 'var(--offenseRec)' : 'var(--defenseRec)'
-
   if (sortedArray.length === 0) {
     return (
       <div className="text-[--color-text]">
@@ -47,48 +47,21 @@ export default function Result() {
           <div key={key}>
             <div className="flex flex-row-reverse items-center justify-end">
               <BestIcon />
-              {/* {index === 0 && (
-                // <Flame
-                //   color={flameColor}
-                //   className="ml-3 h-8 w-8 rounded-full border-[3px] border-solid p-1"
-                //   aria-label="가장 효과적인 포켓몬 타입"
-                // />
-              )} */}
               <h1 className="text-xl font-extrabold sm:ml-2">
                 {key}
                 {t('Result.x damage')}
               </h1>
             </div>
 
-            <hr className="my-4 border border-[--color-border] sm:my-2" />
+            <Divider />
 
             <div className="mt-4 flex flex-wrap gap-2 sm:mt-3">
-              {value.map((type) => (
+              {(value as TypeNameElement[]).map((type) => (
                 <Pill
                   key={type}
                   borderColor={`var(--${type})`}
                   cursor="default"
-                  pokemonTypeName={
-                    type as
-                      | 'normal'
-                      | 'fighting'
-                      | 'flying'
-                      | 'poison'
-                      | 'ground'
-                      | 'rock'
-                      | 'bug'
-                      | 'ghost'
-                      | 'steel'
-                      | 'fire'
-                      | 'water'
-                      | 'grass'
-                      | 'electric'
-                      | 'psychic'
-                      | 'ice'
-                      | 'dragon'
-                      | 'dark'
-                      | 'fairy'
-                  }
+                  pokemonTypeName={type}
                 />
               ))}
             </div>
