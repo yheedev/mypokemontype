@@ -1,17 +1,21 @@
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import Flame from '@/assets/Flame.svg'
+import { useTranslation } from 'react-i18next'
+import type { Language } from '@/types/language'
+import { isOffensePath } from '@/utils/pathMode'
 
-export default function BestIcon({ alt = '가장 효과적인 포켓몬 타입' }) {
+export default function BestIcon({ lang }: { lang: Language }) {
   const pathname = usePathname()
-  const isOffense = /^\/(ko|en|ja)$/.test(pathname)
+  const isOffense = isOffensePath(pathname, lang)
+  const { t } = useTranslation()
 
   const color = isOffense
     ? 'fill-[var(--offenseRec)] stroke-[var(--offenseRec)]'
     : 'fill-[var(--defenseRec)] stroke-[var(--defenseRec)]'
 
   return (
-    <div className={cn(color)} aria-label={alt}>
+    <div className={cn(color)} aria-label={t('a11y.bestIcon.aria-label')}>
       <Flame className="mt-4 ml-2 h-8 w-8 rounded-full border-4 border-current p-[0.1rem]" />
     </div>
   )

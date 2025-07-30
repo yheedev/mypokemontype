@@ -35,6 +35,7 @@ export const Pill = ({
     <div
       lang={lang}
       onClick={handleClick}
+      aria-label={t(`TypeName.${pokemonTypeName}}`)}
       className={
         cn(
           'pillShadow flex items-center justify-center rounded-[30px] text-sm text-[var(--color-background)]',

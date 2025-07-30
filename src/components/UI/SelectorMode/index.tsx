@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
 import { useOffenseCalStore } from '@/stores/useOffenseCalStore'
 import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
+import Link from 'next/link'
+import { PATH } from '@/app/routes'
 
 export default function SelectorMode() {
   const pathname = usePathname()
@@ -23,37 +25,36 @@ export default function SelectorMode() {
     const currentMode = pathname?.includes('/defense') ? 'defense' : 'offense'
     setMode(currentMode)
   }, [pathname])
-  // useEffect(() => {
-  //   setMode(pathname?.includes('/defense') ? 'defense' : 'offense')
-  // }, [pathname])
   // TODO
   // - [ ] 성능 측정해보고 useEffect 계속 쓸지 offenseCal/defenseCal에 모드 상태 추가할지 결정
 
-  useEffect(() => {
-    if (selectedTypes.length === 0) return
-
-    const [type1, type2] = selectedTypes
-
+  const calculateCurrentMode = (
+    mode: 'offense' | 'defense',
+    types: string[],
+  ) => {
+    if (types.length === 0) return
+    const [type1, type2] = types
     if (mode === 'offense') {
       offenseCalculate({ type1, type2 })
     } else {
       defenseCalculate({ type1, type2 })
     }
+  }
+
+  useEffect(() => {
+    const currentMode = pathname?.includes('/defense') ? 'defense' : 'offense'
+    setMode(currentMode)
+  }, [pathname])
+
+  useEffect(() => {
+    calculateCurrentMode(mode, selectedTypes)
   }, [selectedTypes, mode, offenseCalculate, defenseCalculate])
 
   const onSelect = (newMode: 'offense' | 'defense') => {
     setMode(newMode)
-    router.push(newMode === 'offense' ? `/${lang}` : `/${lang}/defense`)
+    // router.push(newMode === 'offense' ? `/${lang}` : `/${lang}/defense`)
 
     const [type1, type2] = selectedTypes
-
-    if (selectedTypes.length > 0) {
-      if (newMode === 'offense') {
-        offenseCalculate({ type1, type2 })
-      } else {
-        defenseCalculate({ type1, type2 })
-      }
-    }
   }
 
   return (
@@ -64,48 +65,71 @@ export default function SelectorMode() {
         <div /** .Offense / OptionOffense */
           className={cn(
             'flex items-center justify-center justify-items-center border-t-0 border-r-0 border-l-0 px-[4rem] py-2 pb-6 text-center align-middle md:py-2 lg:pt-2',
+            // [ ] UI 수정 후 유틸 클래스1 분리
             lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[3px]',
+            // [ ] UI 수정 후 유틸 클래스2 분리
             mode === 'offense'
               ? 'border-b-[4px] border-[var(--offenseRec)] text-[var(--offenseRec)] lg:border-b-[7px]'
               : 'border-b-[2px] border-[var(--border)] text-[var(--color-text)]',
+            // [ ] UI 수정 후 유틸 클래스3 분리
           )}
-          onClick={() => onSelect('offense')}
         >
-          <span
-            className={cn(
-              'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
-              lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
-              mode === 'offense',
-            )}
+          <Link
+            href={PATH().offense}
+            aria-label={t('a11y.selectorMode.offense')}
+            aria-current={pathname === PATH().offense ? 'page' : undefined}
+            aria-selected={mode === 'offense'}
+            onClick={() => onSelect('offense')}
           >
-            {' '}
-            {/**  .OptionText .OffenseText / OptionText OffenseText */}
-            {t('Mode.offense')}
-          </span>
+            <span
+              className={cn(
+                'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
+                // [ ] UI 수정 후 유틸 클래스4 분리
+                lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
+                // [ ] UI 수정 후 유틸 클래스2 분리
+                mode === 'offense',
+              )}
+            >
+              {' '}
+              {/**  .OptionText .OffenseText / OptionText OffenseText */}
+              {t('Mode.offense')}
+            </span>
+          </Link>
         </div>
         <div /** .Defense / OptionDefense */
           className={cn(
             'flex items-center justify-center justify-items-center border-t-0 border-r-0 border-l-2 py-2 pb-6 text-center align-middle md:py-2 lg:pt-2',
+            // [ ] UI 수정 후 유틸 클래스1 분리
             lang === 'ko'
               ? 'indent-[1.25rem] tracking-[7px]'
               : 'tracking-[3px]',
             mode === 'defense'
               ? 'border-b-[4px] border-[var(--defenseRec)] text-[var(--defenseRec)] lg:border-b-[7px]'
               : 'border-b-[2px] border-[var(--border)] text-[var(--color-text)]',
+            // [ ] UI 수정 후 유틸 클래스3 분리
           )}
-          onClick={() => onSelect('defense')}
         >
-          <span
-            className={cn(
-              'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
-              lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
-              mode === 'defense',
-            )}
+          <Link
+            href={PATH().defense}
+            aria-label={t('a11y.selectorMode.defense')}
+            aria-current={pathname === PATH().defense ? 'page' : undefined}
+            aria-selected={mode === 'defense'}
+            onClick={() => onSelect('defense')}
           >
-            {' '}
-            {/** OptionText DefenseText */}
-            {t('Mode.defense')}
-          </span>
+            <span
+              className={cn(
+                'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
+                // [ ] UI 수정 후 유틸 클래스4 분리
+                lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
+                // [ ] UI 수정 후 유틸 클래스2 분리
+                mode === 'defense',
+              )}
+            >
+              {' '}
+              {/** OptionText DefenseText */}
+              {t('Mode.defense')}
+            </span>
+          </Link>
         </div>
       </div>
       <div className="mx-4 mt-8 mb-6 border-b-2 border-[var(--border)] sm:pb-4">

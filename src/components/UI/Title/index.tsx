@@ -1,8 +1,11 @@
 import { PATH } from '@/app/routes'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 export default function Title() {
+  const { t } = useTranslation()
+
   return (
     <header
       className={cn(
@@ -10,10 +13,7 @@ export default function Title() {
         'md:mx-0 md:mt-16 md:mb-[0.3rem] md:text-[2.5rem] lg:mx-0 lg:mt-20 lg:mb-[0.3rem] lg:text-[3rem]',
       )}
     >
-      <Link
-        href={PATH().offense}
-        aria-label="메인 페이지이자 공격 계산 페이지로 이동"
-      >
+      <Link href={PATH().offense} aria-label={t('a11y.selectorMode.offense')}>
         My Pokemon Type
       </Link>
     </header>

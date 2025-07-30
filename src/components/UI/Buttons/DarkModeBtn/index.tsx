@@ -5,16 +5,22 @@ import Sun from '@/assets/Sun.svg'
 import ToggleOff from '@/assets/ToggleOff.svg'
 import Moon from '@/assets/Moon.svg'
 import ToggleOn from '@/assets/ToggleOn.svg'
-import { themeToggle, themeToggleIcon } from '@/lib/classUtil'
+import { themeToggle, themeToggleIcon } from '@/lib/StyleClassUtil'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 export default function DarkModeBtn() {
   const theme = useDarkModeStore((state) => state.theme)
   const toggleTheme = useDarkModeStore((state) => state.toggleTheme)
+  const { t } = useTranslation()
 
   return (
     <button
-      aria-label="클릭하면 다크 모드 혹은 라이트 모드로 변경됩니다."
+      aria-label={
+        theme === 'dark'
+          ? t('a11y.btn.darkMode.dark')
+          : t('a11y.btn.darkMode.light')
+      }
       onClick={toggleTheme}
       className="btnShadow border-none bg-none"
     >

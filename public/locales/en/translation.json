@@ -33,5 +33,10 @@
     "Korean": "Korean",
     "English": "English",
     "Japanese": "Japanese"
+  },
+  "a11y": {
+    "title": {
+      "aria-label": "..."
+    }
   }
 }
