@@ -10,6 +10,7 @@ import Card from '@/components/UI/Card'
 import BestIcon from '@/components/UI/BestIcon'
 import Divider from '@/components/UI/Divider'
 import { TypeNameElement } from '@/constants/pokemon'
+import { isOffensePath } from '@/utils/pathMode'
 
 export default function Result() {
   const lang = useLanguageStore((state) => state.lang)
@@ -19,7 +20,7 @@ export default function Result() {
   const offenseResult = useOffenseCalStore((state) => state.result)
   const defenseResult = useDefenseCalStore((state) => state.result)
 
-  const isOffense = pathname === `/${lang}`
+  const isOffense = isOffensePath(pathname, lang)
   const result = isOffense ? offenseResult : defenseResult
 
   const sortedArray = Object.entries(result)
@@ -41,12 +42,16 @@ export default function Result() {
   }
 
   return (
-    <Card>
+    <Card
+      aria-label={
+        isOffense ? t('a11y.results.offense') : t('a11y.results.defense')
+      }
+    >
       <div className="flex flex-col rounded-[22px] bg-[--color-card] p-8 sm:p-4">
         {sortedArray.map(([key, value], index) => (
           <div key={key}>
             <div className="flex flex-row-reverse items-center justify-end">
-              <BestIcon />
+              <BestIcon lang={lang} />
               <h1 className="text-xl font-extrabold sm:ml-2">
                 {key}
                 {t('Result.x damage')}
