@@ -1,3 +1,19 @@
+'use client'
+
+import Selector from '@/components/UI/Selector'
+import Result from '@/components/UI/Result'
+
+export default function Defense({ params }: { params: { lang: string } }) {
+  return (
+    <main>
+      <div className="m-4 grid grid-cols-1 gap-12 p-4 lg:grid-cols-2">
+        <Selector />
+        <Result />
+      </div>
+    </main>
+  )
+}
+
 // import Title from '../components/Title'
 // import Result from 'components/Result'
 // import { Selector } from 'components/Selector'

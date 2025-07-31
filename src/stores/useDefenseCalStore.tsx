@@ -2,11 +2,16 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { TypeCalState } from '@/types/calState'
 import { TypeName, TypeValue } from '@/constants/pokemon'
-import { getEffectArray } from '@/utils/allTypes1x'
+import { allTypes1x } from '@/utils/allTypes1x'
 import {
   EMPTY_EFFECTIVENESS_MAP,
   EFFECT_VALUES,
 } from '@/constants/effectiveness'
+
+const getDefenseColumn = (defType: string): number[] => {
+  const index = TypeName.indexOf(defType as any)
+  return Object.values(TypeValue).map((row) => row[index])
+}
 
 export const useDefenseCalStore = create<TypeCalState>()(
   persist(
@@ -17,38 +22,29 @@ export const useDefenseCalStore = create<TypeCalState>()(
 
       calculate: ({ type1, type2 }) => {
         const effectiveness = structuredClone(EMPTY_EFFECTIVENESS_MAP)
+        // 아무 타입도 선택하지 않음
+        let combined: number[] = allTypes1x() as number[]
 
-        if (!type1 && !type2) {
-          const base = getEffectArray()
-          base.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        } else if (type1 && !type2) {
-          const base = getEffectArray(type1)
-          base.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        } else if (type1 && type2) {
-          const arr1 = getEffectArray(type1)
-          const arr2 = getEffectArray(type2)
+        // 단일 타입 선택
+        if (type1 && !type2) {
+          combined = getDefenseColumn(type1)
+        }
 
-          const combined = arr1.map((v1, i) => {
-            const v2 = arr2[i]
-            const product = v1 * v2
-            return EFFECT_VALUES.includes(
-              product as (typeof EFFECT_VALUES)[number],
-            )
-              ? product
+        // 이중 타입 선택
+        if (type1 && type2) {
+          const arr1 = getDefenseColumn(type1)
+          const arr2 = type1 === type2 ? allTypes1x() : getDefenseColumn(type2)
+
+          combined = arr1.map((v1, i) => {
+            const val = v1 * arr2[i]
+            return EFFECT_VALUES.includes(val as (typeof EFFECT_VALUES)[number])
+              ? val
               : 1
           })
-
-          combined.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
         }
+        combined.forEach((v, i) => {
+          effectiveness[v.toString()].push(TypeName[i])
+        })
 
         set(() => ({
           result: effectiveness,
