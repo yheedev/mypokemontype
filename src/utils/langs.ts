@@ -29,3 +29,6 @@ export const saveLang = (lang: Language) => {
   localStorage.setItem('lang', lang)
   document.cookie = `lang=${lang}; path=/; max-age=31536000`
 }
+
+// TODO
+// [ ] 안 쓰는 유틸 삭제/리팩토링

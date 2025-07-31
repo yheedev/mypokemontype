@@ -1,10 +1,12 @@
 'use client'
 
 import DarkModeBtn from '@/components/UI/Buttons/DarkModeBtn'
+import LangBtn from '@/components/UI/Buttons/LangBtn'
 
 export default function AllBtns() {
   return (
     <div className="px-1rem absolute right-10 flex translate-x-[10%] items-center gap-2 pt-4 pb-8">
+      <LangBtn />
       <DarkModeBtn />
     </div>
   )
