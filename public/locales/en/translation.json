@@ -36,7 +36,40 @@
   },
   "a11y": {
     "title": {
-      "aria-label": "..."
+      "aria-label": "Go to the main page and offense calculator."
+    },
+    "selectorMode": {
+      "offense": {
+        "aria-label": "From the selector, go to the main page and offense calculator."
+      },
+      "defense": {
+        "aria-label": "From the selector, go to the main page and defense calculator."
+      }
+    },
+    "ThemeBtn": {
+      "dark": {
+        "aria-label": "Dark mode is active. Click to switch to light mode."
+      },
+      "light": {
+        "aria-label": "Light mode is active. Click to switch to dark mode."
+      }
+    },
+    "MoreBtn": {
+      "aria-label": "Go to the page with the <My Pokemon Type> eveloper’s email."
+    },
+    "LangBtn": {
+      "aria-label": "Choose one language: Korean, English, or Japanese."
+    },
+    "bestIcon": {
+      "aria-label": "Suggests the most effective Pokémon type."
+    },
+    "results": {
+      "offense": {
+        "aria-label": "Most effective type when the selected Pokémon attacks."
+      },
+      "defense": {
+        "aria-label": "Most effective type when the selected Pokémon defends."
+      }
     }
   }
 }

@@ -33,5 +33,44 @@
     "Korean": "韓国語",
     "English": "英語",
     "Japanese": "日本語"
+  },
+
+  "a11y": {
+    "title": {
+      "aria-label": "メインページ（攻撃計算ページ）へ移動します。"
+    },
+    "selectorMode": {
+      "offense": {
+        "aria-label": "セレクターからメインページ（攻撃計算ページ）へ移動します。"
+      },
+      "defense": {
+        "aria-label": "セレクターからメインページ（防御計算ページ）へ移動します。"
+      }
+    },
+    "ThemeBtn": {
+      "dark": {
+        "aria-label": "現在ダークモードです。クリックするとライトモードに切り替わります。"
+      },
+      "light": {
+        "aria-label": "現在ライトモードです。クリックするとダークモードに切り替わります。"
+      }
+    },
+    "MoreBtn": {
+      "aria-label": "My Pokémon Type 開発者のメールページへ移動します。"
+    },
+    "LangBtn": {
+      "aria-label": "韓国語・英語・日本語の中から1つを選択します。"
+    },
+    "bestIcon": {
+      "aria-label": "最も効果的なポケモンタイプを提案します。"
+    },
+    "results": {
+      "offense": {
+        "aria-label": "選択したポケモンタイプが攻撃する際に最も効果的なタイプです。"
+      },
+      "defense": {
+        "aria-label": "選択したポケモンタイプが防御する際に最も効果的なタイプです。"
+      }
+    }
   }
 }
