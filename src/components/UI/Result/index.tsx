@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useOffenseCalStore } from '@/stores/useOffenseCalStore'
 import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
+import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
 import { Pill } from '@/components/UI/Pill'
 import Card from '@/components/UI/Card'
 import BestIcon from '@/components/UI/BestIcon'
@@ -19,27 +20,16 @@ export default function Result() {
 
   const offenseResult = useOffenseCalStore((state) => state.result)
   const defenseResult = useDefenseCalStore((state) => state.result)
+  const hasSelection = useUpToTwoStore((s) => s.selectedTypes.length > 0)
 
   const isOffense = isOffensePath(pathname, lang)
   const result = isOffense ? offenseResult : defenseResult
 
-  const sortedArray = Object.entries(result)
-    .filter(([_, value]) => value.length > 0)
-    .sort(([keyA], [keyB]) =>
-      isOffense
-        ? parseFloat(keyB) - parseFloat(keyA)
-        : parseFloat(keyA) - parseFloat(keyB),
-    )
+  const direction = isOffense ? -1 : 1
 
-  if (sortedArray.length === 0) {
-    return (
-      <div className="text-[--color-text]">
-        <div className="rounded-[22px] bg-[--color-card] p-8 sm:p-4">
-          아직 타입을 선택하지 않았습니다.
-        </div>
-      </div>
-    )
-  }
+  const sortedArray = Object.entries(result)
+    .filter(([, v]) => v.length > 0)
+    .sort(([a], [b]) => direction * (Number(a) - Number(b)))
 
   return (
     <Card
@@ -51,7 +41,8 @@ export default function Result() {
         {sortedArray.map(([key, value], index) => (
           <div key={key}>
             <div className="flex flex-row-reverse items-center justify-end">
-              <BestIcon lang={lang} />
+              {hasSelection && index === 0 && <BestIcon lang={lang} />}
+
               <h1 className="text-xl font-extrabold sm:ml-2">
                 {key}
                 {t('Result.x damage')}
