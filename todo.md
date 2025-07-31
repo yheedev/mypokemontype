@@ -5,7 +5,7 @@ TODO
 - [ ] 뒤로가기
 - [ ] 아이콘 툴박스
 - [ ] 1배 상태에서 추천 아이콘 노출하지 않기
-- [ ] 3개국어 번역한 aira-label, alt 내용 json에 추가
+- [x] 3개국어 번역한 aira-label, alt 내용 json에 추가
 - [ ] 기존 모달 shadcn으로 변경
 - [x] 스켈레톤 적용
   - [ ] 스켈레톤 사이즈 수정
@@ -14,9 +14,9 @@ TODO
 
 ## 로직
 
-- [ ] SelectMode의 useEffect 계속 사용할지/PATH 사용
-- [ ] 셀렉터 선택 해제할 때 allType1x 호출
-- [ ] /defense 페이지 연결, 방어 계산 로직 연결
+- [x] SelectMode의 useEffect 계속 사용할지/PATH 사용
+- [x] 셀렉터 선택 해제할 때 allType1x 호출
+- [x] /defense 페이지 연결, 방어 계산 로직 연결
 - [x] 최초 접속시 유저의 디바이스가 선호하는 테마 자동 설정
 
 ## 최적화/배포

@@ -2,7 +2,6 @@
 
 import Selector from '@/components/UI/Selector'
 import Result from '@/components/UI/Result'
-import React from 'react'
 
 export default function Offense({ params }: { params: { lang: string } }) {
   return (
@@ -11,8 +10,6 @@ export default function Offense({ params }: { params: { lang: string } }) {
         <Selector />
         <Result />
       </div>
-      {/* </div> */}
-      {/* <BtnMenu /> */}
     </main>
   )
 }
