@@ -18,8 +18,8 @@ export default function DarkModeBtn() {
     <button
       aria-label={
         theme === 'dark'
-          ? t('a11y.btn.darkMode.dark')
-          : t('a11y.btn.darkMode.light')
+          ? t(`a11y.ThemeBtn.dark.aria-label`)
+          : t(`a11y.ThemeBtn.light.aria-label`)
       }
       onClick={toggleTheme}
       className="btnShadow border-none bg-none"

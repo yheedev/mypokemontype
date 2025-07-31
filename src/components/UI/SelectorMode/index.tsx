@@ -48,7 +48,7 @@ export default function SelectorMode() {
         {/** .Option */}
         <Link
           href={PATH().offense}
-          aria-label={t('a11y.selectorMode.offense')}
+          aria-label={t('a11y.selectorMode.offense.aria-label')}
           aria-current={pathname === PATH().offense ? 'page' : undefined}
           aria-selected={mode === 'offense'}
           onClick={() => handleSelect('offense')}
@@ -87,7 +87,7 @@ export default function SelectorMode() {
         </Link>
         <Link
           href={PATH().defense}
-          aria-label={t('a11y.selectorMode.defense')}
+          aria-label={t('a11y.selectorMode.defense.aria-label')}
           aria-current={pathname === PATH().defense ? 'page' : undefined}
           aria-selected={mode === 'defense'}
           onClick={() => handleSelect('defense')}

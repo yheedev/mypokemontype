@@ -28,11 +28,11 @@
   "Result": {
     "x damage": "x damage"
   },
-  "languege": {
-    "languegeSettings": "Language Settings",
-    "Korean": "Korean",
-    "English": "English",
-    "Japanese": "Japanese"
+  "language": {
+    "settings": "Language Settings",
+    "ko": "Korean",
+    "en": "English",
+    "ja": "Japanese"
   },
   "a11y": {
     "title": {

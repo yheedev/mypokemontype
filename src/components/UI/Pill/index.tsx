@@ -35,7 +35,7 @@ export const Pill = ({
     <div
       lang={lang}
       onClick={handleClick}
-      aria-label={t(`TypeName.${pokemonTypeName}}`)}
+      aria-label={t(`TypeName.${pokemonTypeName}`)}
       className={
         cn(
           'pillShadow flex items-center justify-center rounded-[30px] text-sm text-[var(--color-background)]',
@@ -51,7 +51,7 @@ export const Pill = ({
         //`pill ${isActive ? 'active' : ''} ${isDarkMode ? 'shadow-btn' : 'shadow-bl'}`
         // TODO
         // - [x] shadow 클래스화
-        // - [ ] props에 따라 shadow 클래스 변경
+        // - [x] props에 따라 shadow 클래스 변경
         // - [ ] hover 트랜지션 추가
       }
       style={{

@@ -13,7 +13,7 @@ export default function Title() {
         'md:mx-0 md:mt-16 md:mb-[0.3rem] md:text-[2.5rem] lg:mx-0 lg:mt-20 lg:mb-[0.3rem] lg:text-[3rem]',
       )}
     >
-      <Link href={PATH().offense} aria-label={t('a11y.selectorMode.offense')}>
+      <Link href={PATH().offense} aria-label={t('a11y.title.aria-label')}>
         My Pokemon Type
       </Link>
     </header>

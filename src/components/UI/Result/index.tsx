@@ -32,12 +32,15 @@ export default function Result() {
     .sort(([a], [b]) => direction * (Number(a) - Number(b)))
 
   return (
-    <Card
-      aria-label={
-        isOffense ? t('a11y.results.offense') : t('a11y.results.defense')
-      }
-    >
-      <div className="flex flex-col rounded-[22px] bg-[--color-card] p-8 sm:p-4">
+    <Card>
+      <div
+        className="flex flex-col rounded-[22px] bg-[--color-card] p-8 sm:p-4"
+        aria-label={
+          isOffense
+            ? t(`a11y.results.offense.aria-label`)
+            : t(`a11y.results.defense.aria-label`)
+        }
+      >
         {sortedArray.map(([key, value], index) => (
           <div key={key}>
             <div className="flex flex-row-reverse items-center justify-end">

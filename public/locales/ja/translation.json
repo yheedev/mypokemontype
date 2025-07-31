@@ -28,11 +28,11 @@
   "Result": {
     "x damage": "倍ダメージ"
   },
-  "languege": {
-    "languegeSettings": "言語設定",
-    "Korean": "韓国語",
-    "English": "英語",
-    "Japanese": "日本語"
+  "language": {
+    "settings": "言語設定",
+    "ko": "韓国語",
+    "en": "英語",
+    "ja": "日本語"
   },
 
   "a11y": {
