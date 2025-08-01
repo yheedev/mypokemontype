@@ -28,10 +28,11 @@ TODO
 
 ## UI
 
+- [ ] more 페이지/버튼 연결
 - [ ] pill(포켓몬 타입): hover animation 추가, 스타일 수정
   - [x] shadow 적용
 - [ ] 레이아웃 수정해서 전체 반응형/그리드 수정
-- [ ] 언어 선택 모달 shadcn dialog 컴포넌트 사용
+- [x] 언어 선택 모달 shadcn dialog 컴포넌트 사용
 - [x] 다크모드 적용
 - [x] divider 컴포넌트 분리
 - [x] 카드 컴포넌트 분리

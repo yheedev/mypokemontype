@@ -1,3 +1,32 @@
+'use client'
+
+import Card from '@/components/UI/Card'
+import { useTranslation } from 'react-i18next'
+import Divider from '@/components/UI/Divider'
+
+export default function More({ params }: { params: { lang: string } }) {
+  const { t } = useTranslation()
+
+  return (
+    <main>
+      {' '}
+      {/* Container */}
+      <Card className="">
+        <img
+          src="/img/Lucario.webp"
+          alt={t(`lucario.aria-label`)}
+          className="sm:w-48 md:w-64"
+          loading="lazy"
+          decoding="async"
+        />
+        {/** Text */}
+        <div>
+          <h1></h1>
+        </div>
+      </Card>
+    </main>
+  )
+}
 // import Title from '../components/Title'
 // import styled from 'styled-components'
 // import { Container, Card } from '../components/Selector'

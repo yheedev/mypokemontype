@@ -35,6 +35,8 @@ export default function Result() {
     <Card>
       <div
         className="flex flex-col rounded-[22px] bg-[--color-card] p-8 sm:p-4"
+        aria-live="polite"
+        aria-atomic="true"
         aria-label={
           isOffense
             ? t(`a11y.results.offense.aria-label`)

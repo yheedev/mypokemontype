@@ -36,40 +36,50 @@
   },
   "a11y": {
     "title": {
-      "aria-label": "메인 페이지이자 공격 계산 페이지로 이동합니다."
+      "aria-label": "메인 및 공격 계산 페이지"
     },
     "selectorMode": {
       "offense": {
-        "aria-lebel": "셀렉터에서 메인 페이지이자 공격 계산 페이지로 이동합니다."
+        "aria-label": "공격 계산"
       },
       "defense": {
-        "aria-label": "셀렉터에서 방어 계산 페이지로 이동합니다."
+        "aria-label": "방어 계산"
       }
     },
     "ThemeBtn": {
       "dark": {
-        "aria-label": "현재 다크 모드 입니다. 클릭하면 라이트 모드로 전환됩니다."
+        "aria-label": "다크모드로 전환"
       },
       "light": {
-        "aria-label": "현재 라이트 모드입니다. 클릭하면 다크모드로 전환됩니다."
+        "aria-label": "라이트모드로 전환"
       }
     },
     "MoreBtn": {
-      "aria-label": "My Pokemon Type 개발자의 메일이 있는 페이지로 이동합니다."
+      "aria-label": "프로젝트 소개 및 개발자 메일"
     },
     "LangBtn": {
-      "aria-label": "한국어, 영어, 일본어 중 1개를 선택합니다."
+      "aria-label": "언어 선택"
     },
     "bestIcon": {
-      "aria-label": "가장 효과적인 포켓몬 타입을 제안합니다."
+      "aria-label": "추천하는 포켓몬 타입"
     },
     "results": {
       "offense": {
-        "aria-label": "선택한 포켓몬 타입이 공격할 때 가장 효과적인 타입입니다."
+        "aria-label": "공격 결과"
       },
       "defense": {
-        "aria-label": "선택한 포켓몬 타입이 방어할 때 가장 효과적인 타입입니다."
+        "aria-label": "방어 결과"
       }
+    },
+
+    "lucario": {
+      "aria-label": "포켓몬 루카리오"
+    },
+
+    "contact": {
+      "text": "이메일",
+      "aria-label": "개발자 메일",
+      "info": "비공식 팬메이드 프로젝트"
     }
   }
 }

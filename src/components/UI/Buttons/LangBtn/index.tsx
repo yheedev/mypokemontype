@@ -43,6 +43,7 @@ export default function LangBtn() {
         <button
           // size="icon"
           aria-label={t(`a11y.LangBtn.aria-label`)}
+          aria-haspopup="dialog"
           // className="rounded-full"
         >
           <Globe className="size-6" />
