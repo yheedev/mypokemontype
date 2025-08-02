@@ -6,6 +6,7 @@ export const PATH = () => {
     offense: `/${lang}`,
     defense: `/${lang}/defense`,
     more: `/${lang}/more`,
+    notFound: `/${lang}/notFound`,
   }
 }
 

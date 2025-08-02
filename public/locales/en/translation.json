@@ -32,7 +32,8 @@
     "settings": "Language Settings",
     "ko": "Korean",
     "en": "English",
-    "ja": "Japanese"
+    "ja": "Japanese",
+    "notFound": "The address is incorrect or the page does not exist."
   },
   "a11y": {
     "title": {
