@@ -49,7 +49,8 @@ body {
     --card: var(--white);
     --border: var(--borderGray);
     --disable: var(--olive);
-    --tooltip: var(--gray-shadow);
+    --tooltip: var(--sealBrown);
+    --tooltipTxt: var(--lightGray);
 
     --btn: var(--black); /* 버튼 3개 컬러 */
     --btn-shadow: var(--black-shadow); /* 버튼 3개의 그림자 컬러 */
@@ -90,6 +91,8 @@ body {
   --card: var(--sealBrown);
   --disable: var(--charcoal);
   /* 라이트하우스 접근성 개선 필요할 경우 컬러 수정 */
+  --tooltip: var(--gray-shadow);
+  --tooltipTxt: var(--Black);
 
   --btn: var(--lightGray);
   --btn-shadow: var(--black-shadow);

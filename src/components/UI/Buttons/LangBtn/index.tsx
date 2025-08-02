@@ -23,6 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/UI/Tooltip'
+import { themeToggle } from '@/lib/StyleClassUtil'
 
 export default function LangBtn() {
   const { lang, setLanguage } = useLanguageStore()
@@ -53,9 +54,10 @@ export default function LangBtn() {
                 // size="icon"
                 aria-label={t(`a11y.LangBtn.aria-label`)}
                 aria-haspopup="dialog"
+                className="border-none bg-none"
                 // className="rounded-full"
               >
-                <Globe className="size-6" />
+                <Globe className={cn(themeToggle, 'stoke-[20] h-10 w-10')} />
               </button>
             </DialogTrigger>
           </TooltipTrigger>
@@ -101,7 +103,7 @@ export default function LangBtn() {
 // [x] 새로고침해야 반영되는거 고치기
 // [x] labelkey 사용 x
 // [ ] 글로브 크기 조절
-// [ ] 다크/라이트 UI
+// [x] 다크/라이트 UI
 // [ ] X 버튼 하단에 위치 우측상단/hover bg
 
 // import styled from 'styled-components'
