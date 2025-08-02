@@ -1,8 +1,10 @@
-## [개인] 리액트 웹 앱 포켓몬 타입 계산기: [My Pokemon Type](https://www.mypkmn.info)
+## [개인] 리액트 웹 앱 포켓몬 타입 계산기
 
 > <aside>
 
-> ## 배포 페이지: https://www.mypkmn.info | 피그마 페이지: https://lrl.kr/xW4m
+> 현재 2025/08/02 마이그레이션 중 | 피그마 페이지: https://lrl.kr/xW4m
+
+<!--## 배포 페이지: https://www.mypkmn.info -->
 
 My Pokemon Type은 포켓몬 배틀에서 가장 중요한 타입 상성을 직관적이고 효율적으로 계산할 수 있도록 돕는 웹 애플리케이션입니다.
 
