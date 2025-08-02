@@ -1,6 +1,10 @@
 'use client'
 
-export default function Divider() {
+type DviderClassName = {
+  className?: string
+}
+
+export default function Divider({ className }: DviderClassName) {
   return (
     <hr
       role="separator"

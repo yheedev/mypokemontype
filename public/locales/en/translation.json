@@ -70,6 +70,14 @@
       "defense": {
         "aria-label": "Most effective type when the selected Pokémon defends."
       }
+    },
+    "lucario": {
+      "aria-label": "Pokemon Lucario"
+    },
+    "contact": {
+      "text": "Contact",
+      "aria-label": "developer's email",
+      "info": "Unofficial Fanmade Project"
     }
   }
 }

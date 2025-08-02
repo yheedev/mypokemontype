@@ -11,7 +11,7 @@ export default function More({ params }: { params: { lang: string } }) {
     <main>
       {' '}
       {/* Container */}
-      <Card className="">
+      <Card className="flex-row flex-wrap items-center justify-center gap-8 p-12 sm:mx-8 sm:mt-12 sm:mb-8 md:mx-44 md:my-16">
         <img
           src="/img/Lucario.webp"
           alt={t(`lucario.aria-label`)}
@@ -19,9 +19,14 @@ export default function More({ params }: { params: { lang: string } }) {
           loading="lazy"
           decoding="async"
         />
-        {/** Text */}
-        <div>
-          <h1></h1>
+        <div className="sm:mt-4">
+          <h1 className="">{t('a11y.contact.text')}</h1>
+          <br />
+          <p aria-label={t('a11y.contact.aria-label')}>yheedev@gmail.com</p>
+          <Divider className="mx-4" />
+          <p className="font-[NotoSans] text-base sm:text-[0.8rem]">
+            {t('a11y.contact.info')}
+          </p>
         </div>
       </Card>
     </main>

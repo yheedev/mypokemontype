@@ -70,14 +70,14 @@
       "defense": {
         "aria-label": "防御結果"
       }
+    },
+    "lucario": {
+      "aria-label": "ポケモン ルカリオ"
+    },
+    "contact": {
+      "text": "メール",
+      "aria-label": "開発者メール",
+      "info": "非公式ファンメイドプロジェクト"
     }
-  },
-  "lucario": {
-    "aria-label": "ポケモン ルカリオ"
-  },
-  "contact": {
-    "text": "メール",
-    "aria-label": "開発者メール",
-    "info": "非公式ファンメイドプロジェクト"
   }
 }
