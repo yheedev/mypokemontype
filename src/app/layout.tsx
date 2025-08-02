@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 //import ThemeProvider from '#contexts/ThemeProvider'
 import './global.css'
-import Layout from '@/components/Layout'
 
 export const metadata: Metadata = {
   title: {
@@ -106,9 +105,7 @@ export default function RootLayout({
         ></meta>
       </head>
       <body>
-        {/* <ThemeProvider> */}
-        <Layout>{children}</Layout>
-        {/* </ThemeProvider>  */}
+        <div>{children}</div>
       </body>
     </html>
   )
