@@ -2,11 +2,16 @@
 
 import { useTranslation } from 'react-i18next'
 import Pokeball from '@/assets/Pokeball.svg'
-import { initI18n } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { PATH } from '@/app/routes'
 import { themeToggle } from '@/lib/StyleClassUtil'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/UI/Tooltip'
 
 export default function MoreBtn() {
   const { t } = useTranslation()
@@ -17,15 +22,27 @@ export default function MoreBtn() {
   }
 
   return (
-    <button
-      onClick={handleClick}
-      aria-label={t('a11y.MoreBtn.aria-label')}
-      className="border-none bg-none"
-    >
-      <Pokeball
-        className={cn(themeToggle, 'flex h-[3.12rem] w-[3.12rem] items-center')}
-      />
-    </button>
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={handleClick}
+            aria-label={t('a11y.MoreBtn.aria-label')}
+            className="border-none bg-none"
+          >
+            <Pokeball
+              className={cn(
+                themeToggle,
+                'flex h-[3.12rem] w-[3.12rem] items-center',
+              )}
+            />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="text-sm font-medium">
+          {t('a11y.MoreBtn.aria-label')}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 

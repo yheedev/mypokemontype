@@ -17,6 +17,12 @@ import { cn } from '@/lib/utils'
 import Globe from '@/assets/Globe.svg'
 import Divider from '@/components/UI/Divider'
 import { useRouter, usePathname } from 'next/navigation'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/UI/Tooltip'
 
 export default function LangBtn() {
   const { lang, setLanguage } = useLanguageStore()
@@ -39,16 +45,25 @@ export default function LangBtn() {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <button
-          // size="icon"
-          aria-label={t(`a11y.LangBtn.aria-label`)}
-          aria-haspopup="dialog"
-          // className="rounded-full"
-        >
-          <Globe className="size-6" />
-        </button>
-      </DialogTrigger>
+      <TooltipProvider delayDuration={100}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DialogTrigger asChild>
+              <button
+                // size="icon"
+                aria-label={t(`a11y.LangBtn.aria-label`)}
+                aria-haspopup="dialog"
+                // className="rounded-full"
+              >
+                <Globe className="size-6" />
+              </button>
+            </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="text-sm font-medium">
+            {t('a11y.LangBtn.aria-label')}
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
       <DialogContent className="w-60 text-center">
         <h2 className="mb-4 text-lg font-bold">{t('language.settings')}</h2>

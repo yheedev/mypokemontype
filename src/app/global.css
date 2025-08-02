@@ -49,6 +49,7 @@ body {
     --card: var(--white);
     --border: var(--borderGray);
     --disable: var(--olive);
+    --tooltip: var(--gray-shadow);
 
     --btn: var(--black); /* 버튼 3개 컬러 */
     --btn-shadow: var(--black-shadow); /* 버튼 3개의 그림자 컬러 */

@@ -8,6 +8,12 @@ import ToggleOn from '@/assets/ToggleOn.svg'
 import { themeToggle, themeToggleIcon } from '@/lib/StyleClassUtil'
 import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/UI/Tooltip'
 
 export default function DarkModeBtn() {
   const theme = useDarkModeStore((state) => state.theme)
@@ -15,29 +21,44 @@ export default function DarkModeBtn() {
   const { t } = useTranslation()
 
   return (
-    <button
-      aria-label={
-        theme === 'dark'
-          ? t(`a11y.ThemeBtn.dark.aria-label`)
-          : t(`a11y.ThemeBtn.light.aria-label`)
-      }
-      onClick={toggleTheme}
-      className="btnShadow border-none bg-none"
-    >
-      <div className="themeToggle">
-        {theme === 'dark' ? (
-          <>
-            <ToggleOff className={cn(themeToggle)} />
-            <Sun className={cn(themeToggleIcon, 'btnIconShadow left-[68%]')} />
-          </>
-        ) : (
-          <>
-            <ToggleOn className={cn(themeToggle)} />
-            <Moon className={cn(themeToggleIcon, 'btnIconShadow left-[38%]')} />
-          </>
-        )}
-      </div>
-    </button>
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            aria-label={
+              theme === 'dark'
+                ? t(`a11y.ThemeBtn.dark.aria-label`)
+                : t(`a11y.ThemeBtn.light.aria-label`)
+            }
+            onClick={toggleTheme}
+            className="btnShadow border-none bg-none"
+          >
+            <div className="themeToggle">
+              {theme === 'dark' ? (
+                <>
+                  <ToggleOff className={cn(themeToggle)} />
+                  <Sun
+                    className={cn(themeToggleIcon, 'btnIconShadow left-[68%]')}
+                  />
+                </>
+              ) : (
+                <>
+                  <ToggleOn className={cn(themeToggle)} />
+                  <Moon
+                    className={cn(themeToggleIcon, 'btnIconShadow left-[38%]')}
+                  />
+                </>
+              )}
+            </div>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="text-sm font-medium">
+          {theme === 'dark'
+            ? t('a11y.ThemeBtn.dark.aria-label')
+            : t('a11y.ThemeBtn.light.aria-label')}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 

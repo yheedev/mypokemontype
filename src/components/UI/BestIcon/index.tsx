@@ -4,6 +4,12 @@ import Flame from '@/assets/Flame.svg'
 import { useTranslation } from 'react-i18next'
 import type { Language } from '@/types/language'
 import { isOffensePath } from '@/utils/pathMode'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/UI/Tooltip'
 
 export default function BestIcon({ lang }: { lang: Language }) {
   const pathname = usePathname()
@@ -15,9 +21,18 @@ export default function BestIcon({ lang }: { lang: Language }) {
     : 'fill-[var(--defenseRec)] stroke-[var(--defenseRec)]'
 
   return (
-    <div className={cn(color)} aria-label={t('a11y.bestIcon.aria-label')}>
-      <Flame className="mt-4 ml-2 h-8 w-8 rounded-full border-4 border-current p-[0.1rem]" />
-    </div>
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div className={cn(color)} aria-label={t('a11y.bestIcon.aria-label')}>
+            <Flame className="mt-4 ml-2 h-8 w-8 rounded-full border-4 border-current p-[0.1rem]" />
+          </div>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="text-sm font-medium">
+          {t('a11y.bestIcon.aria-label')}
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 
