@@ -72,16 +72,16 @@ export default function LangBtn() {
 
         {supportedLangs.map((l, i) => (
           <div key={l} className="flex w-full flex-col items-center">
-            {' '}
             <DialogClose asChild>
               <button
                 onClick={() => changeLang(l)}
-                disabled={isPending}
+                disabled={isPending || l === lang}
+                aria-current={l === lang ? 'true' : undefined}
                 className={cn(
-                  'w-24 text-center text-base font-semibold transition-colors',
+                  'w-24 rounded-md px-2 py-1 text-center text-base font-semibold transition-colors',
                   l === lang
-                    ? 'text-[--offenseRec]'
-                    : 'text-[--color-modalText] hover:text-[--offenseRec]',
+                    ? 'cursor-default text-[--offenseRec]/10 hover:cursor-default'
+                    : 'text-[--color-modalText] hover:bg-[--offenseRec]/5 hover:text-[--offenseRec]',
                 )}
               >
                 {t(`language.${l}`)}
