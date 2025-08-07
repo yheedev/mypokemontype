@@ -59,6 +59,7 @@ export default function Result() {
             <div className="mt-4 flex flex-wrap gap-4 sm:mt-3">
               {(value as TypeNameElement[]).map((type) => (
                 <Pill
+                  animation={false}
                   key={type}
                   borderColor={`var(--${type})`}
                   cursor="default"

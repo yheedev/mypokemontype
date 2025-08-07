@@ -1,13 +1,12 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
 import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
-import { useLanguageStore } from '@/stores/useLanguageStore'
-import { useTranslation } from 'react-i18next'
 import { TypeName } from '@/constants/pokemon'
 import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
+import { useTranslation } from 'react-i18next'
 
 export const PillGroup = ({
   isDarkMode,
@@ -18,6 +17,7 @@ export const PillGroup = ({
 }) => {
   const pathname = usePathname()
   const { selectedTypes, toggleType } = useUpToTwoStore()
+  const { t } = useTranslation()
 
   useEffect(() => {
     onUpdate([selectedTypes[0], selectedTypes[1]])
@@ -25,31 +25,22 @@ export const PillGroup = ({
 
   return (
     <div
-      // Container, ul
       className={cn(
-        //        'absolute top-[50%] left-[50%] flex transform-[-50%]',
         'grid grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))] place-items-center items-center justify-items-center',
-        // 'mx-5 gap-x-[0.7rem] gap-y-4',
-        // 'mx-[0.8rem] mt-0 mb-[2rem] gap-x-[0.6rem] gap-y-[0.4rem]',
         'justify-items-center gap-3 px-4 py-6',
       )}
     >
       {TypeName.map((type) => (
-        <div
-          // wrapper, a
-          // className="relative z-1 mx-0 my-10 block h-[80px] w-[80px] overflow-hidden text-center"
+        <Pill
           key={type}
-          className="transition-transform duration-200 hover:scale-110"
-        >
-          <Pill
-            //className="relative z-3 transition-[0.5s] hover:bg-amber-50"
-            pokemonTypeName={type}
-            borderColor={`var(--${type})`}
-            isDarkMode={isDarkMode}
-            isActive={selectedTypes.includes(type)}
-            onClick={() => toggleType(type)}
-          />
-        </div>
+          className="bg-transparent"
+          pokemonTypeName={type}
+          borderColor={`var(--${type})`}
+          isDarkMode={isDarkMode}
+          isActive={selectedTypes.includes(type)}
+          onClick={() => toggleType(type)}
+          animation={true}
+        />
       ))}
     </div>
   )

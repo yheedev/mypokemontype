@@ -14,6 +14,7 @@ interface Props {
   isDarkMode?: boolean
   upToTwo?: (type: string) => void // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
   cursor?: string
+  animation: boolean
 }
 
 export const Pill = ({
@@ -23,6 +24,7 @@ export const Pill = ({
   upToTwo,
   isDarkMode,
   isActive,
+  animation = true,
 }: Props) => {
   const handleClick = () => {
     onClick && onClick(!isActive)
@@ -37,7 +39,7 @@ export const Pill = ({
       onClick={handleClick}
       aria-label={t(`TypeName.${pokemonTypeName}`)}
       className={cn(
-        'pillShadow flex items-center justify-center rounded-[30px] text-[var(--color-background)]',
+        'group pillShadow relative flex cursor-pointer items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
         'dutation-200 transition-all ease-in-out',
         'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px]', // pc
         'md:border-6px', // 태블릿
@@ -45,9 +47,7 @@ export const Pill = ({
 
         isDarkMode ? 'shadowPill' : 'shadowBtn',
         onClick ? 'cursor-pointer' : 'cursor-default',
-        isActive
-          ? `bg-[var(--${pokemonTypeName})] dark:text-[var(--card)]`
-          : 'bg-color-card',
+        isActive ? 'z-10' : 'z-0',
       )}
       style={{
         borderColor: `var(--${pokemonTypeName})`,
@@ -56,23 +56,41 @@ export const Pill = ({
           : `var(--color-card)`,
       }}
     >
-      <span
+      <div
         className={cn(
-          'font-[Noto Sans KR] text-[0.85rem] font-black sm:text-base',
-          lang === 'ko'
-            ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
-            : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
-          lang === 'ja' ? 'font-black' : 'font-black sm:font-bold',
+          'absolute bottom-0 left-0 h-full w-full transition-transform duration-300 ease-in-out',
+          animation
+            ? isActive
+              ? 'translate-y-0'
+              : 'translate-y-full group-hover:translate-y-0'
+            : 'translate-y-0',
         )}
-      >
-        {t(`TypeName.${pokemonTypeName}`)}
-      </span>
+        style={{
+          backgroundColor: animation
+            ? `var(--${pokemonTypeName})`
+            : 'var(--color-card)',
+        }}
+      />
+      <div className="relative z-10 flex h-full w-full items-center justify-center">
+        <span
+          className={cn(
+            'font-[Noto Sans KR] text-[0.85rem] font-black sm:text-base',
+            isActive ? `dark:text-[var(--card)]` : 'bg-color-card',
+            lang === 'ko'
+              ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
+              : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
+            lang === 'ja' ? 'font-black' : 'font-black sm:font-bold',
+          )}
+        >
+          {t(`TypeName.${pokemonTypeName}`)}
+        </span>
+      </div>
     </div>
   )
 }
 
 // TODO
-// [ ] hover 트랜지션 추가
+// [x] hover 트랜지션 추가
 // [x] 다크모드일 경우 선택되었을 때 글씨 컬러 card로 바꾸기
 // [x] 모바일 버전에서 일관적인 크기, border 유지
 // [x] shadow 클래스화
