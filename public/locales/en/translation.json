@@ -56,7 +56,7 @@
       }
     },
     "MoreBtn": {
-      "aria-label": "Go to the page with the <My Pokemon Type> eveloper’s email."
+      "aria-label": "Go to the page with the <My Pokemon Type> developer’s email."
     },
     "LangBtn": {
       "aria-label": "Choose one language: Korean, English, or Japanese."
