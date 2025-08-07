@@ -6,7 +6,7 @@ import Result from '@/components/UI/Result'
 export default function Defense({ params }: { params: { lang: string } }) {
   return (
     <main>
-      <div className="m-4 grid grid-cols-1 gap-12 p-4 lg:grid-cols-2">
+      <div className="m-4 grid grid-cols-1 gap-12 p-4 xl:grid-cols-2">
         <Selector />
         <Result />
       </div>

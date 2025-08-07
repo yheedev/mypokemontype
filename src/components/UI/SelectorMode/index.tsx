@@ -8,9 +8,14 @@ import { useOffenseCalStore } from '@/stores/useOffenseCalStore'
 import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
 import Link from 'next/link'
 import { PATH } from '@/app/routes'
-import { isOffensePath } from '@/utils/pathMode'
 import { MODE, Mode } from '@/constants/mode'
 import { getModeByPath } from '@/utils/pathMode'
+import {
+  modeStyle,
+  getLangClass,
+  getActiveMode,
+  modeTextStyle,
+} from '@/lib/StyleClassUtil'
 
 export default function SelectorMode() {
   const pathname = usePathname()
@@ -43,7 +48,7 @@ export default function SelectorMode() {
 
   return (
     <>
-      <div className="color-[--text] mt-1 grid cursor-pointer grid-cols-2 justify-evenly font-['Noto_Sans_KR'] text-2xl font-black">
+      <div className="color-[--text] mt-1 grid cursor-pointer grid-cols-2 justify-evenly font-extrabold">
         {' '}
         {/** .Option */}
         <Link
@@ -54,14 +59,12 @@ export default function SelectorMode() {
           onClick={() => handleSelect('offense')}
           /** .Offense / OptionOffense */
           className={cn(
-            'flex items-center justify-center justify-items-center border-t-0 border-r-0 border-l-0 px-[4rem] py-2 pb-6 text-center align-middle md:py-2 lg:pt-2',
-            // [ ] UI 수정 후 유틸 클래스1 분리
-            lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[3px]',
-            // [ ] UI 수정 후 유틸 클래스2 분리
-            mode === 'offense'
-              ? 'border-b-[4px] border-[var(--offenseRec)] text-[var(--offenseRec)] lg:border-b-[7px]'
-              : 'border-b-[2px] border-[var(--border)] text-[var(--color-text)]',
-            // [ ] UI 수정 후 유틸 클래스3 분리
+            modeStyle,
+            // [x] UI 수정 후 유틸 클래스1 분리
+            getLangClass(lang),
+            // [x] UI 수정 후 유틸 클래스2 분리
+            getActiveMode('offense', mode),
+            // [x] UI 수정 후 유틸 클래스3 분리
           )}
         >
           {/* <Link
@@ -73,10 +76,10 @@ export default function SelectorMode() {
           > */}
           <span
             className={cn(
-              'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
-              // [ ] UI 수정 후 유틸 클래스4 분리
-              lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
-              // [ ] UI 수정 후 유틸 클래스2 분리
+              modeTextStyle,
+              // [x] UI 수정 후 유틸 클래스4 분리
+              getLangClass(lang),
+              // [x] UI 수정 후 유틸 클래스2 분리
               mode === 'offense',
             )}
           >
@@ -93,23 +96,22 @@ export default function SelectorMode() {
           onClick={() => handleSelect('defense')}
           /** .Defense / OptionDefense */
           className={cn(
-            'flex items-center justify-center justify-items-center border-t-0 border-r-0 border-l-2 py-2 pb-6 text-center align-middle md:py-2 lg:pt-2',
-            // [ ] UI 수정 후 유틸 클래스1 분리
+            // [x] UI 수정 후 유틸 클래스1 분리
             lang === 'ko'
               ? 'indent-[1.25rem] tracking-[7px]'
               : 'tracking-[3px]',
-            mode === 'defense'
-              ? 'border-b-[4px] border-[var(--defenseRec)] text-[var(--defenseRec)] lg:border-b-[7px]'
-              : 'border-b-[2px] border-[var(--border)] text-[var(--color-text)]',
-            // [ ] UI 수정 후 유틸 클래스3 분리
+            getActiveMode('defense', mode),
+            // [x] UI 수정 후 유틸 클래스3 분리
+            modeStyle,
+            'border-l-2 border-l-[var(--border)]',
           )}
         >
           <span
             className={cn(
-              'mr-[0.8rem] inline-block sm:mr-[1rem] sm:pb-2',
-              // [ ] UI 수정 후 유틸 클래스4 분리
-              lang === 'ko' ? 'indent-5 tracking-[7px]' : 'tracking-[2.5px]',
-              // [ ] UI 수정 후 유틸 클래스2 분리
+              modeTextStyle,
+              // [x] UI 수정 후 유틸 클래스4 분리
+              getLangClass(lang),
+              // [x] UI 수정 후 유틸 클래스2 분리
               mode === 'defense',
             )}
           >
@@ -119,13 +121,18 @@ export default function SelectorMode() {
           </span>
         </Link>
       </div>
-      <div className="mx-4 mt-8 mb-6 border-b-2 border-[var(--border)] sm:pb-4">
+      <div className="border-b-2 border-[var(--border)]">
         {/* .InfoContainer */}
 
         <div
           // .info
           className={cn(
-            'pt-0.5rem align-center col-span-1 mb-2 flex justify-around px-10 pb-2 text-center text-[0.9rem] font-normal break-words whitespace-normal lg:mb-6 lg:px-0 lg:py-6 lg:text-2xl lg:font-extrabold',
+            'col-span-1 text-center break-words whitespace-normal',
+            'my-10 text-[0.95rem] leading-[1.2] font-bold lg:pt-2.5', // 모바일 기본
+            'sm:pt-6 sm:text-[1.5rem] sm:font-extrabold', // PC
+            // 'pt-0.5rem align-center col-span-1 mb-2 flex justify-around px-10 pb-2 text-center break-words whitespace-normal',
+            // 'sm:text-2xl sm:font-bold lg:mb-4 lg:px-0 lg:py-6 lg:text-xs lg:font-extrabold',
+            // pc 28xp / 태블릿, 모바일 19px
             lang === 'ko'
               ? 'tracking-[1.5px] break-keep'
               : 'tracking-[0.5px] break-normal',
@@ -139,3 +146,7 @@ export default function SelectorMode() {
     </>
   )
 }
+
+// TODO
+// [ ] 방어 텍스트만 왼쪽으로 기울어져있음
+// [ ] info 텍스트 크기 반응형으로 조절

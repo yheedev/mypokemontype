@@ -12,6 +12,7 @@ const config: Config = {
       sm: { min: '280px', max: '767px' }, // 모바일
       md: { min: '768px', max: '1181px' }, // 태블릿
       lg: { max: '1023px' },
+      xl: { min: '1024px' },
       // xxl: '1440px', // PC
     },
     // colors: {
