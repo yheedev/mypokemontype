@@ -101,14 +101,14 @@ export default function SelectorMode() {
         <div
           className={cn(
             'col-span-1 text-center break-words whitespace-normal',
-            'my-10 text-[0.95rem] leading-[1.2] font-bold lg:pt-2.5',
+            'my-8 text-[0.95rem] font-bold lg:pt-2.5',
             'sm:pt-6 sm:text-[1.5rem] sm:font-extrabold',
             lang === 'ko'
               ? 'tracking-[1.5px] break-keep'
               : 'tracking-[0.5px] break-normal',
           )}
         >
-          <span className="">
+          <span>
             {mode === 'offense' ? t('Mode.offenseInfo') : t('Mode.defenseInfo')}
           </span>
         </div>

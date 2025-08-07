@@ -25,21 +25,23 @@ export const PillGroup = ({
 
   return (
     <div
-      // Container
+      // Container, ul
       className={cn(
-        'grid place-items-center justify-items-center',
-        'grid-cols-[repeat(auto-fill,_minmax(80px,_1fr))]',
+        //        'absolute top-[50%] left-[50%] flex transform-[-50%]',
+        'grid grid-cols-[repeat(auto-fill,_minmax(80px,_1fr))] place-items-center justify-items-center',
         'gap-x-4 gap-y-3',
         'justify-items-center px-4 py-6',
       )}
     >
       {TypeName.map((type) => (
         <div
-          // wrapper
+          // wrapper, a
+          // className="relative z-1 mx-0 my-10 block h-[80px] w-[80px] overflow-hidden text-center"
           key={type}
           className="transition-transform duration-200 hover:scale-110"
         >
           <Pill
+            //className="relative z-3 transition-[0.5s] hover:bg-amber-50"
             pokemonTypeName={type}
             borderColor={`var(--${type})`}
             isDarkMode={isDarkMode}

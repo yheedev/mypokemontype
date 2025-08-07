@@ -36,44 +36,33 @@ export const Pill = ({
       lang={lang}
       onClick={handleClick}
       aria-label={t(`TypeName.${pokemonTypeName}`)}
-      className={
-        cn(
-          'pillShadow flex items-center justify-center rounded-[30px] text-sm text-[var(--color-background)]',
-          'dutation-200 transition-all ease-in-out',
-          'sm:h-[2.6rem] sm:w-[4.8rem]',
-          'lg:h-[3.1rem] lg:w-[6.8rem]',
-          isActive ? `bg-[var(--${pokemonTypeName})] ` : 'bg-color-card',
-          isDarkMode ? 'shadowPill' : 'shadowBtn',
-          'border-[var(--${pokemonTypeName})]',
-          'sm:border-[4.5px] md:border-[6px] lg:border-[7px]',
-          onClick ? 'cursor-pointer' : 'cursor-default',
-        )
-        //`pill ${isActive ? 'active' : ''} ${isDarkMode ? 'shadow-btn' : 'shadow-bl'}`
-        // TODO
-        // - [x] shadow 클래스화
-        // - [x] props에 따라 shadow 클래스 변경
-        // - [ ] hover 트랜지션 추가
-      }
+      className={cn(
+        'pillShadow flex items-center justify-center rounded-[30px] text-[var(--color-background)]',
+        'dutation-200 transition-all ease-in-out',
+        'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px]', // pc
+        'md:border-6px', // 태블릿
+        'h-[2.6rem] w-[4.8rem] border-[4.5px]', // 모바일
+
+        isDarkMode ? 'shadowPill' : 'shadowBtn',
+        onClick ? 'cursor-pointer' : 'cursor-default',
+        isActive
+          ? `bg-[var(--${pokemonTypeName})] dark:text-[var(--card)]`
+          : 'bg-color-card',
+      )}
       style={{
-        borderWidth: 'sm:4.5px md:6px lg:7px',
         borderColor: `var(--${pokemonTypeName})`,
         backgroundColor: isActive
           ? `var(--${pokemonTypeName})`
           : `var(--color-card)`,
       }}
-
-      // isDarkMode={isDarkMode}
-      // isActive={isActive}
-      // cursor={onClick ? 'pointer' : 'default'}
     >
       <span
         className={cn(
-          'font-[Noto Sans KR]',
+          'font-[Noto Sans KR] text-[0.85rem] font-black sm:text-base',
           lang === 'ko'
-            ? 'tracking-[2px] md:tracking-[3px] lg:tracking-[4px]'
-            : 'tracking-[1px] md:tracking-[1.5px] lg:tracking-[2px]',
-          lang === 'ja' ? 'font-black' : 'font-bold',
-          'text-base sm:text-[0.9rem] md:text-[1rem]',
+            ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
+            : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
+          lang === 'ja' ? 'font-black' : 'font-black sm:font-bold',
         )}
       >
         {t(`TypeName.${pokemonTypeName}`)}
@@ -81,6 +70,13 @@ export const Pill = ({
     </div>
   )
 }
+
+// TODO
+// [ ] hover 트랜지션 추가
+// [x] 다크모드일 경우 선택되었을 때 글씨 컬러 card로 바꾸기
+// [x] 모바일 버전에서 일관적인 크기, border 유지
+// [x] shadow 클래스화
+// [x] props에 따라 shadow 클래스 변경
 
 // const Pill = styled.button.withConfig({
 //   shouldForwardProp: (prop) =>
