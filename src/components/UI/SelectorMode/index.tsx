@@ -49,42 +49,25 @@ export default function SelectorMode() {
   return (
     <>
       <div className="color-[--text] mt-1 grid cursor-pointer grid-cols-2 justify-evenly font-extrabold">
-        {' '}
-        {/** .Option */}
         <Link
           href={PATH().offense}
           aria-label={t('a11y.selectorMode.offense.aria-label')}
           aria-current={pathname === PATH().offense ? 'page' : undefined}
           aria-selected={mode === 'offense'}
           onClick={() => handleSelect('offense')}
-          /** .Offense / OptionOffense */
           className={cn(
             modeStyle,
-            // [x] UI 수정 후 유틸 클래스1 분리
             getLangClass(lang),
-            // [x] UI 수정 후 유틸 클래스2 분리
             getActiveMode('offense', mode),
-            // [x] UI 수정 후 유틸 클래스3 분리
           )}
         >
-          {/* <Link
-            href={PATH().offense}
-            aria-label={t('a11y.selectorMode.offense')}
-            aria-current={pathname === PATH().offense ? 'page' : undefined}
-            aria-selected={mode === 'offense'}
-            onClick={() => handleSelect('offense')}
-          > */}
           <span
             className={cn(
               modeTextStyle,
-              // [x] UI 수정 후 유틸 클래스4 분리
               getLangClass(lang),
-              // [x] UI 수정 후 유틸 클래스2 분리
               mode === 'offense',
             )}
           >
-            {' '}
-            {/**  .OptionText .OffenseText / OptionText OffenseText */}
             {t('Mode.offense')}
           </span>
         </Link>
@@ -94,14 +77,11 @@ export default function SelectorMode() {
           aria-current={pathname === PATH().defense ? 'page' : undefined}
           aria-selected={mode === 'defense'}
           onClick={() => handleSelect('defense')}
-          /** .Defense / OptionDefense */
           className={cn(
-            // [x] UI 수정 후 유틸 클래스1 분리
             lang === 'ko'
               ? 'indent-[1.25rem] tracking-[7px]'
               : 'tracking-[3px]',
             getActiveMode('defense', mode),
-            // [x] UI 수정 후 유틸 클래스3 분리
             modeStyle,
             'border-l-2 border-l-[var(--border)]',
           )}
@@ -109,30 +89,20 @@ export default function SelectorMode() {
           <span
             className={cn(
               modeTextStyle,
-              // [x] UI 수정 후 유틸 클래스4 분리
               getLangClass(lang),
-              // [x] UI 수정 후 유틸 클래스2 분리
               mode === 'defense',
             )}
           >
-            {' '}
-            {/** OptionText DefenseText */}
             {t('Mode.defense')}
           </span>
         </Link>
       </div>
       <div className="border-b-2 border-[var(--border)]">
-        {/* .InfoContainer */}
-
         <div
-          // .info
           className={cn(
             'col-span-1 text-center break-words whitespace-normal',
-            'my-10 text-[0.95rem] leading-[1.2] font-bold lg:pt-2.5', // 모바일 기본
-            'sm:pt-6 sm:text-[1.5rem] sm:font-extrabold', // PC
-            // 'pt-0.5rem align-center col-span-1 mb-2 flex justify-around px-10 pb-2 text-center break-words whitespace-normal',
-            // 'sm:text-2xl sm:font-bold lg:mb-4 lg:px-0 lg:py-6 lg:text-xs lg:font-extrabold',
-            // pc 28xp / 태블릿, 모바일 19px
+            'my-10 text-[0.95rem] leading-[1.2] font-bold lg:pt-2.5',
+            'sm:pt-6 sm:text-[1.5rem] sm:font-extrabold',
             lang === 'ko'
               ? 'tracking-[1.5px] break-keep'
               : 'tracking-[0.5px] break-normal',
@@ -146,7 +116,3 @@ export default function SelectorMode() {
     </>
   )
 }
-
-// TODO
-// [ ] 방어 텍스트만 왼쪽으로 기울어져있음
-// [ ] info 텍스트 크기 반응형으로 조절
