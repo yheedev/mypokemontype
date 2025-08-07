@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-//import ThemeProvider from '#contexts/ThemeProvider'
 import './global.css'
+import Head from 'next/head'
 
 export const metadata: Metadata = {
   title: {
@@ -52,43 +52,49 @@ export const metadata: Metadata = {
     description: '포켓몬 배틀을 위한 타입 상성 계산기',
     url: 'https://mypkmn.info',
     siteName: 'My Pokemon Type',
-    // images: [
-    //   {
-    //     url: // globe img,
-    //     width: 1200,
-    //     height: 630,
-    //     alt: 'My Pokemon Type | 포켓몬 타입 계산기',
-    //   }
-    // ],
+    images: [
+      {
+        url: 'img/ico/favicon_light.ico',
+        width: 1200,
+        height: 630,
+        alt: 'My Pokemon Type | 포켓몬 타입 계산기',
+      },
+    ],
     locale: 'ko_KR',
     type: 'website',
   },
   icons: {
     icon: [
       {
-        href: '/img/svg/Pokeball.svg',
-        url: '/img/svg/Pokeballs.svg',
+        href: 'img/ico/favicon_light.ico',
+        url: 'img/ico/favicon_light.ico',
+        type: 'img/x-icon',
+      },
+      {
+        url: '/img/ico/apple-icon.png',
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+      },
+      {
+        url: '/img/ico/web-app-manifest-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        url: '/img/ico/web-app-manifest-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
       },
     ],
+    shortcut: '/img/ico/favicon_light.ico',
   },
-
-  // icons: {
-  //   icon: [
-  //     {
-  //       href: '/images/favicon/light_favicon.png',
-  //       url: '/images/favicon/light_favicon.png',
-  //       media: '(prefers-color-scheme: light)',
-  //     },
-  //     {
-  //       href: '/images/favicon/dark_favicon.png',
-  //       url: '/images/favicon/dark_favicon.png',
-  //       media: '(prefers-color-scheme: black)',
-  //     },
-  //     { url: '/favicon.ico', type: 'image/x-icon' },
-  //   ],
-  //   shortcut: '/images/favicon/light_favicon.png',
-  //   apple: '/images/favicon/light_favicon.png',
-  // },
+  manifest: '/img/ico/manifest.json', // 웹 앱 정보
+  appleWebApp: {
+    capable: true,
+    title: 'My Pokemon Type',
+    statusBarStyle: 'default',
+  },
+  themeColor: '#dddbdb',
 }
 
 export default function RootLayout({
@@ -98,12 +104,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <head>
+      <Head>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1"
         ></meta>
-      </head>
+        <link
+          rel="mask-icon"
+          href="/img/ico/safari-pinned-tab.svg"
+          color="#dddbdb"
+        />
+      </Head>
       <body>
         <div>{children}</div>
       </body>

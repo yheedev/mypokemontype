@@ -10,6 +10,7 @@ import AllBtns from '@/components/UI/Buttons/AllBtns'
 import Title from '@/components/UI/Title'
 import { Skeleton } from '@/components/UI/Skeleton'
 import { initI18n, i18n } from '@/lib/i18n'
+import Favicon from '@/components/UI/Favicon'
 
 export default function LangLayout({
   children,
@@ -65,6 +66,7 @@ export default function LangLayout({
 
   return (
     <div lang={lang}>
+      <Favicon />
       <Title />
       <main>{children}</main>
       <AllBtns />
