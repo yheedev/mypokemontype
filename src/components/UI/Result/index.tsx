@@ -56,7 +56,7 @@ export default function Result() {
 
             <Divider />
 
-            <div className="mt-4 flex flex-wrap gap-2 sm:mt-3">
+            <div className="mt-4 flex flex-wrap gap-4 sm:mt-3">
               {(value as TypeNameElement[]).map((type) => (
                 <Pill
                   key={type}

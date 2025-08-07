@@ -28,9 +28,10 @@ export const PillGroup = ({
       // Container, ul
       className={cn(
         //        'absolute top-[50%] left-[50%] flex transform-[-50%]',
-        'grid grid-cols-[repeat(auto-fill,_minmax(80px,_1fr))] place-items-center justify-items-center',
-        'gap-x-4 gap-y-3',
-        'justify-items-center px-4 py-6',
+        'grid grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))] place-items-center items-center justify-items-center',
+        // 'mx-5 gap-x-[0.7rem] gap-y-4',
+        // 'mx-[0.8rem] mt-0 mb-[2rem] gap-x-[0.6rem] gap-y-[0.4rem]',
+        'justify-items-center gap-3 px-4 py-6',
       )}
     >
       {TypeName.map((type) => (
