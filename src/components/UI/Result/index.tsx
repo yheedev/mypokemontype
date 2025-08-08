@@ -56,7 +56,7 @@ export default function Result() {
 
             <Divider />
 
-            <div className="mt-4 flex flex-wrap gap-4 sm:mt-3">
+            <div className="mt-4 grid grid-cols-3 gap-3 sm:mt-3 sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]">
               {(value as TypeNameElement[]).map((type) => (
                 <Pill
                   animation={false}

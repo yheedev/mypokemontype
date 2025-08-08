@@ -26,7 +26,7 @@ export const PillGroup = ({
   return (
     <div
       className={cn(
-        'grid grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))] place-items-center items-center justify-items-center',
+        'grid grid-cols-3 place-items-center items-center justify-items-center sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]',
         'justify-items-center gap-3 px-4 py-6',
       )}
     >
