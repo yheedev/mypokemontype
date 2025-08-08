@@ -1,12 +1,6 @@
 'use client'
 
 import { useDarkModeStore } from '@/stores/useDarkModeStore'
-import Sun from '@/assets/Sun.svg'
-import ToggleOff from '@/assets/ToggleOff.svg'
-import Moon from '@/assets/Moon.svg'
-import ToggleOn from '@/assets/ToggleOn.svg'
-import { themeToggle, themeToggleIcon } from '@/lib/StyleClassUtil'
-import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
 import {
   Tooltip,
@@ -14,6 +8,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/UI/Tooltip'
+import ToggleOffBtn from '@/components/UI/Buttons/Toggles/ToggleOffBtn'
+import ToggleOnBtn from '@/components/UI/Buttons/Toggles/ToggleOnBtn'
 
 export default function DarkModeBtn() {
   const theme = useDarkModeStore((state) => state.theme)
@@ -34,21 +30,7 @@ export default function DarkModeBtn() {
             className="btnShadow border-none bg-none"
           >
             <div className="themeToggle">
-              {theme === 'dark' ? (
-                <>
-                  <ToggleOff className={cn(themeToggle)} />
-                  <Sun
-                    className={cn(themeToggleIcon, 'btnIconShadow left-[68%]')}
-                  />
-                </>
-              ) : (
-                <>
-                  <ToggleOn className={cn(themeToggle)} />
-                  <Moon
-                    className={cn(themeToggleIcon, 'btnIconShadow left-[38%]')}
-                  />
-                </>
-              )}
+              {theme === 'dark' ? <ToggleOffBtn /> : <ToggleOnBtn />}
             </div>
           </button>
         </TooltipTrigger>
