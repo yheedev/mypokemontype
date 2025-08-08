@@ -27,7 +27,7 @@ export default function DarkModeBtn() {
                 : t(`a11y.ThemeBtn.light.aria-label`)
             }
             onClick={toggleTheme}
-            className="btnShadow border-none bg-none"
+            className="btnShadow inline-flex items-center justify-center border-none bg-none leading-none"
           >
             <div className="themeToggle">
               {theme === 'dark' ? <ToggleOffBtn /> : <ToggleOnBtn />}

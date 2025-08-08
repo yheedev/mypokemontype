@@ -2,11 +2,11 @@
 
 import DarkModeBtn from '@/components/UI/Buttons/DarkModeBtn'
 import LangBtn from '@/components/UI/Buttons/LangBtn'
-import MoreBtn from '../MoreBtn/MoreBtn'
+import MoreBtn from '@/components/UI/Buttons/MoreBtn'
 
 export default function AllBtns() {
   return (
-    <div className="px-1rem absolute right-10 flex translate-x-[10%] items-center gap-2 pt-4 pb-8">
+    <div className="absolute right-10 flex translate-x-[10%] items-center gap-3 pt-4 pb-8 [--icon:3rem] sm:[--icon:3.25rem]">
       <MoreBtn />
       <LangBtn />
       <DarkModeBtn />

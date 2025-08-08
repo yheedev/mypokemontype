@@ -1,11 +1,5 @@
 'use client'
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogClose,
-} from '@/components/UI/Dialog'
 import { Globe } from 'lucide-react'
 import { supportedLangs, Language } from '@/types/language'
 import { useLanguageStore } from '@/stores/useLanguageStore'
@@ -21,6 +15,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/UI/Tooltip'
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+} from '@/components/UI/Dialog'
 
 export default function LangBtn() {
   const { lang, setLanguage } = useLanguageStore()
@@ -50,9 +50,9 @@ export default function LangBtn() {
               <button
                 aria-label={t(`a11y.LangBtn.aria-label`)}
                 aria-haspopup="dialog"
-                className="border-none bg-none"
+                className="inline-flex items-center justify-center border-none bg-none leading-none"
               >
-                <Globe className="btnShadow h-12 w-12 stroke-[var(--btn)]" />
+                <Globe className="btnShadow mr-[2px] flex h-[3.15rem] w-[3.15rem] stroke-[var(--btn)]" />
               </button>
             </DialogTrigger>
           </TooltipTrigger>

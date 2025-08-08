@@ -28,7 +28,7 @@ export default function MoreBtn() {
           <button
             onClick={handleClick}
             aria-label={t('a11y.MoreBtn.aria-label')}
-            className="btnShadow border-none bg-none"
+            className="btnShadow inline-flex items-center justify-center border-none bg-none leading-none"
           >
             <Pokeball
               className={cn(
