@@ -6,15 +6,13 @@ import {
   DialogTrigger,
   DialogClose,
 } from '@/components/UI/Dialog'
-// import { Button } from '@/components/ui/button' // shadcn 기본 Button
-
+import { Globe } from 'lucide-react'
 import { supportedLangs, Language } from '@/types/language'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useTranslation } from 'react-i18next'
 import { initI18n } from '@/lib/i18n'
 import { useTransition } from 'react'
 import { cn } from '@/lib/utils'
-import Globe from '@/assets/Globe.svg'
 import Divider from '@/components/UI/Divider'
 import { useRouter, usePathname } from 'next/navigation'
 import {
@@ -23,7 +21,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/UI/Tooltip'
-import { themeToggle } from '@/lib/StyleClassUtil'
 
 export default function LangBtn() {
   const { lang, setLanguage } = useLanguageStore()
@@ -51,13 +48,11 @@ export default function LangBtn() {
           <TooltipTrigger asChild>
             <DialogTrigger asChild>
               <button
-                // size="icon"
                 aria-label={t(`a11y.LangBtn.aria-label`)}
                 aria-haspopup="dialog"
                 className="border-none bg-none"
-                // className="rounded-full"
               >
-                <Globe className={cn(themeToggle, 'stoke-[20] h-10 w-10')} />
+                <Globe className="btnShadow h-12 w-12 stroke-[var(--btn)]" />
               </button>
             </DialogTrigger>
           </TooltipTrigger>
@@ -97,14 +92,14 @@ export default function LangBtn() {
 
 // TODO
 
+// [ ] 이미 선택된 언어에 highlight/click disable
+// [ ] 글로브 크기 조절
+// [ ] X 버튼 하단에 위치 우측상단/hover bg
 // [x] setting 텍스트 렌더링
 // [x] 언어 선택 다시 하면 왜 메인페이지에서 방어 계산되는거임
-// [ ] 이미 선택된 언어에 highlight/click disable
 // [x] 새로고침해야 반영되는거 고치기
 // [x] labelkey 사용 x
-// [ ] 글로브 크기 조절
 // [x] 다크/라이트 UI
-// [ ] X 버튼 하단에 위치 우측상단/hover bg
 
 // import styled from 'styled-components'
 // import { useSelector } from 'react-redux'
