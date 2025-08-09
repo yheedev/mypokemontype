@@ -61,7 +61,24 @@ export default function LangLayout({
   }, [lang])
 
   if (!ready) {
-    return <Skeleton className="h-screen w-full" />
+    return (
+      <div className="m-4 grid grid-cols-1 gap-12 p-4 xl:grid-cols-2">
+        {[0, 1].map((k) => (
+          <div
+            key={k}
+            className="rounded-[22px] bg-[--color-card] p-6 shadow-lg"
+          >
+            <Skeleton className="mb-4 h-6 w-48 animate-pulse" />
+            <Skeleton className="mb-6 h-px w-full animate-pulse" />
+            <div className="grid grid-cols-3 gap-3 sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]">
+              {Array.from({ length: 12 }).map((_, i) => (
+                <Skeleton key={i} className="h-10 animate-pulse rounded-full" />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
   }
 
   return (

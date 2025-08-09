@@ -36,7 +36,7 @@ export default function Result() {
   return (
     <Card>
       <div
-        className="flex flex-col rounded-[22px] bg-[--color-card] px-4 sm:px-6"
+        className="my-2 flex flex-col rounded-[22px] bg-[--color-card] px-4 sm:px-6"
         aria-live="polite"
         aria-atomic="true"
         aria-label={
@@ -58,7 +58,7 @@ export default function Result() {
               </h1>
             </div>
 
-            <Divider className="my-4 border-[var(--border)]" />
+            <Divider className="my-4" />
 
             <div className={cn(commonGrid)}>
               {(value as TypeNameElement[]).map((type) => (
