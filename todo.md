@@ -30,7 +30,7 @@ TODO
 
 - [x] 추천 아이콘 수정
 - [x] 아이콘들 스타일 적용
-- [ ] 결과 UI 수정
+- [x] 결과 UI 수정
 - [x] pill(포켓몬 타입): hover animation 추가
   - [x] shadow 적용
   - [x] 스타일 수정
