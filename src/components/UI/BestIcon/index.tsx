@@ -17,15 +17,15 @@ export default function BestIcon({ lang }: { lang: Language }) {
   const { t } = useTranslation()
 
   const color = isOffense
-    ? 'fill-[var(--offenseRec)] stroke-[var(--offenseRec)]'
-    : 'fill-[var(--defenseRec)] stroke-[var(--defenseRec)]'
+    ? 'fill-[var(--offenseRec)] stroke-[var(--offenseRec)] text-[var(--offenseRec)] '
+    : 'fill-[var(--defenseRec)] stroke-[var(--defenseRec)] text-[var(--defenseRec)]'
 
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>
           <div className={cn(color)} aria-label={t('a11y.bestIcon.aria-label')}>
-            <Flame className="mt-4 ml-2 h-8 w-8 rounded-full border-4 border-current p-[0.1rem]" />
+            <Flame className="ml-3 h-8 w-8 rounded-full border-4 border-current p-[0.1rem]" />
           </div>
         </TooltipTrigger>
         <TooltipContent side="top" className="text-sm font-medium">

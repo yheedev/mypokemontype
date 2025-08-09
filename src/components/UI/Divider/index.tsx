@@ -1,14 +1,15 @@
 'use client'
+import { cn } from '@/lib/utils'
 
-type DviderClassName = {
+type DividerClassName = {
   className?: string
 }
 
-export default function Divider({ className }: DviderClassName) {
+export default function Divider({ className }: DividerClassName) {
   return (
     <hr
       role="separator"
-      className="my-4 h-0.5 border-[var(--border)] sm:my-2"
+      className={cn('h-0.5 border-[var(--border)]', className)}
     />
   )
 }

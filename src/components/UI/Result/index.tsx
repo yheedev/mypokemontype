@@ -12,6 +12,7 @@ import BestIcon from '@/components/UI/BestIcon'
 import Divider from '@/components/UI/Divider'
 import { TypeNameElement } from '@/constants/pokemon'
 import { isOffensePath } from '@/utils/pathMode'
+import { cn } from '@/lib/utils'
 
 export default function Result() {
   const lang = useLanguageStore((state) => state.lang)
@@ -34,7 +35,7 @@ export default function Result() {
   return (
     <Card>
       <div
-        className="flex flex-col rounded-[22px] bg-[--color-card] p-8 sm:p-4"
+        className="flex flex-col rounded-[22px] bg-[--color-card] px-4 py-[0.8rem] sm:px-6 sm:py-3"
         aria-live="polite"
         aria-atomic="true"
         aria-label={
@@ -43,18 +44,20 @@ export default function Result() {
             : t(`a11y.results.defense.aria-label`)
         }
       >
-        {sortedArray.map(([key, value], index) => (
-          <div key={key}>
-            <div className="flex flex-row-reverse items-center justify-end">
+        {sortedArray.map(([key, value], index, arr) => (
+          <div key={key} className={cn(index !== arr.length - 1 && 'mb-7')}>
+            <div
+              className={cn('flex flex-row-reverse items-center justify-end')}
+            >
               {hasSelection && index === 0 && <BestIcon lang={lang} />}
 
-              <h1 className="text-xl font-extrabold sm:ml-2">
+              <h1 className="font-['Noto_Sans_KR'] text-xl font-extrabold">
                 {key}
                 {t('Result.x damage')}
               </h1>
             </div>
 
-            <Divider />
+            <Divider className="my-4" />
 
             <div className="mt-4 grid grid-cols-3 gap-3 sm:mt-3 sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]">
               {(value as TypeNameElement[]).map((type) => (

@@ -74,12 +74,12 @@ export const Pill = ({
       <div className="relative z-10 flex h-full w-full items-center justify-center">
         <span
           className={cn(
-            'font-[Noto Sans KR] text-[0.85rem] font-black sm:text-base',
+            "font-['Noto_Sans_KR'] text-[0.85rem] font-black sm:text-base",
             isActive ? `dark:text-[var(--card)]` : 'bg-color-card',
             lang === 'ko'
               ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
               : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
-            lang === 'ja' ? 'font-black' : 'font-black sm:font-bold',
+            lang === 'ja' ? 'text-[0.75rem]' : 'font-black sm:font-bold',
           )}
         >
           {t(`TypeName.${pokemonTypeName}`)}
