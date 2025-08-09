@@ -13,6 +13,7 @@ import Divider from '@/components/UI/Divider'
 import { TypeNameElement } from '@/constants/pokemon'
 import { isOffensePath } from '@/utils/pathMode'
 import { cn } from '@/lib/utils'
+import { commonGrid } from '@/lib/StyleClassUtil'
 
 export default function Result() {
   const lang = useLanguageStore((state) => state.lang)
@@ -45,7 +46,7 @@ export default function Result() {
         }
       >
         {sortedArray.map(([key, value], index, arr) => (
-          <div key={key} className={cn(index !== arr.length - 1 && 'mb-7')}>
+          <div key={key} className="mb-7">
             <div
               className={cn('flex flex-row-reverse items-center justify-end')}
             >
@@ -59,7 +60,7 @@ export default function Result() {
 
             <Divider className="my-4" />
 
-            <div className="mt-4 grid grid-cols-3 gap-3 sm:mt-3 sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]">
+            <div className={cn(commonGrid)}>
               {(value as TypeNameElement[]).map((type) => (
                 <Pill
                   animation={false}

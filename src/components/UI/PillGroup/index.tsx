@@ -6,7 +6,7 @@ import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
 import { TypeName } from '@/constants/pokemon'
 import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
-import { useTranslation } from 'react-i18next'
+import { commonGrid } from '@/lib/StyleClassUtil'
 
 export const PillGroup = ({
   isDarkMode,
@@ -17,7 +17,6 @@ export const PillGroup = ({
 }) => {
   const pathname = usePathname()
   const { selectedTypes, toggleType } = useUpToTwoStore()
-  const { t } = useTranslation()
 
   useEffect(() => {
     onUpdate([selectedTypes[0], selectedTypes[1]])
@@ -26,8 +25,8 @@ export const PillGroup = ({
   return (
     <div
       className={cn(
-        'grid grid-cols-3 place-items-center items-center justify-items-center sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]',
-        'justify-items-center gap-3 px-4 py-6',
+        commonGrid,
+        'mx-[0.8rem] my-8 place-items-center items-center justify-items-center',
       )}
     >
       {TypeName.map((type) => (

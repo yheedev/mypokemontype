@@ -12,6 +12,9 @@ export const modeStyle =
 export const modeTextStyle =
   'mb-1.5 inline-block sm:pb-2  sm:text-2xl sm:font-black text-lg'
 
+export const commonGrid =
+  'grid grid-cols-3 sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))] gap-x-[0.4rem] gap-y-[0.7rem] sm:gap-x-[1rem] sm:gap-y-[0.8rem]'
+
 export function getLangClass(lang: Language) {
   return twMerge(lang === 'ko' ? 'tracking-[7px]' : 'tracking-[3px]')
 }
@@ -37,15 +40,3 @@ export function getActiveMode(mode: Mode, current: Mode) {
 
   return ''
 }
-
-// example
-// export function getIconClassName() {
-//   return twMerge(
-
-//     'w-16 h-16 mx-auto flex items-center justify-center',
-//     'stroke-[hsl(var(--primary))]',
-//   )
-// }
-
-// export const menuClassName =
-//   'flex items-center gap-2 p-3 text-sub hover:text-primary rounded-md'
