@@ -74,15 +74,12 @@ export const Pill = ({
       <div className="relative z-10 flex h-full w-full items-center justify-center">
         <span
           className={cn(
-            "font-['Noto_Sans_KR']",
-            'text-[0.9rem] sm:text-[1rem] md:text-[1rem] md:font-medium',
+            "font-['Noto_Sans_KR'] text-[0.85rem] font-black sm:text-base",
             isActive ? `dark:text-[var(--card)]` : 'bg-color-card',
             lang === 'ko'
               ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
               : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
-            lang === 'ja'
-              ? 'text-[0.8rem] font-black'
-              : 'font-black sm:font-bold',
+            lang === 'ja' ? 'text-[0.8rem]' : 'font-black sm:font-bold',
           )}
         >
           {t(`TypeName.${pokemonTypeName}`)}
@@ -106,7 +103,6 @@ export const Pill = ({
 // border 4.5px
 // font-size: 0.85rem
 // font-weight: ${({ lang }) => (lang === 'jp' ? '1000' : '300')};
-// letter-spacing: ${({ lang }) => (lang === 'ko' ? '2px' : '0.5px')};
 
 // TODO
 // [x] hover 트랜지션 추가

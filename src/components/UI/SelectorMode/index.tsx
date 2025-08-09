@@ -102,12 +102,10 @@ export default function SelectorMode() {
       <div className="border-b-2 border-[var(--border)]">
         <div
           className={cn(
-            'col-span-1 text-center break-words whitespace-normal',
+            'col-span-1 text-center tracking-[0.5px] break-words whitespace-normal',
             'my-7 text-[0.95rem] font-bold lg:pt-2.5',
             'sm:pt-6 sm:text-[1.5rem] sm:font-extrabold',
-            lang === 'ko'
-              ? 'tracking-[1.5px] break-keep'
-              : 'tracking-[0.5px] break-normal',
+            lang === 'ko' ? 'break-keep' : 'break-normal',
           )}
         >
           <span>

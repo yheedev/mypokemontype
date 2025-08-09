@@ -6,7 +6,7 @@ import MoreBtn from '@/components/UI/Buttons/MoreBtn'
 
 export default function AllBtns() {
   return (
-    <div className="absolute right-10 flex translate-x-[10%] items-center gap-3 pt-4 pb-8 [--icon:3rem] sm:[--icon:3.25rem]">
+    <div className="absolute right-13 flex translate-x-[10%] items-center gap-3 pb-8 [--icon:3rem] sm:right-13 sm:[--icon:3.25rem]">
       <MoreBtn />
       <LangBtn />
       <DarkModeBtn />

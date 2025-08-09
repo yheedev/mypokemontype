@@ -33,7 +33,7 @@ export default function MoreBtn() {
             <Pokeball
               className={cn(
                 themeToggle,
-                'flex h-[3.12rem] w-[3.12rem] items-center',
+                'flex h-[3.2rem] w-[3.2rem] items-center',
               )}
             />
           </button>

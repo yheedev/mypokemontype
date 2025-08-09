@@ -36,7 +36,7 @@ export default function Result() {
   return (
     <Card>
       <div
-        className="flex flex-col rounded-[22px] bg-[--color-card] px-4 py-[0.8rem] sm:px-6 sm:py-3"
+        className="flex flex-col rounded-[22px] bg-[--color-card] px-4 sm:px-6"
         aria-live="polite"
         aria-atomic="true"
         aria-label={
@@ -52,7 +52,7 @@ export default function Result() {
             >
               {hasSelection && index === 0 && <BestIcon lang={lang} />}
 
-              <h1 className="font-['Noto_Sans_KR'] text-xl font-extrabold">
+              <h1 className="font-['Noto_Sans_KR'] text-xl font-black">
                 {key}
                 {t('Result.x damage')}
               </h1>
@@ -77,6 +77,15 @@ export default function Result() {
     </Card>
   )
 }
+
+// 결과텍스트 글씨 크기
+// pc
+// font-size: 1.25rem;
+//   font-weight: 1000;
+// 모바일
+// margin: 1em 0.64em 0rem;
+
+// 베스트아이콘 크기
 
 // import { useSelector } from 'react-redux'
 // import { RootState } from 'stores/store'
