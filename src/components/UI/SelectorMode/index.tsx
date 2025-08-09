@@ -66,6 +66,7 @@ export default function SelectorMode() {
               modeTextStyle,
               getLangClass(lang),
               mode === 'offense',
+              'mr-3',
             )}
           >
             {t('Mode.offense')}
@@ -78,9 +79,9 @@ export default function SelectorMode() {
           aria-selected={mode === 'defense'}
           onClick={() => handleSelect('defense')}
           className={cn(
-            lang === 'ko'
-              ? 'indent-[1.25rem] tracking-[7px]'
-              : 'tracking-[3px]',
+            // lang === 'ko'
+            //   ? 'indent-[1.25rem] tracking-[7px]'
+            //   : 'tracking-[3px]',
             getActiveMode('defense', mode),
             modeStyle,
             'border-l-2 border-l-[var(--border)]',
@@ -91,6 +92,7 @@ export default function SelectorMode() {
               modeTextStyle,
               getLangClass(lang),
               mode === 'defense',
+              'ml-4',
             )}
           >
             {t('Mode.defense')}
@@ -101,7 +103,7 @@ export default function SelectorMode() {
         <div
           className={cn(
             'col-span-1 text-center break-words whitespace-normal',
-            'my-8 text-[0.95rem] font-bold lg:pt-2.5',
+            'my-7 text-[0.95rem] font-bold lg:pt-2.5',
             'sm:pt-6 sm:text-[1.5rem] sm:font-extrabold',
             lang === 'ko'
               ? 'tracking-[1.5px] break-keep'

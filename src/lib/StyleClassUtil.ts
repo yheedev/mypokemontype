@@ -10,7 +10,7 @@ export const modeStyle =
   'flex items-center justify-center justify-items-center border-t-0 border-r-0 border-l-0 sm:px-[4rem] sm:py-2 sm:pb-6 pb-2 text-center align-middle md:py-2 lg:pt-2'
 
 export const modeTextStyle =
-  'mb-2 inline-block  sm:pb-2  sm:text-2xl sm:font-black text-lg'
+  'mb-1.5 inline-block sm:pb-2  sm:text-2xl sm:font-black text-lg'
 
 export function getLangClass(lang: Language) {
   return twMerge(lang === 'ko' ? 'tracking-[7px]' : 'tracking-[3px]')
