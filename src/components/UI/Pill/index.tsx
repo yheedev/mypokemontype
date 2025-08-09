@@ -35,55 +35,60 @@ export const Pill = ({
 
   return (
     <div
-      lang={lang}
-      onClick={handleClick}
-      aria-label={t(`TypeName.${pokemonTypeName}`)}
       className={cn(
-        'group pillShadow relative flex cursor-pointer items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
-        'dutation-200 transition-all ease-in-out',
-        'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px]', // pc
-        'md:border-6px', // 태블릿
-        'h-[2.6rem] w-[4.8rem] border-[4.5px]', // 모바일
-
+        'pillShadow',
         isDarkMode ? 'shadowPill' : 'shadowBtn',
         onClick ? 'cursor-pointer' : 'cursor-default',
-        isActive ? 'z-10' : 'z-0',
       )}
-      style={{
-        borderColor: `var(--${pokemonTypeName})`,
-        backgroundColor: isActive
-          ? `var(--${pokemonTypeName})`
-          : `var(--color-card)`,
-      }}
     >
       <div
+        lang={lang}
+        onClick={handleClick}
+        aria-label={t(`TypeName.${pokemonTypeName}`)}
         className={cn(
-          'absolute bottom-0 left-0 h-full w-full transition-transform duration-300 ease-in-out',
-          animation
-            ? isActive
-              ? 'translate-y-0'
-              : 'translate-y-full group-hover:translate-y-0'
-            : 'translate-y-0',
+          'group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
+          'dutation-200 transition-all ease-in-out',
+          'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px]', // pc
+          'md:border-6px', // 태블릿
+          'h-[2.6rem] w-[4.8rem] border-[4.5px]', // 모바일
+          isActive ? 'z-10' : 'z-0',
         )}
         style={{
-          backgroundColor: animation
+          borderColor: `var(--${pokemonTypeName})`,
+          backgroundColor: isActive
             ? `var(--${pokemonTypeName})`
-            : 'var(--color-card)',
+            : `var(--color-card)`,
         }}
-      />
-      <div className="relative z-10 flex h-full w-full items-center justify-center">
-        <span
+      >
+        <div
           className={cn(
-            "font-['Noto_Sans_KR'] text-[0.85rem] font-black sm:text-base",
-            isActive ? `dark:text-[var(--card)]` : 'bg-color-card',
-            lang === 'ko'
-              ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
-              : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
-            lang === 'ja' ? 'text-[0.8rem]' : 'font-black sm:font-bold',
+            'absolute bottom-0 left-0 h-full w-full transition-transform duration-300 ease-in-out',
+            animation
+              ? isActive
+                ? 'translate-y-0'
+                : 'translate-y-full group-hover:translate-y-0'
+              : 'translate-y-0',
           )}
-        >
-          {t(`TypeName.${pokemonTypeName}`)}
-        </span>
+          style={{
+            backgroundColor: animation
+              ? `var(--${pokemonTypeName})`
+              : 'var(--color-card)',
+          }}
+        />
+        <div className="relative z-10 flex h-full w-full items-center justify-center">
+          <span
+            className={cn(
+              "font-['Noto_Sans_KR'] text-[0.85rem] font-black sm:text-base",
+              isActive ? `dark:text-[var(--card)]` : 'bg-color-card',
+              lang === 'ko'
+                ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
+                : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
+              lang === 'ja' ? 'text-[0.8rem]' : 'font-black sm:font-bold',
+            )}
+          >
+            {t(`TypeName.${pokemonTypeName}`)}
+          </span>
+        </div>
       </div>
     </div>
   )
