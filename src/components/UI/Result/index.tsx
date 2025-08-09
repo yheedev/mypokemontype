@@ -58,7 +58,7 @@ export default function Result() {
               </h1>
             </div>
 
-            <Divider className="my-4" />
+            <Divider className="my-4 border-[var(--border)]" />
 
             <div className={cn(commonGrid)}>
               {(value as TypeNameElement[]).map((type) => (

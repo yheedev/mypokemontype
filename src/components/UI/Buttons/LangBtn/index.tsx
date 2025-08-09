@@ -63,28 +63,37 @@ export default function LangBtn() {
       </TooltipProvider>
 
       <DialogContent className="w-60 text-center">
-        <h2 className="mb-4 text-lg font-bold">{t('language.settings')}</h2>
+        <h2 className="mb-4 text-[1.3rem] font-bold">
+          {t('language.settings')}
+        </h2>
 
-        {supportedLangs.map((l, i) => (
-          <div key={l} className="flex w-full flex-col items-center">
-            <DialogClose asChild>
-              <button
-                onClick={() => changeLang(l)}
-                disabled={isPending || l === lang}
-                aria-current={l === lang ? 'true' : undefined}
-                className={cn(
-                  'w-24 rounded-md px-2 py-1 text-center text-base font-semibold transition-colors',
-                  l === lang
-                    ? 'cursor-default text-[--offenseRec]/10 hover:cursor-default'
-                    : 'text-[--color-modalText] hover:bg-[--offenseRec]/5 hover:text-[--offenseRec]',
-                )}
-              >
-                {t(`language.${l}`)}
-              </button>
-            </DialogClose>
-            {i < supportedLangs.length - 1 && <Divider />}
-          </div>
-        ))}
+        <ul className="w-full">
+          {supportedLangs.map((l, i) => (
+            <li key={l} className="w-full">
+              <DialogClose asChild>
+                <button
+                  onClick={() => changeLang(l)}
+                  disabled={isPending || l === lang}
+                  aria-current={l === lang ? 'true' : undefined}
+                  className={cn(
+                    'w-24 rounded-md px-2 py-1 text-center text-base font-semibold transition-colors',
+                    'aria-[current=true]:cursor-default aria-[current=true]:ring-1 aria-[current=true]:ring-[--offenseRec]/25',
+                    'text-[--color-modalText] hover:bg-[--offenseRec]/10 hover:text-[--offenseRec]',
+                    'disabled:pointer-events-none disabled:opacity-100 disabled:hover:bg-transparent disabled:hover:text-[--color-modalText]',
+                  )}
+                >
+                  {t(`language.${l}`)}
+                  {l === lang && (
+                    <span className="ml-2 text-[--offenseRec]">✓</span>
+                  )}
+                </button>
+              </DialogClose>
+              {i < supportedLangs.length - 1 && (
+                <Divider className="my-3 w-full border-[var(--charcoal)] dark:border-[var(--border)]" />
+              )}
+            </li>
+          ))}
+        </ul>
       </DialogContent>
     </Dialog>
   )
@@ -92,9 +101,10 @@ export default function LangBtn() {
 
 // TODO
 
-// [ ] 이미 선택된 언어에 highlight/click disable
-// [ ] 글로브 크기 조절
-// [ ] X 버튼 하단에 위치 우측상단/hover bg
+// [ ] 이미 선택된 언어에 highlight
+// [x]  click disable
+// [x] 글로브 크기 조절
+// [x] X 버튼 하단에 위치 우측상단/hover bg
 // [x] setting 텍스트 렌더링
 // [x] 언어 선택 다시 하면 왜 메인페이지에서 방어 계산되는거임
 // [x] 새로고침해야 반영되는거 고치기
