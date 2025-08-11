@@ -78,13 +78,13 @@ export default function LangBtn() {
                   className={cn(
                     'w-24 rounded-md px-2 py-1 text-center text-base font-semibold transition-colors',
                     'aria-[current=true]:cursor-default aria-[current=true]:ring-1 aria-[current=true]:ring-[--offenseRec]/25',
-                    'text-[--color-modalText] hover:bg-[--offenseRec]/10 hover:text-[--offenseRec]',
+                    'text-[--color-modalText]',
                     'disabled:pointer-events-none disabled:opacity-100 disabled:hover:bg-transparent disabled:hover:text-[--color-modalText]',
                   )}
                 >
                   {t(`language.${l}`)}
                   {l === lang && (
-                    <span className="ml-2 text-[--offenseRec]">✓</span>
+                    <span className="ml-2 text-[var(--offenseRec)]">✓</span>
                   )}
                 </button>
               </DialogClose>
@@ -101,7 +101,7 @@ export default function LangBtn() {
 
 // TODO
 
-// [ ] 이미 선택된 언어에 highlight
+// [x] 이미 선택된 언어에 highlight
 // [x]  click disable
 // [x] 글로브 크기 조절
 // [x] X 버튼 하단에 위치 우측상단/hover bg
