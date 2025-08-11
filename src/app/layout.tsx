@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     siteName: 'My Pokemon Type',
     images: [
       {
-        url: '../public/img/ico/favicon_light.ico',
+        url: '/img/ico/favicon_light.ico',
         width: 1200,
         height: 630,
         alt: 'My Pokemon Type | 포켓몬 타입 계산기',
@@ -66,35 +66,35 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        href: '../public/img/ico/favicon_light.ico',
-        url: '../public/img/ico/favicon_light.ico',
-        type: '../public/img/x-icon',
+        href: '/img/ico/favicon_light.ico',
+        url: '/img/ico/favicon_light.ico',
+        type: '/img/x-icon',
       },
       {
-        url: '../public/img/ico/web-app-manifest-192x192.png',
+        url: '/img/ico/web-app-manifest-192x192.png',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        url: '../public/img/ico/web-app-manifest-512x512.png',
+        url: '/img/ico/web-app-manifest-512x512.png',
         sizes: '512x512',
         type: 'image/png',
       },
     ],
     apple: [
       {
-        url: '../public/img/ico/apple-touch-icon.png',
+        url: '/img/ico/apple-touch-icon.png',
         sizes: '180x180',
       },
     ],
     other: [
       {
         rel: 'mask-icon',
-        url: '../public/img/ico/safari-pinned-tab.svg',
+        url: '/img/ico/safari-pinned-tab.svg',
         color: '#dddbdb',
       },
     ],
-    shortcut: '../public/img/ico/favicon_light.ico',
+    shortcut: '/img/ico/favicon_light.ico',
   },
   manifest: '/img/ico/manifest.json',
   appleWebApp: {
