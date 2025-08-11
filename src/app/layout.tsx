@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './global.css'
-import Head from 'next/head'
+import { Noto_Sans_KR } from 'next/font/google'
 
 export const metadata: Metadata = {
   title: {
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     siteName: 'My Pokemon Type',
     images: [
       {
-        url: 'img/ico/favicon_light.ico',
+        url: '../public/img/ico/favicon_light.ico',
         width: 1200,
         height: 630,
         alt: 'My Pokemon Type | 포켓몬 타입 계산기',
@@ -66,36 +66,57 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        href: 'img/ico/favicon_light.ico',
-        url: 'img/ico/favicon_light.ico',
-        type: 'img/x-icon',
+        href: '../public/img/ico/favicon_light.ico',
+        url: '../public/img/ico/favicon_light.ico',
+        type: '../public/img/x-icon',
       },
       {
-        url: '/img/ico/apple-icon.png',
-        rel: 'apple-touch-icon',
-        sizes: '180x180',
-      },
-      {
-        url: '/img/ico/web-app-manifest-192x192.png',
+        url: '../public/img/ico/web-app-manifest-192x192.png',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        url: '/img/ico/web-app-manifest-512x512.png',
+        url: '../public/img/ico/web-app-manifest-512x512.png',
         sizes: '512x512',
         type: 'image/png',
       },
     ],
-    shortcut: '/img/ico/favicon_light.ico',
+    apple: [
+      {
+        url: '../public/img/ico/apple-touch-icon.png',
+        sizes: '180x180',
+      },
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '../public/img/ico/safari-pinned-tab.svg',
+        color: '#dddbdb',
+      },
+    ],
+    shortcut: '../public/img/ico/favicon_light.ico',
   },
-  manifest: '/img/ico/manifest.json', // 웹 앱 정보
+  manifest: '/img/ico/manifest.json',
   appleWebApp: {
     capable: true,
     title: 'My Pokemon Type',
     statusBarStyle: 'default',
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: '#dddbdb',
 }
+
+export const noto = Noto_Sans_KR({
+  weight: ['700', '900'],
+  display: 'swap',
+  preload: true,
+  variable: '--font-noto',
+  subsets: ['latin'],
+})
 
 export default function RootLayout({
   children,
@@ -103,18 +124,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ko">
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1"
-        ></meta>
-        <link
-          rel="mask-icon"
-          href="/img/ico/safari-pinned-tab.svg"
-          color="#dddbdb"
-        />
-      </Head>
+    <html lang="ko" className={`${noto.variable} ${noto.className}`}>
       <body>
         <div>{children}</div>
       </body>
