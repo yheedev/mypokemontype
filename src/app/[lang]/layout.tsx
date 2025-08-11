@@ -62,7 +62,7 @@ export default function LangLayout({
 
   if (!ready) {
     return (
-      <div className="m-4 grid grid-cols-1 gap-12 p-4 xl:grid-cols-2">
+      <div className="m-4 mt-50 grid grid-cols-1 gap-12 p-4 xl:grid-cols-2">
         {[0, 1].map((k) => (
           <div
             key={k}

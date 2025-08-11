@@ -17,6 +17,7 @@ import {
 } from '@/components/UI/Tooltip'
 import {
   Dialog,
+  DialogTitle,
   DialogContent,
   DialogTrigger,
   DialogClose,
@@ -63,9 +64,9 @@ export default function LangBtn() {
       </TooltipProvider>
 
       <DialogContent className="w-60 text-center">
-        <h2 className="mb-4 text-[1.3rem] font-bold">
+        <DialogTitle className="mb-4 text-[1.3rem] font-bold">
           {t('language.settings')}
-        </h2>
+        </DialogTitle>
 
         <ul className="w-full">
           {supportedLangs.map((l, i) => (

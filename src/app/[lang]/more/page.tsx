@@ -2,36 +2,46 @@
 
 import Card from '@/components/UI/Card'
 import { useTranslation } from 'react-i18next'
+import { useLanguageStore } from '@/stores/useLanguageStore'
 import Divider from '@/components/UI/Divider'
+import { cn } from '@/lib/utils'
 
-export default function More({ params }: { params: { lang: string } }) {
+export default function More() {
   const { t } = useTranslation()
+  const { lang } = useLanguageStore()
 
   return (
-    <main>
-      {' '}
-      {/* Container */}
-      <Card className="flex-row flex-wrap items-center justify-center gap-8 p-12 sm:mx-8 sm:mt-12 sm:mb-8 md:mx-44 md:my-16">
-        <img
-          src="/img/Lucario.webp"
-          alt={t(`lucario.aria-label`)}
-          className="sm:w-48 md:w-64"
-          loading="lazy"
-          decoding="async"
-        />
-        <div className="sm:mt-4">
-          <h1 className="">{t('a11y.contact.text')}</h1>
-          <br />
+    <Card className="mx-auto mt-8 mb-10 w-full max-w-[300px] flex-row flex-wrap items-center justify-center gap-8 p-12 sm:max-w-[960px] md:max-w-[600px]">
+      <img
+        src="/img/Lucario.webp"
+        alt={t(`lucario.aria-label`)}
+        className="sm:w-48 md:w-64"
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="sm-4">
+        <div className="font-[Helios] text-base sm:text-2xl">
+          <h1 className={cn(lang === 'en' ? 'font-normal' : 'font-black')}>
+            {t('a11y.contact.text')}:
+          </h1>
           <p aria-label={t('a11y.contact.aria-label')}>yheedev@gmail.com</p>
-          <Divider className="mx-4" />
-          <p className="font-[NotoSans] text-base sm:text-[0.8rem]">
-            {t('a11y.contact.info')}
-          </p>
         </div>
-      </Card>
-    </main>
+        <Divider className="my-4 sm:my-7" />
+        <p
+          className={cn(
+            lang === 'en' ? 'font-normal' : 'font-black',
+            'font-[NotoSans] text-[0.8rem] sm:text-base',
+          )}
+        >
+          {t('a11y.contact.info')}
+        </p>
+      </div>
+    </Card>
   )
 }
+
+//
+
 // import Title from '../components/Title'
 // import styled from 'styled-components'
 // import { Container, Card } from '../components/Selector'
@@ -65,6 +75,12 @@ export default function More({ params }: { params: { lang: string } }) {
 //     </>
 //   )
 // }
+
+// container = card
+
+// pc: my-3rem mx-
+
+// moreCard = card 내 div
 
 // export const MoreCard = styled(Card)`
 //   flex-direction: row;
