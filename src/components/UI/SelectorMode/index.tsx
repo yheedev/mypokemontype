@@ -48,7 +48,7 @@ export default function SelectorMode() {
 
   return (
     <>
-      <div className="color-[--text] mt-1 grid cursor-pointer grid-cols-2 justify-evenly font-extrabold">
+      <div className="color-[--text] grid cursor-pointer grid-cols-2 justify-evenly font-extrabold">
         <Link
           href={PATH().offense}
           aria-label={t('a11y.selectorMode.offense.aria-label')}
@@ -79,9 +79,6 @@ export default function SelectorMode() {
           aria-selected={mode === 'defense'}
           onClick={() => handleSelect('defense')}
           className={cn(
-            // lang === 'ko'
-            //   ? 'indent-[1.25rem] tracking-[7px]'
-            //   : 'tracking-[3px]',
             getActiveMode('defense', mode),
             modeStyle,
             'border-l-2 border-l-[var(--border)]',
@@ -103,8 +100,8 @@ export default function SelectorMode() {
         <div
           className={cn(
             'col-span-1 text-center tracking-[0.5px] break-words whitespace-normal',
-            'my-7 text-[0.95rem] font-bold lg:pt-2.5',
-            'sm:pt-6 sm:text-[1.5rem] sm:font-extrabold',
+            'my-7 text-[0.95rem] font-bold',
+            'sm:text-[1.5rem] sm:font-extrabold',
             lang === 'ko' ? 'break-keep' : 'break-normal',
           )}
         >

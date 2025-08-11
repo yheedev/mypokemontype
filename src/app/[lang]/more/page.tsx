@@ -29,7 +29,7 @@ export default function More() {
         <Divider className="my-4 sm:my-7" />
         <p
           className={cn(
-            lang === 'en' ? 'font-normal' : 'font-black',
+            lang === 'ko' ? 'font-bold' : 'font-black',
             'font-[NotoSans] text-[0.8rem] sm:text-base',
           )}
         >
