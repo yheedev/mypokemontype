@@ -28,7 +28,14 @@ My Pokemon Type은 포켓몬 배틀에서 가장 중요한 타입 상성을 직�
 
 # 사용 스택
 
-2025. 7: 현재 Next.js 15, Zustand, Tailwind CSS로 마이그레이션 중입니다
+### 마이그레이션 이후
+
+- TypeScript, Next.js 15 (App Route), React
+- Zustand-persist
+- Tailwind, Radix UI
+- Vercel
+
+### 이전
 
 - TypeScript, React, React-router-dom
 - 상태 관리: Redux-toolkit, Redux-persist
