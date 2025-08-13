@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supportedLangs } from './types/language'
 
+export const config = {
+  matcher: ['/((?!api|_next|.*\\..*|favicon.ico|robots.txt|sitemap.xml).*)'],
+}
+
 export function middleware(req: NextRequest) {
   const url = req.nextUrl
   const pathname = url.pathname
@@ -13,8 +17,4 @@ export function middleware(req: NextRequest) {
   }
 
   return NextResponse.next()
-}
-
-export const config = {
-  matcher: ['/'],
 }

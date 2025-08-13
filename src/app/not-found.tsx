@@ -3,11 +3,11 @@
 import Card from '@/components/UI/Card'
 import Divider from '@/components/UI/Divider'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import { PATH } from '@/app/routes'
+import { notFound } from 'next/navigation'
 
-export default function NotFoundPage({ params }: { params: { lang: string } }) {
+export default function notFoundPage() {
   const { t } = useTranslation()
 
   return (
