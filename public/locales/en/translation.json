@@ -32,8 +32,11 @@
     "settings": "Language",
     "ko": "Korean",
     "en": "English",
-    "ja": "Japanese",
-    "notFound": "The address is incorrect or the page does not exist."
+    "ja": "Japanese"
+  },
+  "notFound": {
+    "description": "The page you are looking for does not exist.",
+    "backToMain": "Main"
   },
   "a11y": {
     "title": {

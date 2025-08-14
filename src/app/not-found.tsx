@@ -1,38 +1,28 @@
 'use client'
 
-import Card from '@/components/UI/Card'
-import Divider from '@/components/UI/Divider'
-import Link from 'next/link'
-import { useTranslation } from 'react-i18next'
-import { PATH } from '@/app/routes'
+import { useEffect, useState } from 'react'
+import { initI18n, i18n } from '@/lib/i18n'
+import { supportedLangs } from '@/types/language'
+import NotFoundView from '@/components/NotFoundView'
 
-export default function notFoundPage() {
-  const { t } = useTranslation()
+export default function GlobalNotFound() {
+  const [ready, setReady] = useState(false)
 
-  return (
-    <main>
-      <div
-        aria-hidden
-        className="anim-sweep pointer-events-none absolute top-1/3 left-0 transform-gpu"
-      >
-        <img
-          src="/img/LucarioDoll.webp"
-          alt=""
-          draggable="true"
-          className="rotate-[50deg] opacity-70 select-none"
-        />
-      </div>
-      <Card className="flex-row flex-wrap items-center justify-center gap-8 p-12 sm:mx-8 sm:mt-12 sm:mb-8 md:mx-44 md:my-16">
-        <h1 className="text-3xl font-bold">{t('language.notFound')}</h1>
-        <Divider />
-        <button>
-          {' '}
-          <Link
-            href={PATH().offense}
-            className="mt-6 rounded bg-[--offenseRec] px-6 py-2 font-semibold text-white hover:opacity-90"
-          ></Link>
-        </button>
-      </Card>
-    </main>
-  )
+  const detected = (() => {
+    if (typeof window === 'undefined') return 'ko'
+    const seg = window.location.pathname.split('/').filter(Boolean)[0]
+    return supportedLangs.includes(seg as any) ? seg : 'ko'
+  })()
+
+  useEffect(() => {
+    ;(async () => {
+      await initI18n(detected)
+      await i18n.changeLanguage(detected)
+      setReady(true)
+    })()
+  }, [detected])
+
+  if (!ready) return null
+
+  return <NotFoundView />
 }
