@@ -31,8 +31,8 @@ My Pokemon Type은 포켓몬 배틀에서 가장 중요한 타입 상성을 직�
 ### 마이그레이션 이후
 
 - TypeScript, Next.js 15 (App Route), React
-- Zustand-persist
-- Tailwind, Radix UI
+- Zustand-persist, i18n
+- Tailwind, clsx, Radix UI
 - Vercel
 
 ### 이전
