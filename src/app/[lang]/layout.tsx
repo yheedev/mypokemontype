@@ -11,6 +11,7 @@ import Title from '@/components/UI/Title'
 import { Skeleton } from '@/components/UI/Skeleton'
 import { initI18n, i18n } from '@/lib/i18n'
 import Favicon from '@/components/UI/Favicon'
+import { notFound } from 'next/navigation'
 
 export default function LangLayout({
   children,
@@ -59,6 +60,8 @@ export default function LangLayout({
 
     runInit()
   }, [lang])
+
+  if (!supportedLangs.includes(lang as Language)) notFound()
 
   if (!ready) {
     return (

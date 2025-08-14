@@ -126,7 +126,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${noto.variable} ${noto.className}`}>
       <body>
-        <div>{children}</div>
+        <main>{children}</main>
       </body>
     </html>
   )

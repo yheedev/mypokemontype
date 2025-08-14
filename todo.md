@@ -11,7 +11,7 @@ TODO
 - [x] 스켈레톤 적용
   - [x] 스켈레톤 사이즈 수정
 - [ ] 새로운 도메인 구입
-- [ ] 404 페이지 추가 ({ notFound } from 'next/navigation')
+- [x] 404 페이지 추가 ({ notFound } from 'next/navigation')
 - [ ] i18n 미들웨어 수정: 접속 위치 파악
 - [ ] 이스터에그
 
