@@ -1,10 +1,9 @@
-// src/app/[lang]/not-found.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { initI18n, i18n } from '@/lib/i18n'
-import NotFoundView from '@/components/NotFoundView' // 같은 뷰 재사용
+import NotFoundView from '@/components/NotFoundView'
 
 export default function NotFoundInLang() {
   const { lang } = useParams() as { lang: string }

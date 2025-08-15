@@ -133,22 +133,14 @@ body {
   }
 }
 
-@keyframes sweep-x {
+@keyframes sway-loop {
   0% {
-    transform: translate3d(-15vw, 0, 0);
+    transform: translateX(-60px) rotate(-3deg);
+  }
+  50% {
+    transform: translateX(60px) rotate(3deg);
   }
   100% {
-    transform: translate3d(100vw, 0, 0);
-  }
-}
-
-.anim-sweep {
-  animation: sweep-x 30s linear infinite;
-  will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .anim-sweep {
-    animation: none;
+    transform: translateX(-60px) rotate(-3deg);
   }
 }
