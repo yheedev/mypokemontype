@@ -1,9 +1,9 @@
-import { redirect } from 'next/navigation'
-import { PATH } from '@/app/routes'
+// import { redirect } from 'next/navigation'
+// import { PATH } from '@/app/routes'
 
-export default function Main() {
-  redirect(PATH().offense)
-}
+// export default function Main() {
+//   redirect(PATH().offense)
+// }
 
 // return (
 //   <main>

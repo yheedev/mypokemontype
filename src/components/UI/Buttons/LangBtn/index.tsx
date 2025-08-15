@@ -4,7 +4,6 @@ import { Globe } from 'lucide-react'
 import { supportedLangs, Language } from '@/types/language'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useTranslation } from 'react-i18next'
-import { initI18n } from '@/lib/i18n'
 import { i18n } from '@/lib/i18n'
 import { useTransition, useMemo, useCallback } from 'react'
 import { cn } from '@/lib/utils'
@@ -23,6 +22,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from '@/components/UI/Dialog'
+import { setLocaleCookie } from '@/app/setLocale'
 
 export default function LangBtn() {
   const { lang, setLanguage } = useLanguageStore()
@@ -36,40 +36,37 @@ export default function LangBtn() {
     [pathname],
   )
 
+  // const buildHref = useCallback(
+  //   (next: Language) => {
+  //     const nextSegs = [...segs]
+  //     if (nextSegs.length === 0) return `/${next}`
+  //     nextSegs[0] = next
+  //     return '/' + nextSegs.join('/')
+  //   },
+  //   [segs],
+  // )
   const buildHref = useCallback(
     (next: Language) => {
-      // /ko, /ko/defense, /ㅇㅇ 등 어디서든 첫 세그먼트를 언어로 교체
-      const nextSegs = [...segs]
-      if (nextSegs.length === 0) return `/${next}`
-      nextSegs[0] = next
-      return '/' + nextSegs.join('/')
+      const p = pathname || '/'
+      const replaced = p.replace(/^\/(ko|ja|en)(?=\/|$)/, `/${next}`)
+      if (replaced !== p) return replaced
+      return p === '/' ? `/${next}` : `/${next}${p}`
     },
-    [segs],
+    [pathname],
   )
 
   const changeLang = useCallback(
     (next: Language) => {
       if (next === lang) return
       startTransition(async () => {
-        await i18n.changeLanguage(next) // ✅ 재초기화 금지
-        setLanguage(next) // zustand 동기화
-        router.replace(buildHref(next)) // URL 언어만 바꾸고 나머지 경로 유지
+        await setLocaleCookie(next)
+        await i18n.changeLanguage(next)
+        setLanguage(next)
+        router.replace(buildHref(next))
       })
     },
     [lang, buildHref, router, setLanguage, startTransition],
   )
-
-  // const changeLang = (l: Language) => {
-  //   if (l === lang) return
-  //   startTransition(async () => {
-  //     await initI18n(l)
-  //     setLanguage(l)
-
-  //     const segments = pathname.split('/')
-  //     segments[1] = l
-  //     router.replace(segments.join('/'))
-  //   })
-  // }
 
   return (
     <Dialog>
