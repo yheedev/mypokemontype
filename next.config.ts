@@ -3,9 +3,6 @@ import path from 'path'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  experimental: {
-    turbo: false,
-  } as any,
   webpack: (config: any) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
