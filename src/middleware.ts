@@ -13,7 +13,7 @@ function countryToLocale(country?: string): Language | null {
   return null
 }
 
-function acceptLanguageToLocale(req: NextRequest): Language {
+function negotiateLocale(req: NextRequest): Language {
   const h = (req.headers.get('accept-language') || '').toLowerCase()
   if (h.includes('ko')) return 'ko'
   if (h.includes('ja')) return 'ja'
@@ -41,9 +41,14 @@ export default function middleware(req: NextRequest) {
   }
 
   const geo = geolocation(req)
-  const localeFromCountry = countryToLocale(geo.country)
+  const fromCountry = countryToLocale(geo.country)
 
-  const locale: Language = localeFromCountry ?? acceptLanguageToLocale(req)
+  let locale: Language
+  if (geo.country) {
+    locale = fromCountry ?? 'en'
+  } else {
+    locale = negotiateLocale(req)
+  }
 
   const res = NextResponse.redirect(new URL(`/${locale}${pathname}`, req.url))
   res.cookies.set('lang', locale, {
@@ -55,5 +60,8 @@ export default function middleware(req: NextRequest) {
   })
 
   res.headers.set('Vary', 'X-Vercel-IP-Country, Accept-Language, Cookie')
+
+  res.headers.set('X-Debug-Country', geo.country ?? 'none')
+  res.headers.set('X-Debug-Decision', locale)
   return res
 }
