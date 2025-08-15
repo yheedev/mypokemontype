@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://mypkmn.info',
+    canonical: 'https://mypokemontype.vercel.app',
   },
-  metadataBase: new URL('https://mypkmn.info'),
+  metadataBase: new URL('https://mypokemontype.vercel.app'),
   openGraph: {
     title: 'My Pokemon Type | 포켓몬 타입 계산기',
     description: '포켓몬 배틀을 위한 타입 상성 계산기',
-    url: 'https://mypkmn.info',
+    url: 'https://mypokemontype.vercel.app',
     siteName: 'My Pokemon Type',
     images: [
       {
