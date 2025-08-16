@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './global.css'
 import { Noto_Sans_KR } from 'next/font/google'
+import localFont from 'next/font/local'
 
 export const metadata: Metadata = {
   title: {
@@ -118,13 +119,34 @@ export const noto = Noto_Sans_KR({
   subsets: ['latin'],
 })
 
+const helios = localFont({
+  src: [
+    {
+      path: '../../public/HeliosExtBlack.woff',
+      style: 'normal',
+      weight: '400 700 900',
+    },
+  ],
+
+  display: 'swap',
+  preload: true,
+  variable: '--font-helios',
+  fallback: ['system-ui', 'Arial'],
+})
+//TODO
+// [ ] 다운로드 받기
+// [ ] 사용중인 font-weight 찾아서 작성
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="ko" className={`${noto.variable} ${noto.className}`}>
+    <html
+      lang="ko"
+      className={`${noto.variable} ${helios.variable} ${noto.className}`}
+    >
       <body>
         <main>{children}</main>
       </body>

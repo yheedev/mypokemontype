@@ -5,8 +5,8 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     fontFamily: {
-      helios: ['Helios', 'sans-serif'],
-      noto: ['var(--font-noto)', 'sans-serif'],
+      helios: ['var(--font-helios)', 'system-ui', 'sans-serif'],
+      noto: ['var(--font-noto)', 'var(--font-noto)', 'sans-serif'],
     },
     screens: {
       sm: { min: '280px', max: '767px' },

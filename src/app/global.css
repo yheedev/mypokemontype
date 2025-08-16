@@ -3,11 +3,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
+/* @font-face {
   font-family: 'Helios';
   src: url('https://db.onlinewebfonts.com/t/fd18e391776fea6256be11db6ed387f8.woff2')
     format('woff2');
   font-display: swap;
+} */
+
+.font-\[Helios\] {
+  font-family:
+    var(--font-helios), var(--font-noto), system-ui, Arial, sans-serif;
 }
 
 html {
