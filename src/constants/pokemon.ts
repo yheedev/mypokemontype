@@ -21,7 +21,7 @@ export const TypeName = [
 
 export type TypeNameElement = (typeof TypeName)[number]
 
-export const TypeValue: { [key: string]: ReadonlyArray<number> } = {
+export const TypeValue: Record<TypeNameElement, ReadonlyArray<number>> = {
   normal: [1, 1, 1, 1, 1, 0.5, 1, 0, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   fighting: [2, 1, 0.5, 0.5, 1, 2, 0.5, 0, 2, 1, 1, 1, 1, 0.5, 2, 1, 2, 0.5],
   flying: [1, 2, 1, 1, 1, 0.5, 2, 1, 0.5, 1, 1, 2, 0.5, 1, 1, 1, 1, 1],

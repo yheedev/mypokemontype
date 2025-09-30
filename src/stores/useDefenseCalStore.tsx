@@ -1,65 +1,27 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { TypeCalState } from '@/types/calState'
-import { TypeName, TypeValue } from '@/constants/pokemon'
-import { allTypes1x } from '@/utils/allTypes1x'
-import {
-  EMPTY_EFFECTIVENESS_MAP,
-  EFFECT_VALUES,
-} from '@/constants/effectiveness'
+import { defenseCal } from '@/utils/defenseCal'
+import type { SelectedTypes } from '@/constants/effectiveness'
 
-const getDefenseColumn = (defType: string): number[] => {
-  const index = TypeName.indexOf(defType as any)
-  return Object.values(TypeValue).map((row) => row[index])
+type State = {
+  result: ReturnType<typeof defenseCal>
+  type1?: Parameters<typeof defenseCal>[0]
+  type2?: Parameters<typeof defenseCal>[1]
+  calculate: (params: SelectedTypes) => void
 }
 
-export const useDefenseCalStore = create<TypeCalState>()(
+export const useDefenseCalStore = create<State>()(
   persist(
     (set) => ({
-      result: {},
+      result: defenseCal(),
       type1: undefined,
       type2: undefined,
-
-      calculate: ({ type1, type2 }) => {
-        const effectiveness = structuredClone(EMPTY_EFFECTIVENESS_MAP)
-        // 아무 타입도 선택하지 않음
-        let combined: number[] = allTypes1x() as number[]
-
-        // 단일 타입 선택
-        if (type1 && !type2) {
-          combined = getDefenseColumn(type1)
-        }
-
-        // 이중 타입 선택
-        if (type1 && type2) {
-          const arr1 = getDefenseColumn(type1)
-          const arr2 = type1 === type2 ? allTypes1x() : getDefenseColumn(type2)
-
-          combined = arr1.map((v1, i) => {
-            const val = v1 * arr2[i]
-            return EFFECT_VALUES.includes(val as (typeof EFFECT_VALUES)[number])
-              ? val
-              : 1
-          })
-        }
-        combined.forEach((v, i) => {
-          effectiveness[v.toString()].push(TypeName[i])
-        })
-
-        set(() => ({
-          result: effectiveness,
-          type1,
-          type2,
-        }))
-      },
+      calculate: ({ type1, type2 }) =>
+        set({ result: defenseCal(type1, type2), type1, type2 }),
     }),
     {
       name: 'mypkmn-defenseCal',
-      partialize: (state) => ({
-        result: state.result,
-        type1: state.type1,
-        type2: state.type2,
-      }),
+      partialize: (s) => ({ type1: s.type1, type2: s.type2 }),
     },
   ),
 )

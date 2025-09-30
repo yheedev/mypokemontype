@@ -1,8 +1,9 @@
 import { create } from 'zustand'
+import { TypeName, type TypeNameElement as TypeId } from '@/constants/pokemon'
 
 interface SelectedTypesState {
-  selectedTypes: string[]
-  toggleType: (type: string) => void
+  selectedTypes: TypeId[]
+  toggleType: (type: TypeId) => void
   resetTypes: () => void
 }
 

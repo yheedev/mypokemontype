@@ -1,62 +1,31 @@
-'use client'
-
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { TypeCalState } from '@/types/calState'
-import { TypeName } from '@/constants/pokemon'
-import { allTypes1x } from '@/utils/allTypes1x'
-import { EMPTY_EFFECTIVENESS_MAP } from '@/constants/effectiveness'
+import { offenseCal } from '@/utils/offenseCal'
+import type { SelectedTypes, TypeCalState } from '@/constants/effectiveness'
 
-export const useOffenseCalStore = create<TypeCalState>()(
+type State = Omit<
+  TypeCalState<keyof ReturnType<typeof offenseCal>>,
+  'result'
+> & {
+  result: ReturnType<typeof offenseCal>
+}
+
+export const useOffenseCalStore = create<State>()(
   persist(
     (set) => ({
-      result: {},
+      result: offenseCal(),
       type1: undefined,
       type2: undefined,
-
-      calculate: ({ type1, type2 }) => {
-        const effectiveness = structuredClone(EMPTY_EFFECTIVENESS_MAP)
-
-        if (!type1 && !type2) {
-          const base = allTypes1x()
-          base.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        } else if (type1 && !type2) {
-          const base = allTypes1x(type1)
-          base.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        } else {
-          const base1 = allTypes1x(type1)
-          const base2 = allTypes1x(type1 === type2 ? undefined : type2)
-          const combined = base1.map((v, i) => Math.max(v, base2[i]))
-
-          combined.forEach((value, index) => {
-            const key = value.toString()
-            if (key in effectiveness) effectiveness[key].push(TypeName[index])
-          })
-        }
-
-        set(
-          () => ({
-            result: effectiveness,
-            type1,
-            type2,
-          }),
-          false,
-        )
-      },
+      calculate: ({ type1, type2 }: SelectedTypes) =>
+        set({
+          result: offenseCal(type1, type2),
+          type1,
+          type2,
+        }),
     }),
     {
       name: 'mypkmn-offenseCal',
-      partialize: (state) => ({
-        result: state.result,
-        type1: state.type1,
-        type2: state.type2,
-      }),
+      partialize: (s) => ({ type1: s.type1, type2: s.type2 }),
     },
   ),
 )
