@@ -19,16 +19,23 @@ interface Props {
 
 export const Pill = ({
   pokemonTypeName,
-  borderColor,
   onClick,
   upToTwo,
   isDarkMode,
   isActive,
   animation = true,
 }: Props) => {
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     onClick && onClick(!isActive)
     pokemonTypeName && upToTwo && upToTwo(pokemonTypeName)
+
+    const target = e.currentTarget
+    target.blur()
+    if ('ontouchstart' in window) {
+      setTimeout(() => {
+        target.blur()
+      }, 0)
+    }
   }
   const { t } = useTranslation()
   const { lang } = useLanguageStore()
@@ -47,7 +54,7 @@ export const Pill = ({
         aria-label={t(`TypeName.${pokemonTypeName}`)}
         className={cn(
           'group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
-          'dutation-200 transition-all ease-in-out',
+          'duration-200 transition-all ease-in-out',
           'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px]', // pc
           'md:border-6px', // 태블릿
           'h-[2.6rem] w-[4.8rem] border-[4.5px]', // 모바일
@@ -55,31 +62,30 @@ export const Pill = ({
         )}
         style={{
           borderColor: `var(--${pokemonTypeName})`,
-          backgroundColor: isActive
-            ? `var(--${pokemonTypeName})`
-            : `var(--color-card)`,
+          backgroundColor: animation
+            ? `var(--color-card)`
+            : isActive
+              ? `var(--${pokemonTypeName})`
+              : `var(--color-card)`,
         }}
       >
-        <div
-          className={cn(
-            'absolute bottom-0 left-0 h-full w-full transition-transform duration-300 ease-in-out',
-            animation
-              ? isActive
-                ? 'translate-y-0'
-                : 'translate-y-full group-hover:translate-y-0'
-              : 'translate-y-0',
-          )}
-          style={{
-            backgroundColor: animation
-              ? `var(--${pokemonTypeName})`
-              : 'var(--color-card)',
-          }}
-        />
+        {animation && (
+          <div
+            className={cn(
+              'pointer-events-none absolute bottom-0 left-0 h-full w-full transition-transform duration-300 ease-in-out',
+              'xl:group-hover:translate-y-0', // PC에서만 hover 효과
+              isActive ? 'translate-y-0' : 'translate-y-full',
+            )}
+            style={{
+              backgroundColor: `var(--${pokemonTypeName})`,
+            }}
+          />
+        )}
         <div className="relative z-10 flex h-full w-full items-center justify-center">
           <span
             className={cn(
               "font-['Noto_Sans_KR'] text-[0.85rem] font-black sm:text-base",
-              isActive ? `dark:text-[var(--card)]` : 'bg-color-card',
+              isActive ? `dark:text-[var(--card)]` : 'text-[var(--color-text)]',
               lang === 'ko'
                 ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
                 : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',

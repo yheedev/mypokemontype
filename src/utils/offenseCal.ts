@@ -7,7 +7,7 @@ import {
 import { allTypes1x } from '@/utils/allTypes1x'
 
 export function offenseCal(type1?: TypeId, type2?: TypeId) {
-  const buckets = makeBuckets(OFFENSE_EFFECT_VALUES) // BucketResult<OffenseKey>
+  const buckets = makeBuckets(OFFENSE_EFFECT_VALUES)
 
   const base1 = allTypes1x(type1)
   const base2 = allTypes1x(

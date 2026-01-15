@@ -149,3 +149,13 @@ body {
     transform: translateX(-60px) rotate(-3deg);
   }
 }
+
+@keyframes pulse-bg {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
