@@ -3,6 +3,19 @@ import path from 'path'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  turbopack: {
+    resolveAlias: {
+      '@src': './src/app',
+      '@components': './src/components',
+      '@types': './src/types',
+      '@stores': './src/stores',
+      '@styles': './src/styles',
+      '@lib': './src/lib',
+      '@hooks': './src/hooks',
+      '@localses': './public/locales',
+      '@assets': './src/assets',
+    },
+  },
   webpack: (config: any) => {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
@@ -22,9 +35,6 @@ const nextConfig: NextConfig = {
       use: ['@svgr/webpack'],
     })
     return config
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
 }
 
