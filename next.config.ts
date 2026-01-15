@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
       '@localses': './public/locales',
       '@assets': './src/assets',
     },
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   },
   webpack: (config: any) => {
     config.resolve.alias = {
