@@ -66,7 +66,6 @@ export default function Result() {
                   animation={false}
                   key={type}
                   borderColor={`var(--${type})`}
-                  cursor="default"
                   pokemonTypeName={type}
                 />
               ))}

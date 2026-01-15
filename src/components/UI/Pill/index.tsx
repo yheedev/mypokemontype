@@ -13,7 +13,6 @@ interface Props {
   isActive?: boolean // 타입 버튼 클릭 여부를 시각적으로 확인 가능
   isDarkMode?: boolean
   upToTwo?: (type: string) => void // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
-  cursor?: string
   animation: boolean
 }
 
@@ -53,12 +52,13 @@ export const Pill = ({
         onClick={handleClick}
         aria-label={t(`TypeName.${pokemonTypeName}`)}
         className={cn(
-          'group relative flex cursor-pointer items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
+          'group relative flex items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
           'duration-200 transition-all ease-in-out',
           'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px]', // pc
           'md:border-6px', // 태블릿
           'h-[2.6rem] w-[4.8rem] border-[4.5px]', // 모바일
           isActive ? 'z-10' : 'z-0',
+          onClick ? 'cursor-pointer' : 'cursor-default',
         )}
         style={{
           borderColor: `var(--${pokemonTypeName})`,
