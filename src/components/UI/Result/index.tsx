@@ -45,7 +45,7 @@ export default function Result() {
             : t(`a11y.results.defense.aria-label`)
         }
       >
-        {sortedArray.map(([key, value], index, arr) => (
+        {sortedArray.map(([key, value], index) => (
           <div key={key} className="mb-7">
             <div
               className={cn('flex flex-row-reverse items-center justify-end')}
@@ -65,7 +65,6 @@ export default function Result() {
                 <Pill
                   animation={false}
                   key={type}
-                  borderColor={`var(--${type})`}
                   pokemonTypeName={type}
                 />
               ))}

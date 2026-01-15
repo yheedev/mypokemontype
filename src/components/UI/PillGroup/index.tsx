@@ -34,7 +34,6 @@ export const PillGroup = ({
           key={type}
           className="bg-transparent"
           pokemonTypeName={type}
-          borderColor={`var(--${type})`}
           isDarkMode={isDarkMode}
           isActive={selectedTypes.includes(type)}
           onClick={() => toggleType(type)}

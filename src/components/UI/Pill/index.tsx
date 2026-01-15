@@ -8,7 +8,6 @@ export type TypeNameElement = (typeof TypeName)[number]
 interface Props {
   className?: string
   pokemonTypeName: TypeNameElement
-  borderColor: string
   onClick?: (isActive: boolean) => void // 클릭했을 때에 불리언 값 전달하는 용도
   isActive?: boolean // 타입 버튼 클릭 여부를 시각적으로 확인 가능
   isDarkMode?: boolean
