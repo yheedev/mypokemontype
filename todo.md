@@ -1,9 +1,7 @@
 ## 🔴 우선순위1 (긴급 + 쉬움)
 
-- [ ] `allTypes1x.ts` 매직 넘버 `18` → `TypeName.length` 교체
-- [ ] `effectiveness.ts` 하단 주석 코드 삭제
-- [ ] 미사용 패키지 제거 — `@radix-ui/react-dialog`, `@radix-ui/react-tooltip`
-- [ ] `[lang]/layout.tsx` localStorage 직접 접근 → Zustand persist로 일원화
+- [x] `allTypes1x.ts` 매직 넘버 `18` → `TypeName.length` 교체
+- [x] `[lang]/layout.tsx` localStorage 직접 접근 → Zustand persist로 일원화
 
 ## 🟠 우선순위2 (긴급 + 어려움)
 

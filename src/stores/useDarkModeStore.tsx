@@ -22,16 +22,18 @@ export const useDarkModeStore = create<DarkModeState>()(
       },
 
       initTheme: () => {
-        const userTheme = localStorage.getItem('dark-mode-storage')
-        if (!userTheme) {
+        const stored = localStorage.getItem('mypkmn-theme')
+        if (stored) {
+          document.body.classList.remove('dark', 'light')
+          document.body.classList.add(get().theme)
+        } else {
           const prefersDark = window.matchMedia(
             '(prefers-color-scheme: dark)',
           ).matches
           const theme: Theme = prefersDark ? 'dark' : 'light'
           set({ theme })
-          document.body.dataset.theme = theme
-        } else {
-          document.body.dataset.theme = get().theme
+          document.body.classList.remove('dark', 'light')
+          document.body.classList.add(theme)
         }
       },
     }),

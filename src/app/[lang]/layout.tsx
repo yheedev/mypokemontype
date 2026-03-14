@@ -22,7 +22,7 @@ export default function LangLayout({
 }) {
   const { lang } = use(params)
   const setLanguage = useLanguageStore((state) => state.setLanguage)
-  const setTheme = useDarkModeStore((state) => state.setTheme)
+  const initTheme = useDarkModeStore((state) => state.initTheme)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -38,22 +38,7 @@ export default function LangLayout({
       saveLang(validLang)
 
       // 테마 초기화
-      const localTheme = localStorage.getItem('mypkmn-theme')
-      if (localTheme) {
-        const parsed = JSON.parse(localTheme)
-        if (parsed.state?.theme === 'dark' || parsed.state?.theme === 'light') {
-          setTheme(parsed.state.theme)
-          setReady(true)
-          return
-        }
-      }
-
-      const prefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark)',
-      ).matches
-      const theme = prefersDark ? 'dark' : 'light'
-      setTheme(theme)
-      localStorage.setItem('mypkmn-theme', JSON.stringify({ state: { theme } }))
+      initTheme()
 
       setReady(true)
     }
