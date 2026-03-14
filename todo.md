@@ -1,4 +1,40 @@
-TODO
+## 🔴 우선순위1 (긴급 + 쉬움)
+
+- [ ] `allTypes1x.ts` 매직 넘버 `18` → `TypeName.length` 교체
+- [ ] `effectiveness.ts` 하단 주석 코드 삭제
+- [ ] 미사용 패키지 제거 — `@radix-ui/react-dialog`, `@radix-ui/react-tooltip`
+- [ ] `[lang]/layout.tsx` localStorage 직접 접근 → Zustand persist로 일원화
+
+## 🟠 우선순위2 (긴급 + 어려움)
+
+- [ ] **포켓몬 검색 기능** (PokeAPI + TanStack Query)
+  - [ ] `usePokemonSearch` 훅 — 이름으로 fetch, 타입 추출
+  - [ ] 검색 UI 컴포넌트 (디바운스 입력창)
+  - [ ] 포켓몬 이미지 표시
+  - [ ] 검색 결과 → 기존 `calculate()` 자동 연결
+- [ ] **공격/방어 화살표 UI** (디자인 확정 후 개발)
+  - [ ] 두 슬롯 + 방향 화살표 레이아웃
+  - [ ] 화살표 클릭으로 offense ↔ defense 전환
+- [ ] **핵심 로직 테스트** — `offenseCal`, `defenseCal` 단위 테스트 (Vitest)
+
+## 🟡 우선순위3 (여유 + 쉬움)
+
+- [ ] **URL 상태 공유** — `?type=fire,water` 쿼리스트링으로 결과 공유 가능하게
+- [ ] 에러 바운더리 컴포넌트 추가 (i18n 로딩 실패 등 대응)
+- [ ] OG 이미지 설정 (SNS 공유 시 미리보기)
+- [ ] 라이트하우스 점수 및 접근성 개선
+
+## 🟢 우선순위4 (여유 + 어려움)
+
+- [ ] **PWA** — 오프라인 지원 (서버 없는 구조라 적합)
+- [ ] E2E 테스트 (Playwright) — 주요 사용자 플로우
+
+## 보류 (결정 필요)
+
+- [ ] 상대 포켓몬 검색 슬롯 추가 (vs. 단순 타입 선택기 유지)
+- [ ] 데미지 계산기 (스탯, 레벨 입력 필요 — 스코프 확장 큼)
+
+---
 
 ## new
 

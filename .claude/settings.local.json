@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(npm install:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(taskkill:*)",
+      "Bash(ls -la /c/work/Personal/mypokemontype/*.config.* /c/work/Personal/mypokemontype/*.config.js)",
+      "Bash(wc -l /c/work/Personal/mypokemontype/src/**/*.tsx /c/work/Personal/mypokemontype/src/**/*.ts)"
     ]
   }
 }
