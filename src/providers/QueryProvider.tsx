@@ -9,9 +9,8 @@ export function QueryProvider({ children }: { children: React.ReactNode }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 1000 * 60 * 60, // 1시간 — 포켓몬 데이터는 잘 바뀌지 않음
-            gcTime: 1000 * 60 * 60 * 24, // 24시간 캐시 유지
-            retry: false,
+            staleTime: 1000 * 60 * 60,
+            gcTime: 1000 * 60 * 60 * 24,
           },
         },
       }),

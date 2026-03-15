@@ -5,20 +5,72 @@ import { useTranslation } from 'react-i18next'
 import { Search, ChevronRight, X } from 'lucide-react'
 import { usePokemonQuery } from '@/hooks/usePokemonQuery'
 import { usePokemonList } from '@/hooks/usePokemonList'
+import { usePokemonLangMap } from '@/hooks/usePokemonLangMap'
 import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
 import { TypeName, type TypeNameElement } from '@/constants/pokemon'
 import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
+import { getChoseong, isKoreanInput, isJapaneseInput, isPureJamo } from '@/utils/jamo'
 
 const MAX_SUGGESTIONS = 8
 
-function filterSuggestions(list: string[], query: string): string[] {
-  if (!query || query.length < 1) return []
+interface Suggestion {
+  displayName: string // 드롭다운에 표시할 이름 (한글 or 영어)
+  englishName: string // API 호출에 쓸 영어 slug
+}
+
+function filterEnglish(list: string[], query: string): Suggestion[] {
   const q = query.toLowerCase()
-  // startsWith 먼저, 그다음 includes로 정렬
   const starts = list.filter((n) => n.startsWith(q))
   const includes = list.filter((n) => !n.startsWith(q) && n.includes(q))
-  return [...starts, ...includes].slice(0, MAX_SUGGESTIONS)
+  return [...starts, ...includes]
+    .slice(0, MAX_SUGGESTIONS)
+    .map((name) => ({ displayName: name, englishName: name }))
+}
+
+function filterJapanese(
+  jaMap: Map<string, string>,
+  query: string,
+): Suggestion[] {
+  const q = query.toLowerCase()
+  const starts = Array.from(jaMap.keys()).filter((n) => n.startsWith(query))
+  const includes = Array.from(jaMap.keys()).filter(
+    (n) => !n.startsWith(query) && n.toLowerCase().includes(q),
+  )
+  return [...starts, ...includes]
+    .slice(0, MAX_SUGGESTIONS)
+    .map((name) => ({ displayName: name, englishName: jaMap.get(name)! }))
+}
+
+function filterKorean(
+  koMap: Map<string, string>,
+  query: string,
+): Suggestion[] {
+  const isJamo = isPureJamo(query)
+  const results: Suggestion[] = []
+
+  for (const [koName, enName] of koMap) {
+    const matches = isJamo
+      ? getChoseong(koName).includes(query) // ㅍ → 피카츄, 파이리
+      : koName.startsWith(query) || koName.includes(query)
+
+    if (matches) results.push({ displayName: koName, englishName: enName })
+  }
+
+  // startsWith 우선 정렬
+  return results
+    .sort((a, b) => {
+      const aFirst = isJamo
+        ? getChoseong(a.displayName).startsWith(query)
+        : a.displayName.startsWith(query)
+      const bFirst = isJamo
+        ? getChoseong(b.displayName).startsWith(query)
+        : b.displayName.startsWith(query)
+      if (aFirst && !bFirst) return -1
+      if (!aFirst && bFirst) return 1
+      return 0
+    })
+    .slice(0, MAX_SUGGESTIONS)
 }
 
 export default function PokemonSearch() {
@@ -26,15 +78,33 @@ export default function PokemonSearch() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const [input, setInput] = useState('')
-  const [selectedName, setSelectedName] = useState('')
+  const [selectedEnName, setSelectedEnName] = useState('')
+  const [selectedDisplayName, setSelectedDisplayName] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
 
   const setTypes = useUpToTwoStore((state) => state.setTypes)
   const { data: pokemonList } = usePokemonList()
-  const { data, isLoading: isLoadingPokemon } = usePokemonQuery(selectedName)
+  const { data: koMap, isLoading: isKoMapLoading } = usePokemonLangMap('ko')
+  const { data: jaMap, isLoading: isJaMapLoading } = usePokemonLangMap('ja')
+  const { data, isLoading: isLoadingPokemon } = usePokemonQuery(selectedEnName)
 
-  const suggestions = filterSuggestions(pokemonList ?? [], input)
+  const isKorean = input.length >= 1 && isKoreanInput(input)
+  const isJapanese = input.length >= 1 && isJapaneseInput(input)
+  const isLangMapLoading = (isKorean && isKoMapLoading) || (isJapanese && isJaMapLoading)
+
+  const suggestions: Suggestion[] = (() => {
+    if (input.length < 1) return []
+    if (isKorean) {
+      if (!koMap) return []
+      return filterKorean(koMap, input)
+    }
+    if (isJapanese) {
+      if (!jaMap) return []
+      return filterJapanese(jaMap, input)
+    }
+    return filterEnglish(pokemonList ?? [], input)
+  })()
 
   const pokemonTypes = (data?.types ?? [])
     .sort((a, b) => a.slot - b.slot)
@@ -59,23 +129,24 @@ export default function PokemonSearch() {
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setInput(value)
-    setSelectedName('')
+    setInput(e.target.value)
+    setSelectedEnName('')
     setActiveIndex(-1)
     setShowDropdown(true)
   }
 
-  const handleSelect = (name: string) => {
-    setInput(name)
-    setSelectedName(name)
+  const handleSelect = (suggestion: Suggestion) => {
+    setInput(suggestion.displayName)
+    setSelectedEnName(suggestion.englishName)
+    setSelectedDisplayName(suggestion.displayName)
     setActiveIndex(-1)
     setShowDropdown(false)
   }
 
   const handleClear = () => {
     setInput('')
-    setSelectedName('')
+    setSelectedEnName('')
+    setSelectedDisplayName('')
     setActiveIndex(-1)
     setShowDropdown(false)
   }
@@ -91,20 +162,14 @@ export default function PokemonSearch() {
       setActiveIndex((i) => (i > 0 ? i - 1 : suggestions.length - 1))
     } else if (e.key === 'Enter') {
       e.preventDefault()
-      if (activeIndex >= 0) {
-        handleSelect(suggestions[activeIndex])
-      }
+      if (activeIndex >= 0) handleSelect(suggestions[activeIndex])
     } else if (e.key === 'Escape') {
       setShowDropdown(false)
       setActiveIndex(-1)
     }
   }
 
-  const handleApply = () => {
-    setTypes(pokemonTypes)
-  }
-
-  const showCard = data && pokemonTypes.length > 0 && selectedName
+  const showCard = data && pokemonTypes.length > 0 && selectedEnName
 
   return (
     <div className="mx-4 mt-3 mb-1 px-4" ref={containerRef}>
@@ -132,7 +197,7 @@ export default function PokemonSearch() {
 
         {/* 로딩 스피너 / 클리어 버튼 */}
         <div className="absolute right-4 top-1/2 -translate-y-1/2">
-          {isLoadingPokemon ? (
+          {isLoadingPokemon || isLangMapLoading ? (
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--text)] border-t-transparent opacity-40" />
           ) : (
             input && (
@@ -145,27 +210,22 @@ export default function PokemonSearch() {
 
         {/* 자동완성 드롭다운 */}
         {showDropdown && suggestions.length > 0 && (
-          <ul
-            className={cn(
-              'absolute top-full left-0 right-0 z-20 mt-1',
-              'overflow-hidden rounded-2xl bg-[var(--card)] shadow-lg',
-            )}
-          >
-            {suggestions.map((name, i) => (
+          <ul className="absolute top-full left-0 right-0 z-20 mt-1 overflow-hidden rounded-2xl bg-[var(--card)] shadow-lg">
+            {suggestions.map((s, i) => (
               <li
-                key={name}
-                onMouseDown={(e) => e.preventDefault()} // onBlur 방지
-                onClick={() => handleSelect(name)}
+                key={s.englishName}
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => handleSelect(s)}
                 className={cn(
                   'cursor-pointer px-5 py-2.5 capitalize',
                   'text-sm text-[var(--text)]',
                   'transition-colors duration-100',
                   i === activeIndex
-                    ? 'bg-[var(--text)] bg-opacity-10'
-                    : 'hover:bg-[var(--text)] hover:bg-opacity-10',
+                    ? 'bg-[var(--background)]'
+                    : 'hover:bg-[var(--background)]',
                 )}
               >
-                {name}
+                {s.displayName}
               </li>
             ))}
           </ul>
@@ -179,7 +239,7 @@ export default function PokemonSearch() {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={imageUrl}
-              alt={data.name}
+              alt={selectedDisplayName}
               width={80}
               height={80}
               className="h-20 w-20 shrink-0 object-contain"
@@ -187,7 +247,7 @@ export default function PokemonSearch() {
           )}
           <div className="flex flex-col gap-2">
             <p className="text-sm font-bold capitalize text-[var(--text)]">
-              {data.name}
+              {selectedDisplayName}
             </p>
             <div className="flex gap-2">
               {pokemonTypes.map((type) => (
@@ -201,7 +261,7 @@ export default function PokemonSearch() {
             </div>
           </div>
           <button
-            onClick={handleApply}
+            onClick={() => setTypes(pokemonTypes)}
             aria-label={t('Search.apply')}
             className={cn(
               'ml-auto flex items-center rounded-full p-2',

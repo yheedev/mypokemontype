@@ -34,5 +34,6 @@ export function usePokemonQuery(name: string) {
     queryKey: ['pokemon', name],
     queryFn: () => fetchPokemon(name),
     enabled: name.length > 0,
+    retry: false, // 존재하지 않는 이름은 재시도 불필요
   })
 }
