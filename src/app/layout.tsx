@@ -3,6 +3,7 @@ import './global.css'
 import { Noto_Sans_KR } from 'next/font/google'
 import localFont from 'next/font/local'
 import { QueryProvider } from '@/providers/QueryProvider'
+import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 
 export const metadata: Metadata = {
   title: {
@@ -150,6 +151,7 @@ export default function RootLayout({
     >
       <body>
         <QueryProvider>
+          <ServiceWorkerRegister />
           <main>{children}</main>
         </QueryProvider>
       </body>

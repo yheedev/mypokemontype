@@ -1,17 +1,9 @@
-'use client'
+import { supportedLangs } from '@/types/language'
+import { LangLayoutClient } from './layout-client'
 
-import { use } from 'react'
-import { useEffect, useState } from 'react'
-import { useLanguageStore } from '@/stores/useLanguageStore'
-import { useDarkModeStore } from '@/stores/useDarkModeStore'
-import { supportedLangs, Language } from '@/types/language'
-import { saveLang } from '@/utils/langs'
-import AllBtns from '@/components/UI/Buttons/AllBtns'
-import Title from '@/components/UI/Title'
-import { Skeleton } from '@/components/UI/Skeleton'
-import { initI18n, i18n } from '@/lib/i18n'
-import Favicon from '@/components/UI/Favicon'
-import { notFound } from 'next/navigation'
+export function generateStaticParams() {
+  return supportedLangs.map((lang) => ({ lang }))
+}
 
 export default function LangLayout({
   children,
@@ -20,61 +12,5 @@ export default function LangLayout({
   children: React.ReactNode
   params: Promise<{ lang: string }>
 }) {
-  const { lang } = use(params)
-  const setLanguage = useLanguageStore((state) => state.setLanguage)
-  const initTheme = useDarkModeStore((state) => state.initTheme)
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    const runInit = async () => {
-      const validLang = supportedLangs.includes(lang as Language)
-        ? (lang as Language)
-        : 'ko'
-
-      // i18n 초기화
-      await initI18n(validLang)
-      await i18n.changeLanguage(validLang)
-      setLanguage(validLang)
-      saveLang(validLang)
-
-      // 테마 초기화
-      initTheme()
-
-      setReady(true)
-    }
-
-    runInit()
-  }, [lang])
-
-  if (!supportedLangs.includes(lang as Language)) notFound()
-
-  if (!ready) {
-    return (
-      <div className="m-4 mt-50 grid grid-cols-1 gap-12 p-4 xl:grid-cols-2">
-        {[0, 1].map((k) => (
-          <div
-            key={k}
-            className="rounded-[22px] bg-[--color-card] p-6 shadow-lg"
-          >
-            <Skeleton className="mb-4 h-6 w-48 animate-pulse" />
-            <Skeleton className="mb-6 h-px w-full animate-pulse" />
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <Skeleton key={i} className="h-10 animate-pulse rounded-full" />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  return (
-    <div lang={lang}>
-      <Favicon />
-      <Title />
-      <main>{children}</main>
-      <AllBtns />
-    </div>
-  )
+  return <LangLayoutClient params={params}>{children}</LangLayoutClient>
 }
