@@ -18,7 +18,7 @@
 - [ ] **공격/방어 화살표 UI** (디자인 확정 후 개발)
   - [ ] 두 슬롯 + 방향 화살표 레이아웃
   - [ ] 화살표 클릭으로 offense ↔ defense 전환
-- [ ] **핵심 로직 테스트** — `offenseCal`, `defenseCal` 단위 테스트 (Vitest)
+- [x] **핵심 로직 테스트** — `offenseCal`, `defenseCal` 단위 테스트 (Vitest)
 
 ## 🟡 우선순위3 (여유 + 쉬움)
 

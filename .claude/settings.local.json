@@ -10,7 +10,8 @@
       "Bash(taskkill:*)",
       "Bash(ls -la /c/work/Personal/mypokemontype/*.config.* /c/work/Personal/mypokemontype/*.config.js)",
       "Bash(wc -l /c/work/Personal/mypokemontype/src/**/*.tsx /c/work/Personal/mypokemontype/src/**/*.ts)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(npm test:*)"
     ]
   }
 }

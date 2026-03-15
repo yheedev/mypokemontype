@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "prettier": "prettier --write .",
-    "generate:ko": "tsx scripts/generate-pokemon-ko.ts"
+    "generate:ko": "tsx scripts/generate-pokemon-ko.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
@@ -43,6 +45,8 @@
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.11",
     "tw-animate-css": "^1.3.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.0"
   }
 }
