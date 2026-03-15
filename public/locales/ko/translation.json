@@ -34,6 +34,11 @@
     "en": "영어",
     "ja": "일본어"
   },
+  "Search": {
+    "placeholder": "포켓몬 이름 검색 (영어)",
+    "notFound": "포켓몬을 찾을 수 없습니다",
+    "apply": "타입 선택에 적용"
+  },
   "notFound": {
     "description": "페이지가 존재하지 않습니다.",
     "backToMain": "메인 페이지"

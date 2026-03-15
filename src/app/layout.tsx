@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import './global.css'
 import { Noto_Sans_KR } from 'next/font/google'
 import localFont from 'next/font/local'
+import { QueryProvider } from '@/providers/QueryProvider'
 
 export const metadata: Metadata = {
   title: {
@@ -148,7 +149,9 @@ export default function RootLayout({
       className={`${noto.variable} ${helios.variable} ${noto.className}`}
     >
       <body>
-        <main>{children}</main>
+        <QueryProvider>
+          <main>{children}</main>
+        </QueryProvider>
       </body>
     </html>
   )

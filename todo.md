@@ -5,11 +5,14 @@
 
 ## 🟠 우선순위2 (긴급 + 어려움)
 
-- [ ] **포켓몬 검색 기능** (PokeAPI + TanStack Query)
-  - [ ] `usePokemonSearch` 훅 — 이름으로 fetch, 타입 추출
-  - [ ] 검색 UI 컴포넌트 (디바운스 입력창)
-  - [ ] 포켓몬 이미지 표시
-  - [ ] 검색 결과 → 기존 `calculate()` 자동 연결
+- [x] **포켓몬 검색 기능** (PokeAPI + TanStack Query)
+  - [x] `usePokemonQuery` + `usePokemonList` 훅 (전체 목록 캐싱 + 상세 조회)
+  - [x] 검색 UI — 실시간 자동완성 드롭다운 (로컬 필터링, API 호출 최소화)
+  - [x] 포켓몬 이미지 + 타입 Pill 표시
+  - [x] 검색 결과 → `setTypes()` 로 기존 calculate 자동 연결
+  - [ ] 드롭다운 방향키 탐색 (↑↓ 이동, Enter 선택, Esc 닫기)
+  - [ ] 한국어 포켓몬 이름 검색 (한글 → 영어 정적 매핑 JSON 필요)
+  - [ ] 초성 검색 (ㅍ 입력 → 피카추, 파이리 등 노출)
 - [ ] **공격/방어 화살표 UI** (디자인 확정 후 개발)
   - [ ] 두 슬롯 + 방향 화살표 레이아웃
   - [ ] 화살표 클릭으로 offense ↔ defense 전환

@@ -34,6 +34,11 @@
     "en": "英語",
     "ja": "日本語"
   },
+  "Search": {
+    "placeholder": "ポケモン名を検索（英語）",
+    "notFound": "ポケモンが見つかりません",
+    "apply": "タイプ選択に適用"
+  },
   "notFound": {
     "description": "ページが見つかりません。",
     "backToMain": "メインページ"

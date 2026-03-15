@@ -1,9 +1,10 @@
 import { create } from 'zustand'
-import { TypeName, type TypeNameElement as TypeId } from '@/constants/pokemon'
+import { type TypeNameElement as TypeId } from '@/constants/pokemon'
 
 interface SelectedTypesState {
   selectedTypes: TypeId[]
   toggleType: (type: TypeId) => void
+  setTypes: (types: TypeId[]) => void
   resetTypes: () => void
 }
 
@@ -24,6 +25,8 @@ export const useUpToTwoStore = create<SelectedTypesState>((set) => ({
 
       return { selectedTypes: next }
     }),
+
+  setTypes: (types) => set({ selectedTypes: types.slice(0, 2) }),
 
   resetTypes: () => set({ selectedTypes: [] }),
 }))
