@@ -10,7 +10,7 @@ import Link from 'next/link'
 import { PATH } from '@/app/routes'
 import { MODE, Mode } from '@/constants/mode'
 import { getModeByPath } from '@/utils/pathMode'
-import { getLangClass } from '@/lib/StyleClassUtil'
+import { modeStyle, getLangClass } from '@/lib/StyleClassUtil'
 
 export default function SelectorMode() {
   const pathname = usePathname()
@@ -42,7 +42,7 @@ export default function SelectorMode() {
   }
 
   return (
-    <div className="relative flex w-full rounded-[22px] bg-[var(--card)] p-[4px] select-none">
+    <div className="relative flex w-full rounded-[22px] bg-[var(--card)] py-[4px] select-none">
       <span
         className={cn(
           'absolute top-[4px] h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-[10px] transition-all duration-[350ms] ease-[cubic-bezier(.34,1.2,.64,1)]',
@@ -59,7 +59,7 @@ export default function SelectorMode() {
         aria-selected={mode === 'offense'}
         onClick={() => handleSelect('offense')}
         className={cn(
-          'relative z-10 flex-1 rounded-[7px] py-[9px] text-center text-[13px] font-bold tracking-[.06em] transition-colors duration-300 sm:py-[11px] sm:text-[15px] lg:py-[14px] lg:text-[17px]',
+          modeStyle,
           getLangClass(lang),
           mode === 'offense' ? 'text-white' : 'text-[var(--disable)]',
         )}
@@ -74,7 +74,7 @@ export default function SelectorMode() {
         aria-selected={mode === 'defense'}
         onClick={() => handleSelect('defense')}
         className={cn(
-          'relative z-10 flex-1 rounded-[7px] py-[9px] text-center text-[13px] font-bold tracking-[.06em] transition-colors duration-300 sm:py-[11px] sm:text-[15px] lg:py-[14px] lg:text-[17px]',
+          modeStyle,
           getLangClass(lang),
           mode === 'defense' ? 'text-white' : 'text-[var(--disable)]',
         )}
