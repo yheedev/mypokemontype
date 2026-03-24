@@ -21,9 +21,7 @@
   },
   "Mode": {
     "offense": "공격",
-    "defense": "방어",
-    "offenseInfo": "선택한 포켓몬 타입이 공격할 때 효과적인 타입을 확인하세요.",
-    "defenseInfo": "선택한 포켓몬 타입이 방어할 때 효과적인 타입을 확인하세요."
+    "defense": "방어"
   },
   "Result": {
     "x damage": "배의 데미지"
@@ -38,6 +36,14 @@
     "placeholder": "포켓몬 이름 검색 (한글/영어/초성)",
     "notFound": "포켓몬을 찾을 수 없습니다",
     "apply": "타입 선택에 적용"
+  },
+  "Battle": {
+    "attacker": "공격하는 포켓몬",
+    "attackerTarget": "공격 대상",
+    "emptySlot": "포켓몬 선택",
+    "myPokemon": "내 포켓몬",
+    "otherPokemon": "다른 포켓몬",
+    "toggleDirection": "방향 전환"
   },
   "notFound": {
     "description": "페이지가 존재하지 않습니다.",

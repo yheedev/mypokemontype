@@ -21,9 +21,7 @@
   },
   "Mode": {
     "offense": "オフェンス",
-    "defense": "デフェンス",
-    "offenseInfo": "選択したタイプが効果的に攻撃するタイプを確認してください。",
-    "defenseInfo": "選択したタイプが効果的に防御するタイプを確認してください。"
+    "defense": "デフェンス"
   },
   "Result": {
     "x damage": "倍ダメージ"
@@ -38,6 +36,14 @@
     "placeholder": "ポケモン名を検索",
     "notFound": "ポケモンが見つかりません",
     "apply": "タイプ選択に適用"
+  },
+  "Battle": {
+    "attacker": "アタッカー · 攻撃",
+    "attackerTarget": "アタッカー · 攻撃対象",
+    "emptySlot": "ポケモンを選択",
+    "myPokemon": "自分のポケモン",
+    "otherPokemon": "相手のポケモン",
+    "toggleDirection": "方向切替"
   },
   "notFound": {
     "description": "ページが見つかりません。",
