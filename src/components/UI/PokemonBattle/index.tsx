@@ -19,7 +19,7 @@ export default function PokemonBattle() {
   const { lang } = useLanguageStore()
   const mode = getModeByPath(pathname, lang)
 
-  const { slotA, slotB, activeSlot, isLeftAttacker, setActiveSlot, setSlot, clearSlot, toggleDirection } =
+  const { slotA, slotB, activeSlot, isLeftAttacker, setActiveSlot, forceActiveSlot, setSlot, clearSlot, toggleDirection } =
     usePokemonSlotStore()
 
   const { selectedTypes, isUserChange, setTypes, resetTypes } = useUpToTwoStore()
@@ -80,9 +80,20 @@ export default function PokemonBattle() {
     }
   }
 
+  // 방향 전환: 새 공격자 슬롯으로 activeSlot 전환 + PillGroup 동기화
+  const handleToggleDirection = () => {
+    const newAttackerSlot = isLeftAttacker ? 'B' : 'A'
+    toggleDirection()
+    forceActiveSlot(newAttackerSlot)
+    const newAttackerData = isLeftAttacker ? slotB : slotA
+    if (newAttackerData !== null) {
+      setTypes(newAttackerData.types)
+    } else {
+      resetTypes()
+    }
+  }
+
   const slotAColorScheme = mode === 'offense' ? 'offense' : 'defense'
-  // offense 페이지에서 슬롯 A가 비어있으면 슬롯 B 비활성화
-  const isSlotBDisabled = mode === 'offense' && slotA === null
 
   return (
     <div className="mx-4 mt-2 mb-1 flex flex-col gap-2 px-4">
@@ -98,8 +109,7 @@ export default function PokemonBattle() {
         />
         <DirectionArrow
           isLeftAttacker={isLeftAttacker}
-          disabled={mode === 'offense'}
-          onClick={toggleDirection}
+          onClick={handleToggleDirection}
         />
         <PokemonSlot
           colorScheme="default"
@@ -107,7 +117,6 @@ export default function PokemonBattle() {
           isAttacker={!isLeftAttacker}
           data={slotB}
           isActive={activeSlot === 'B'}
-          disabled={isSlotBDisabled}
           onClick={() => handleSlotClick('B')}
           onClear={() => handleClearSlot('B')}
         />

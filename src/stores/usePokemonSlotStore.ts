@@ -16,6 +16,7 @@ interface PokemonSlotState {
   setSlot: (slot: 'A' | 'B', data: PokemonSlotData) => void
   clearSlot: (slot: 'A' | 'B') => void
   setActiveSlot: (slot: 'A' | 'B') => void
+  forceActiveSlot: (slot: 'A' | 'B') => void
   clearActiveSlot: () => void
   toggleDirection: () => void
 }
@@ -36,6 +37,8 @@ export const usePokemonSlotStore = create<PokemonSlotState>((set) => ({
     set((state) => ({
       activeSlot: state.activeSlot === slot ? null : slot,
     })),
+
+  forceActiveSlot: (slot) => set({ activeSlot: slot }),
 
   clearActiveSlot: () => set({ activeSlot: null }),
 
