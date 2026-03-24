@@ -188,7 +188,7 @@ export default function PokemonSearch() {
           placeholder={t('Search.placeholder')}
           autoComplete="off"
           className={cn(
-            'w-full rounded-full bg-[var(--card)] py-3 pr-10 pl-10',
+            'w-full rounded-[15px] bg-[var(--card)] py-3 pr-10 pl-10',
             'text-sm text-[var(--text)] placeholder:opacity-40',
             'shadow-md outline-none',
             "font-['Noto_Sans_KR'] transition-shadow duration-200 focus:shadow-lg",

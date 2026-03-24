@@ -7,7 +7,7 @@ import { PillGroup } from '@/components/UI/PillGroup'
 export default function Selector() {
   return (
     <Card>
-      <div className="mx-[0.3rem] mb-0 justify-evenly font-['Noto_Sans_KR'] lg:mx-[1rem]">
+      <div className="mb-0 justify-evenly font-['Noto_Sans_KR']">
         <SelectorMode />
         <PillGroup isDarkMode={false} onUpdate={() => {}} />
       </div>
