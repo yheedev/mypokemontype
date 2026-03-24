@@ -3,13 +3,17 @@ import { type TypeNameElement as TypeId } from '@/constants/pokemon'
 
 interface SelectedTypesState {
   selectedTypes: TypeId[]
+  /** true일 때만 슬롯 sync 허용 (유저가 직접 pill 클릭 시 설정) */
+  isUserChange: boolean
   toggleType: (type: TypeId) => void
+  /** 프로그래밍 방식으로 타입 설정 (슬롯 sync 불가) */
   setTypes: (types: TypeId[]) => void
   resetTypes: () => void
 }
 
 export const useUpToTwoStore = create<SelectedTypesState>((set) => ({
   selectedTypes: [],
+  isUserChange: false,
 
   toggleType: (type) =>
     set((state) => {
@@ -23,12 +27,12 @@ export const useUpToTwoStore = create<SelectedTypesState>((set) => ({
         next.push(type)
       }
 
-      return { selectedTypes: next }
+      return { selectedTypes: next, isUserChange: true }
     }),
 
-  setTypes: (types) => set({ selectedTypes: types.slice(0, 2) }),
+  setTypes: (types) => set({ selectedTypes: types.slice(0, 2), isUserChange: false }),
 
-  resetTypes: () => set({ selectedTypes: [] }),
+  resetTypes: () => set({ selectedTypes: [], isUserChange: false }),
 }))
 
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit'

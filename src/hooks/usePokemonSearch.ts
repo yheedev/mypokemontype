@@ -7,6 +7,7 @@ import { usePokemonQuery } from '@/hooks/usePokemonQuery'
 import { usePokemonList } from '@/hooks/usePokemonList'
 import { usePokemonLangMap } from '@/hooks/usePokemonLangMap'
 import { usePokemonSlotStore } from '@/stores/usePokemonSlotStore'
+import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
 import { TypeName, type TypeNameElement } from '@/constants/pokemon'
 
 export type { Suggestion }
@@ -22,7 +23,8 @@ export function usePokemonSearch() {
   const [showDropdown, setShowDropdown] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
 
-  const { activeSlot, setSlot, clearActiveSlot } = usePokemonSlotStore()
+  const { activeSlot, setSlot, setActiveSlot, clearActiveSlot } = usePokemonSlotStore()
+  const { setTypes } = useUpToTwoStore()
   const { data: pokemonList } = usePokemonList()
   const { data: koMap, isLoading: isKoMapLoading } = usePokemonLangMap('ko')
   const { data: jaMap, isLoading: isJaMapLoading } = usePokemonLangMap('ja')
@@ -65,14 +67,24 @@ export function usePokemonSearch() {
 
     if (!imageUrl || types.length === 0) return
 
-    setSlot(targetSlotRef.current, {
+    const targetSlot = targetSlotRef.current
+    setSlot(targetSlot, {
       displayName: selectedDisplayName,
       englishName: selectedEnName,
       imageUrl,
       types,
     })
 
-    clearActiveSlot()
+    // 포켓몬 타입을 PillGroup에 반영 (isUserChange=false → 슬롯 재sync 없음)
+    setTypes(types)
+
+    // 슬롯 A를 채웠으면 슬롯 B를 자동 활성화, 슬롯 B를 채웠으면 비활성화
+    if (targetSlot === 'A') {
+      setActiveSlot('B')
+    } else {
+      clearActiveSlot()
+    }
+
     setInput('')
     setSelectedEnName('')
     setSelectedDisplayName('')

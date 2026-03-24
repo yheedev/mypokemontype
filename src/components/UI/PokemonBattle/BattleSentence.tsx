@@ -21,8 +21,8 @@ export function BattleSentence({ attackerData, defenderData }: BattleSentencePro
   const { t } = useTranslation()
   const { lang } = useLanguageStore()
 
-  const attackerName = attackerData?.displayName ?? t('Battle.myPokemon')
-  const defenderName = defenderData?.displayName ?? t('Battle.otherPokemon')
+  const attackerName = attackerData?.displayName || t('Battle.myPokemon')
+  const defenderName = defenderData?.displayName || t('Battle.otherPokemon')
 
   return (
     <div

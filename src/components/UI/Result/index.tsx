@@ -6,6 +6,7 @@ import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useOffenseCalStore } from '@/stores/useOffenseCalStore'
 import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
 import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
+import { usePokemonSlotStore } from '@/stores/usePokemonSlotStore'
 import { Pill } from '@/components/UI/Pill'
 import Card from '@/components/UI/Card'
 import BestIcon from '@/components/UI/BestIcon'
@@ -23,9 +24,11 @@ export default function Result() {
   const offenseResult = useOffenseCalStore((state) => state.result)
   const defenseResult = useDefenseCalStore((state) => state.result)
   const hasSelection = useUpToTwoStore((s) => s.selectedTypes.length > 0)
+  const slotB = usePokemonSlotStore((s) => s.slotB)
 
   const isOffense = isOffensePath(pathname, lang)
-  const result = isOffense ? offenseResult : defenseResult
+  // offense 페이지에서 슬롯 B(방어자)가 있으면 방어 결과(방어자의 약점)를 표시
+  const result = isOffense ? (slotB !== null ? defenseResult : offenseResult) : defenseResult
 
   const direction = isOffense ? -1 : 1
 

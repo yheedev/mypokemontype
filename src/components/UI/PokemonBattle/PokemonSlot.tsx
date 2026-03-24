@@ -14,6 +14,7 @@ interface PokemonSlotProps {
   isAttacker: boolean
   data: PokemonSlotData | null
   isActive: boolean
+  disabled?: boolean
   onClick: () => void
   onClear: () => void
 }
@@ -42,6 +43,7 @@ export function PokemonSlot({
   isAttacker,
   data,
   isActive,
+  disabled = false,
   onClick,
   onClear,
 }: PokemonSlotProps) {
@@ -53,16 +55,17 @@ export function PokemonSlot({
       {/* 슬롯 본체 */}
       <div
         role="button"
-        tabIndex={0}
-        onClick={onClick}
-        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onClick()}
+        tabIndex={disabled ? -1 : 0}
+        onClick={disabled ? undefined : onClick}
+        onKeyDown={(e) => !disabled && (e.key === 'Enter' || e.key === ' ') && onClick()}
         className={cn(
-          'flex w-full cursor-pointer flex-col items-center gap-3',
+          'flex w-full flex-col items-center gap-3',
           'rounded-[22px] bg-[var(--card)] px-4 py-5',
           'border text-[var(--text)] shadow-md',
           'transition-all duration-200',
           style.border,
-          isActive && style.activeShadow,
+          disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
+          !disabled && isActive && style.activeShadow,
         )}
       >
         <span className={cn('text-[10px] font-bold tracking-widest uppercase', style.roleColor)}>
@@ -110,8 +113,8 @@ export function PokemonSlot({
         )}
       </div>
 
-      {/* 포켓몬이 있을 때만 삭제 버튼 표시 */}
-      {data && (
+      {/* 포켓몬이 있고 비활성화되지 않았을 때만 삭제 버튼 표시 */}
+      {data && !disabled && (
         <button
           onClick={(e) => {
             e.stopPropagation()
