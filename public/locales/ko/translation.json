@@ -80,11 +80,9 @@
         "aria-label": "방어 결과"
       }
     },
-
     "lucario": {
       "aria-label": "포켓몬 루카리오"
     },
-
     "contact": {
       "text": "이메일",
       "aria-label": "개발자 메일",
