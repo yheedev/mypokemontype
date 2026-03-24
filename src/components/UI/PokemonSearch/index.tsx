@@ -1,9 +1,8 @@
 'use client'
 
 import { useTranslation } from 'react-i18next'
-import { Search, ChevronRight, X } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { usePokemonSearch } from '@/hooks/usePokemonSearch'
-import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
 
 export default function PokemonSearch() {
@@ -11,17 +10,12 @@ export default function PokemonSearch() {
   const {
     containerRef,
     input,
-    selectedDisplayName,
     showDropdown,
     setShowDropdown,
     activeIndex,
     suggestions,
-    pokemonTypes,
-    imageUrl,
-    showCard,
     isLoadingPokemon,
     isLangMapLoading,
-    setTypes,
     handleInputChange,
     handleSelect,
     handleClear,
@@ -86,47 +80,6 @@ export default function PokemonSearch() {
           </ul>
         )}
       </div>
-
-      {/* 포켓몬 카드 */}
-      {showCard && (
-        <div className="mt-2 flex items-center gap-4 rounded-2xl bg-[var(--card)] p-3 shadow-md">
-          {imageUrl && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={imageUrl}
-              alt={selectedDisplayName}
-              width={80}
-              height={80}
-              className="h-20 w-20 shrink-0 object-contain"
-            />
-          )}
-          <div className="flex flex-col gap-2">
-            <p className="text-sm font-bold text-[var(--text)] capitalize">
-              {selectedDisplayName}
-            </p>
-            <div className="flex gap-2">
-              {pokemonTypes.map((type) => (
-                <Pill
-                  key={type}
-                  pokemonTypeName={type}
-                  animation={false}
-                  isActive={true}
-                />
-              ))}
-            </div>
-          </div>
-          <button
-            onClick={() => setTypes(pokemonTypes)}
-            aria-label={t('Search.apply')}
-            className={cn(
-              'ml-auto flex items-center rounded-full p-2',
-              'text-[var(--text)] opacity-50 transition-opacity duration-200 hover:opacity-100',
-            )}
-          >
-            <ChevronRight size={20} />
-          </button>
-        </div>
-      )}
     </div>
   )
 }

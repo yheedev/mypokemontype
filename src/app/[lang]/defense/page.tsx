@@ -3,11 +3,13 @@
 import Selector from '@/components/UI/Selector'
 import Result from '@/components/UI/Result'
 import PokemonSearch from '@/components/UI/PokemonSearch'
+import PokemonBattle from '@/components/UI/PokemonBattle'
 
 export default function Defense() {
   return (
     <main>
       <PokemonSearch />
+      <PokemonBattle />
       <div className="m-4 grid grid-cols-1 items-start gap-12 p-4 xl:grid-cols-2">
         <Selector />
         <Result />

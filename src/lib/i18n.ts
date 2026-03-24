@@ -20,6 +20,7 @@ export const initI18n = async (lang: string) => {
       defaultNS: 'translation',
       backend: {
         loadPath: '/locales/{{lng}}/{{ns}}.json',
+        requestOptions: { cache: 'no-store' },
       },
       interpolation: {
         escapeValue: false,

@@ -6,13 +6,15 @@ import { filterEnglish, filterJapanese, filterKorean, type Suggestion } from '@/
 import { usePokemonQuery } from '@/hooks/usePokemonQuery'
 import { usePokemonList } from '@/hooks/usePokemonList'
 import { usePokemonLangMap } from '@/hooks/usePokemonLangMap'
-import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
+import { usePokemonSlotStore } from '@/stores/usePokemonSlotStore'
 import { TypeName, type TypeNameElement } from '@/constants/pokemon'
 
 export type { Suggestion }
 
 export function usePokemonSearch() {
   const containerRef = useRef<HTMLDivElement>(null)
+  // 선택 시점의 타겟 슬롯을 캡처 (data 도착 시점에 activeSlot이 바뀌어도 안전)
+  const targetSlotRef = useRef<'A' | 'B'>('A')
 
   const [input, setInput] = useState('')
   const [selectedEnName, setSelectedEnName] = useState('')
@@ -20,7 +22,7 @@ export function usePokemonSearch() {
   const [showDropdown, setShowDropdown] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
 
-  const setTypes = useUpToTwoStore((state) => state.setTypes)
+  const { activeSlot, setSlot, clearActiveSlot } = usePokemonSlotStore()
   const { data: pokemonList } = usePokemonList()
   const { data: koMap, isLoading: isKoMapLoading } = usePokemonLangMap('ko')
   const { data: jaMap, isLoading: isJaMapLoading } = usePokemonLangMap('ja')
@@ -37,17 +39,7 @@ export function usePokemonSearch() {
     return filterEnglish(pokemonList ?? [], input)
   })()
 
-  const pokemonTypes = (pokemonData?.types ?? [])
-    .sort((a, b) => a.slot - b.slot)
-    .map(({ type }) => type.name)
-    .filter((name): name is TypeNameElement => TypeName.includes(name as TypeNameElement))
-
-  const imageUrl =
-    pokemonData?.sprites.other['official-artwork'].front_default ??
-    pokemonData?.sprites.front_default
-
-  const showCard = !!(pokemonData && pokemonTypes.length > 0 && selectedEnName)
-
+  // click-outside 드롭다운 닫기
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
@@ -58,7 +50,40 @@ export function usePokemonSearch() {
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
+  // 포켓몬 데이터가 도착하면 타겟 슬롯에 채우고 검색 초기화
+  useEffect(() => {
+    if (!pokemonData || !selectedEnName || pokemonData.name !== selectedEnName) return
+
+    const types = (pokemonData.types ?? [])
+      .sort((a, b) => a.slot - b.slot)
+      .map(({ type }) => type.name)
+      .filter((name): name is TypeNameElement => TypeName.includes(name as TypeNameElement))
+
+    const imageUrl =
+      pokemonData.sprites.other['official-artwork'].front_default ??
+      pokemonData.sprites.front_default
+
+    if (!imageUrl || types.length === 0) return
+
+    setSlot(targetSlotRef.current, {
+      displayName: selectedDisplayName,
+      englishName: selectedEnName,
+      imageUrl,
+      types,
+    })
+
+    clearActiveSlot()
+    setInput('')
+    setSelectedEnName('')
+    setSelectedDisplayName('')
+    setShowDropdown(false)
+    setActiveIndex(-1)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pokemonData, selectedEnName])
+
   const handleSelect = (suggestion: Suggestion) => {
+    // 선택 시점의 슬롯을 캡처 (아무 슬롯도 선택 안 했으면 A가 기본)
+    targetSlotRef.current = activeSlot ?? 'A'
     setInput(suggestion.displayName)
     setSelectedEnName(suggestion.englishName)
     setSelectedDisplayName(suggestion.displayName)
@@ -103,17 +128,12 @@ export function usePokemonSearch() {
   return {
     containerRef,
     input,
-    selectedDisplayName,
     showDropdown,
     setShowDropdown,
     activeIndex,
     suggestions,
-    pokemonTypes,
-    imageUrl,
-    showCard,
     isLoadingPokemon,
     isLangMapLoading,
-    setTypes,
     handleInputChange,
     handleSelect,
     handleClear,
