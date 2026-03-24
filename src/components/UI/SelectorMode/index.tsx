@@ -96,20 +96,6 @@ export default function SelectorMode() {
           </span>
         </Link>
       </div>
-      <div className="border-b-2 border-[var(--border)]">
-        <div
-          className={cn(
-            'col-span-1 text-center tracking-[0.5px] break-words whitespace-normal',
-            'my-7 text-[0.95rem] font-bold',
-            'sm:text-[1.5rem] sm:font-extrabold',
-            lang === 'ko' ? 'break-keep' : 'break-normal',
-          )}
-        >
-          <span>
-            {mode === 'offense' ? t('Mode.offenseInfo') : t('Mode.defenseInfo')}
-          </span>
-        </div>
-      </div>
     </>
   )
 }

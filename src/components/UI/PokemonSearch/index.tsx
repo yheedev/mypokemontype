@@ -10,7 +10,12 @@ import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
 import { TypeName, type TypeNameElement } from '@/constants/pokemon'
 import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
-import { getChoseong, isKoreanInput, isJapaneseInput, isPureJamo } from '@/utils/jamo'
+import {
+  getChoseong,
+  isKoreanInput,
+  isJapaneseInput,
+  isPureJamo,
+} from '@/utils/jamo'
 
 const MAX_SUGGESTIONS = 8
 
@@ -42,10 +47,7 @@ function filterJapanese(
     .map((name) => ({ displayName: name, englishName: jaMap.get(name)! }))
 }
 
-function filterKorean(
-  koMap: Map<string, string>,
-  query: string,
-): Suggestion[] {
+function filterKorean(koMap: Map<string, string>, query: string): Suggestion[] {
   const isJamo = isPureJamo(query)
   const results: Suggestion[] = []
 
@@ -57,7 +59,6 @@ function filterKorean(
     if (matches) results.push({ displayName: koName, englishName: enName })
   }
 
-  // startsWith 우선 정렬
   return results
     .sort((a, b) => {
       const aFirst = isJamo
@@ -91,7 +92,8 @@ export default function PokemonSearch() {
 
   const isKorean = input.length >= 1 && isKoreanInput(input)
   const isJapanese = input.length >= 1 && isJapaneseInput(input)
-  const isLangMapLoading = (isKorean && isKoMapLoading) || (isJapanese && isJaMapLoading)
+  const isLangMapLoading =
+    (isKorean && isKoMapLoading) || (isJapanese && isJaMapLoading)
 
   const suggestions: Suggestion[] = (() => {
     if (input.length < 1) return []
@@ -117,7 +119,6 @@ export default function PokemonSearch() {
     data?.sprites.other['official-artwork'].front_default ??
     data?.sprites.front_default
 
-  // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
@@ -173,11 +174,10 @@ export default function PokemonSearch() {
 
   return (
     <div className="mx-4 mt-3 mb-1 px-4" ref={containerRef}>
-      {/* 검색 인풋 */}
       <div className="relative">
         <Search
           size={16}
-          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--text)] opacity-40"
+          className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-[var(--text)] opacity-40"
         />
         <input
           type="text"
@@ -195,8 +195,7 @@ export default function PokemonSearch() {
           )}
         />
 
-        {/* 로딩 스피너 / 클리어 버튼 */}
-        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+        <div className="absolute top-1/2 right-4 -translate-y-1/2">
           {isLoadingPokemon || isLangMapLoading ? (
             <div className="h-4 w-4 animate-spin rounded-full border-2 border-[var(--text)] border-t-transparent opacity-40" />
           ) : (
@@ -210,7 +209,7 @@ export default function PokemonSearch() {
 
         {/* 자동완성 드롭다운 */}
         {showDropdown && suggestions.length > 0 && (
-          <ul className="absolute top-full left-0 right-0 z-20 mt-1 overflow-hidden rounded-2xl bg-[var(--card)] shadow-lg">
+          <ul className="absolute top-full right-0 left-0 z-20 mt-1 overflow-hidden rounded-2xl bg-[var(--card)] shadow-lg">
             {suggestions.map((s, i) => (
               <li
                 key={s.englishName}
@@ -246,7 +245,7 @@ export default function PokemonSearch() {
             />
           )}
           <div className="flex flex-col gap-2">
-            <p className="text-sm font-bold capitalize text-[var(--text)]">
+            <p className="text-sm font-bold text-[var(--text)] capitalize">
               {selectedDisplayName}
             </p>
             <div className="flex gap-2">
