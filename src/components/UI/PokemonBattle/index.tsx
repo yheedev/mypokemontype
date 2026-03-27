@@ -111,8 +111,7 @@ export default function PokemonBattle() {
   const slotAColorScheme = mode === 'offense' ? 'offense' : 'defense'
 
   return (
-    <div className="mx-4 mt-2 mb-1 flex flex-col gap-2 px-4">
-      <BattleSentence attackerData={attackerData} defenderData={defenderData} />
+    <div className="mx-4 my-8 mb-1 flex flex-col gap-2 px-4">
       <div className="grid grid-cols-[1fr_88px_1fr] items-stretch gap-3">
         <PokemonSlot
           colorScheme={slotAColorScheme}
@@ -137,6 +136,7 @@ export default function PokemonBattle() {
           onClear={() => handleClearSlot('B')}
         />
       </div>
+      <BattleSentence attackerData={attackerData} defenderData={defenderData} />
     </div>
   )
 }
