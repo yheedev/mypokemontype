@@ -38,45 +38,35 @@ export function BattleSentence({
   )
 
   return (
-    <div className="mt-7 flex flex-wrap items-center justify-center gap-[5px] px-2 py-1 text-[15px] text-[var(--text)]">
+    <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 px-2 py-1 text-[1rem] text-[var(--text)] sm:mt-6 sm:text-[1.2rem]">
       {lang !== 'en' ? (
-        // ko + ja: 주어 - 조사 - 목적어 - 조사 - 부사 - 동사 (어순 동일)
+        // ko + ja: name+particle을 같은 span으로 합쳐 inline 렌더링 (flex item 끝 공백 collapse 방지)
+        // 단어 간격은 flex gap으로 처리
         <>
-          <span className="font-bold text-[#e84040] capitalize opacity-100">
-            {attackerName}
+          <span>
+            <span className="font-bold text-[#e84040] capitalize">{attackerName}</span>
+            {t(hasFinalConsonant(attackerName) ? 'Battle.subjectParticle_batchim' : 'Battle.subjectParticle_no_batchim')}
           </span>
           <span>
-            {t(
-              hasFinalConsonant(attackerName)
-                ? 'Battle.subjectParticle_batchim'
-                : 'Battle.subjectParticle_no_batchim',
-            )}
+            <span className="font-bold text-[#4a9eff] capitalize">{defenderName}</span>
+            {t(hasFinalConsonant(defenderName) ? 'Battle.objectParticle_batchim' : 'Battle.objectParticle_no_batchim')}
           </span>
           {lang === 'ko' && <span className="basis-full sm:hidden" />}
-          <span className="font-bold text-[#4a9eff] capitalize opacity-100">
-            {defenderName}
-          </span>
-          <span>
-            {t(
-              hasFinalConsonant(defenderName)
-                ? 'Battle.objectParticle_batchim'
-                : 'Battle.objectParticle_no_batchim',
-            )}
-          </span>
           {modeBadge(t('Battle.modeEffectively'))}
           <span>{t('Battle.attacks')}</span>
         </>
       ) : (
-        // en: 주어 - 동사 - 목적어 - 부사 (어순 다름)
+        // en: phrase 단위로 묶어 JSX {' '}로 공백 처리
         <>
-          <span className="font-bold text-[#e84040] capitalize opacity-100">
-            {attackerName}
+          <span>
+            <span className="font-bold text-[#e84040] capitalize">{attackerName}</span>
+            {' '}{t('Battle.attacks')}
           </span>
-          <span>{t('Battle.attacks')}</span>
-          <span className="font-bold text-[#4a9eff] capitalize opacity-100">
-            {defenderName}
+          <span className="basis-full sm:hidden" />
+          <span>
+            <span className="font-bold text-[#4a9eff] capitalize">{defenderName}</span>
+            {' '}{modeBadge(t('Battle.modeEffectively'))}
           </span>
-          {modeBadge(t('Battle.modeEffectively'))}
         </>
       )}
     </div>
