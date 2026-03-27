@@ -1,12 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
+import { COLOR_SCHEME } from '@/constants/pokemonSlot'
+import type { SlotColorScheme } from '@/constants/pokemonSlot'
 import type { PokemonSlotData } from '@/stores/usePokemonSlotStore'
-
-export type SlotColorScheme = 'offense' | 'defense' | 'default'
 
 interface PokemonSlotProps {
   colorScheme: SlotColorScheme
@@ -19,23 +20,6 @@ interface PokemonSlotProps {
   onClear: () => void
 }
 
-const COLOR_SCHEME = {
-  offense: {
-    border: 'border-[var(--offenseRec)]',
-    activeShadow: 'shadow-[0_0_0_3px_var(--offenseRec)]',
-    roleColor: 'text-[var(--offenseRec)]',
-  },
-  defense: {
-    border: 'border-[var(--defenseRec)]',
-    activeShadow: 'shadow-[0_0_0_3px_var(--defenseRec)]',
-    roleColor: 'text-[var(--defenseRec)]',
-  },
-  default: {
-    border: 'border-[var(--border)]',
-    activeShadow: 'shadow-[0_0_0_3px_var(--disable)]',
-    roleColor: 'text-[var(--text)] opacity-50',
-  },
-}
 
 export function PokemonSlot({
   colorScheme,
@@ -50,40 +34,46 @@ export function PokemonSlot({
   const { t } = useTranslation()
   const style = COLOR_SCHEME[colorScheme]
 
+  const [isFlashing, setIsFlashing] = useState(false)
+
+  const handleClick = () => {
+    if (disabled) return
+    setIsFlashing(true)
+    onClick()
+    setTimeout(() => setIsFlashing(false), 300)
+  }
+
   return (
     <div className="relative h-full">
       {/* 슬롯 본체 */}
       <div
         role="button"
         tabIndex={disabled ? -1 : 0}
-        onClick={disabled ? undefined : onClick}
+        onClick={handleClick}
         onKeyDown={(e) =>
-          !disabled && (e.key === 'Enter' || e.key === ' ') && onClick()
+          !disabled && (e.key === 'Enter' || e.key === ' ') && handleClick()
         }
         className={cn(
           'flex h-full min-h-[175px] w-full flex-col items-center gap-3',
-          'rounded-[22px] bg-[var(--card)] px-4 py-5',
+          'rounded-[22px] px-4 py-5',
           'border text-[var(--text)] shadow-md',
-          'transition-all duration-200',
+          'transition-colors duration-200',
           style.border,
+          isFlashing ? style.flashBg : 'bg-[var(--card)]',
           disabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer',
           !disabled && isActive && style.activeShadow,
         )}
       >
         <span
-          className={cn(
-            'text-[10px] font-bold tracking-widest uppercase',
-            style.roleColor,
-          )}
+          className={cn('text-[12px] font-bold uppercase', style.roleColor)}
         >
           {isAttacker ? t('Battle.attacker') : t('Battle.attackerTarget')}
         </span>
 
         {data ? (
           data.imageUrl ? (
-            <div className="flex flex-1 items-center gap-3">
-              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-[var(--background)]">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+            <div className="flex flex-1 flex-col items-center gap-3 align-middle">
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full">
                 <img
                   src={data.imageUrl}
                   alt={data.displayName}
@@ -92,20 +82,18 @@ export function PokemonSlot({
                   className="h-[52px] w-[52px] object-contain"
                 />
               </div>
-              <div className="flex min-w-0 flex-1 flex-col items-start gap-2">
-                <span className="text-md w-full truncate font-bold capitalize">
-                  {data.displayName}
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {data.types.map((type) => (
-                    <Pill
-                      key={type}
-                      pokemonTypeName={type}
-                      animation={false}
-                      isActive={true}
-                    />
-                  ))}
-                </div>
+              <span className="text-md truncate font-bold capitalize">
+                {data.displayName}
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {data.types.map((type) => (
+                  <Pill
+                    key={type}
+                    pokemonTypeName={type}
+                    animation={false}
+                    isActive={true}
+                  />
+                ))}
               </div>
             </div>
           ) : (
