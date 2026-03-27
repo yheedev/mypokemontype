@@ -38,8 +38,10 @@
     "apply": "タイプ選択に適用"
   },
   "Battle": {
-    "attacker": "アタッカー ",
+    "attacker": "アタッカー",
     "attackerTarget": "ターゲット",
+    "defense": "ディフェンダー",
+    "defenseTarget": "攻め側ポケモン",
     "emptySlot": "ポケモンを選択",
     "myPokemon": "自分のポケモン",
     "otherPokemon": "相手のポケモン",

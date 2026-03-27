@@ -7,10 +7,12 @@ import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
 import { COLOR_SCHEME } from '@/constants/pokemonSlot'
 import type { SlotColorScheme } from '@/constants/pokemonSlot'
+import type { Mode } from '@/constants/mode'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import type { PokemonSlotData } from '@/stores/usePokemonSlotStore'
 
 interface PokemonSlotProps {
+  mode: Mode
   colorScheme: SlotColorScheme
   defaultName: string
   isAttacker: boolean
@@ -22,6 +24,7 @@ interface PokemonSlotProps {
 }
 
 export function PokemonSlot({
+  mode,
   colorScheme,
   defaultName,
   isAttacker,
@@ -37,6 +40,10 @@ export function PokemonSlot({
 
   // 한국어·영어: 띄어쓰기 기준 줄넘김 / 일본어: 문자 단위 줄넘김
   const textBreak = lang === 'ja' ? 'break-all' : 'break-keep'
+
+  const roleLabel = mode === 'offense'
+    ? (isAttacker ? 'Battle.attacker' : 'Battle.attackerTarget')
+    : (isAttacker ? 'Battle.defense' : 'Battle.defenseTarget')
 
   const [isFlashing, setIsFlashing] = useState(false)
 
@@ -68,15 +75,11 @@ export function PokemonSlot({
           !disabled && isActive && style.activeShadow,
         )}
       >
-        <span
-          className={cn(
-            'text-center text-[12px] font-bold uppercase',
-            textBreak,
-            style.roleColor,
-          )}
-        >
-          {isAttacker ? t('Battle.attacker') : t('Battle.attackerTarget')}
-        </span>
+        <div className={cn('flex h-9 w-full items-center justify-center', style.roleColor)}>
+          <span className={cn('text-center text-[12px] font-bold uppercase', textBreak)}>
+            {t(roleLabel)}
+          </span>
+        </div>
 
         {data ? (
           data.imageUrl ? (

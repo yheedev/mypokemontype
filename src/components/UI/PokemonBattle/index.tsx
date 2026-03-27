@@ -114,6 +114,7 @@ export default function PokemonBattle() {
     <div className="mx-4 my-8 mb-1 flex flex-col gap-2 px-4">
       <div className="grid grid-cols-[1fr_88px_1fr] items-stretch sm:gap-3">
         <PokemonSlot
+          mode={mode}
           colorScheme={slotAColorScheme}
           defaultName={t('Battle.myPokemon')}
           isAttacker={isLeftAttacker}
@@ -127,6 +128,7 @@ export default function PokemonBattle() {
           onClick={handleToggleDirection}
         />
         <PokemonSlot
+          mode={mode}
           colorScheme="default"
           defaultName={t('Battle.otherPokemon')}
           isAttacker={!isLeftAttacker}

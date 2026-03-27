@@ -40,6 +40,8 @@
   "Battle": {
     "attacker": "공격하는 포켓몬",
     "attackerTarget": "공격 대상",
+    "defense": "방어하는 포켓몬",
+    "defenseTarget": "때리는 포켓몬",
     "emptySlot": "포켓몬 선택",
     "myPokemon": "내 포켓몬",
     "otherPokemon": "다른 포켓몬",

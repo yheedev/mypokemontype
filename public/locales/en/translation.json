@@ -38,8 +38,10 @@
     "apply": "Apply to type selector"
   },
   "Battle": {
-    "attacker": "ATTACKER",
-    "attackerTarget": "ATTACKER TARGET",
+    "attacker": "Attacker",
+    "attackerTarget": "Attacker Target",
+    "defense": "Defender",
+    "defenseTarget": "Hitter",
     "emptySlot": "Select Pokémon",
     "myPokemon": "My Pokémon",
     "otherPokemon": "Other Pokémon",
