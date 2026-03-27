@@ -38,18 +38,30 @@ export function BattleSentence({
   )
 
   return (
-    <div className="mt-3 flex flex-wrap items-center justify-center gap-1.5 px-2 py-1 text-[1rem] text-[var(--text)] sm:mt-6 sm:text-[1.2rem]">
+    <div className="mt-3 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-0.5 px-2 py-1 text-[1rem] text-[var(--text)] sm:mt-6 sm:gap-1.5 sm:text-[1.2rem]">
       {lang !== 'en' ? (
         // ko + ja: name+particle을 같은 span으로 합쳐 inline 렌더링 (flex item 끝 공백 collapse 방지)
         // 단어 간격은 flex gap으로 처리
         <>
           <span>
-            <span className="font-bold text-[#e84040] capitalize">{attackerName}</span>
-            {t(hasFinalConsonant(attackerName) ? 'Battle.subjectParticle_batchim' : 'Battle.subjectParticle_no_batchim')}
+            <span className="font-bold text-[#e84040] capitalize">
+              {attackerName}
+            </span>
+            {t(
+              hasFinalConsonant(attackerName)
+                ? 'Battle.subjectParticle_batchim'
+                : 'Battle.subjectParticle_no_batchim',
+            )}
           </span>
           <span>
-            <span className="font-bold text-[#4a9eff] capitalize">{defenderName}</span>
-            {t(hasFinalConsonant(defenderName) ? 'Battle.objectParticle_batchim' : 'Battle.objectParticle_no_batchim')}
+            <span className="font-bold text-[#4a9eff] capitalize">
+              {defenderName}
+            </span>
+            {t(
+              hasFinalConsonant(defenderName)
+                ? 'Battle.objectParticle_batchim'
+                : 'Battle.objectParticle_no_batchim',
+            )}
           </span>
           {lang === 'ko' && <span className="basis-full sm:hidden" />}
           {modeBadge(t('Battle.modeEffectively'))}
@@ -59,13 +71,17 @@ export function BattleSentence({
         // en: phrase 단위로 묶어 JSX {' '}로 공백 처리
         <>
           <span>
-            <span className="font-bold text-[#e84040] capitalize">{attackerName}</span>
-            {' '}{t('Battle.attacks')}
+            <span className="font-bold text-[#e84040] capitalize">
+              {attackerName}
+            </span>{' '}
+            {t('Battle.attacks')}
           </span>
           <span className="basis-full sm:hidden" />
           <span>
-            <span className="font-bold text-[#4a9eff] capitalize">{defenderName}</span>
-            {' '}{modeBadge(t('Battle.modeEffectively'))}
+            <span className="font-bold text-[#4a9eff] capitalize">
+              {defenderName}
+            </span>{' '}
+            {modeBadge(t('Battle.modeEffectively'))}
           </span>
         </>
       )}
