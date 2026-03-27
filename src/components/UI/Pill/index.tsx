@@ -13,6 +13,7 @@ interface Props {
   isDarkMode?: boolean
   upToTwo?: (type: string) => void // ContainerTypes 컴포넌트에서 upToTwo 함수를 props로 전달
   animation: boolean
+  size?: 'md' | 'sm'
 }
 
 export const Pill = ({
@@ -22,6 +23,7 @@ export const Pill = ({
   isDarkMode,
   isActive,
   animation = true,
+  size = 'md',
 }: Props) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     onClick && onClick(!isActive)
@@ -53,9 +55,8 @@ export const Pill = ({
         className={cn(
           'group relative flex items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
           'duration-200 transition-all ease-in-out',
-          'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px]', // pc
-          'md:border-6px', // 태블릿
-          'h-[2.6rem] w-[4.8rem] border-[4.5px]', // 모바일
+          size === 'md' && 'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px] md:border-[6px] h-[2.6rem] w-[4.8rem] border-[4.5px]',
+          size === 'sm' && 'sm:h-[3.1rem] sm:w-[6.8rem] sm:border-[7px] md:border-[6px] h-[2rem] w-[3.8rem] border-[3.5px]',
           isActive ? 'z-10' : 'z-0',
           onClick ? 'cursor-pointer' : 'cursor-default',
         )}
@@ -83,12 +84,18 @@ export const Pill = ({
         <div className="relative z-10 flex h-full w-full items-center justify-center">
           <span
             className={cn(
-              "font-['Noto_Sans_KR'] text-[0.85rem] font-black sm:text-base",
+              "font-['Noto_Sans_KR'] font-black",
               isActive ? `dark:text-[var(--card)]` : 'text-[var(--color-text)]',
-              lang === 'ko'
-                ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]'
-                : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
-              lang === 'ja' ? 'text-[0.8rem]' : 'font-black sm:font-bold',
+              size === 'md' && [
+                'text-[0.85rem] sm:text-base',
+                lang === 'ko' ? 'tracking-[2px] sm:tracking-[4px] md:tracking-[2px]' : 'tracking-[0.5px] sm:tracking-[1.5px] md:tracking-[1px]',
+                lang === 'ja' ? 'text-[0.8rem]' : 'sm:font-bold',
+              ],
+              size === 'sm' && [
+                'text-[0.7rem] sm:text-base',
+                lang === 'ko' ? 'tracking-[1px] sm:tracking-[4px] md:tracking-[2px]' : 'tracking-[0.3px] sm:tracking-[1.5px] md:tracking-[1px]',
+                lang === 'ja' ? 'text-[0.65rem] sm:text-[0.8rem]' : 'sm:font-bold',
+              ],
             )}
           >
             {t(`TypeName.${pokemonTypeName}`)}

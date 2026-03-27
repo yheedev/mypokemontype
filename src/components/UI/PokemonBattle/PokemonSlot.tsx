@@ -41,9 +41,14 @@ export function PokemonSlot({
   // 한국어·영어: 띄어쓰기 기준 줄넘김 / 일본어: 문자 단위 줄넘김
   const textBreak = lang === 'ja' ? 'break-all' : 'break-keep'
 
-  const roleLabel = mode === 'offense'
-    ? (isAttacker ? 'Battle.attacker' : 'Battle.attackerTarget')
-    : (isAttacker ? 'Battle.defense' : 'Battle.defenseTarget')
+  const roleLabel =
+    mode === 'offense'
+      ? isAttacker
+        ? 'Battle.attacker'
+        : 'Battle.attackerTarget'
+      : isAttacker
+        ? 'Battle.defense'
+        : 'Battle.defenseTarget'
 
   const [isFlashing, setIsFlashing] = useState(false)
 
@@ -66,7 +71,7 @@ export function PokemonSlot({
         }
         className={cn(
           'flex h-full min-h-[175px] w-full flex-col items-center',
-          'rounded-[22px] p-5',
+          'rounded-[22px] p-3 sm:p-5',
           'border text-[var(--text)] shadow-md',
           'transition-colors duration-200',
           style.border,
@@ -75,8 +80,18 @@ export function PokemonSlot({
           !disabled && isActive && style.activeShadow,
         )}
       >
-        <div className={cn('flex h-9 w-full items-center justify-center', style.roleColor)}>
-          <span className={cn('text-center text-[12px] font-bold uppercase', textBreak)}>
+        <div
+          className={cn(
+            'flex h-9 w-full items-center justify-center',
+            style.roleColor,
+          )}
+        >
+          <span
+            className={cn(
+              'text-center text-[12px] font-bold uppercase',
+              textBreak,
+            )}
+          >
             {t(roleLabel)}
           </span>
         </div>
@@ -101,13 +116,14 @@ export function PokemonSlot({
               >
                 {data.displayName}
               </span>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap justify-center gap-1.5">
                 {data.types.map((type) => (
                   <Pill
                     key={type}
                     pokemonTypeName={type}
                     animation={false}
                     isActive={true}
+                    size="md"
                   />
                 ))}
               </div>
@@ -121,6 +137,7 @@ export function PokemonSlot({
                   pokemonTypeName={type}
                   animation={false}
                   isActive={true}
+                  size="md"
                 />
               ))}
             </div>

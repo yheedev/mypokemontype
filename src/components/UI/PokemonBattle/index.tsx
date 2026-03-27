@@ -49,19 +49,20 @@ export default function PokemonBattle() {
 
   // PillGroup 수동 선택 → 활성 슬롯에 반영
   // isUserChange=true(toggleType)일 때만 동작, setTypes/resetTypes(프로그래밍)는 무시
+  // activeSlot이 null이면 왼쪽 슬롯(A)을 기본 대상으로 사용
   useEffect(() => {
     if (!isUserChange) return
-    if (activeSlot === null) return
+    const targetSlot = activeSlot ?? 'A'
 
-    const currentSlotData = activeSlot === 'A' ? slotA : slotB
+    const currentSlotData = targetSlot === 'A' ? slotA : slotB
     if (currentSlotData !== null && currentSlotData.imageUrl !== null) return // 포켓몬이 있으면 덮어쓰지 않음
 
     if (selectedTypes.length === 0) {
-      if (currentSlotData !== null) clearSlot(activeSlot) // 타입 전부 해제 시 슬롯도 비움
+      if (currentSlotData !== null) clearSlot(targetSlot) // 타입 전부 해제 시 슬롯도 비움
       return
     }
 
-    setSlot(activeSlot, {
+    setSlot(targetSlot, {
       displayName: '',
       englishName: '',
       imageUrl: null,
