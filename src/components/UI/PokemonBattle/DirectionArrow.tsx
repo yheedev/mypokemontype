@@ -16,7 +16,7 @@ export function DirectionArrow({
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col items-center justify-center gap-1.5">
+    <div className="flex flex-col items-center justify-center gap-2">
       <button
         onClick={onClick}
         aria-label={t('Battle.toggleDirection')}
@@ -24,7 +24,7 @@ export function DirectionArrow({
           'flex h-11 w-11 items-center justify-center rounded-full sm:h-16 sm:w-16',
           'border border-[var(--border)] bg-[var(--card)] shadow-md',
           'transition-all duration-200',
-          'hover:scale-105 hover:border-[var(--text)] active:scale-95',
+          'hover:scale-105 active:scale-95',
         )}
       >
         <MoveRight
