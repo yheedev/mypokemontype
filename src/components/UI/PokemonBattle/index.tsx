@@ -19,10 +19,20 @@ export default function PokemonBattle() {
   const { lang } = useLanguageStore()
   const mode = getModeByPath(pathname, lang)
 
-  const { slotA, slotB, activeSlot, isLeftAttacker, setActiveSlot, forceActiveSlot, setSlot, clearSlot, toggleDirection } =
-    usePokemonSlotStore()
+  const {
+    slotA,
+    slotB,
+    activeSlot,
+    isLeftAttacker,
+    setActiveSlot,
+    forceActiveSlot,
+    setSlot,
+    clearSlot,
+    toggleDirection,
+  } = usePokemonSlotStore()
 
-  const { selectedTypes, isUserChange, setTypes, resetTypes } = useUpToTwoStore()
+  const { selectedTypes, isUserChange, setTypes, resetTypes } =
+    useUpToTwoStore()
   const offenseCal = useOffenseCalStore((state) => state.calculate)
   const defenseCal = useDefenseCalStore((state) => state.calculate)
 
@@ -51,9 +61,14 @@ export default function PokemonBattle() {
       return
     }
 
-    setSlot(activeSlot, { displayName: '', englishName: '', imageUrl: null, types: selectedTypes })
-  // slotA·slotB를 deps에서 제외해 루프 방지
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setSlot(activeSlot, {
+      displayName: '',
+      englishName: '',
+      imageUrl: null,
+      types: selectedTypes,
+    })
+    // slotA·slotB를 deps에서 제외해 루프 방지
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTypes, isUserChange, activeSlot])
 
   // 슬롯 클릭: 활성화 시 해당 슬롯의 타입을 PillGroup에 반영 (isUserChange=false → 슬롯 재sync 없음)
@@ -97,7 +112,8 @@ export default function PokemonBattle() {
 
   return (
     <div className="mx-4 mt-2 mb-1 flex flex-col gap-2 px-4">
-      <div className="grid grid-cols-[1fr_88px_1fr] items-center gap-3">
+      <BattleSentence attackerData={attackerData} defenderData={defenderData} />
+      <div className="grid grid-cols-[1fr_88px_1fr] items-stretch gap-3">
         <PokemonSlot
           colorScheme={slotAColorScheme}
           defaultName={t('Battle.myPokemon')}
@@ -121,7 +137,6 @@ export default function PokemonBattle() {
           onClear={() => handleClearSlot('B')}
         />
       </div>
-      <BattleSentence attackerData={attackerData} defenderData={defenderData} />
     </div>
   )
 }

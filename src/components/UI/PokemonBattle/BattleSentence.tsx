@@ -17,7 +17,13 @@ function getKoSubjectParticle(name: string): '이' | '가' {
   return (code - 0xac00) % 28 !== 0 ? '이' : '가'
 }
 
-export function BattleSentence({ attackerData, defenderData }: BattleSentenceProps) {
+// TODO
+// [ ] 을, 를 조사 반환 추가
+
+export function BattleSentence({
+  attackerData,
+  defenderData,
+}: BattleSentenceProps) {
   const { t } = useTranslation()
   const { lang } = useLanguageStore()
 
@@ -34,24 +40,38 @@ export function BattleSentence({ attackerData, defenderData }: BattleSentencePro
     >
       {lang === 'ko' && (
         <>
-          <span className="font-bold capitalize text-[var(--offenseRec)]">{attackerName}</span>
-          <span className="opacity-70">{getKoSubjectParticle(attackerName)}</span>
-          <span className="font-bold capitalize text-[var(--defenseRec)]">{defenderName}</span>
+          <span className="font-bold text-[var(--offenseRec)] capitalize">
+            {attackerName}
+          </span>
+          <span className="opacity-70">
+            {getKoSubjectParticle(attackerName)}
+          </span>
+          <span className="font-bold text-[var(--defenseRec)] capitalize">
+            {defenderName}
+          </span>
           <span className="opacity-70">를 공격합니다</span>
         </>
       )}
       {lang === 'en' && (
         <>
-          <span className="font-bold capitalize text-[var(--offenseRec)]">{attackerName}</span>
+          <span className="font-bold text-[var(--offenseRec)] capitalize">
+            {attackerName}
+          </span>
           <span className="opacity-70">attacks</span>
-          <span className="font-bold capitalize text-[var(--defenseRec)]">{defenderName}</span>
+          <span className="font-bold text-[var(--defenseRec)] capitalize">
+            {defenderName}
+          </span>
         </>
       )}
       {lang === 'ja' && (
         <>
-          <span className="font-bold capitalize text-[var(--offenseRec)]">{attackerName}</span>
+          <span className="font-bold text-[var(--offenseRec)] capitalize">
+            {attackerName}
+          </span>
           <span className="opacity-70">が</span>
-          <span className="font-bold capitalize text-[var(--defenseRec)]">{defenderName}</span>
+          <span className="font-bold text-[var(--defenseRec)] capitalize">
+            {defenderName}
+          </span>
           <span className="opacity-70">を攻撃します</span>
         </>
       )}

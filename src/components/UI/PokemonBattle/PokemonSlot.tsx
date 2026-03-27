@@ -51,15 +51,17 @@ export function PokemonSlot({
   const style = COLOR_SCHEME[colorScheme]
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       {/* 슬롯 본체 */}
       <div
         role="button"
         tabIndex={disabled ? -1 : 0}
         onClick={disabled ? undefined : onClick}
-        onKeyDown={(e) => !disabled && (e.key === 'Enter' || e.key === ' ') && onClick()}
+        onKeyDown={(e) =>
+          !disabled && (e.key === 'Enter' || e.key === ' ') && onClick()
+        }
         className={cn(
-          'flex w-full flex-col items-center gap-3',
+          'flex h-full min-h-[175px] w-full flex-col items-center gap-3',
           'rounded-[22px] bg-[var(--card)] px-4 py-5',
           'border text-[var(--text)] shadow-md',
           'transition-all duration-200',
@@ -68,48 +70,67 @@ export function PokemonSlot({
           !disabled && isActive && style.activeShadow,
         )}
       >
-        <span className={cn('text-[10px] font-bold tracking-widest uppercase', style.roleColor)}>
+        <span
+          className={cn(
+            'text-[10px] font-bold tracking-widest uppercase',
+            style.roleColor,
+          )}
+        >
           {isAttacker ? t('Battle.attacker') : t('Battle.attackerTarget')}
         </span>
 
         {data ? (
           data.imageUrl ? (
-            // 포켓몬 검색으로 채운 상태: 이미지 + 이름 + 타입
-            <>
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--background)]">
+            <div className="flex flex-1 items-center gap-3">
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-[var(--background)]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={data.imageUrl}
                   alt={data.displayName}
-                  width={72}
-                  height={72}
-                  className="h-[72px] w-[72px] object-contain"
+                  width={52}
+                  height={52}
+                  className="h-[52px] w-[52px] object-contain"
                 />
               </div>
-              <span className="text-sm font-bold capitalize">{data.displayName}</span>
-              <div className="flex flex-wrap justify-center gap-1.5">
-                {data.types.map((type) => (
-                  <Pill key={type} pokemonTypeName={type} animation={false} isActive={true} />
-                ))}
+              <div className="flex min-w-0 flex-1 flex-col items-start gap-2">
+                <span className="text-md w-full truncate font-bold capitalize">
+                  {data.displayName}
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {data.types.map((type) => (
+                    <Pill
+                      key={type}
+                      pokemonTypeName={type}
+                      animation={false}
+                      isActive={true}
+                    />
+                  ))}
+                </div>
               </div>
-            </>
+            </div>
           ) : (
-            // 수동 타입 선택 상태: 이미지 없이 타입만 표시
-            <div className="flex min-h-[108px] flex-wrap content-center justify-center gap-1.5 py-2">
+            // 수동 타입 선택 상태: 타입만 중앙 정렬
+            <div className="flex flex-1 flex-wrap content-center justify-center gap-1.5 py-2">
               {data.types.map((type) => (
-                <Pill key={type} pokemonTypeName={type} animation={false} isActive={true} />
+                <Pill
+                  key={type}
+                  pokemonTypeName={type}
+                  animation={false}
+                  isActive={true}
+                />
               ))}
             </div>
           )
         ) : (
-          // 빈 슬롯
-          <>
-            <div className="flex h-20 w-20 items-center justify-center rounded-full border border-dashed border-[var(--border)] bg-[var(--background)]">
+          // 빈 슬롯: 원형 + 이름 세로 중앙 정렬
+          <div className="flex w-full flex-1 flex-col items-center justify-center gap-2">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full border border-dashed border-[var(--border)] bg-[var(--background)]">
               <span className="text-2xl text-[var(--text)] opacity-20">?</span>
             </div>
-            <span className="text-sm font-semibold text-[var(--text)] opacity-30">{defaultName}</span>
-            <div className="h-[22px]" />
-          </>
+            <span className="text-sm font-semibold text-[var(--text)] opacity-30">
+              {defaultName}
+            </span>
+          </div>
         )}
       </div>
 
