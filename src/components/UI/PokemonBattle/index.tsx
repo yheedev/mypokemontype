@@ -112,7 +112,7 @@ export default function PokemonBattle() {
 
   return (
     <div className="mx-4 my-8 mb-1 flex flex-col gap-2 px-4">
-      <div className="grid grid-cols-[1fr_88px_1fr] items-stretch gap-3">
+      <div className="grid grid-cols-[1fr_88px_1fr] items-stretch sm:gap-3">
         <PokemonSlot
           colorScheme={slotAColorScheme}
           defaultName={t('Battle.myPokemon')}

@@ -43,7 +43,13 @@
     "emptySlot": "포켓몬 선택",
     "myPokemon": "내 포켓몬",
     "otherPokemon": "다른 포켓몬",
-    "toggleDirection": "방향 전환"
+    "toggleDirection": "방향 전환",
+    "subjectParticle_batchim": "이",
+    "subjectParticle_no_batchim": "가",
+    "objectParticle_batchim": "을",
+    "objectParticle_no_batchim": "를",
+    "attacks": "공격합니다",
+    "modeEffectively": "효과적으로"
   },
   "notFound": {
     "description": "페이지가 존재하지 않습니다.",

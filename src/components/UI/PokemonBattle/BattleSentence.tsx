@@ -3,7 +3,7 @@
 import { useTranslation } from 'react-i18next'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { cn } from '@/lib/utils'
-import { getKoSubjectParticle, getKoObjectParticle } from '@/utils/koParticle'
+import { hasFinalConsonant } from '@/utils/koParticle'
 import type { PokemonSlotData } from '@/stores/usePokemonSlotStore'
 
 interface BattleSentenceProps {
@@ -39,44 +39,44 @@ export function BattleSentence({
 
   return (
     <div className="mt-7 flex flex-wrap items-center justify-center gap-[5px] px-2 py-1 text-[15px] text-[var(--text)]">
-      {lang === 'ko' && (
+      {lang !== 'en' ? (
+        // ko + ja: 주어 - 조사 - 목적어 - 조사 - 부사 - 동사 (어순 동일)
         <>
           <span className="font-bold text-[#e84040] capitalize opacity-100">
             {attackerName}
           </span>
-          <span>{getKoSubjectParticle(attackerName)}</span>
+          <span>
+            {t(
+              hasFinalConsonant(attackerName)
+                ? 'Battle.subjectParticle_batchim'
+                : 'Battle.subjectParticle_no_batchim',
+            )}
+          </span>
+          {lang === 'ko' && <span className="basis-full sm:hidden" />}
           <span className="font-bold text-[#4a9eff] capitalize opacity-100">
             {defenderName}
           </span>
-          <span>{getKoObjectParticle(defenderName)}</span>
-          {modeBadge('효과적으로')}
-          <span>공격합니다</span>
+          <span>
+            {t(
+              hasFinalConsonant(defenderName)
+                ? 'Battle.objectParticle_batchim'
+                : 'Battle.objectParticle_no_batchim',
+            )}
+          </span>
+          {modeBadge(t('Battle.modeEffectively'))}
+          <span>{t('Battle.attacks')}</span>
         </>
-      )}
-      {lang === 'en' && (
+      ) : (
+        // en: 주어 - 동사 - 목적어 - 부사 (어순 다름)
         <>
           <span className="font-bold text-[#e84040] capitalize opacity-100">
             {attackerName}
           </span>
-          <span>attacks</span>
+          <span>{t('Battle.attacks')}</span>
           <span className="font-bold text-[#4a9eff] capitalize opacity-100">
             {defenderName}
           </span>
-          {modeBadge('effectively')}
-        </>
-      )}
-      {lang === 'ja' && (
-        <>
-          <span className="font-bold text-[#e84040] capitalize opacity-100">
-            {attackerName}
-          </span>
-          <span>が</span>
-          <span className="font-bold text-[#4a9eff] capitalize opacity-100">
-            {defenderName}
-          </span>
-          <span>を</span>
-          {modeBadge('効果的に')}
-          <span>攻撃します</span>
+          {modeBadge(t('Battle.modeEffectively'))}
         </>
       )}
     </div>

@@ -9,7 +9,10 @@ interface DirectionArrowProps {
   onClick: () => void
 }
 
-export function DirectionArrow({ isLeftAttacker, onClick }: DirectionArrowProps) {
+export function DirectionArrow({
+  isLeftAttacker,
+  onClick,
+}: DirectionArrowProps) {
   const { t } = useTranslation()
 
   return (
@@ -18,7 +21,7 @@ export function DirectionArrow({ isLeftAttacker, onClick }: DirectionArrowProps)
         onClick={onClick}
         aria-label={t('Battle.toggleDirection')}
         className={cn(
-          'flex h-16 w-16 items-center justify-center rounded-full',
+          'flex h-11 w-11 items-center justify-center rounded-full sm:h-16 sm:w-16',
           'border border-[var(--border)] bg-[var(--card)] shadow-md',
           'transition-all duration-200',
           'hover:scale-105 hover:border-[var(--text)] active:scale-95',
@@ -27,7 +30,7 @@ export function DirectionArrow({ isLeftAttacker, onClick }: DirectionArrowProps)
         <MoveRight
           size={24}
           className={cn(
-            'transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)]',
+            'transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] dark:text-[var(--text)]',
             !isLeftAttacker && 'rotate-180',
           )}
         />

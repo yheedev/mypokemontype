@@ -7,6 +7,7 @@ import { Pill } from '@/components/UI/Pill'
 import { cn } from '@/lib/utils'
 import { COLOR_SCHEME } from '@/constants/pokemonSlot'
 import type { SlotColorScheme } from '@/constants/pokemonSlot'
+import { useLanguageStore } from '@/stores/useLanguageStore'
 import type { PokemonSlotData } from '@/stores/usePokemonSlotStore'
 
 interface PokemonSlotProps {
@@ -20,7 +21,6 @@ interface PokemonSlotProps {
   onClear: () => void
 }
 
-
 export function PokemonSlot({
   colorScheme,
   defaultName,
@@ -32,7 +32,11 @@ export function PokemonSlot({
   onClear,
 }: PokemonSlotProps) {
   const { t } = useTranslation()
+  const { lang } = useLanguageStore()
   const style = COLOR_SCHEME[colorScheme]
+
+  // 한국어·영어: 띄어쓰기 기준 줄넘김 / 일본어: 문자 단위 줄넘김
+  const textBreak = lang === 'ja' ? 'break-all' : 'break-keep'
 
   const [isFlashing, setIsFlashing] = useState(false)
 
@@ -54,8 +58,8 @@ export function PokemonSlot({
           !disabled && (e.key === 'Enter' || e.key === ' ') && handleClick()
         }
         className={cn(
-          'flex h-full min-h-[175px] w-full flex-col items-center gap-3',
-          'rounded-[22px] px-4 py-5',
+          'flex h-full min-h-[175px] w-full flex-col items-center',
+          'rounded-[22px] p-5',
           'border text-[var(--text)] shadow-md',
           'transition-colors duration-200',
           style.border,
@@ -65,7 +69,11 @@ export function PokemonSlot({
         )}
       >
         <span
-          className={cn('text-[12px] font-bold uppercase', style.roleColor)}
+          className={cn(
+            'text-center text-[12px] font-bold uppercase',
+            textBreak,
+            style.roleColor,
+          )}
         >
           {isAttacker ? t('Battle.attacker') : t('Battle.attackerTarget')}
         </span>
@@ -82,7 +90,12 @@ export function PokemonSlot({
                   className="h-[52px] w-[52px] object-contain"
                 />
               </div>
-              <span className="text-md truncate font-bold capitalize">
+              <span
+                className={cn(
+                  'text-md w-full text-center font-bold capitalize',
+                  textBreak,
+                )}
+              >
                 {data.displayName}
               </span>
               <div className="flex flex-wrap gap-1.5">

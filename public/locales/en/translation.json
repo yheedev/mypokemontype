@@ -43,7 +43,13 @@
     "emptySlot": "Select Pokémon",
     "myPokemon": "My Pokémon",
     "otherPokemon": "Other Pokémon",
-    "toggleDirection": "Flip"
+    "toggleDirection": "Flip",
+    "subjectParticle_batchim": "",
+    "subjectParticle_no_batchim": "",
+    "objectParticle_batchim": "",
+    "objectParticle_no_batchim": "",
+    "attacks": "attacks",
+    "modeEffectively": "effectively"
   },
   "notFound": {
     "description": "The page you are looking for does not exist.",

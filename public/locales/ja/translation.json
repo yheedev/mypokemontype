@@ -38,12 +38,18 @@
     "apply": "タイプ選択に適用"
   },
   "Battle": {
-    "attacker": "アタッカー · 攻撃",
-    "attackerTarget": "アタッカー · 攻撃対象",
+    "attacker": "アタッカー ",
+    "attackerTarget": "ターゲット",
     "emptySlot": "ポケモンを選択",
     "myPokemon": "自分のポケモン",
     "otherPokemon": "相手のポケモン",
-    "toggleDirection": "方向切替"
+    "toggleDirection": "方向切替",
+    "subjectParticle_batchim": "が",
+    "subjectParticle_no_batchim": "が",
+    "objectParticle_batchim": "を",
+    "objectParticle_no_batchim": "を",
+    "attacks": "攻撃します",
+    "modeEffectively": "効果的に"
   },
   "notFound": {
     "description": "ページが見つかりません。",
