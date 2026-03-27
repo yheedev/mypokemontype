@@ -38,10 +38,13 @@ export function BattleSentence({
   )
 
   return (
-    <div className="mt-3 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-0.5 px-2 py-1 text-[1rem] text-[var(--text)] sm:mt-6 sm:gap-1.5 sm:text-[1.2rem]">
+    <div
+      className={cn(
+        'mt-3 flex flex-wrap items-center justify-center px-2 py-1 text-[1rem] font-medium text-[var(--text)] sm:mt-6 sm:text-[1.2rem]',
+        lang !== 'ja' && 'gap-x-1.5 gap-y-0.5 sm:gap-1.5',
+      )}
+    >
       {lang !== 'en' ? (
-        // ko + ja: name+particle을 같은 span으로 합쳐 inline 렌더링 (flex item 끝 공백 collapse 방지)
-        // 단어 간격은 flex gap으로 처리
         <>
           <span>
             <span className="font-bold text-[#e84040] capitalize">
@@ -68,7 +71,6 @@ export function BattleSentence({
           <span>{t('Battle.attacks')}</span>
         </>
       ) : (
-        // en: phrase 단위로 묶어 JSX {' '}로 공백 처리
         <>
           <span>
             <span className="font-bold text-[#e84040] capitalize">
