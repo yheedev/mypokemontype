@@ -11,11 +11,14 @@ import { Pill } from '@/components/UI/Pill'
 import Card from '@/components/UI/Card'
 import BestIcon from '@/components/UI/BestIcon'
 import Divider from '@/components/UI/Divider'
+import { CopyButton } from './CopyButton'
 import { TypeNameElement } from '@/constants/pokemon'
 import { isOffensePath } from '@/utils/pathMode'
 import { useBattleSentenceModeStore } from '@/stores/useBattleSentenceModeStore'
 import { cn } from '@/lib/utils'
 import { commonGrid } from '@/lib/StyleClassUtil'
+
+type SortedEntry = [string, TypeNameElement[]]
 
 export default function Result() {
   const lang = useLanguageStore((state) => state.lang)
@@ -37,7 +40,7 @@ export default function Result() {
 
   const sortedArray = Object.entries(result)
     .filter(([, v]) => v.length > 0)
-    .sort(([a], [b]) => direction * (Number(a) - Number(b)))
+    .sort(([a], [b]) => direction * (Number(a) - Number(b))) as SortedEntry[]
 
   return (
     <Card>
@@ -51,6 +54,10 @@ export default function Result() {
             : t(`a11y.results.defense.aria-label`)
         }
       >
+        <div className="flex justify-end pt-2">
+          <CopyButton sortedArray={sortedArray} />
+        </div>
+
         {sortedArray.map(([key, value], index) => (
           <div key={key} className="mb-7">
             <div
