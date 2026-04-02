@@ -50,6 +50,8 @@
     "subjectParticle_no_batchim": "",
     "objectParticle_batchim": "",
     "objectParticle_no_batchim": "",
+    "objectParticle_defense_batchim": "",
+    "objectParticle_defense_no_batchim": "",
     "attacks": "attacks",
     "defenses": "defends against",
     "modeEffectively": "effectively",

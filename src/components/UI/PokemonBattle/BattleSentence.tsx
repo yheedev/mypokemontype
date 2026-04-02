@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { cn } from '@/lib/utils'
 import { hasFinalConsonant } from '@/utils/koParticle'
+import { useBattleSentenceModeStore } from '@/stores/useBattleSentenceModeStore'
+import type { BattleSentenceMode } from '@/stores/useBattleSentenceModeStore'
 import type { PokemonSlotData } from '@/stores/usePokemonSlotStore'
-
-type ModeKey = 'Battle.modeEffectively' | 'Battle.modeGently'
-
-const MODE_OPTIONS: ModeKey[] = ['Battle.modeEffectively', 'Battle.modeGently']
-
 import type { Mode } from '@/constants/mode'
+
+const MODE_OPTIONS: BattleSentenceMode[] = ['Battle.modeEffectively', 'Battle.modeGently']
 
 interface BattleSentenceProps {
   attackerData: PokemonSlotData | null
@@ -31,9 +30,7 @@ export function BattleSentence({
   const attackerName = attackerData?.displayName || t('Battle.myPokemon')
   const defenderName = defenderData?.displayName || t('Battle.otherPokemon')
 
-  const [selectedMode, setSelectedMode] = useState<ModeKey>(
-    'Battle.modeEffectively',
-  )
+  const { selectedMode, setSelectedMode } = useBattleSentenceModeStore()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -130,8 +127,8 @@ export function BattleSentence({
             </span>
             {t(
               hasFinalConsonant(defenderName)
-                ? 'Battle.objectParticle_batchim'
-                : 'Battle.objectParticle_no_batchim',
+                ? (mode === 'offense' ? 'Battle.objectParticle_batchim' : 'Battle.objectParticle_defense_batchim')
+                : (mode === 'offense' ? 'Battle.objectParticle_no_batchim' : 'Battle.objectParticle_defense_no_batchim'),
             )}
           </span>
           {lang === 'ko' && <span className="basis-full sm:hidden" />}

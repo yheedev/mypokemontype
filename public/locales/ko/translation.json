@@ -50,9 +50,11 @@
     "subjectParticle_no_batchim": "가",
     "objectParticle_batchim": "을",
     "objectParticle_no_batchim": "를",
-    "attacks": "공격합니다",
-    "defenses": "방어합니다",
-    "modeEffectively": "효과적으로",
+    "objectParticle_defense_batchim": "으로부터",
+    "objectParticle_defense_no_batchim": "로부터",
+    "attacks": "때립니다.",
+    "defenses": "맞습니다.",
+    "modeEffectively": "세게",
     "modeGently": "살살"
   },
   "notFound": {

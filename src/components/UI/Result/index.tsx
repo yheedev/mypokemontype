@@ -13,6 +13,7 @@ import BestIcon from '@/components/UI/BestIcon'
 import Divider from '@/components/UI/Divider'
 import { TypeNameElement } from '@/constants/pokemon'
 import { isOffensePath } from '@/utils/pathMode'
+import { useBattleSentenceModeStore } from '@/stores/useBattleSentenceModeStore'
 import { cn } from '@/lib/utils'
 import { commonGrid } from '@/lib/StyleClassUtil'
 
@@ -27,10 +28,12 @@ export default function Result() {
   const slotB = usePokemonSlotStore((s) => s.slotB)
 
   const isOffense = isOffensePath(pathname, lang)
+  const { selectedMode } = useBattleSentenceModeStore()
+
   // offense 페이지에서 슬롯 B(방어자)가 있으면 방어 결과(방어자의 약점)를 표시
   const result = isOffense ? (slotB !== null ? defenseResult : offenseResult) : defenseResult
 
-  const direction = isOffense ? -1 : 1
+  const direction = selectedMode === 'Battle.modeEffectively' ? -1 : 1
 
   const sortedArray = Object.entries(result)
     .filter(([, v]) => v.length > 0)

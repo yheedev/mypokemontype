@@ -50,8 +50,10 @@
     "subjectParticle_no_batchim": "が",
     "objectParticle_batchim": "を",
     "objectParticle_no_batchim": "を",
-    "attacks": "攻撃します",
-    "defenses": "防御します",
+    "objectParticle_defense_batchim": "から",
+    "objectParticle_defense_no_batchim": "から",
+    "attacks": "攻撃します。",
+    "defenses": "防御します。",
     "modeEffectively": "効果的に",
     "modeGently": "手加減して"
   },
