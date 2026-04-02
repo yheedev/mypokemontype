@@ -25,7 +25,9 @@
   },
   "Result": {
     "x damage": "배의 데미지",
-    "copy": "클립보드에 복사했어요."
+    "copy": "클립보드에 복사했어요.",
+    "offenseError": "내 포켓몬 타입을 먼저 선택해주세요.",
+    "defenseError": "때리는 포켓몬의 타입을 먼저 선택해주세요."
   },
   "language": {
     "settings": "언어 설정",

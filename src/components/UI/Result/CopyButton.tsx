@@ -103,6 +103,10 @@ export function CopyButton({ sortedArray }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
+    if (!canCopy) {
+      toast(t(mode === 'offense' ? 'Result.offenseError' : 'Result.defenseError'))
+      return
+    }
     const text = buildCopyText(
       t,
       lang,
@@ -132,7 +136,6 @@ export function CopyButton({ sortedArray }: CopyButtonProps) {
   return (
     <button
       onClick={handleCopy}
-      disabled={!canCopy}
       className={cn(
         'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5',
         'text-xs font-medium transition-colors duration-150',

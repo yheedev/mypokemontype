@@ -25,7 +25,9 @@
   },
   "Result": {
     "x damage": "x damage",
-    "copy": "Copied to clipboard."
+    "copy": "Copied to clipboard.",
+    "offenseError": "Choose the attacking Pokémon type first.",
+    "defenseError": "Choose the defending Pokémon type first."
   },
   "language": {
     "settings": "Language",
