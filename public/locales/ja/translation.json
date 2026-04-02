@@ -51,7 +51,8 @@
     "objectParticle_batchim": "を",
     "objectParticle_no_batchim": "を",
     "attacks": "攻撃します",
-    "modeEffectively": "効果的に"
+    "modeEffectively": "効果的に",
+    "modeGently": "手加減して"
   },
   "notFound": {
     "description": "ページが見つかりません。",

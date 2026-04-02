@@ -44,14 +44,15 @@
     "defenseTarget": "Hitter",
     "emptySlot": "Select Pokémon",
     "myPokemon": "My Pokémon",
-    "otherPokemon": "Other Pokémon",
+    "otherPokemon": "The opposing Pokémon",
     "toggleDirection": "Flip",
     "subjectParticle_batchim": "",
     "subjectParticle_no_batchim": "",
     "objectParticle_batchim": "",
     "objectParticle_no_batchim": "",
     "attacks": "attacks",
-    "modeEffectively": "effectively"
+    "modeEffectively": "effectively",
+    "modeGently": "gently"
   },
   "notFound": {
     "description": "The page you are looking for does not exist.",

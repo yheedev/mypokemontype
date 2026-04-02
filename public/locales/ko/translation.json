@@ -51,7 +51,9 @@
     "objectParticle_batchim": "을",
     "objectParticle_no_batchim": "를",
     "attacks": "공격합니다",
-    "modeEffectively": "효과적으로"
+    "defenses": "방어합니다",
+    "modeEffectively": "효과적으로",
+    "modeGently": "살살"
   },
   "notFound": {
     "description": "페이지가 존재하지 않습니다.",
