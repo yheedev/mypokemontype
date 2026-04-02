@@ -85,6 +85,12 @@
         "aria-label": "라이트모드로 전환"
       }
     },
+    "ShareBtn": {
+      "aria-label": "결과 공유"
+    },
+    "CopyBtn": {
+      "aria-label": "결과 복사"
+    },
     "MoreBtn": {
       "aria-label": "프로젝트 소개 및 개발자 메일"
     },

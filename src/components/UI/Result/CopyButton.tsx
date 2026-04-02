@@ -12,6 +12,7 @@ import { hasFinalConsonant } from '@/utils/koParticle'
 import { isOffensePath } from '@/utils/pathMode'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
+import * as Tooltip from '@radix-ui/react-tooltip'
 import type { TypeNameElement } from '@/constants/pokemon'
 import type { Mode } from '@/constants/mode'
 import type { TFunction } from 'i18next'
@@ -134,17 +135,35 @@ export function CopyButton({ sortedArray }: CopyButtonProps) {
   }
 
   return (
-    <button
-      onClick={handleCopy}
-      className={cn(
-        'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5',
-        'text-xs font-medium transition-colors duration-150',
-        canCopy
-          ? 'text-[var(--text)] opacity-40 hover:opacity-80'
-          : 'cursor-not-allowed text-[var(--text)] opacity-20',
-      )}
-    >
-      {copied ? <Check size={17} /> : <Copy size={17} />}
-    </button>
+    <Tooltip.Root>
+      <Tooltip.Trigger asChild>
+        <button
+          onClick={handleCopy}
+          aria-label={t('a11y.CopyBtn.aria-label')}
+          className={cn(
+            'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5',
+            'text-xs font-medium transition-colors duration-150',
+            canCopy
+              ? 'text-[var(--text)] opacity-40 hover:opacity-80'
+              : 'cursor-not-allowed text-[var(--text)] opacity-20',
+          )}
+        >
+          {copied ? <Check size={17} /> : <Copy size={17} />}
+        </button>
+      </Tooltip.Trigger>
+      <Tooltip.Portal>
+        <Tooltip.Content
+          sideOffset={6}
+          className={cn(
+            'rounded-md bg-[var(--text)] px-2 py-1',
+            'text-xs text-[var(--background)]',
+            'animate-in fade-in-0 zoom-in-95',
+          )}
+        >
+          {t('a11y.CopyBtn.aria-label')}
+          <Tooltip.Arrow className="fill-[var(--text)]" />
+        </Tooltip.Content>
+      </Tooltip.Portal>
+    </Tooltip.Root>
   )
 }

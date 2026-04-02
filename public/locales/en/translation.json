@@ -26,7 +26,7 @@
   "Result": {
     "x damage": "x damage",
     "copy": "Copied to clipboard.",
-    "share": "Link copied!",
+    "share": "Link copied.",
     "offenseError": "Choose the attacking Pokémon type first.",
     "defenseError": "Choose the defending Pokémon type first."
   },
@@ -84,6 +84,12 @@
       "light": {
         "aria-label": "Light mode is active. Click to switch to dark mode."
       }
+    },
+    "ShareBtn": {
+      "aria-label": "Share results"
+    },
+    "CopyBtn": {
+      "aria-label": "Copy results"
     },
     "MoreBtn": {
       "aria-label": "Go to the page with the <My Pokemon Type> developer’s email."

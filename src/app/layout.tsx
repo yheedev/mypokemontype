@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import { QueryProvider } from '@/providers/QueryProvider'
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import { Toaster } from '@/components/UI/sonner'
+import { TooltipProvider } from '@radix-ui/react-tooltip'
 
 export const metadata: Metadata = {
   title: {
@@ -152,9 +153,11 @@ export default function RootLayout({
     >
       <body>
         <QueryProvider>
-          <ServiceWorkerRegister />
-          <main>{children}</main>
-          <Toaster duration={1000} position="top-center" />
+          <TooltipProvider delayDuration={300}>
+            <ServiceWorkerRegister />
+            <main>{children}</main>
+            <Toaster duration={1000} position="top-center" />
+          </TooltipProvider>
         </QueryProvider>
       </body>
     </html>

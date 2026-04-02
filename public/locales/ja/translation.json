@@ -85,6 +85,12 @@
         "aria-label": "ライトモードに切替"
       }
     },
+    "ShareBtn": {
+      "aria-label": "結果共有"
+    },
+    "CopyBtn": {
+      "aria-label": "結果をコピー"
+    },
     "MoreBtn": {
       "aria-label": "プロジェクト紹介・開発者メール"
     },
