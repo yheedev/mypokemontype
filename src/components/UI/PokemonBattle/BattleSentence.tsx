@@ -72,7 +72,7 @@ export function BattleSentence({
       {isOpen && (
         <div
           className={cn(
-            'absolute top-full left-0 z-20 mt-1 min-w-full overflow-hidden',
+            'absolute top-full left-0 z-20 mt-1 w-max overflow-hidden',
             'rounded-[6px] border border-dashed border-[rgba(212,168,0,.4)]',
             'bg-[var(--card)] shadow-md',
           )}
