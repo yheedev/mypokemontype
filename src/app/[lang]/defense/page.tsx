@@ -1,11 +1,19 @@
-'use client'
-
 import { Suspense } from 'react'
+import type { Metadata } from 'next'
 import Selector from '@/components/UI/Selector'
 import Result from '@/components/UI/Result'
 import PokemonSearch from '@/components/UI/PokemonSearch'
 import PokemonBattle from '@/components/UI/PokemonBattle'
 import { UrlSync } from '@/components/UI/UrlSync'
+import { buildPokemonMetadata } from '@/utils/ogMetadata'
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ slotA?: string; slotB?: string }>
+}): Promise<Metadata> {
+  return buildPokemonMetadata(await searchParams)
+}
 
 export default function Defense() {
   return (
@@ -22,36 +30,3 @@ export default function Defense() {
     </main>
   )
 }
-
-// import Title from '../components/Title'
-// import Result from 'components/Result'
-// import { Selector } from 'components/Selector'
-// import styled from 'styled-components'
-// import BtnMenu from 'components/BtnMenu'
-
-// const Container = styled.div`
-//   display: grid;
-//   grid-template-columns: 1fr 1fr;
-//   gap: 3rem;
-//   padding: 1rem;
-//   margin: 1rem;
-
-//   @media (max-width: 1023px) {
-//     grid-template-columns: 1fr;
-//   }
-// `
-
-// function Defense() {
-//   return (
-//     <>
-//       <Title />
-//       <Container>
-//         <Selector />
-//         <Result />
-//       </Container>
-//       <BtnMenu />
-//     </>
-//   )
-// }
-
-// export default Defense
