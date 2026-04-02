@@ -12,6 +12,7 @@ import Card from '@/components/UI/Card'
 import BestIcon from '@/components/UI/BestIcon'
 import Divider from '@/components/UI/Divider'
 import { CopyButton } from './CopyButton'
+import { ShareButton } from './ShareButton'
 import { TypeNameElement } from '@/constants/pokemon'
 import { isOffensePath } from '@/utils/pathMode'
 import { useBattleSentenceModeStore } from '@/stores/useBattleSentenceModeStore'
@@ -69,7 +70,8 @@ export default function Result() {
               {hasSelection && index === 0 && <BestIcon lang={lang} />}
 
               {index === 0 && (
-                <div className="ml-auto">
+                <div className="ml-auto flex items-center">
+                  <ShareButton />
                   <CopyButton sortedArray={sortedArray} />
                 </div>
               )}

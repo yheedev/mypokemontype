@@ -1,13 +1,18 @@
 'use client'
 
+import { Suspense } from 'react'
 import Selector from '@/components/UI/Selector'
 import Result from '@/components/UI/Result'
 import PokemonSearch from '@/components/UI/PokemonSearch'
 import PokemonBattle from '@/components/UI/PokemonBattle'
+import { UrlSync } from '@/components/UI/UrlSync'
 
 export default function Defense() {
   return (
     <main>
+      <Suspense fallback={null}>
+        <UrlSync />
+      </Suspense>
       <PokemonSearch />
       <PokemonBattle />
       <div className="m-4 grid grid-cols-1 items-start gap-12 p-4 xl:grid-cols-2">

@@ -26,6 +26,7 @@
   "Result": {
     "x damage": "x damage",
     "copy": "Copied to clipboard.",
+    "share": "Link copied!",
     "offenseError": "Choose the attacking Pokémon type first.",
     "defenseError": "Choose the defending Pokémon type first."
   },
