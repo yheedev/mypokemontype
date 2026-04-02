@@ -159,3 +159,18 @@ body {
     opacity: 1;
   }
 }
+
+.toaster {
+  --width: 170px !important;
+}
+
+.toaster [data-title] {
+  text-align: center !important;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .toaster {
+    --width: 220px !important;
+  }
+}

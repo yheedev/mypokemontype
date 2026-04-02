@@ -24,7 +24,8 @@
     "defense": "デフェンス"
   },
   "Result": {
-    "x damage": "倍ダメージ"
+    "x damage": "倍ダメージ",
+    "copy": "クリップボードにコピーしました。"
   },
   "language": {
     "settings": "言語設定",

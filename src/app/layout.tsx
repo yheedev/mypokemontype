@@ -4,6 +4,7 @@ import { Noto_Sans_KR } from 'next/font/google'
 import localFont from 'next/font/local'
 import { QueryProvider } from '@/providers/QueryProvider'
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
+import { Toaster } from '@/components/UI/sonner'
 
 export const metadata: Metadata = {
   title: {
@@ -153,6 +154,7 @@ export default function RootLayout({
         <QueryProvider>
           <ServiceWorkerRegister />
           <main>{children}</main>
+          <Toaster duration={1000} position="top-center" />
         </QueryProvider>
       </body>
     </html>

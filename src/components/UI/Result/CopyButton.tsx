@@ -11,6 +11,7 @@ import type { BattleSentenceMode } from '@/stores/useBattleSentenceModeStore'
 import { hasFinalConsonant } from '@/utils/koParticle'
 import { isOffensePath } from '@/utils/pathMode'
 import { cn } from '@/lib/utils'
+import { toast } from 'sonner'
 import type { TypeNameElement } from '@/constants/pokemon'
 import type { Mode } from '@/constants/mode'
 import type { TFunction } from 'i18next'
@@ -30,7 +31,9 @@ function buildSentence(
   defenderName: string,
 ): string {
   const modeLabel = t(selectedMode)
-  const actionLabel = t(mode === 'offense' ? 'Battle.attacks' : 'Battle.defenses')
+  const actionLabel = t(
+    mode === 'offense' ? 'Battle.attacks' : 'Battle.defenses',
+  )
 
   if (lang === 'en') {
     return `${attackerName} ${actionLabel} ${defenderName} ${modeLabel}`
@@ -43,8 +46,12 @@ function buildSentence(
   )
   const objectParticle = t(
     hasFinalConsonant(defenderName)
-      ? (mode === 'offense' ? 'Battle.objectParticle_batchim' : 'Battle.objectParticle_defense_batchim')
-      : (mode === 'offense' ? 'Battle.objectParticle_no_batchim' : 'Battle.objectParticle_defense_no_batchim'),
+      ? mode === 'offense'
+        ? 'Battle.objectParticle_batchim'
+        : 'Battle.objectParticle_defense_batchim'
+      : mode === 'offense'
+        ? 'Battle.objectParticle_no_batchim'
+        : 'Battle.objectParticle_defense_no_batchim',
   )
   const sep = lang === 'ja' ? '' : ' '
   return `${attackerName}${subjectParticle}${sep}${defenderName}${objectParticle}${sep}${modeLabel}${sep}${actionLabel}`
@@ -59,7 +66,14 @@ function buildCopyText(
   defenderName: string,
   sortedArray: SortedEntry[],
 ): string {
-  const sentence = buildSentence(t, lang, mode, selectedMode, attackerName, defenderName)
+  const sentence = buildSentence(
+    t,
+    lang,
+    mode,
+    selectedMode,
+    attackerName,
+    defenderName,
+  )
   const rows = sortedArray.map(([key, types]) => {
     const typeNames = types.map((type) => t(`TypeName.${type}`)).join(', ')
     return `- ${key}${t('Result.x damage')}: ${typeNames}`
@@ -89,8 +103,28 @@ export function CopyButton({ sortedArray }: CopyButtonProps) {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
-    const text = buildCopyText(t, lang, mode, selectedMode, attackerName, defenderName, sortedArray)
-    await navigator.clipboard.writeText(text)
+    const text = buildCopyText(
+      t,
+      lang,
+      mode,
+      selectedMode,
+      attackerName,
+      defenderName,
+      sortedArray,
+    )
+    try {
+      await navigator.clipboard.writeText(text)
+    } catch {
+      const textarea = document.createElement('textarea')
+      textarea.value = text
+      textarea.style.cssText = 'position:fixed;top:0;left:0;opacity:0;'
+      document.body.appendChild(textarea)
+      textarea.focus()
+      textarea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textarea)
+    }
+    toast(t('Result.copy'))
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -107,7 +141,7 @@ export function CopyButton({ sortedArray }: CopyButtonProps) {
           : 'cursor-not-allowed text-[var(--text)] opacity-20',
       )}
     >
-      {copied ? <Check size={14} /> : <Copy size={14} />}
+      {copied ? <Check size={17} /> : <Copy size={17} />}
     </button>
   )
 }

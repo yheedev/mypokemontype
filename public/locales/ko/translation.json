@@ -24,7 +24,8 @@
     "defense": "방어"
   },
   "Result": {
-    "x damage": "배의 데미지"
+    "x damage": "배의 데미지",
+    "copy": "클립보드에 복사했어요."
   },
   "language": {
     "settings": "언어 설정",

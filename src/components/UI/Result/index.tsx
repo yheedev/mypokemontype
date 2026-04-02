@@ -34,7 +34,11 @@ export default function Result() {
   const { selectedMode } = useBattleSentenceModeStore()
 
   // offense 페이지에서 슬롯 B(방어자)가 있으면 방어 결과(방어자의 약점)를 표시
-  const result = isOffense ? (slotB !== null ? defenseResult : offenseResult) : defenseResult
+  const result = isOffense
+    ? slotB !== null
+      ? defenseResult
+      : offenseResult
+    : defenseResult
 
   const direction = selectedMode === 'Battle.modeEffectively' ? -1 : 1
 
@@ -54,32 +58,28 @@ export default function Result() {
             : t(`a11y.results.defense.aria-label`)
         }
       >
-        <div className="flex justify-end pt-2">
-          <CopyButton sortedArray={sortedArray} />
-        </div>
-
         {sortedArray.map(([key, value], index) => (
           <div key={key} className="mb-7">
-            <div
-              className={cn('flex flex-row-reverse items-center justify-end')}
-            >
-              {hasSelection && index === 0 && <BestIcon lang={lang} />}
-
+            <div className="flex items-center">
               <h1 className="font-['Noto_Sans_KR'] text-xl font-black">
                 {key}
                 {t('Result.x damage')}
               </h1>
+
+              {hasSelection && index === 0 && <BestIcon lang={lang} />}
+
+              {index === 0 && (
+                <div className="ml-auto">
+                  <CopyButton sortedArray={sortedArray} />
+                </div>
+              )}
             </div>
 
             <Divider className="my-4" />
 
             <div className={cn(commonGrid)}>
               {(value as TypeNameElement[]).map((type) => (
-                <Pill
-                  animation={false}
-                  key={type}
-                  pokemonTypeName={type}
-                />
+                <Pill animation={false} key={type} pokemonTypeName={type} />
               ))}
             </div>
           </div>

@@ -24,7 +24,8 @@
     "defense": "Defense"
   },
   "Result": {
-    "x damage": "x damage"
+    "x damage": "x damage",
+    "copy": "Copied to clipboard."
   },
   "language": {
     "settings": "Language",
