@@ -51,6 +51,7 @@
     "objectParticle_batchim": "",
     "objectParticle_no_batchim": "",
     "attacks": "attacks",
+    "defenses": "defends against",
     "modeEffectively": "effectively",
     "modeGently": "gently"
   },

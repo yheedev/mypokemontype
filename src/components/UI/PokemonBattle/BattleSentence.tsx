@@ -11,17 +11,22 @@ type ModeKey = 'Battle.modeEffectively' | 'Battle.modeGently'
 
 const MODE_OPTIONS: ModeKey[] = ['Battle.modeEffectively', 'Battle.modeGently']
 
+import type { Mode } from '@/constants/mode'
+
 interface BattleSentenceProps {
   attackerData: PokemonSlotData | null
   defenderData: PokemonSlotData | null
+  mode: Mode
 }
 
 export function BattleSentence({
   attackerData,
   defenderData,
+  mode,
 }: BattleSentenceProps) {
   const { t } = useTranslation()
   const { lang } = useLanguageStore()
+  const actionKey = mode === 'offense' ? 'Battle.attacks' : 'Battle.defenses'
 
   const attackerName = attackerData?.displayName || t('Battle.myPokemon')
   const defenderName = defenderData?.displayName || t('Battle.otherPokemon')
@@ -131,7 +136,7 @@ export function BattleSentence({
           </span>
           {lang === 'ko' && <span className="basis-full sm:hidden" />}
           {modeBadge}
-          <span>{t('Battle.attacks')}</span>
+          <span>{t(actionKey)}</span>
         </>
       ) : (
         <>
@@ -139,7 +144,7 @@ export function BattleSentence({
             <span className="font-bold text-[#e84040] capitalize">
               {attackerName}
             </span>{' '}
-            {t('Battle.attacks')}
+            {t(actionKey)}
           </span>
           <span className="basis-full sm:hidden" />
           <span>

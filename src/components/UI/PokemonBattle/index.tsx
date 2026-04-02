@@ -139,7 +139,7 @@ export default function PokemonBattle() {
           onClear={() => handleClearSlot('B')}
         />
       </div>
-      <BattleSentence attackerData={attackerData} defenderData={defenderData} />
+      <BattleSentence attackerData={attackerData} defenderData={defenderData} mode={mode} />
     </div>
   )
 }
