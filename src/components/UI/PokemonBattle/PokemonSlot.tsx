@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { X } from 'lucide-react'
 import { Pill } from '@/components/UI/Pill'
@@ -9,7 +8,9 @@ import { COLOR_SCHEME } from '@/constants/pokemonSlot'
 import type { SlotColorScheme } from '@/constants/pokemonSlot'
 import type { Mode } from '@/constants/mode'
 import { useLanguageStore } from '@/stores/useLanguageStore'
+import { useFlash } from '@/hooks/useFlash'
 import type { PokemonSlotData } from '@/stores/usePokemonSlotStore'
+import type { TypeNameElement } from '@/constants/pokemon'
 
 interface PokemonSlotProps {
   mode: Mode
@@ -21,6 +22,23 @@ interface PokemonSlotProps {
   disabled?: boolean
   onClick: () => void
   onClear: () => void
+}
+
+function getRoleLabel(mode: Mode, isAttacker: boolean): string {
+  if (mode === 'offense') {
+    return isAttacker ? 'Battle.attacker' : 'Battle.attackerTarget'
+  }
+  return isAttacker ? 'Battle.defense' : 'Battle.defenseTarget'
+}
+
+function PillList({ types }: { types: TypeNameElement[] }) {
+  return (
+    <>
+      {types.map((type) => (
+        <Pill key={type} pokemonTypeName={type} animation={false} isActive={true} size="md" />
+      ))}
+    </>
+  )
 }
 
 export function PokemonSlot({
@@ -37,26 +55,15 @@ export function PokemonSlot({
   const { t } = useTranslation()
   const { lang } = useLanguageStore()
   const style = COLOR_SCHEME[colorScheme]
+  const { isFlashing, flash } = useFlash(300)
 
-  // 한국어·영어: 띄어쓰기 기준 줄넘김 / 일본어: 문자 단위 줄넘김
   const textBreak = lang === 'ja' ? 'break-all' : 'break-keep'
-
-  const roleLabel =
-    mode === 'offense'
-      ? isAttacker
-        ? 'Battle.attacker'
-        : 'Battle.attackerTarget'
-      : isAttacker
-        ? 'Battle.defense'
-        : 'Battle.defenseTarget'
-
-  const [isFlashing, setIsFlashing] = useState(false)
+  const roleLabel = getRoleLabel(mode, isAttacker)
 
   const handleClick = () => {
     if (disabled) return
-    setIsFlashing(true)
+    flash()
     onClick()
-    setTimeout(() => setIsFlashing(false), 300)
   }
 
   return (
@@ -66,13 +73,11 @@ export function PokemonSlot({
         role="button"
         tabIndex={disabled ? -1 : 0}
         onClick={handleClick}
-        onKeyDown={(e) =>
-          !disabled && (e.key === 'Enter' || e.key === ' ') && handleClick()
-        }
+        onKeyDown={(e) => !disabled && (e.key === 'Enter' || e.key === ' ') && handleClick()}
         className={cn(
           'flex h-full min-h-[175px] w-full flex-col items-center',
           'rounded-[22px] p-3 sm:p-5',
-          'border text-[var(--text)] shadow-md',
+          'text-[var(--text)] shadow-md',
           'transition-colors duration-200',
           style.border,
           isFlashing ? style.flashBg : 'bg-[var(--card)]',
@@ -80,19 +85,12 @@ export function PokemonSlot({
           !disabled && isActive && style.activeShadow,
         )}
       >
-        <div
-          className={cn(
-            'flex h-9 w-full items-center justify-center',
-            style.roleColor,
-          )}
-        >
-          <span
-            className={cn(
-              'text-center text-[10px] font-bold uppercase sm:text-[12px]',
-              lang === 'en' && 'pb-2 sm:pb-0',
-              textBreak,
-            )}
-          >
+        <div className={cn('flex h-9 w-full items-center justify-center', style.roleColor)}>
+          <span className={cn(
+            'text-center text-[10px] font-bold uppercase sm:text-[12px]',
+            lang === 'en' && 'pb-2 sm:pb-0',
+            textBreak,
+          )}>
             {t(roleLabel)}
           </span>
         </div>
@@ -109,47 +107,24 @@ export function PokemonSlot({
                   className="h-[52px] w-[52px] object-contain"
                 />
               </div>
-              <span
-                className={cn(
-                  'text-md w-full text-center font-bold capitalize',
-                  textBreak,
-                )}
-              >
+              <span className={cn('text-md w-full text-center font-bold capitalize', textBreak)}>
                 {data.displayName}
               </span>
               <div className="flex flex-wrap justify-center gap-1.5">
-                {data.types.map((type) => (
-                  <Pill
-                    key={type}
-                    pokemonTypeName={type}
-                    animation={false}
-                    isActive={true}
-                    size="md"
-                  />
-                ))}
+                <PillList types={data.types} />
               </div>
             </div>
           ) : (
             // 수동 타입 선택 상태: 타입만 중앙 정렬
             <div className="flex flex-1 flex-wrap content-center justify-center gap-1.5 py-2">
-              {data.types.map((type) => (
-                <Pill
-                  key={type}
-                  pokemonTypeName={type}
-                  animation={false}
-                  isActive={true}
-                  size="md"
-                />
-              ))}
+              <PillList types={data.types} />
             </div>
           )
         ) : (
           // 빈 슬롯: 원형 + 이름 세로 중앙 정렬
           <div className="flex w-full flex-1 flex-col items-center justify-center gap-2">
             <div className="flex h-14 w-14 items-center justify-center rounded-full border border-dashed border-[var(--border)] bg-[var(--background)]">
-              <span className="text-center text-2xl text-[var(--text)] opacity-20">
-                ?
-              </span>
+              <span className="text-center text-2xl text-[var(--text)] opacity-20">?</span>
             </div>
             <span className="text-center text-sm font-semibold text-[var(--text)] opacity-30">
               {defaultName}
@@ -161,10 +136,7 @@ export function PokemonSlot({
       {/* 포켓몬이 있고 비활성화되지 않았을 때만 삭제 버튼 표시 */}
       {data && !disabled && (
         <button
-          onClick={(e) => {
-            e.stopPropagation()
-            onClear()
-          }}
+          onClick={(e) => { e.stopPropagation(); onClear() }}
           aria-label="clear slot"
           className={cn(
             'absolute top-2.5 right-2.5',

@@ -15,7 +15,7 @@ export const COLOR_SCHEME = {
   },
   default: {
     border: 'border-[var(--border)]',
-    activeShadow: 'shadow-[0_0_0_3px_var(--disable)]',
+    activeShadow: 'shadow-[0_0_0_3px_var(--dark)]',
     roleColor: 'text-[var(--text)] opacity-50',
     flashBg: 'bg-[rgba(150,150,150,.15)]',
   },
