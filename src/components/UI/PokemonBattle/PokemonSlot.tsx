@@ -88,7 +88,8 @@ export function PokemonSlot({
         >
           <span
             className={cn(
-              'text-center text-[12px] font-bold uppercase',
+              'text-center text-[10px] font-bold uppercase sm:text-[12px]',
+              lang === 'en' && 'pb-2 sm:pb-0',
               textBreak,
             )}
           >
@@ -146,9 +147,11 @@ export function PokemonSlot({
           // 빈 슬롯: 원형 + 이름 세로 중앙 정렬
           <div className="flex w-full flex-1 flex-col items-center justify-center gap-2">
             <div className="flex h-14 w-14 items-center justify-center rounded-full border border-dashed border-[var(--border)] bg-[var(--background)]">
-              <span className="text-2xl text-[var(--text)] opacity-20">?</span>
+              <span className="text-center text-2xl text-[var(--text)] opacity-20">
+                ?
+              </span>
             </div>
-            <span className="text-sm font-semibold text-[var(--text)] opacity-30">
+            <span className="text-center text-sm font-semibold text-[var(--text)] opacity-30">
               {defaultName}
             </span>
           </div>
