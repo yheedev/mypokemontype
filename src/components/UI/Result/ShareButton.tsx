@@ -2,37 +2,16 @@
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { usePathname } from 'next/navigation'
 import { Share2, Check } from 'lucide-react'
 import { toast } from 'sonner'
 import * as Tooltip from '@radix-ui/react-tooltip'
-import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
-import { usePokemonSlotStore } from '@/stores/usePokemonSlotStore'
-import { useLanguageStore } from '@/stores/useLanguageStore'
-import { isOffensePath } from '@/utils/pathMode'
 import { cn } from '@/lib/utils'
 
 export function ShareButton() {
   const { t } = useTranslation()
-  const pathname = usePathname()
-  const lang = useLanguageStore((s) => s.lang)
   const [shared, setShared] = useState(false)
 
-  const selectedTypes = useUpToTwoStore((s) => s.selectedTypes)
-  const slotA = usePokemonSlotStore((s) => s.slotA)
-  const slotB = usePokemonSlotStore((s) => s.slotB)
-
-  const isOffense = isOffensePath(pathname, lang)
-  const hasSelection =
-    selectedTypes.length > 0 || slotA !== null || slotB !== null
-
-  const tooltipText = t('Result.share')
-
   const handleShare = async () => {
-    if (!hasSelection) {
-      toast(t(isOffense ? 'Result.offenseError' : 'Result.defenseError'))
-      return
-    }
     const url = window.location.href
     try {
       await navigator.clipboard.writeText(url)
@@ -60,9 +39,7 @@ export function ShareButton() {
           className={cn(
             'flex items-center gap-1.5 rounded-lg px-2.5 py-1.5',
             'text-xs font-medium transition-colors duration-150',
-            hasSelection
-              ? 'text-[var(--text)] opacity-40 hover:opacity-80'
-              : 'cursor-not-allowed text-[var(--text)] opacity-20',
+            'text-[var(--text)] opacity-40 hover:opacity-80',
           )}
         >
           {shared ? <Check size={17} /> : <Share2 size={17} />}
