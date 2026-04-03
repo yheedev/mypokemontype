@@ -21,24 +21,47 @@ async function fetchPokemonImageUrl(englishName: string): Promise<string | null>
 export async function buildPokemonMetadata(searchParams: {
   slotA?: string
   slotB?: string
+  type1?: string
+  type2?: string
 }): Promise<Metadata> {
   const pokemon = searchParams.slotA || searchParams.slotB
-  if (!pokemon) return {}
 
-  const imageUrl = await fetchPokemonImageUrl(pokemon)
-  if (!imageUrl) return {}
-
-  const name = pokemon.charAt(0).toUpperCase() + pokemon.slice(1)
-
-  return {
-    title: `${name} | My Pokemon Type`,
-    openGraph: {
-      title: `${name} | My Pokemon Type`,
-      images: [{ url: imageUrl, width: 475, height: 475 }],
-    },
-    twitter: {
-      card: 'summary',
-      images: [imageUrl],
-    },
+  // 포켓몬이 선택된 경우 → official-artwork
+  if (pokemon) {
+    const imageUrl = await fetchPokemonImageUrl(pokemon)
+    if (imageUrl) {
+      const name = pokemon.charAt(0).toUpperCase() + pokemon.slice(1)
+      return {
+        title: `${name} | My Pokemon Type`,
+        openGraph: {
+          title: `${name} | My Pokemon Type`,
+          images: [{ url: imageUrl, width: 475, height: 475 }],
+        },
+        twitter: {
+          card: 'summary',
+          images: [imageUrl],
+        },
+      }
+    }
   }
+
+  // 타입만 선택된 경우 → /api/og 생성 이미지
+  const { type1, type2 } = searchParams
+  if (type1 || type2) {
+    const params = new URLSearchParams()
+    if (type1) params.set('type1', type1)
+    if (type2) params.set('type2', type2)
+    const ogUrl = `/api/og?${params.toString()}`
+    return {
+      openGraph: {
+        images: [{ url: ogUrl, width: 1200, height: 630 }],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        images: [ogUrl],
+      },
+    }
+  }
+
+  return {}
 }
