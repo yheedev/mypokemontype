@@ -20,7 +20,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "i18next": "^25.3.2",
-    "i18next-http-backend": "^3.0.2",
     "lucide-react": "^0.526.0",
     "next": "^16.1.2",
     "react": "^19.1.1",

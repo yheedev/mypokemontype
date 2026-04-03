@@ -9,7 +9,7 @@ import { saveLang } from '@/utils/langs'
 import AllBtns from '@/components/UI/Buttons/AllBtns'
 import Title from '@/components/UI/Title'
 import { Skeleton } from '@/components/UI/Skeleton'
-import { initI18n, i18n } from '@/lib/i18n'
+import { initI18n } from '@/lib/i18n'
 import Favicon from '@/components/UI/Favicon'
 import { notFound } from 'next/navigation'
 
@@ -26,22 +26,15 @@ export function LangLayoutClient({
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    const runInit = async () => {
-      const validLang = supportedLangs.includes(lang as Language)
-        ? (lang as Language)
-        : 'ko'
+    const validLang = supportedLangs.includes(lang as Language)
+      ? (lang as Language)
+      : 'ko'
 
-      await initI18n(validLang)
-      await i18n.changeLanguage(validLang)
-      setLanguage(validLang)
-      saveLang(validLang)
-
-      initTheme()
-
-      setReady(true)
-    }
-
-    runInit()
+    initI18n(validLang)
+    setLanguage(validLang)
+    saveLang(validLang)
+    initTheme()
+    setReady(true)
   }, [lang])
 
   if (!supportedLangs.includes(lang as Language)) notFound()

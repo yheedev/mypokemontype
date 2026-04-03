@@ -2,30 +2,28 @@
 
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import HttpBackend from 'i18next-http-backend'
+import ko from '../../public/locales/ko/translation.json'
+import en from '../../public/locales/en/translation.json'
+import ja from '../../public/locales/ja/translation.json'
 
-export const initI18n = async (lang: string) => {
+const resources = {
+  ko: { translation: ko },
+  en: { translation: en },
+  ja: { translation: ja },
+}
+
+export const initI18n = (lang: string) => {
   if (i18n.isInitialized) {
-    await i18n.changeLanguage(lang)
+    i18n.changeLanguage(lang)
     return i18n
   }
 
-  i18n
-    .use(HttpBackend)
-    .use(initReactI18next)
-    .init({
-      lng: lang,
-      fallbackLng: 'ko',
-      ns: ['translation'],
-      defaultNS: 'translation',
-      backend: {
-        loadPath: '/locales/{{lng}}/{{ns}}.json',
-        requestOptions: { cache: 'no-store' },
-      },
-      interpolation: {
-        escapeValue: false,
-      },
-    })
+  i18n.use(initReactI18next).init({
+    lng: lang,
+    fallbackLng: 'ko',
+    resources,
+    interpolation: { escapeValue: false },
+  })
 
   return i18n
 }
