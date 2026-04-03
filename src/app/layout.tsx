@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     siteName: 'My Pokemon Type',
     images: [
       {
-        url: '/img/ico/favicon_light.ico',
+        url: '/api/og',
         width: 1200,
         height: 630,
         alt: 'My Pokemon Type | 포켓몬 타입 계산기',
