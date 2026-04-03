@@ -117,8 +117,8 @@ export const viewport: Viewport = {
 
 export const noto = Noto_Sans_KR({
   weight: ['700', '900'],
-  display: 'swap',
-  preload: true,
+  display: 'optional',
+  preload: false,
   variable: '--font-noto',
   subsets: ['latin'],
 })
@@ -137,9 +137,6 @@ const helios = localFont({
   variable: '--font-helios',
   fallback: ['system-ui', 'Arial'],
 })
-//TODO
-// [ ] 다운로드 받기
-// [ ] 사용중인 font-weight 찾아서 작성
 
 export default function RootLayout({
   children,
