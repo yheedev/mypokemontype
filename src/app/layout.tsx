@@ -132,7 +132,7 @@ const helios = localFont({
     },
   ],
 
-  display: 'swap',
+  display: 'optional',
   preload: true,
   variable: '--font-helios',
   fallback: ['system-ui', 'Arial'],
