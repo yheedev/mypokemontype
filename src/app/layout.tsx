@@ -148,14 +148,12 @@ export default function RootLayout({
       lang="ko"
       className={`${noto.variable} ${helios.variable} ${noto.className}`}
     >
-      <head>
+      <body>
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=JSON.parse(localStorage.getItem('mypkmn-theme'))?.state?.theme;if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.body.classList.add(t);}catch(e){}})();`,
           }}
         />
-      </head>
-      <body>
         <QueryProvider>
           <TooltipProvider delayDuration={300}>
             <ServiceWorkerRegister />
