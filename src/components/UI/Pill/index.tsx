@@ -25,16 +25,24 @@ export const Pill = ({
   animation = true,
   size = 'md',
 }: Props) => {
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleActivate = () => {
     onClick && onClick(!isActive)
     pokemonTypeName && upToTwo && upToTwo(pokemonTypeName)
+  }
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    handleActivate()
     const target = e.currentTarget
     target.blur()
     if ('ontouchstart' in window) {
-      setTimeout(() => {
-        target.blur()
-      }, 0)
+      setTimeout(() => target.blur(), 0)
+    }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleActivate()
     }
   }
   const { t } = useTranslation()
@@ -50,8 +58,12 @@ export const Pill = ({
     >
       <div
         lang={lang}
-        onClick={handleClick}
+        role={onClick ? 'checkbox' : undefined}
+        tabIndex={onClick ? 0 : undefined}
+        aria-checked={onClick ? isActive : undefined}
         aria-label={t(`TypeName.${pokemonTypeName}`)}
+        onClick={handleClick}
+        onKeyDown={onClick ? handleKeyDown : undefined}
         className={cn(
           'group relative flex items-center justify-center overflow-hidden rounded-[30px] text-[var(--color-background)]',
           'duration-200 transition-all ease-in-out',
