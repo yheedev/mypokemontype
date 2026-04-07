@@ -65,7 +65,7 @@ export function BattleSentence({
         )}
       >
         <span>{t(selectedMode)}</span>
-        <span className={cn('text-[10px] opacity-60 transition-transform duration-200', isOpen && 'rotate-180')}>
+        <span className={cn('text-[10px] transition-transform duration-200', isOpen && 'rotate-180')}>
           ▼
         </span>
       </span>

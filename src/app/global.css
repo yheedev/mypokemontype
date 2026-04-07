@@ -68,12 +68,12 @@ body {
     --offenseRec: #e34e4e;
     --defenseRec: #6897a9;
 
-    /* 텍스트 전용 고대비 변수 (--card: #fff 기준 4.5:1 이상) */
-    --offenseText: #c0392b;   /* 5.5:1 on white */
-    --defenseText: #3d6b80;   /* 5.6:1 on white */
-    --darkText: #6b5b54;      /* 6.0:1 on white */
-    --goldenText: #7a5c00;    /* 5.8:1 on white */
-    --disable-text: #6b6b6b;  /* 5.1:1 on white */
+    /* 텍스트 전용 고대비 변수 (--background: #dddbdb 기준 4.5:1 이상) */
+    --offenseText: #c0392b;   /* 5.2:1 on #dddbdb */
+    --defenseText: #2e5f73;   /* 5.5:1 on #dddbdb */
+    --darkText: #5a4a44;      /* 5.6:1 on #dddbdb */
+    --goldenText: #5c4400;    /* 6.4:1 on #dddbdb */
+    --disable-text: #595959;  /* 4.6:1 on #dddbdb */
 
     --normal: #c6c6a7;
     --fire: #f5ac78;
