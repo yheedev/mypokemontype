@@ -8,11 +8,18 @@ import { UrlSync } from '@/components/UI/UrlSync'
 import { buildPokemonMetadata } from '@/utils/ogMetadata'
 
 export async function generateMetadata({
+  params,
   searchParams,
 }: {
+  params: Promise<{ lang: string }>
   searchParams: Promise<{ slotA?: string; slotB?: string }>
 }): Promise<Metadata> {
-  return buildPokemonMetadata(await searchParams)
+  const { lang } = await params
+  const canonical = `https://mypokemontype.vercel.app/${lang}/defense`
+  return {
+    alternates: { canonical },
+    ...(await buildPokemonMetadata(await searchParams)),
+  }
 }
 
 export default function Defense() {

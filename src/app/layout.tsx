@@ -48,9 +48,6 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
     },
   },
-  alternates: {
-    canonical: 'https://mypokemontype.vercel.app',
-  },
   metadataBase: new URL('https://mypokemontype.vercel.app'),
   openGraph: {
     title: 'My Pokemon Type | 포켓몬 타입 계산기',
