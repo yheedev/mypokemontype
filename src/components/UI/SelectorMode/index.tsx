@@ -61,7 +61,7 @@ export default function SelectorMode() {
   const activeTab = tabs.find((tab) => tab.value === mode)!
 
   return (
-    <div className="relative flex w-full rounded-[22px] bg-[var(--card)] py-[4px] select-none">
+    <div role="tablist" className="relative flex w-full rounded-[22px] bg-[var(--card)] py-[4px] select-none">
       <span
         className={cn(
           'absolute top-[4px] h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-[10px] transition-all duration-[350ms] ease-[cubic-bezier(.34,1.2,.64,1)]',
@@ -75,8 +75,8 @@ export default function SelectorMode() {
           <Link
             key={tab.value}
             href={tab.href}
+            role="tab"
             aria-label={tab.ariaLabel}
-            aria-current={pathname === tab.href ? 'page' : undefined}
             aria-selected={isActive}
             onClick={() => handleSelect(tab.value)}
             className={cn(
@@ -84,7 +84,7 @@ export default function SelectorMode() {
               getLangClass(lang),
               isActive
                 ? 'text-white'
-                : 'rounded-[10px] text-[var(--disable)] ring-2 ring-[var(--border)] ring-inset',
+                : 'rounded-[10px] text-[var(--disable-text)] ring-2 ring-[var(--border)] ring-inset',
             )}
           >
             {tab.label}

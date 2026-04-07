@@ -126,7 +126,7 @@ export function PokemonSlot({
             <div className="flex h-14 w-14 items-center justify-center rounded-full border border-dashed border-[var(--border)] bg-[var(--background)]">
               <span className="text-center text-2xl text-[var(--text)] opacity-20">?</span>
             </div>
-            <span className="text-center text-sm font-semibold text-[var(--text)] opacity-30">
+            <span className="text-center text-sm font-semibold text-[var(--disable-text)]">
               {defaultName}
             </span>
           </div>

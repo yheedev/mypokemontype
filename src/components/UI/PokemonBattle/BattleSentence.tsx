@@ -31,7 +31,7 @@ function getObjectParticleKey(name: string, mode: Mode): string {
 }
 
 const nameStyle = 'font-bold capitalize'
-const defenderStyle = cn(nameStyle, 'text-[var(--dark)]')
+const defenderStyle = cn(nameStyle, 'text-[var(--darkText)]')
 
 export function BattleSentence({
   attackerData,
@@ -47,7 +47,7 @@ export function BattleSentence({
   useClickOutside(dropdownRef, () => setIsOpen(false))
 
   const actionKey = mode === 'offense' ? 'Battle.attacks' : 'Battle.defenses'
-  const attackerStyle = cn(nameStyle, mode === 'offense' ? 'text-[var(--offenseRec)]' : 'text-[var(--defenseRec)]')
+  const attackerStyle = cn(nameStyle, mode === 'offense' ? 'text-[var(--offenseText)]' : 'text-[var(--defenseText)]')
 
   const attackerName = attackerData?.displayName || t('Battle.myPokemon')
   const defenderName = defenderData?.displayName || t('Battle.otherPokemon')
@@ -60,7 +60,7 @@ export function BattleSentence({
           'inline-flex cursor-pointer select-none items-center gap-1',
           'rounded-[6px] border border-dashed border-[rgba(212,168,0,.4)]',
           'bg-[rgba(212,168,0,.08)] px-2 py-[1px]',
-          'text-[15px] font-bold text-[#d4a800]',
+          'text-[15px] font-bold text-[var(--goldenText)]',
           'transition-colors duration-200 hover:bg-[rgba(212,168,0,.15)]',
         )}
       >
@@ -81,7 +81,7 @@ export function BattleSentence({
               key={key}
               onClick={() => { setSelectedMode(key); setIsOpen(false) }}
               className={cn(
-                'block w-full px-3 py-1.5 text-left text-[14px] font-bold text-[#d4a800]',
+                'block w-full px-3 py-1.5 text-left text-[14px] font-bold text-[var(--goldenText)]',
                 'transition-colors duration-150',
                 selectedMode === key ? 'bg-[rgba(212,168,0,.15)]' : 'hover:bg-[rgba(212,168,0,.08)]',
               )}

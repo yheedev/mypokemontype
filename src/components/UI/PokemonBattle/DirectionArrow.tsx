@@ -35,7 +35,7 @@ export function DirectionArrow({
           )}
         />
       </button>
-      <span className="text-[10px] text-[var(--text)] opacity-40">
+      <span className="text-[10px] text-[var(--disable-text)]">
         {t('Battle.toggleDirection')}
       </span>
     </div>
