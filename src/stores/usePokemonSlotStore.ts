@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { type TypeNameElement } from '@/constants/pokemon'
 
 export interface PokemonSlotData {
@@ -21,27 +22,35 @@ interface PokemonSlotState {
   toggleDirection: () => void
 }
 
-export const usePokemonSlotStore = create<PokemonSlotState>((set) => ({
-  slotA: null,
-  slotB: null,
-  activeSlot: null,
-  isLeftAttacker: true,
+export const usePokemonSlotStore = create<PokemonSlotState>()(
+  persist(
+    (set) => ({
+      slotA: null,
+      slotB: null,
+      activeSlot: null,
+      isLeftAttacker: true,
 
-  setSlot: (slot, data) =>
-    set(slot === 'A' ? { slotA: data } : { slotB: data }),
+      setSlot: (slot, data) =>
+        set(slot === 'A' ? { slotA: data } : { slotB: data }),
 
-  clearSlot: (slot) =>
-    set(slot === 'A' ? { slotA: null } : { slotB: null }),
+      clearSlot: (slot) =>
+        set(slot === 'A' ? { slotA: null } : { slotB: null }),
 
-  setActiveSlot: (slot) =>
-    set((state) => ({
-      activeSlot: state.activeSlot === slot ? null : slot,
-    })),
+      setActiveSlot: (slot) =>
+        set((state) => ({
+          activeSlot: state.activeSlot === slot ? null : slot,
+        })),
 
-  forceActiveSlot: (slot) => set({ activeSlot: slot }),
+      forceActiveSlot: (slot) => set({ activeSlot: slot }),
 
-  clearActiveSlot: () => set({ activeSlot: null }),
+      clearActiveSlot: () => set({ activeSlot: null }),
 
-  toggleDirection: () =>
-    set((state) => ({ isLeftAttacker: !state.isLeftAttacker })),
-}))
+      toggleDirection: () =>
+        set((state) => ({ isLeftAttacker: !state.isLeftAttacker })),
+    }),
+    {
+      name: 'mypkmn-pokemon-slot',
+      partialize: (s) => ({ slotA: s.slotA, slotB: s.slotB }),
+    },
+  ),
+)

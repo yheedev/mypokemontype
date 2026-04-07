@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { type TypeNameElement as TypeId } from '@/constants/pokemon'
 
 interface SelectedTypesState {
@@ -11,29 +12,37 @@ interface SelectedTypesState {
   resetTypes: () => void
 }
 
-export const useUpToTwoStore = create<SelectedTypesState>((set) => ({
-  selectedTypes: [],
-  isUserChange: false,
+export const useUpToTwoStore = create<SelectedTypesState>()(
+  persist(
+    (set) => ({
+      selectedTypes: [],
+      isUserChange: false,
 
-  toggleType: (type) =>
-    set((state) => {
-      const index = state.selectedTypes.indexOf(type)
-      const next = [...state.selectedTypes]
+      toggleType: (type) =>
+        set((state) => {
+          const index = state.selectedTypes.indexOf(type)
+          const next = [...state.selectedTypes]
 
-      if (index > -1) {
-        next.splice(index, 1)
-      } else {
-        if (next.length >= 2) next.shift()
-        next.push(type)
-      }
+          if (index > -1) {
+            next.splice(index, 1)
+          } else {
+            if (next.length >= 2) next.shift()
+            next.push(type)
+          }
 
-      return { selectedTypes: next, isUserChange: true }
+          return { selectedTypes: next, isUserChange: true }
+        }),
+
+      setTypes: (types) => set({ selectedTypes: types.slice(0, 2), isUserChange: false }),
+
+      resetTypes: () => set({ selectedTypes: [], isUserChange: false }),
     }),
-
-  setTypes: (types) => set({ selectedTypes: types.slice(0, 2), isUserChange: false }),
-
-  resetTypes: () => set({ selectedTypes: [], isUserChange: false }),
-}))
+    {
+      name: 'mypkmn-selected-types',
+      partialize: (s) => ({ selectedTypes: s.selectedTypes }),
+    },
+  ),
+)
 
 // import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
