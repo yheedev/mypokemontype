@@ -51,6 +51,7 @@ export const usePokemonSlotStore = create<PokemonSlotState>()(
     {
       name: 'mypkmn-pokemon-slot',
       partialize: (s) => ({ slotA: s.slotA, slotB: s.slotB }),
+      skipHydration: true,
     },
   ),
 )

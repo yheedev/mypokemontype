@@ -40,6 +40,7 @@ export const useDarkModeStore = create<DarkModeState>()(
     {
       name: 'mypkmn-theme',
       partialize: (state) => ({ theme: state.theme }),
+      skipHydration: true,
     },
   ),
 )

@@ -1,14 +1,16 @@
 'use client'
 
-import { use } from 'react'
-import { useEffect, useState } from 'react'
+import { use, useEffect } from 'react'
 import { useLanguageStore } from '@/stores/useLanguageStore'
 import { useDarkModeStore } from '@/stores/useDarkModeStore'
+import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
+import { usePokemonSlotStore } from '@/stores/usePokemonSlotStore'
+import { useOffenseCalStore } from '@/stores/useOffenseCalStore'
+import { useDefenseCalStore } from '@/stores/useDefenseCalStore'
 import { supportedLangs, Language } from '@/types/language'
 import { saveLang } from '@/utils/langs'
 import AllBtns from '@/components/UI/Buttons/AllBtns'
 import Title from '@/components/UI/Title'
-import { Skeleton } from '@/components/UI/Skeleton'
 import { initI18n } from '@/lib/i18n'
 import Favicon from '@/components/UI/Favicon'
 import { notFound } from 'next/navigation'
@@ -21,47 +23,33 @@ export function LangLayoutClient({
   params: Promise<{ lang: string }>
 }) {
   const { lang } = use(params)
-  const setLanguage = useLanguageStore((state) => state.setLanguage)
-  const initTheme = useDarkModeStore((state) => state.initTheme)
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    const validLang = supportedLangs.includes(lang as Language)
-      ? (lang as Language)
-      : 'ko'
-
-    initI18n(validLang)
-    setLanguage(validLang)
-    saveLang(validLang)
-    initTheme()
-    setReady(true)
-  }, [lang])
 
   if (!supportedLangs.includes(lang as Language)) notFound()
 
-  if (!ready) {
-    return (
-      <div className="m-4 mt-50 grid grid-cols-1 gap-12 p-4 xl:grid-cols-2">
-        {[0, 1].map((k) => (
-          <div
-            key={k}
-            className="rounded-[22px] bg-[--color-card] p-6 shadow-lg"
-          >
-            <Skeleton className="mb-4 h-6 w-48 animate-pulse" />
-            <Skeleton className="mb-6 h-px w-full animate-pulse" />
-            <div className="grid grid-cols-3 gap-3 sm:grid-cols-[repeat(auto-fill,_minmax(110px,_1fr))]">
-              {Array.from({ length: 12 }).map((_, i) => (
-                <Skeleton key={i} className="h-10 animate-pulse rounded-full" />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
+  const validLang = lang as Language
+
+  // 번역 파일이 번들에 포함되어 있으므로 동기 초기화 가능
+  initI18n(validLang)
+
+  const setLanguage = useLanguageStore((state) => state.setLanguage)
+  const initTheme = useDarkModeStore((state) => state.initTheme)
+
+  useEffect(() => {
+    // persist 스토어 수동 hydrate (skipHydration: true 설정 대응)
+    // 서버/클라이언트 초기 렌더를 동일하게 유지해서 hydration 불일치(React #418) 방지
+    useUpToTwoStore.persist.rehydrate()
+    usePokemonSlotStore.persist.rehydrate()
+    useOffenseCalStore.persist.rehydrate()
+    useDefenseCalStore.persist.rehydrate()
+    useDarkModeStore.persist.rehydrate()
+
+    setLanguage(validLang)
+    saveLang(validLang)
+    initTheme()
+  }, [validLang])
 
   return (
-    <div lang={lang}>
+    <div lang={validLang}>
       <Favicon />
       <Title />
       <main>{children}</main>

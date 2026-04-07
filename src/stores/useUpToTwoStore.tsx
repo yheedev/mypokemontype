@@ -40,6 +40,7 @@ export const useUpToTwoStore = create<SelectedTypesState>()(
     {
       name: 'mypkmn-selected-types',
       partialize: (s) => ({ selectedTypes: s.selectedTypes }),
+      skipHydration: true,
     },
   ),
 )

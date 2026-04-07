@@ -26,6 +26,7 @@ export const useOffenseCalStore = create<State>()(
     {
       name: 'mypkmn-offenseCal',
       partialize: (s) => ({ type1: s.type1, type2: s.type2 }),
+      skipHydration: true,
     },
   ),
 )
