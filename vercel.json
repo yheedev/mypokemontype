@@ -6,6 +6,14 @@
         {
           "key": "Cache-Control",
           "value": "no-cache, must-revalidate"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
         }
       ]
     },
