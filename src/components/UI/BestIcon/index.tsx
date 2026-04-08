@@ -24,7 +24,7 @@ export default function BestIcon({ lang }: { lang: Language }) {
     <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className={cn(color)} aria-label={t('a11y.bestIcon.aria-label')}>
+          <div className={cn(color)} role="img" aria-label={t('a11y.bestIcon.aria-label')}>
             <Flame className="ml-3 h-8 w-8 rounded-full border-4 border-current p-[0.1rem] shadow-md" />
           </div>
         </TooltipTrigger>
