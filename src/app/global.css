@@ -114,12 +114,12 @@ body {
   --btn-icon-shadow: var(--black-shadow);
   --pill-shadow: var(--gray-shadow);
 
-  /* 텍스트 전용 고대비 변수 (--card: #171010 기준 4.5:1 이상) */
-  --offenseText: var(--offenseRec);   /* 5.1:1 on #171010 */
-  --defenseText: var(--defenseRec);   /* 6.3:1 on #171010 */
-  --darkText: var(--dark);            /* 6.5:1 on #171010 */
-  --goldenText: #d4a800;              /* 8.5:1 on #171010 */
-  --disable-text: #b0b0b0;            /* 9.2:1 on #171010 */
+  /* 텍스트 전용 고대비 변수 (--background: #4f4d4d 기준 4.5:1 이상) */
+  --offenseText: var(--lightGray);    /* #dddbdb, 5.96:1 on #4f4d4d */
+  --defenseText: var(--olive);        /* #c6c6a7, 4.86:1 on #4f4d4d */
+  --darkText: var(--olive);           /* #c6c6a7, 4.86:1 on #4f4d4d */
+  --goldenText: var(--lightGray);     /* #dddbdb, 5.96:1 on #4f4d4d */
+  --disable-text: var(--lightGray);   /* #dddbdb, 5.96:1 on #4f4d4d */
 }
 
 /* Minimal animation utilities replacing tw-animate-css (~200B vs 25KiB) */
