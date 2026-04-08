@@ -1,23 +1,21 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { getInitialLang, saveLang } from '@/utils/langs'
+import { saveLang } from '@/utils/langs'
 import { LanguageStore } from '@/types/language'
 
 export const useLanguageStore = create<LanguageStore>()(
   persist(
-    (set) => {
-      const lang = getInitialLang()
-      return {
-        lang,
-        setLanguage: (lang) => {
-          saveLang(lang)
-          set({ lang })
-        },
-      }
-    },
+    (set) => ({
+      lang: 'ko',
+      setLanguage: (lang) => {
+        saveLang(lang)
+        set({ lang })
+      },
+    }),
     {
       name: 'mypkmn-lang',
       partialize: (state) => ({ lang: state.lang }),
+      skipHydration: true,
     },
   ),
 )
