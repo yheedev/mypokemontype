@@ -197,6 +197,25 @@ body {
   }
 }
 
+@keyframes tab-bounce-left {
+  0%, 100% { transform: scaleX(1);     transform-origin: left center; }
+  50%       { transform: scaleX(1.04); transform-origin: left center; }
+}
+
+@keyframes tab-bounce-right {
+  0%, 100% { transform: scaleX(1);     transform-origin: right center; }
+  50%       { transform: scaleX(1.04); transform-origin: right center; }
+}
+
+@layer utilities {
+  .bounce-left {
+    animation: tab-bounce-left 0.5s ease-in-out 1 normal both running;
+  }
+  .bounce-right {
+    animation: tab-bounce-right 0.5s ease-in-out 1 normal both running;
+  }
+}
+
 @keyframes sway-loop {
   0% {
     transform: translateX(-60px) rotate(-3deg);
