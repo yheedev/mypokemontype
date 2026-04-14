@@ -29,14 +29,14 @@ export default function Result() {
   const offenseResult = useOffenseCalStore((state) => state.result)
   const defenseResult = useDefenseCalStore((state) => state.result)
   const hasSelection = useUpToTwoStore((s) => s.selectedTypes.length > 0)
-  const slotB = usePokemonSlotStore((s) => s.slotB)
+  const foe = usePokemonSlotStore((s) => s.foe)
 
   const isOffense = isOffensePath(pathname, lang)
   const { selectedMode } = useBattleSentenceModeStore()
 
   // offense 페이지에서 슬롯 B(방어자)가 있으면 방어 결과(방어자의 약점)를 표시
   const result = isOffense
-    ? slotB !== null
+    ? foe !== null
       ? defenseResult
       : offenseResult
     : defenseResult

@@ -11,7 +11,7 @@ export interface PokemonSlotData {
 
 interface PokemonSlotState {
   slotA: PokemonSlotData | null
-  slotB: PokemonSlotData | null
+  foe: PokemonSlotData | null
   activeSlot: 'A' | 'B' | null
   isLeftAttacker: boolean
   setSlot: (slot: 'A' | 'B', data: PokemonSlotData) => void
@@ -26,15 +26,15 @@ export const usePokemonSlotStore = create<PokemonSlotState>()(
   persist(
     (set) => ({
       slotA: null,
-      slotB: null,
+      foe: null,
       activeSlot: null,
       isLeftAttacker: true,
 
       setSlot: (slot, data) =>
-        set(slot === 'A' ? { slotA: data } : { slotB: data }),
+        set(slot === 'A' ? { slotA: data } : { foe: data }),
 
       clearSlot: (slot) =>
-        set(slot === 'A' ? { slotA: null } : { slotB: null }),
+        set(slot === 'A' ? { slotA: null } : { foe: null }),
 
       setActiveSlot: (slot) =>
         set((state) => ({
@@ -50,7 +50,7 @@ export const usePokemonSlotStore = create<PokemonSlotState>()(
     }),
     {
       name: 'mypkmn-pokemon-slot',
-      partialize: (s) => ({ slotA: s.slotA, slotB: s.slotB }),
+      partialize: (s) => ({ slotA: s.slotA, foe: s.foe }),
       skipHydration: true,
     },
   ),

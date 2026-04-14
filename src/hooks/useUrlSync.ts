@@ -44,20 +44,20 @@ export function useUrlSync() {
   const setTypes = useUpToTwoStore((s) => s.setTypes)
 
   const slotA = usePokemonSlotStore((s) => s.slotA)
-  const slotB = usePokemonSlotStore((s) => s.slotB)
+  const foe = usePokemonSlotStore((s) => s.foe)
   const setSlot = usePokemonSlotStore((s) => s.setSlot)
 
   // URL → store: 마운트 시 1회만 실행
   useEffect(() => {
     const hydrate = async () => {
       const slotAParam = searchParams.get('slotA')
-      const slotBParam = searchParams.get('slotB')
+      const foeParam = searchParams.get('foe')
       const type1Param = searchParams.get('type1')
       const type2Param = searchParams.get('type2')
 
       const [dataA, dataB] = await Promise.all([
         slotAParam ? fetchPokemonSlotData(slotAParam) : Promise.resolve(null),
-        slotBParam ? fetchPokemonSlotData(slotBParam) : Promise.resolve(null),
+        foeParam ? fetchPokemonSlotData(foeParam) : Promise.resolve(null),
       ])
 
       if (dataA) setSlot('A', dataA)
@@ -87,11 +87,11 @@ export function useUrlSync() {
 
     const params = new URLSearchParams()
     if (slotA?.englishName) params.set('slotA', slotA.englishName)
-    if (slotB?.englishName) params.set('slotB', slotB.englishName)
+    if (foe?.englishName) params.set('foe', foe.englishName)
     if (selectedTypes[0]) params.set('type1', selectedTypes[0])
     if (selectedTypes[1]) params.set('type2', selectedTypes[1])
 
     const query = params.toString()
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
-  }, [hydrated, selectedTypes, slotA, slotB]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [hydrated, selectedTypes, slotA, foe]) // eslint-disable-line react-hooks/exhaustive-deps
 }

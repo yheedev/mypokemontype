@@ -88,14 +88,14 @@ export function CopyButton({ sortedArray }: CopyButtonProps) {
   const pathname = usePathname()
   const { selectedMode } = useBattleSentenceModeStore()
   const slotA = usePokemonSlotStore((s) => s.slotA)
-  const slotB = usePokemonSlotStore((s) => s.slotB)
+  const foe = usePokemonSlotStore((s) => s.foe)
   const isLeftAttacker = usePokemonSlotStore((s) => s.isLeftAttacker)
 
   const isOffense = isOffensePath(pathname, lang)
   const mode: Mode = isOffense ? 'offense' : 'defense'
 
-  const attackerSlot = isLeftAttacker ? slotA : slotB
-  const defenderSlot = isLeftAttacker ? slotB : slotA
+  const attackerSlot = isLeftAttacker ? slotA : foe
+  const defenderSlot = isLeftAttacker ? foe : slotA
   const canCopy = isOffense ? attackerSlot !== null : defenderSlot !== null
 
   const attackerName = attackerSlot?.displayName || t('Battle.myPokemon')

@@ -12,7 +12,7 @@ export async function generateMetadata({
   searchParams,
 }: {
   params: Promise<{ lang: string }>
-  searchParams: Promise<{ slotA?: string; slotB?: string }>
+  searchParams: Promise<{ slotA?: string; foe?: string }>
 }): Promise<Metadata> {
   const { lang } = await params
   const canonical = `https://mypokemontype.vercel.app/${lang}`

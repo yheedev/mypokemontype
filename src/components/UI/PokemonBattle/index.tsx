@@ -21,7 +21,7 @@ export default function PokemonBattle() {
 
   const {
     slotA,
-    slotB,
+    foe,
     activeSlot,
     isLeftAttacker,
     setActiveSlot,
@@ -36,8 +36,8 @@ export default function PokemonBattle() {
   const offenseCal = useOffenseCalStore((state) => state.calculate)
   const defenseCal = useDefenseCalStore((state) => state.calculate)
 
-  const attackerData = isLeftAttacker ? slotA : slotB
-  const defenderData = isLeftAttacker ? slotB : slotA
+  const attackerData = isLeftAttacker ? slotA : foe
+  const defenderData = isLeftAttacker ? foe : slotA
 
   // 슬롯 상태가 바뀔 때마다 공격·방어 양쪽 계산 모두 실행
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function PokemonBattle() {
     if (!isUserChange) return
     const targetSlot = activeSlot ?? 'A'
 
-    const currentSlotData = targetSlot === 'A' ? slotA : slotB
+    const currentSlotData = targetSlot === 'A' ? slotA : foe
     if (currentSlotData !== null && currentSlotData.imageUrl !== null) return // 포켓몬이 있으면 덮어쓰지 않음
 
     if (selectedTypes.length === 0) {
@@ -68,7 +68,7 @@ export default function PokemonBattle() {
       imageUrl: null,
       types: selectedTypes,
     })
-    // slotA·slotB를 deps에서 제외해 루프 방지
+    // slotA·foe를 deps에서 제외해 루프 방지
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTypes, isUserChange, activeSlot])
 
@@ -78,7 +78,7 @@ export default function PokemonBattle() {
     setActiveSlot(slot)
 
     if (isActivating) {
-      const slotData = slot === 'A' ? slotA : slotB
+      const slotData = slot === 'A' ? slotA : foe
       if (slotData !== null) {
         setTypes(slotData.types) // 포켓몬이든 수동 타입이든 해당 슬롯의 타입을 pills에 표시
       } else {
@@ -89,7 +89,7 @@ export default function PokemonBattle() {
 
   // X 버튼 처리: 타입만 있는 슬롯이면 pill 선택도 함께 초기화
   const handleClearSlot = (slot: 'A' | 'B') => {
-    const slotData = slot === 'A' ? slotA : slotB
+    const slotData = slot === 'A' ? slotA : foe
     clearSlot(slot)
     if (slotData !== null && slotData.imageUrl === null) {
       resetTypes()
@@ -101,7 +101,7 @@ export default function PokemonBattle() {
     const newAttackerSlot = isLeftAttacker ? 'B' : 'A'
     toggleDirection()
     forceActiveSlot(newAttackerSlot)
-    const newAttackerData = isLeftAttacker ? slotB : slotA
+    const newAttackerData = isLeftAttacker ? foe : slotA
     if (newAttackerData !== null) {
       setTypes(newAttackerData.types)
     } else {
@@ -133,7 +133,7 @@ export default function PokemonBattle() {
           colorScheme="default"
           defaultName={t('Battle.otherPokemon')}
           isAttacker={!isLeftAttacker}
-          data={slotB}
+          data={foe}
           isActive={activeSlot === 'B'}
           onClick={() => handleSlotClick('B')}
           onClear={() => handleClearSlot('B')}
