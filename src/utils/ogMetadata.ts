@@ -19,14 +19,14 @@ async function fetchPokemonImageUrl(englishName: string): Promise<string | null>
 }
 
 export async function buildPokemonMetadata(searchParams: {
-  slotA?: string
+  ally?: string
   foe?: string
   type1?: string
   type2?: string
   foe1?: string
   foe2?: string
 }): Promise<Metadata> {
-  const pokemon = searchParams.slotA || searchParams.foe
+  const pokemon = searchParams.ally || searchParams.foe
 
   // 포켓몬이 선택된 경우 → official-artwork
   if (pokemon) {

@@ -49,7 +49,7 @@ export function useUrlSync() {
   // URL → store: 마운트 시 1회만 실행
   useEffect(() => {
     const hydrate = async () => {
-      const slotAParam = searchParams.get('slotA')
+      const slotAParam = searchParams.get('ally')
       const foeParam = searchParams.get('foe')
       const type1Param = searchParams.get('type1')
       const type2Param = searchParams.get('type2')
@@ -99,7 +99,7 @@ export function useUrlSync() {
 
     const params = new URLSearchParams()
     if (slotA?.englishName) {
-      params.set('slotA', slotA.englishName)
+      params.set('ally', slotA.englishName)
     } else {
       if (slotA?.types[0]) params.set('type1', slotA.types[0])
       if (slotA?.types[1]) params.set('type2', slotA.types[1])
