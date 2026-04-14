@@ -2,9 +2,19 @@ import { PATH } from '@/app/routes'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { useTranslation } from 'react-i18next'
+import { useUpToTwoStore } from '@/stores/useUpToTwoStore'
+import { usePokemonSlotStore } from '@/stores/usePokemonSlotStore'
 
 export default function Title() {
   const { t } = useTranslation()
+  const resetTypes = useUpToTwoStore((s) => s.resetTypes)
+  const clearSlot = usePokemonSlotStore((s) => s.clearSlot)
+
+  const handleClick = () => {
+    resetTypes()
+    clearSlot('A')
+    clearSlot('B')
+  }
 
   return (
     <header
@@ -13,7 +23,7 @@ export default function Title() {
         'md:mx-0 md:mt-16 md:mb-[0.3rem] md:text-[2.5rem] lg:mx-0 lg:mt-20 lg:mb-[0.3rem] lg:text-[3rem]',
       )}
     >
-      <Link href={PATH().offense} aria-label={t('a11y.title.aria-label')}>
+      <Link href={PATH().offense} aria-label={t('a11y.title.aria-label')} onClick={handleClick}>
         My Pokemon Type
       </Link>
     </header>
