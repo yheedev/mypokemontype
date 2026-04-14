@@ -23,6 +23,8 @@ export async function buildPokemonMetadata(searchParams: {
   foe?: string
   type1?: string
   type2?: string
+  foe1?: string
+  foe2?: string
 }): Promise<Metadata> {
   const pokemon = searchParams.slotA || searchParams.foe
 

@@ -40,7 +40,6 @@ export function useUrlSync() {
   const searchParams = useSearchParams()
   const [hydrated, setHydrated] = useState(false)
 
-  const selectedTypes = useUpToTwoStore((s) => s.selectedTypes)
   const setTypes = useUpToTwoStore((s) => s.setTypes)
 
   const slotA = usePokemonSlotStore((s) => s.slotA)
@@ -54,18 +53,16 @@ export function useUrlSync() {
       const foeParam = searchParams.get('foe')
       const type1Param = searchParams.get('type1')
       const type2Param = searchParams.get('type2')
+      const foe1Param = searchParams.get('foe1')
+      const foe2Param = searchParams.get('foe2')
 
       const [dataA, dataB] = await Promise.all([
         slotAParam ? fetchPokemonSlotData(slotAParam) : Promise.resolve(null),
         foeParam ? fetchPokemonSlotData(foeParam) : Promise.resolve(null),
       ])
 
-      if (dataA) setSlot('A', dataA)
-      if (dataB) setSlot('B', dataB)
-
-      if (dataB) {
-        setTypes(dataB.types)
-      } else if (dataA) {
+      if (dataA) {
+        setSlot('A', dataA)
         setTypes(dataA.types)
       } else {
         const types: TypeNameElement[] = []
@@ -73,7 +70,22 @@ export function useUrlSync() {
           types.push(type1Param as TypeNameElement)
         if (type2Param && (TypeName as readonly string[]).includes(type2Param))
           types.push(type2Param as TypeNameElement)
-        if (types.length > 0) setTypes(types)
+        if (types.length > 0) {
+          setSlot('A', { displayName: '', englishName: '', imageUrl: null, types })
+          setTypes(types)
+        }
+      }
+
+      if (dataB) {
+        setSlot('B', dataB)
+      } else {
+        const foeTypes: TypeNameElement[] = []
+        if (foe1Param && (TypeName as readonly string[]).includes(foe1Param))
+          foeTypes.push(foe1Param as TypeNameElement)
+        if (foe2Param && (TypeName as readonly string[]).includes(foe2Param))
+          foeTypes.push(foe2Param as TypeNameElement)
+        if (foeTypes.length > 0)
+          setSlot('B', { displayName: '', englishName: '', imageUrl: null, types: foeTypes })
       }
 
       setHydrated(true)
@@ -81,17 +93,25 @@ export function useUrlSync() {
     hydrate()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // store → URL: hydration 완료 후 상태 변경 시 동기화
+  // store → URL: hydration 완료 후 슬롯 상태 변경 시 동기화 (selectedTypes 제외 — 슬롯 클릭이 URL을 바꾸지 않도록)
   useEffect(() => {
     if (!hydrated) return
 
     const params = new URLSearchParams()
-    if (slotA?.englishName) params.set('slotA', slotA.englishName)
-    if (foe?.englishName) params.set('foe', foe.englishName)
-    if (selectedTypes[0]) params.set('type1', selectedTypes[0])
-    if (selectedTypes[1]) params.set('type2', selectedTypes[1])
+    if (slotA?.englishName) {
+      params.set('slotA', slotA.englishName)
+    } else {
+      if (slotA?.types[0]) params.set('type1', slotA.types[0])
+      if (slotA?.types[1]) params.set('type2', slotA.types[1])
+    }
+    if (foe?.englishName) {
+      params.set('foe', foe.englishName)
+    } else {
+      if (foe?.types[0]) params.set('foe1', foe.types[0])
+      if (foe?.types[1]) params.set('foe2', foe.types[1])
+    }
 
     const query = params.toString()
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
-  }, [hydrated, selectedTypes, slotA, foe]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [hydrated, slotA, foe]) // eslint-disable-line react-hooks/exhaustive-deps
 }
