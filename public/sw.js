@@ -1,10 +1,6 @@
-const CACHE_NAME = 'mypkmn-v1'
+const CACHE_NAME = 'mypkmn-v2'
 
 const STATIC_ASSETS = [
-  '/',
-  '/ko',
-  '/en',
-  '/ja',
   '/img/ico/web-app-manifest-192x192.png',
   '/img/ico/web-app-manifest-512x512.png',
   '/data/pokemon-ko.json',
@@ -33,8 +29,15 @@ self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
 
-  // 외부 도메인(PokeAPI 등)은 캐시 안 함
   if (url.origin !== self.location.origin) return
+
+  // HTML 페이지(navigate)는 항상 네트워크 우선 — 배포 후 구버전 캐시 방지
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request).catch(() => caches.match(request)),
+    )
+    return
+  }
 
   // /locales/ 번역 파일: 네트워크 우선, 실패 시 캐시
   if (url.pathname.startsWith('/locales/')) {
