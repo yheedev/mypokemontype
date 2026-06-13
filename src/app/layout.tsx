@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './global.css'
 import { Noto_Sans_KR } from 'next/font/google'
 import localFont from 'next/font/local'
@@ -159,6 +160,7 @@ export default function RootLayout({
           </TooltipProvider>
         </QueryProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>
   )
 }
