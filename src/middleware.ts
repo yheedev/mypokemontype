@@ -28,6 +28,14 @@ export default function middleware(req: NextRequest) {
     (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`),
   )
   if (hasLocalePrefix) {
+    const urlLang = supportedLangs.find(
+      (l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`),
+    )
+    if (urlLang) {
+      const requestHeaders = new Headers(req.headers)
+      requestHeaders.set('x-lang', urlLang)
+      return NextResponse.next({ request: { headers: requestHeaders } })
+    }
     return NextResponse.next()
   }
 

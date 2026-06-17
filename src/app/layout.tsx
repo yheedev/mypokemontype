@@ -7,6 +7,8 @@ import { QueryProvider } from '@/providers/QueryProvider'
 import { ServiceWorkerRegister } from '@/components/ServiceWorkerRegister'
 import { Toaster } from '@/components/UI/sonner'
 import { TooltipProvider } from '@radix-ui/react-tooltip'
+import { headers } from 'next/headers'
+import { supportedLangs, type Language } from '@/types/language'
 
 export const metadata: Metadata = {
   title: {
@@ -136,14 +138,18 @@ const helios = localFont({
   fallback: ['system-ui', 'Arial'],
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const headersList = await headers()
+  const xLang = headersList.get('x-lang') as Language | null
+  const lang = xLang && supportedLangs.includes(xLang) ? xLang : 'ko'
+
   return (
     <html
-      lang="ko"
+      lang={lang}
       className={`${noto.variable} ${helios.variable} ${noto.className}`}
     >
       <body>
