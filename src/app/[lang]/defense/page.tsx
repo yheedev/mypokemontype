@@ -6,18 +6,51 @@ import PokemonSearch from '@/components/UI/PokemonSearch'
 import PokemonBattle from '@/components/UI/PokemonBattle'
 import { UrlSync } from '@/components/UI/UrlSync'
 import { buildPokemonMetadata } from '@/utils/ogMetadata'
+import { supportedLangs } from '@/types/language'
+
+const BASE_URL = 'https://mypokemontype.vercel.app'
+
+const PAGE_META: Record<string, { title: string; description: string }> = {
+  ko: {
+    title: '방어 타입 계산기 | My Pokemon Type',
+    description: '포켓몬 방어 타입 상성을 빠르게 계산하세요.',
+  },
+  en: {
+    title: 'Defense Type Calculator | My Pokemon Type',
+    description: 'Quickly calculate Pokémon defense type effectiveness.',
+  },
+  ja: {
+    title: '防御タイプ計算機 | My Pokemon Type',
+    description: 'ポケモンの防御タイプ相性を素早く計算できます。',
+  },
+}
 
 export async function generateMetadata({
   params,
   searchParams,
 }: {
   params: Promise<{ lang: string }>
-  searchParams: Promise<{ ally?: string; foe?: string; type1?: string; type2?: string; foe1?: string; foe2?: string }>
+  searchParams: Promise<{
+    ally?: string
+    foe?: string
+    type1?: string
+    type2?: string
+    foe1?: string
+    foe2?: string
+  }>
 }): Promise<Metadata> {
   const { lang } = await params
-  const canonical = `https://mypokemontype.vercel.app/${lang}/defense`
+  const meta = PAGE_META[lang] ?? PAGE_META.en
   return {
-    alternates: { canonical },
+    title: meta.title,
+    description: meta.description,
+    alternates: {
+      canonical: `${BASE_URL}/${lang}/defense`,
+      languages: {
+        'x-default': `${BASE_URL}/en/defense`,
+        ...Object.fromEntries(supportedLangs.map((l) => [l, `${BASE_URL}/${l}/defense`])),
+      },
+    },
     ...(await buildPokemonMetadata(await searchParams)),
   }
 }
